@@ -31,13 +31,13 @@
     <![endif]-->
 </head>
 <script>
-function startTimer(duration, display) {
-    var start = Date.now(),
+    function startTimer(duration, display) {
+        var start = Date.now(),
         diff,
         minutes,
         seconds;
 
-    function timer() {
+        function timer() {
         // get the number of seconds that have elapsed since 
         // startTimer() was called
         diff = duration - (((Date.now() - start) / 1000) | 0);
@@ -64,7 +64,7 @@ function startTimer(duration, display) {
 
 window.onload = function() {
     var fiveMinutes = 60 * 1,
-        display = document.querySelector('#time');
+    display = document.querySelector('#time');
     startTimer(fiveMinutes, display);
 };
 </script>
@@ -105,148 +105,160 @@ window.onload = function() {
                           document.write("<b></b>")
                   document.write("<b>" + hours + ":" + minutes + " " + suffix + "</b>")    //-->
               </script>
-                    </h3>
-                    <div class="clearfix"></div>
-                    <!-- menu prile quick info -->
-                    <div class="profile">
-                        <div class="profile_pic">
-                            <img src="images/Administrator-icon.png" alt="..." class="img-circle profile_img"></div>
-                        <div class="profile_info">
-                            <span>Welcome,</span>
-                            <h2>NMS Administrator</h2>
-                        </div>
-                    </div>
-                    <!-- /menu prile quick info -->
-                    <br />
-                    <!-- sidebar menu -->
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <ul class="nav side-menu">
-                                <li>
-                                    <a href="main.html"> <i class="fa fa-home"></i> Main Dashboard
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="inventory.html">
-                                        <i class="fa fa-file-text-o"></i> Discovered Inventory
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="alarm_list.html">
-                                        <i class="fa fa-bell"></i> Real-time Alarms
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="outage_list.html">
-                                        <i class="fa fa-exclamation-triangle"></i> Outages
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-comment-o"></i> System Notices
-                                        <span class="fa fa-chevron-down"></span>
-                                    </a>
-                                    <ul class="nav child_menu" style="display: none">
-                                        <li>
-                                            <a href="notification_outstanding.html">Outstanding Notices</a>
-                                        </li>
-                                        <li>
-                                            <a href="notification_ack.html">All Acknowledged Notices</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="device_history.html">
-                                        <i class="fa fa-history"></i> Device History
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="network_mapping.html">
-                                        <i class="fa fa-globe"></i> Network Mapping
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="menu_section">
-                            <h3>Advanced Configuration</h3>
-                            <ul class="nav side-menu">
-                                <li>
-                                    <a href="add_device.html">
-                                        <i class="fa fa-plus-square"></i> Adding New Devices
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="discovery_config.html">
-                                        <i class="fa fa-search"></i> Discovery Configuration
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href=<?php require 'php_scripts/server_checker.php'; echo "'" . $db . "'" ; ?> target="_blank">
-                                        <i class="fa fa-database"></i> Database Maintenance
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div>
-                        <img src="images/media.gif" alt="Mountain View" style="width: 90%; height: 90%"> <b>Electroline Optical Device Platfom V1.0</b>
-                    </div>
-                    <!-- /sidebar menu -->
-                    <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="ScreenShot">
-                            <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                    <!-- /menu footer buttons -->
+          </h3>
+          <div class="clearfix"></div>
+          <!-- menu prile quick info -->
+          <div class="profile">
+            <div class="profile_pic">
+                <img src="images/Administrator-icon.png" alt="..." class="img-circle profile_img"></div>
+                <div class="profile_info">
+                    <span>Welcome,</span>
+                    <h2>NMS Administrator</h2>
                 </div>
             </div>
-            <!-- top navigation -->
-            <div class="top_nav">
-                <div class="nav_menu">
-                    <nav class="" role="navigation">
-                        <div class="nav toggle">
-                            <a id="menu_toggle">
-                                <i class="fa fa-bars"></i>
+            <!-- /menu prile quick info -->
+            <br />
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                <div class="menu_section">
+                    <ul class="nav side-menu">
+                        <li>
+                            <a href="main.html"> <i class="fa fa-home"></i>
+                                Main Dashboard
                             </a>
-                        </div>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="images/UserGroup1.png" alt=""> User Administration
-                                    <span class=" fa fa-angle-down"></span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-                                    <li>
-                                        <a href="account_management.html">Account Configuration</a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html">
-                                            <i class="fa fa-sign-out pull-right"></i> Log Out
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li role="presentation" class="dropdown">
-                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-envelope-o">Acknowledged Notices by Admin</i>
-                                    <span class="badge bg-green">
+                        </li>
+                        <li>
+                            <a href="inventory.html">
+                                <i class="fa fa-file-text-o"></i>
+                                Discovered Inventory
+                            </a>
+                        </li>
+                        <li>
+                            <a href="alarm_list.html">
+                                <i class="fa fa-bell"></i>
+                                Real-time Alarms
+                            </a>
+                        </li>
+                        <li>
+                            <a href="outage_list.html">
+                                <i class="fa fa-exclamation-triangle"></i>
+                                Outages
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-comment-o"></i>
+                                System Notices
+                                <span class="fa fa-chevron-down"></span>
+                            </a>
+                            <ul class="nav child_menu" style="display: none">
+                                <li>
+                                    <a href="notification_outstanding.html">Outstanding Notices</a>
+                                </li>
+                                <li>
+                                    <a href="notification_ack.html">All Acknowledged Notices</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="device_history.html">
+                                <i class="fa fa-history"></i>
+                                Device History
+                            </a>
+                        </li>
+                        <li>
+                            <a href="network_mapping.html">
+                                <i class="fa fa-globe"></i>
+                                Network Mapping
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="menu_section">
+                    <h3>Advanced Configuration</h3>
+                    <ul class="nav side-menu">
+                        <li>
+                            <a href="add_device.html">
+                                <i class="fa fa-plus-square"></i>
+                                Adding New Devices
+                            </a>
+                        </li>
+                        <li>
+                            <a href="discovery_config.html">
+                                <i class="fa fa-search"></i>
+                                Discovery Configuration
+                            </a>
+                        </li>
+                        <li>
+                            <a href=<?php require 'php_scripts/server_checker.php'; echo "'" . $db . "'" ; ?>
+                                target="_blank">
+                                <i class="fa fa-database"></i>
+                                Database Maintenance
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div>
+                <img src="images/media.gif" alt="Mountain View" style="width: 90%; height: 90%"> <b>Electroline Optical Device Platfom V1.0</b>
+            </div>
+            <!-- /sidebar menu -->
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+                <a data-toggle="tooltip" data-placement="top" title="ScreenShot">
+                    <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+                </a>
+                <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                    <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                </a>
+                <a data-toggle="tooltip" data-placement="top" title="Lock">
+                    <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                </a>
+                <a data-toggle="tooltip" data-placement="top" title="Logout" href="index.html">
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                </a>
+            </div>
+            <!-- /menu footer buttons --> </div>
+        </div>
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav class="" role="navigation">
+                    <div class="nav toggle">
+                        <a id="menu_toggle">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img src="images/UserGroup1.png" alt="">
+                                User Administration
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
+                                <li>
+                                    <a href="account_management.html">Account Configuration</a>
+                                </li>
+                                <li>
+                                    <a href="index.html">
+                                        <i class="fa fa-sign-out pull-right"></i>
+                                        Log Out
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-envelope-o">Acknowledged Notices by Admin</i>
+                                <span class="badge bg-green">
 
-                                        <?php
-                                require "php_scripts/ack_notice_top_navi_number.php";
-                                echo $ack_number; 
-                                ?></span>
+                                    <?php
+                                    require "php_scripts/ack_notice_top_navi_number.php";
+                                    echo $ack_number; 
+                                    ?></span>
                                 </a>
                                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
                                     <li>
@@ -257,616 +269,253 @@ window.onload = function() {
                                             <span>
                                                 <span>
                                                     <?php
-                                                require "php_scripts/acked_notice_top_navi.php";
-                                                echo $notice0; 
-                                                ?></span>
-                                            <span class="time">
-                                                    <?php
                                                     require "php_scripts/acked_notice_top_navi.php";
-                                                    echo $ip0; 
+                                                    echo $notice0; 
                                                     ?></span>
-                                            </span>
-                                            <span class="message">
-                                                <?php
-                                                    require "php_scripts/acked_notice_top_navi.php";
-                                                    echo $time0; 
-                                                    ?></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                                <img src="images/internet-device-Vista-icon.png" alt="Profile Image" />
-                                            </span>
-                                            <span>
-                                                <span>
-                                                    <?php
-                                                            require "php_scripts/acked_notice_top_navi.php";
-                                                            echo $notice1; 
-                                                            ?></span>
-                                            <span class="time">
-                                                    <?php
+                                                    <span class="time">
+                                                        <?php
+                                                        require "php_scripts/acked_notice_top_navi.php";
+                                                        echo $ip0; 
+                                                        ?></span>
+                                                    </span>
+                                                    <span class="message">
+                                                        <?php
+                                                        require "php_scripts/acked_notice_top_navi.php";
+                                                        echo $time0; 
+                                                        ?></span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a>
+                                                        <span class="image">
+                                                            <img src="images/internet-device-Vista-icon.png" alt="Profile Image" />
+                                                        </span>
+                                                        <span>
+                                                            <span>
+                                                                <?php
                                                                 require "php_scripts/acked_notice_top_navi.php";
-                                                                echo $ip1; 
+                                                                echo $notice1; 
                                                                 ?></span>
-                                            </span>
-                                            <span class="message">
-                                                <?php
-                                                                require "php_scripts/acked_notice_top_navi.php";
-                                                                echo $time1; 
-                                                                ?></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                                <img src="images/internet-device-Vista-icon.png" alt="Profile Image" />
-                                            </span>
-                                            <span>
-                                                <span>
-                                                    <?php
-                                                                        require "php_scripts/acked_notice_top_navi.php";
-                                                                        echo $notice2; 
-                                                                        ?></span>
-                                            <span class="time">
-                                                    <?php
-                                                                            require "php_scripts/acked_notice_top_navi.php";
-                                                                            echo $ip2; 
-                                                                            ?></span>
-                                            </span>
-                                            <span class="message">
-                                                <?php
-                                                                            require "php_scripts/acked_notice_top_navi.php";
-                                                                            echo $time2; 
-                                                                            ?></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="text-center">
-                                            <a href="notification_ack.html"> <strong>See All Acknowledged Notices</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <!-- /top navigation -->
-            <!-- page content -->
-            <div class="right_col" role="main">
-                <br />
-                <div class="">
-                    <div class="row top_tiles">
-                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <div class="tile-stats">
-                                <div class="icon">
-                                    <i class="fa fa-table"></i>
-                                </div>
-                                <div class="count">
-                                    <a href="inventory.html">
-                                        <?php require "php_scripts/total_devices_network_number.php";
-                                                                        echo $total_device_number;?>
-                                    </a>
-                                </div>
-                                <h3>Total Devices in Network</h3>
-                                <p>
-                                    Online Devices:
-                                    <?php require "php_scripts/nodeidInElementToArray.php";
-                                                                        echo $total_online_number;?>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <div class="tile-stats">
-                                <div class="icon">
-                                    <i class="fa fa-bell"></i>
-                                </div>
-                                <div class="count">
-                                    <a href="alarm_list.html">
-                                        <?php
-                                                                                require "php_scripts/real_time_alarm_total_number.php";
-                                                                                echo $total_alarm_number;
-                                                                                ?>
-                                    </a>
-                                </div>
-                                <h3>Real-time Alarms</h3>
-                                <p>
-                                    <a href="#">Search alarm details</a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <div class="tile-stats">
-                                <div class="icon">
-                                    <i class="fa fa-exclamation-triangle"></i>
-                                </div>
-                                <div class="count">
-                                    <a href="outage_list.html">
-                                        <?php
-                                                                                    require "php_scripts/unsolved_outage_number.php";
-                                                                                    echo $total_unsolved_outage_number;?>
-                                    </a>
-                                </div>
-                                <h3>Unsolved Outages</h3>
-                                <p>
-                                    <a href="#">Investigate unsolved and solved outages</a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <div class="tile-stats">
-                                <div class="icon">
-                                    <i class="fa fa-comment-o"></i>
-                                </div>
-                                <div class="count">
-                                    <a href="notification_outstanding.html">
-                                        <?php
-                                                                                        require "php_scripts/pending_notification_number.php";
-                                                                                        echo $total_pending_notification_number;
-                                                                                        ?>
-                                    </a>
-                                </div>
-                                <h3>Pending notifications</h3>
-                                <p>
-                                    <a href="#">Discover all notifications</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>
-                                        <a>Monitored Devices</a>
-                                        <a href="#" onClick="MyWindow=window.open('http://www.google.com','MyWindow',width=600,height=300); return false;">Click Here</a>
-                                        (Server IP: <b><?php
-                                                require "php_scripts/ipAddress.php";
-                                                echo $serverIp;
-                                                ?></b>
-                                        , User:
-                                        <b><?php
-                                                require "php_scripts/ipAddress.php";
-                                                echo $clientIp;
-                                                ?></b>
-                                        )
-                                        <br>
-                                        <br></h2>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <div class="col-md-9 col-sm-12 col-xs-12">
-                                        <div class="demo-container">
-                                            <script src="js/dist/jquery.js"></script>
-                                            <script>
-                                            $(function() {
-                                                $("#includedContent").load("js_tree.html");
-                                            });
-                                            </script>
-                                            <div id="includedContent"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-12 col-xs-12">
-                                        <div>
-                                            <div class="x_title">
-                                                <h2>Latest five alarms</h2>
-                                                <ul class="nav navbar-right panel_toolbox">
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="fa fa-chevron-up"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="dropdown">
-                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                                            <i class="fa fa-wrench"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu" role="menu">
-                                                            <li>
-                                                                <a href="#">By time</a>
+                                                                <span class="time">
+                                                                    <?php
+                                                                    require "php_scripts/acked_notice_top_navi.php";
+                                                                    echo $ip1; 
+                                                                    ?></span>
+                                                                </span>
+                                                                <span class="message">
+                                                                    <?php
+                                                                    require "php_scripts/acked_notice_top_navi.php";
+                                                                    echo $time1; 
+                                                                    ?></span>
+                                                                </a>
                                                             </li>
                                                             <li>
-                                                                <a href="#">By severity</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="fa fa-close"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <ul class="list-unstyled top_profiles scroll-view">
-                                                <li class="media event">
-                                                    <a class="pull-left border-aero profile_thumb">
-                                                        <i class="fa fa-exclamation-triangle"></i>
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <a class="title" href="#">Node #</a>
-                                                        <p> <strong>High-High.</strong> Service is down
-                                                        </p>
-                                                        <p>
-                                                            <small>Time</small>
-                                                        </p>
+                                                                <a>
+                                                                    <span class="image">
+                                                                        <img src="images/internet-device-Vista-icon.png" alt="Profile Image" />
+                                                                    </span>
+                                                                    <span>
+                                                                        <span>
+                                                                            <?php
+                                                                            require "php_scripts/acked_notice_top_navi.php";
+                                                                            echo $notice2; 
+                                                                            ?></span>
+                                                                            <span class="time">
+                                                                                <?php
+                                                                                require "php_scripts/acked_notice_top_navi.php";
+                                                                                echo $ip2; 
+                                                                                ?></span>
+                                                                            </span>
+                                                                            <span class="message">
+                                                                                <?php
+                                                                                require "php_scripts/acked_notice_top_navi.php";
+                                                                                echo $time2; 
+                                                                                ?></span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="text-center">
+                                                                                <a href="notification_ack.html"> <strong>See All Acknowledged Notices</strong>
+                                                                                    <i class="fa fa-angle-right"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </nav>
                                                     </div>
-                                                </li>
-                                                <li class="media event">
-                                                    <a class="pull-left border-green profile_thumb">
-                                                        <i class="fa fa-exclamation-triangle"></i>
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <a class="title" href="#">Node #</a>
-                                                        <p>
-                                                            <strong>High-High.</strong> Service is down
-                                                        </p>
-                                                        <p>
-                                                            <small>Time</small>
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                                <li class="media event">
-                                                    <a class="pull-left border-blue profile_thumb">
-                                                        <i class="fa fa-exclamation-triangle"></i>
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <a class="title" href="#">Node #</a>
-                                                        <p>
-                                                            <strong>High-High.</strong> Service is down
-                                                        </p>
-                                                        <p>
-                                                            <small>Time</small>
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                                <li class="media event">
-                                                    <a class="pull-left border-aero profile_thumb">
-                                                        <i class="fa fa-exclamation-triangle"></i>
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <a class="title" href="#">Node #</a>
-                                                        <p>
-                                                            <strong>High-High.</strong> Service is down
-                                                        </p>
-                                                        <p>
-                                                            <small>Time</small>
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                                <li class="media event">
-                                                    <a class="pull-left border-green profile_thumb">
-                                                        <i class="fa fa-exclamation-triangle"></i>
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <a class="title" href="#">Node #</a>
-                                                        <p>
-                                                            <strong>High-High.</strong> Service is down
-                                                        </p>
-                                                        <p>
-                                                            <small>Time</small>
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>Devices with Pending Problems</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li>
-                                            <a class="collapse-link">
-                                                <i class="fa fa-chevron-up"></i>
-                                            </a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                                <i class="fa fa-wrench"></i>
-                                            </a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li>
-                                                    <a href="#">By time</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">By severity</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a class="close-link">
-                                                <i class="fa fa-close"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item One Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item Two Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item Two Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item Two Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item Three Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>Availability Over the Past 24 Hours</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li>
-                                            <a class="collapse-link">
-                                                <i class="fa fa-chevron-up"></i>
-                                            </a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                                <i class="fa fa-wrench"></i>
-                                            </a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li>
-                                                    <a href="#">Settings 1</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Settings 2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a class="close-link">
-                                                <i class="fa fa-close"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item One Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item Two Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item Two Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item Two Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item Three Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>Report from Devices</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li>
-                                            <a class="collapse-link">
-                                                <i class="fa fa-chevron-up"></i>
-                                            </a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                                <i class="fa fa-wrench"></i>
-                                            </a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li>
-                                                    <a href="#">Settings 1</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Settings 2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a class="close-link">
-                                                <i class="fa fa-close"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item One Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item Two Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item Two Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item Two Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                    <article class="media event">
-                                        <a class="pull-left date">
-                                            <p class="month">April</p>
-                                            <p class="day">23</p>
-                                        </a>
-                                        <div class="media-body">
-                                            <a class="title" href="#">Item Three Tittle</a>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                        </div>
-                                    </article>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- footer content -->
-                <footer>
-                    <div class="">
-                        <p class="pull-right">
-                            Electroline Rapid NMS Dashboard is an extension Web-UI of the OpenNMS system. |
-                            <span class="lead">
-                                <i class="fa fa-desktop"></i>
-                                Electroline Equipment Inc.
-                            </span>
-                        </p>
-                    </div>
-                    <div class="clearfix"></div>
-                </footer>
-                <!-- /footer content -->
+                                                </div>
+                                                <!-- /top navigation -->
+                                                <!-- page content -->
+                                                <div class="right_col" role="main">
+                                                    <br />
+                                                    <div class="">
+                                                        <div class="row top_tiles">
+                                                            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                                                <div class="tile-stats">
+                                                                    <div class="icon">
+                                                                        <i class="fa fa-table"></i>
+                                                                    </div>
+                                                                    <div class="count">
+                                                                        <a href="inventory.html">
+                                                                            <?php require "php_scripts/total_devices_network_number.php";
+                                                                            echo $total_device_number;?></a>
+                                                                        </div>
+                                                                        <h3>Total Devices in Network</h3>
+                                                                        <p>
+                                                                            Online Devices:
+                                                                            <?php require "php_scripts/nodeidInElementToArray.php";
+                                                                            echo $total_online_number;?></p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                                                        <div class="tile-stats">
+                                                                            <div class="icon">
+                                                                                <i class="fa fa-bell"></i>
+                                                                            </div>
+                                                                            <div class="count">
+                                                                                <a href="alarm_list.html">
+                                                                                    <?php
+                                                                                    require "php_scripts/real_time_alarm_total_number.php";
+                                                                                    echo $total_alarm_number;
+                                                                                    ?></a>
+                                                                                </div>
+                                                                                <h3>Real-time Alarms</h3>
+                                                                                <p>
+                                                                                    <a href="alarm_list.html">Search alarm details</a>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                                                            <div class="tile-stats">
+                                                                                <div class="icon">
+                                                                                    <i class="fa fa-exclamation-triangle"></i>
+                                                                                </div>
+                                                                                <div class="count">
+                                                                                    <a href="outage_list.html">
+                                                                                        <?php
+                                                                                        require "php_scripts/unsolved_outage_number.php";
+                                                                                        echo $total_unsolved_outage_number;?></a>
+                                                                                    </div>
+                                                                                    <h3>Unsolved Outages</h3>
+                                                                                    <p>
+                                                                                        <a href="outages_list.html">Investigate unsolved and solved outages</a>
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                                                                <div class="tile-stats">
+                                                                                    <div class="icon">
+                                                                                        <i class="fa fa-comment-o"></i>
+                                                                                    </div>
+                                                                                    <div class="count">
+                                                                                        <a href="notification_outstanding.html">
+                                                                                            <?php
+                                                                                            require "php_scripts/pending_notification_number.php";
+                                                                                            echo $total_pending_notification_number;
+                                                                                            ?></a>
+                                                                                        </div>
+                                                                                        <h3>Pending notifications</h3>
+                                                                                        <p>
+                                                                                            <a href="notification_outstanding.html">Discover all notifications</a>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="x_panel">
+                                                                                        <div class="x_title">
+                                                                                            <h2>
+                                                                                                <a>Monitored Devices</a>
+                                                                                                (Server IP: <b><?php
+                                                                                                    require "php_scripts/ipAddress.php";
+                                                                                                    echo $serverIp;
+                                                                                                    ?></b>
+                                                                                                    , User:
+                                                                                                    <b><?php
+                                                                                                        require "php_scripts/ipAddress.php";
+                                                                                                        echo $clientIp;
+                                                                                                        ?></b>
+                                                                                                        )
+                                                                                                        <br>
+                                                                                                        <br></h2>
+                                                                                                        <div class="clearfix"></div>
+                                                                                                        <div class="clearfix"></div>
+                                                                                                    </div>
+                                                                                                    <div class="x_content">
+                                                                                                        <div class="col-md-9 col-sm-12 col-xs-12">
+                                                                                                            <div class="demo-container">
+                                                                                                                <script src="js/dist/jquery.js"></script>
+                                                                                                                <script>
+                                                                                                                    $(function() {
+                                                                                                                        $("#includedContent").load("js_tree.html");
+                                                                                                                    });
+                                                                                                                </script>
+                                                                                                                <div id="includedContent"></div>
+                                                                                                            </div>
+                                                                                                        </div>
+
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                    <!--            <div class="row"></div>
+                -->
             </div>
-            <!-- /page content -->
         </div>
+        <!-- footer content -->
+        <footer>
+            <div class="">
+                <p class="pull-right">
+                    Electroline Rapid NMS Dashboard is an extension Web-UI of the OpenNMS system. |
+                    <span class="lead">
+                        <i class="fa fa-desktop"></i>
+                        Electroline Equipment Inc.
+                    </span>
+                </p>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content --> </div>
+        <!-- /page content -->
     </div>
-    <div id="custom_notifications" class="custom-notifications dsp_none">
-        <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group"></ul>
-        <div class="clearfix"></div>
-        <div id="notif-group" class="tabbed_notifications"></div>
-    </div>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
-    <!-- chart js -->
-    <script src="js/chartjs/chart.min.js"></script>
-    <!-- bootstrap progress js -->
-    <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- icheck -->
-    <script src="js/icheck/icheck.min.js"></script>
-    <!-- daterangepicker -->
-    <script type="text/javascript" src="js/moment.min2.js"></script>
-    <script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
-    <!-- sparkline -->
-    <script src="js/sparkline/jquery.sparkline.min.js"></script>
-    <script src="js/custom.js"></script>
-    <!-- flot js -->
-    <!--[if lte IE 8]>
-    <script type="text/javascript" src="js/excanvas.min.js"></script>
-    <![endif]-->
-    <script type="text/javascript" src="js/flot/jquery.flot.js"></script>
-    <script type="text/javascript" src="js/flot/jquery.flot.pie.js"></script>
-    <script type="text/javascript" src="js/flot/jquery.flot.orderBars.js"></script>
-    <script type="text/javascript" src="js/flot/jquery.flot.time.min.js"></script>
-    <script type="text/javascript" src="js/flot/date.js"></script>
-    <script type="text/javascript" src="js/flot/jquery.flot.spline.js"></script>
-    <script type="text/javascript" src="js/flot/jquery.flot.stack.js"></script>
-    <script type="text/javascript" src="js/flot/curvedLines.js"></script>
-    <script type="text/javascript" src="js/flot/jquery.flot.resize.js"></script>
-    <!-- flot -->
-    <script type="text/javascript">
+</div>
+<div id="custom_notifications" class="custom-notifications dsp_none">
+    <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group"></ul>
+    <div class="clearfix"></div>
+    <div id="notif-group" class="tabbed_notifications"></div>
+</div>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/nicescroll/jquery.nicescroll.min.js"></script>
+<!-- chart js -->
+<script src="js/chartjs/chart.min.js"></script>
+<!-- bootstrap progress js -->
+<script src="js/progressbar/bootstrap-progressbar.min.js"></script>
+<!-- icheck -->
+<script src="js/icheck/icheck.min.js"></script>
+<!-- daterangepicker -->
+<script type="text/javascript" src="js/moment.min2.js"></script>
+<script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
+<!-- sparkline -->
+<script src="js/sparkline/jquery.sparkline.min.js"></script>
+<script src="js/custom.js"></script>
+<!-- flot js -->
+<!--[if lte IE 8]>
+<script type="text/javascript" src="js/excanvas.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="js/flot/jquery.flot.js"></script>
+<script type="text/javascript" src="js/flot/jquery.flot.pie.js"></script>
+<script type="text/javascript" src="js/flot/jquery.flot.orderBars.js"></script>
+<script type="text/javascript" src="js/flot/jquery.flot.time.min.js"></script>
+<script type="text/javascript" src="js/flot/date.js"></script>
+<script type="text/javascript" src="js/flot/jquery.flot.spline.js"></script>
+<script type="text/javascript" src="js/flot/jquery.flot.stack.js"></script>
+<script type="text/javascript" src="js/flot/curvedLines.js"></script>
+<script type="text/javascript" src="js/flot/jquery.flot.resize.js"></script>
+<!-- flot -->
+<script type="text/javascript">
     //define chart clolors ( you maybe add more colors if you want or flot will add it automatic )
     var chartColours = ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'];
 
@@ -967,10 +616,10 @@ window.onload = function() {
             }
         }], options);
     });
-    </script>
-    <!-- /flot -->
-    <!--  -->
-    <script>
+</script>
+<!-- /flot -->
+<!--  -->
+<script>
     $('document').ready(function() {
         $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
             type: 'bar',
@@ -1025,10 +674,10 @@ window.onload = function() {
         var myDoughnut = new Chart(document.getElementById("canvas1i2").getContext("2d")).Doughnut(doughnutData);
         var myDoughnut = new Chart(document.getElementById("canvas1i3").getContext("2d")).Doughnut(doughnutData);
     });
-    </script>
-    <!-- -->
-    <!-- datepicker -->
-    <script type="text/javascript">
+</script>
+<!-- -->
+<!-- datepicker -->
+<script type="text/javascript">
     $(document).ready(function() {
 
         var cb = function(start, end, label) {
@@ -1099,8 +748,8 @@ window.onload = function() {
             $('#reportrange').data('daterangepicker').remove();
         });
     });
-    </script>
-    <!-- /datepicker -->
+</script>
+<!-- /datepicker -->
 </body>
 
 </html>

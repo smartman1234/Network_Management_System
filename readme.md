@@ -91,9 +91,11 @@
 // 2015-10-06
 
 * tree   --- ok
-* main 
+* main    --- ok
 
-* alarm email test? 
+* alarm email test   --- ok   // manually
+
+ 
 * delete&ack(alarm&notice) curl fix
 * discovery/add/polling
 * xml file manipulation 
