@@ -1,0 +1,204 @@
+ATI-MGMT-SYS-TEMP-MGR-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiMgmtSysTempMgr 
+        FROM ATI-MGMT-SYS-MIB
+    OBJECT-TYPE
+        FROM RFC-1212
+    ;
+
+atiMgmtSysTempCtrl OBJECT-TYPE
+    SYNTAX     INTEGER { off(1), onTimer(2), onTemp(3), onTimerTemp(4), on(5) }
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Defines the mode of operation for the temperature device :
+                 1 = Temperature device off.  This setting will be
+                     non-volatile, if the variable is in this state upon
+                     reset (or power-up) this value will be restored.  This
+                     is the DEFAULT factory value for this variable.
+                 2 = Temperature device turned on for predefined time.  Before
+                     a SET to this state is issued, atiMgmtSysTempTimer is to
+                     be SET with the number of minutes the heater or cooler
+                     is to be on.  When the timer has expired, the value of
+                     this variable will automatically be set to 1.  This
+                     value is volatile, after reset the state of this variable
+                     will be 1 if it was in this state before reset.
+                 3 = Temperature device controlled by the temp probe.  Before
+                     a SET to this state, atiMgmtSysTempTemperature and
+                     atiMgmtSysTempHysteresis must be set to the desired
+                     temperature.  Once placed into this state, this variable
+                     will not change until another SET to this OID is
+                     received. This value is non-volatile, if this variable
+                     is in this state before a reset, it will be programmed
+                     to this state after the reset.  Temperature is based
+                     on the battery temperature probe.  If there appears
+                     to be no battery temperature probe, the output to the
+                     temperature device will be maintained as inactive.
+                 4 = Temperature device will be controlled by both the
+                     temperature and timer values.  When set to this state
+                     the temperature device will be controlled as if this
+                     variable is in state 3, but only for the time defined
+                     by atiMgmtSysTempTimer.  Once the timer has counted
+                     down to zero, the value of this variable will be
+                     returned to 1.  This value is volatile, after reset the
+                     state of this variable will be 1 if it was in this
+                     state before the reset.
+                  5= Temperature device is on.  This value can be used when
+                     the temperature device has a thermostat of its own.
+                     However it is recommended, as a safety precaution, that
+                     state 3 is used with the battery temp probe being a
+                     back up in case the device thermostat gets stuck in
+                     the 'on' state.  This state/mode could also be used if
+                     the temperature control line was actually used for
+                     something other than temperature control This value is
+                     non-volatile, if this variable is in this state before
+                     a reset, it will be programmed to this state after the
+                     reset."
+    ::= { atiMgmtSysTempMgr 1 }
+
+atiMgmtSysTempStatus OBJECT-TYPE
+    SYNTAX     INTEGER { contactOpen(1), contactClosed(2) }
+    ACCESS     read-only 
+    STATUS     mandatory
+    DESCRIPTION "The value of this variable reflects the value of the
+                 feedback signal from the temperature device.  Since not
+                 all temperature devices will have a feedback signal, or
+                 the operation of the feedback signal may vary from
+                 device to device, the meaning of this signal is
+                 implementation specific."
+    ::= { atiMgmtSysTempMgr 2 }
+    
+atiMgmtSysTempMode OBJECT-TYPE
+    SYNTAX     INTEGER { heater(1), cooler(2) }
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Mode of Operation.  The temperature device can be a
+                 heater (like a battery mat) or a cooler (like an
+                 enclosure fan).  When this device is acting as
+                 a thermostat, this variable defines the active
+                 state.  If this variable is set to 'cooler', the
+                 temperature device will be activated when the
+                 temperature is above the defined level.  If
+                 this variable is set to 'heater',  the temperature
+                 device will be active only when the temperature is
+                 below the defined level.  The DEFAULT factory
+                 setting for this variable is 1.  This variable is
+                 non-volatile and its value will be maintained
+                 when the device is reset."
+    ::= { atiMgmtSysTempMgr 3 }
+
+atiMgmtSysTempActiveState OBJECT-TYPE
+    SYNTAX     INTEGER { closed(1), open(2) }
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "This variable defined how this device creates the
+                 active state.  When this variable is set to
+                 'closed' the active state will be represented by 
+                 the drive pin being shorted to ground and high
+                 impedance will represent the inactive state.  When
+                 this variable is set to 'open' the active state
+                 will be represented by the drive pin will be high
+                 impedance in the active state and shorted to
+                 ground in the inactive state.  The DEFAULT
+                 factory state for this variable will be 1.  This
+                 variable is non-volatile and the value will be
+                 maintained when the device is reset."
+    ::= { atiMgmtSysTempMgr 4 }
+    
+atiMgmtSysTempTemperature OBJECT-TYPE
+    SYNTAX     INTEGER ( -40..70 )
+    ACCESS read-write
+    STATUS     mandatory
+    DESCRIPTION "Thermostat temperature centigrade.  When this
+                 device is set to control the temperature device
+                 based on temperature, this variable (along with
+                 the hysteresis variable) will be used to determine
+                 when the temperature device is to be turned on
+                 and off.  This value is compared to the value
+                 of the battery temperature sensor.  The DEFAULT
+                 factory state for this variable will be 0.
+                 This variable is non-volatile and the value will
+                 be maintained when the device is reset."
+    ::= { atiMgmtSysTempMgr 5 }
+    
+atiMgmtSysTempHysteresis OBJECT-TYPE
+    SYNTAX     INTEGER ( 1..10 )
+    ACCESS read-write
+    STATUS     mandatory
+    DESCRIPTION "When this device is controlling the temperature
+                 device thermostatically, this value is used
+                 to keep the temperature device from going on
+                 and off too often.  If the temperature device
+                 is a heater, the device will be turned on
+                 when the temperature hits the set point but
+                 will not be turned off until the detected
+                 temperature overshoots the set point by this
+                 amount.  When the temperature device is
+                 a cooler, the device will be turned on when
+                 the temperature hits the set point, but will
+                 not turn off until the detected temperature
+                 undershoots the set point by this amount.
+                 The DEFAULT factory state for this variable
+                 will be 1.  This variable is non-volatile and
+                 the value will be maintained when the device
+                 is reset."
+    ::= { atiMgmtSysTempMgr 6 }
+
+atiMgmtSysTempTimer OBJECT-TYPE
+    SYNTAX     INTEGER ( 0..1440 )
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "When the temperature device is controlled
+                 using the timer, this is the number of
+                 minutes the temperature device will be
+                 active. The DEFAULT factory state for this
+                 variable will be 30.  This variable is
+                 non-volatile and the value will be maintained
+                 when the device is reset."
+    ::= { atiMgmtSysTempMgr 7 }
+    
+atiMgmtSysTempCountdown OBJECT-TYPE
+    SYNTAX     INTEGER ( 0..1440 )
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION "When the temperature device is controlled
+                 using the timer, this is a countdown that
+                 will indicate how many minutes before the
+                 device will become inactive. The value of
+                 this counter is undefined when the device
+                 is not active in a timer mode. Anytime
+                 atiMgmtSysTempCtrl is SET to a value that
+                 indicates timer mode, the value of
+                 atiMgmtSysTempTimer will be copied into
+                 this variable. If, while this variable is
+                 counting down, atiMgmtSysTempCtrl is again
+                 SET to a value that represents a timer
+                 mode the value of atiMgmtSysTempTimer will
+                 again be copied into this variable and
+                 the count will start over again. The
+                 temperature device will go inactive when
+                 this count drops to zero. At zero the
+                 counter will stop."
+    ::= { atiMgmtSysTempMgr 8 }
+    
+atiMgmtSysTempStatusInvert OBJECT-TYPE
+    SYNTAX     INTEGER { noInvert(1), invert(2) }
+    ACCESS     read-write 
+    STATUS     mandatory
+    DESCRIPTION "When this parameter is set to invert, the
+                 returned value for the contact status
+                 (atiMgmtSysTempMgr.2) will be inverted
+                 (contact closed will be reported as open,
+                 contact open will be reported as closed).
+                 This is required because the manufactures
+                 of the relay block have been inconsistant
+                 as to whether they report the device on as
+                 the status contacts being open or closed.
+                 By doing a one time setting of this parameter
+                 a mix of devices can be monitored with the
+                 meaning of contact closure status being
+                 consistant."
+    ::= { atiMgmtSysTempMgr 9 }
+    
+END
+

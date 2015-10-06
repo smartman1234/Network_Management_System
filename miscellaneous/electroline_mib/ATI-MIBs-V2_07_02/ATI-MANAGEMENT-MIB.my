@@ -1,0 +1,37 @@
+-- ****************************************************************************
+-- *
+-- * Alpha Technologies, Inc.
+-- *
+-- * NAME : ATI-MANAGEMENT-MIB.txt
+-- *
+-- * ALPHA PART NUMBER : TBD
+-- *
+-- * SUMMARY : This is the root MIB for 1.3.6.1.4.1.926.1.3 as defined in
+-- *    ATI-ROOT-MIB.txt.  This defines sub-branches for management items
+-- *    that will be used by an array of ATI products.
+-- *    
+-- *    This file defines the management branches for SNMP and also general
+-- *    system parameters.  It also defines the top level branches under each
+-- *    of these nodes.
+-- *
+-- * Revision History:
+-- *
+-- * 0.01.0  22-SEP-2008  Bill Crawford
+-- *           Draft for review
+-- *           
+-- ****************************************************************************
+ATI-MANAGEMENT-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiManagement
+        FROM ATI-ROOT-MIB
+;
+
+-- Top OID for SNMP management parameters
+atiMgmtSnmp               OBJECT IDENTIFIER ::= { atiManagement 1 }
+
+-- Top OID for all other management parameters
+atiMgmtSys                OBJECT IDENTIFIER ::= { atiManagement 2 }
+
+END
+

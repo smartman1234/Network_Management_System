@@ -1,0 +1,73 @@
+-- ****************************************************************************
+-- *
+-- * Alpha Technologies, Inc.
+-- *
+-- * NAME : ATI-PRODUCT-PLATFORMS-MIB.txt
+-- *
+-- * ALPHA PART NUMBER : TBD
+-- *
+-- * SUMMARY : This file contains information unique to to the products we
+-- *   support.  There are 2 components of this that it seemed to make sense
+-- *   that we combine into this single file:
+-- *   [1] The top level OIDs for product items that have unique parameters
+-- *   [2] The OIDs that are used by sysObjectID to uniquely identify products.
+-- *
+-- *   The root OID for this file is 1.3.6.1.4.1.926.1.4
+-- *
+-- * Revision History:
+-- *
+-- * 0.01.0  22-SEP-2008  Bill Crawford
+-- *         Draft for review
+-- * 0.02.0  15-APR-2011  Bill Crawford
+-- *         Added atiBBSysIntlgt
+-- * 0.03.0  08-NOV-2011  Bill Crawford
+-- *         Added atiHMS-ETH-DIGI-03 and sub-branches/leaves
+-- *           
+-- ****************************************************************************
+ATI-PRODUCT-PLATFORMS-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiProductPlatforms, 
+    alphaTechIncIDs
+        FROM ATI-ROOT-MIB
+    ;
+
+-- ****************************************************************************
+-- 1.3.6.1.4.1.926.1.4 - Definition for general product families
+atiBroadbandUPS           OBJECT IDENTIFIER ::= { atiProductPlatforms 1 }
+atiSmallUPS               OBJECT IDENTIFIER ::= { atiProductPlatforms 2 }
+atiSolarProducts          OBJECT IDENTIFIER ::= { atiProductPlatforms 3 }
+
+-- Entry point for parameters unique to the RIM
+atiBBSysView              OBJECT IDENTIFIER ::= { atiBroadbandUPS 1 }
+atiBBSysLogs              OBJECT IDENTIFIER ::= { atiBroadbandUPS 2 }
+-- atiBBSysApps              OBJECT IDENTIFIER ::= { atiBroadbandUPS 3 }
+
+-- Entry point for parameters unique to the RIM
+atiMPSps                  OBJECT IDENTIFIER ::= { atiSmallUPS 1 }
+atiPacketCableUPS         OBJECT IDENTIFIER ::= { atiSmallUPS 2 }
+
+-- ****************************************************************************
+-- 1.3.6.1.4.1.926.1.99 - Definition for OIDs to be returned as sysObjectID
+atiHMSIDs                 OBJECT IDENTIFIER ::= { alphaTechIncIDs 1 }
+
+-- The HMS DOCSIS products
+atiHMS-ETH-DIGI-01          OBJECT IDENTIFIER ::= { atiHMSIDs                1 }
+atiHMS-ETH-DIGI-01r1        OBJECT IDENTIFIER ::= { atiHMS-ETH-DIGI-01       1 }
+atiHMS-ETH-DIGI-02          OBJECT IDENTIFIER ::= { atiHMSIDs                2 }
+atiHMS-ETH-DIGI-02r1        OBJECT IDENTIFIER ::= { atiHMS-ETH-DIGI-02       1 }
+atiHMS-ETH-DIGI-03          OBJECT IDENTIFIER ::= { atiHMSIDs                3 }
+atiHMS-ETH-DIGI-03-DSM3     OBJECT IDENTIFIER ::= { atiHMS-ETH-DIGI-03       1 }
+atiHMS-ETH-DIGI-03-DSM3-R1  OBJECT IDENTIFIER ::= { atiHMS-ETH-DIGI-03-DSM3  1 }
+atiHMS-ETH-DIGI-03-DSM3x    OBJECT IDENTIFIER ::= { atiHMS-ETH-DIGI-03       2 }
+atiHMS-ETH-DIGI-03-DSM3x-R1 OBJECT IDENTIFIER ::= { atiHMS-ETH-DIGI-03-DSM3x 1 }
+atiHMS-ETH-DIGI-03-DPM      OBJECT IDENTIFIER ::= { atiHMS-ETH-DIGI-03       3 }
+atiHMS-ETH-DIGI-03-DPM-R1   OBJECT IDENTIFIER ::= { atiHMS-ETH-DIGI-03-DPM   1 }
+
+-- The Multipurpose Power Supply (RIM) products
+atiProdPlatformsIDs       OBJECT IDENTIFIER ::= { alphaTechIncIDs 4}
+atiSmallUPSIDs            OBJECT IDENTIFIER ::= { atiProdPlatformsIDs 2}
+atiMPS-RimPS-01           OBJECT IDENTIFIER ::= { atiSmallUPSIDs 1}     
+atiMPS-RimPS-01r1         OBJECT IDENTIFIER ::= { atiMPS-RimPS-01 1}
+
+END

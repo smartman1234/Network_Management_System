@@ -1,0 +1,514 @@
+
+ATI-BB-SYS-APPS-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiBroadbandUPS
+        FROM ATI-PRODUCT-PLATFORMS-MIB
+    OBJECT-TYPE, MODULE-IDENTITY, TimeTicks, Integer32
+        FROM SNMPv2-SMI
+    TEXTUAL-CONVENTION, DateAndTime
+        FROM SNMPv2-TC
+    ;
+
+atiBBSysApps MODULE-IDENTITY
+    LAST-UPDATED "201303010000Z"
+    ORGANIZATION "www.alpha.com"
+    CONTACT-INFO "bcrawford@alpha.com"
+    DESCRIPTION  
+        " SUMMARY : This is data specific to the APP card.
+
+          Entry point is 1.3.6.1.4.1.926.1.4.1.3
+        "
+
+    REVISION     "201303010000Z"
+    DESCRIPTION
+	"First draft"
+::= { atiBroadbandUPS 3 }
+
+
+MonthAndYear ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "2d-1d"
+    STATUS       current
+    DESCRIPTION
+            "A date specification.
+
+            field  octets  contents                  range
+            -----  ------  --------                  -----
+              1      1-2   year*                     0..65535
+              2       3    month                     1..12
+
+            * Notes:
+            - the value of year is in network-byte order
+
+            example : May 1992 would be displayed as:
+
+            1992-5"
+    SYNTAX       OCTET STRING (SIZE (3))
+
+
+YearAndMonthAndDay ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "2d-1d-1d"
+    STATUS       current
+    DESCRIPTION
+            "A date specification.
+
+            field  octets  contents                  range
+            -----  ------  --------                  -----
+              1      1-2   year*                     0..65535
+              2       3    month                     1..12
+              3       4    day                       1..31
+
+            * Notes:
+            - the value of year is in network-byte order
+
+            example : May 23, 1992 would be displayed as:
+
+            1992-5-23"
+    SYNTAX       OCTET STRING (SIZE (8))
+
+atiBBSysAppsPsHealth      OBJECT IDENTIFIER ::= { atiBBSysApps 1 }
+atiBBSysAppsBattStatus    OBJECT IDENTIFIER ::= { atiBBSysApps 2 }
+atiBBSysAppsUtilQual      OBJECT IDENTIFIER ::= { atiBBSysApps 3 }
+
+-- **********************************
+-- * PsHealth
+-- **********************************
+
+atiBBSysAppsPsHealthPsCount OBJECT-TYPE
+     SYNTAX Integer32 ( 0..8 )
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Indicates the number of Power Supplies that support Health Analysis"
+     ::= { atiBBSysAppsPsHealth 1 }
+
+-- **********************************
+-- * BattStatus
+
+-- * TABLE HEADER *
+
+atiBBSysAppsBattTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiBBSysAppsBattEntry
+    MAX-ACCESS     not-accessible
+    STATUS     current
+    DESCRIPTION "Table, a row for each battery"
+    ::= { atiBBSysAppsBattStatus 1 }
+
+atiBBSysAppsBattEntry OBJECT-TYPE
+    SYNTAX     AtiBBSysAppsBattEntry
+    MAX-ACCESS     not-accessible
+    STATUS     current
+    DESCRIPTION "One item in this table"
+    INDEX { atiBBSysAppsBattStringNum, atiBBSysAppsBattBatteryNum }
+    ::= { atiBBSysAppsBattTable 1 }
+
+AtiBBSysAppsBattEntry ::= SEQUENCE {
+    atiBBSysAppsBattStringNum Integer32,
+    atiBBSysAppsBattBatteryNum Integer32,
+    atiBBSysAppsBattMfgDate MonthAndYear,
+    atiBBSysAppsBattAge Integer32,
+    atiBBSysAppsBattMhos Integer32,
+    atiBBSysAppsBattBalancing INTEGER
+}
+
+-- * TABLE COLUMNS *
+
+atiBBSysAppsBattStringNum OBJECT-TYPE
+     SYNTAX Integer32 ( 1..4 )
+     MAX-ACCESS not-accessible
+     STATUS current
+     DESCRIPTION
+          "String that this battery is a member of"
+     ::= { atiBBSysAppsBattEntry 1 }
+
+atiBBSysAppsBattBatteryNum OBJECT-TYPE
+     SYNTAX Integer32 ( 1..4 )
+     MAX-ACCESS not-accessible
+     STATUS current
+     DESCRIPTION
+          "Battery number in string"
+     ::= { atiBBSysAppsBattEntry 2 }
+
+atiBBSysAppsBattMfgDate OBJECT-TYPE
+     SYNTAX MonthAndYear
+     MAX-ACCESS read-write
+     STATUS current
+     DESCRIPTION
+          "Manufacture Date, typically stamped onto battery"
+     ::= { atiBBSysAppsBattEntry 3 }
+
+atiBBSysAppsBattAge OBJECT-TYPE
+     SYNTAX Integer32
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Age of battery in months based on Manufacture Date"
+     ::= { atiBBSysAppsBattEntry 4 }
+
+atiBBSysAppsBattMhos OBJECT-TYPE
+     SYNTAX Integer32
+     MAX-ACCESS read-write
+     STATUS current
+     DESCRIPTION
+          "Measured Battery MHOs"
+     ::= { atiBBSysAppsBattEntry 5 }
+
+atiBBSysAppsBattBalancing OBJECT-TYPE
+     SYNTAX INTEGER { balanced(1), inProgress(2), failed(3), notAvailable(4) }
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Status of attempt to balance the battery"
+     ::= { atiBBSysAppsBattEntry 6 }
+
+-- *
+
+atiBBSysAppsBattStringCount OBJECT-TYPE
+     SYNTAX Integer32 ( 0..4 )
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Indicates the number of Batteries that support Health Analysis"
+     ::= { atiBBSysAppsBattStatus 2 }
+
+atiBBSysAppsBattPerStringCount OBJECT-TYPE
+     SYNTAX Integer32 ( 0..4 )
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Indicates the number of Batteries that support Health Analysis"
+     ::= { atiBBSysAppsBattStatus 3 }
+
+atiBBSysAppsBattConductanceMeasurementDate OBJECT-TYPE
+     SYNTAX DateAndTime
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Date of last conductance measurement"
+     ::= { atiBBSysAppsBattStatus 4 }
+
+atiBBSysAppsBattStandbyTimeRemaining OBJECT-TYPE
+     SYNTAX INTEGER { overThreeHr(1) , twoToThreeHr(2) ,   oneToTwoHr(3) ,
+                    lessThanOneHr(4) ,  calculating(5) , notAvailable(6) }
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Remaining runtime if batteries are currently discharging or
+           available runtime for next discharge"
+     ::= { atiBBSysAppsBattStatus 5 }
+
+atiBBSysAppsBattLifeRemaining OBJECT-TYPE
+     SYNTAX INTEGER {    overFiveYr(1) , threeToFiveYr(2) , twoToThreeYr(3) ,
+                      lessThanTwoYr(4) ,   pmRecommended(5) , notAvailable(6) }
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Remaining time before batteries need to be replaced"
+     ::= { atiBBSysAppsBattStatus 6 }
+
+-- **********************************
+-- * UtilQual
+
+atiBBSysAppsUtilQualSupported OBJECT-TYPE
+     SYNTAX INTEGER { unsupported(1), supported(2) }
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Indicates if Utility Quality Analysis is supported"
+     ::= { atiBBSysAppsUtilQual 1 }
+
+
+
+atiBBSysAppsUtilQualStartDate OBJECT-TYPE
+    SYNTAX  YearAndMonthAndDay
+    MAX-ACCESS  read-only
+    STATUS  current
+    DESCRIPTION
+        "Date upon which Utility Analysis started"
+    ::= { atiBBSysAppsUtilQual 2 }
+
+atiBBSysAppsUtilQualStatus OBJECT-TYPE
+     SYNTAX  INTEGER { ok(1), outage(2), sag(3), surge(4), frequency(5), unknown(6) }
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Indicates the current line status"
+     ::= { atiBBSysAppsUtilQual 3 }
+
+atiBBSysAppsUtilQualSag    OBJECT IDENTIFIER ::= { atiBBSysAppsUtilQual 4 }
+atiBBSysAppsUtilQualSurge  OBJECT IDENTIFIER ::= { atiBBSysAppsUtilQual 5 }
+atiBBSysAppsUtilQualOutage OBJECT IDENTIFIER ::= { atiBBSysAppsUtilQual 6 }
+atiBBSysAppsUtilQualFreq   OBJECT IDENTIFIER ::= { atiBBSysAppsUtilQual 7 }
+
+-- **********************************
+-- * UtilQualSag
+
+atiBBSysAppsUtilQualSagCurDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Time duration of current Sag event "
+     ::= { atiBBSysAppsUtilQualSag 1 }
+
+atiBBSysAppsUtilQualSag24HourCount OBJECT-TYPE
+     SYNTAX Integer32 ( 0..65535 )
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Number of Sag events in the last 24 hours"
+     ::= { atiBBSysAppsUtilQualSag 2 }
+
+atiBBSysAppsUtilQualSag24HourAvgDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Average Duration of Sag events occurring in the last 24 hours"
+     ::= { atiBBSysAppsUtilQualSag 3 }
+
+atiBBSysAppsUtilQualSag24HourMinDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Minimum Duration of Sag events occurring in the last 24 hours"
+     ::= { atiBBSysAppsUtilQualSag 4 }
+
+atiBBSysAppsUtilQualSag24HourMaxDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Maximum Duration of Sag events occurring in the last 24 hours"
+     ::= { atiBBSysAppsUtilQualSag 5 }
+
+atiBBSysAppsUtilQualSagLifetimeCount OBJECT-TYPE
+     SYNTAX Integer32 ( 0..65535 )
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Number of Sag events since device initialized"
+     ::= { atiBBSysAppsUtilQualSag 6 }
+
+atiBBSysAppsUtilQualSagLifetimeDurationSum OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Total accumulated time in Sag since device initialized"
+     ::= { atiBBSysAppsUtilQualSag 7 }
+
+atiBBSysAppsUtilQualSagLifetimeMaxDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Time of longest Sag since device initialized"
+     ::= { atiBBSysAppsUtilQualSag 8 }
+
+-- **********************************
+-- * UtilQualSurge
+
+atiBBSysAppsUtilQualSurgeCurDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Time duration of current Surge event"
+     ::= { atiBBSysAppsUtilQualSurge 1 }
+
+atiBBSysAppsUtilQualSurge24HourCount OBJECT-TYPE
+     SYNTAX Integer32 ( 0..65535 )
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Number of Surge events in the last 24 hours"
+     ::= { atiBBSysAppsUtilQualSurge 2 }
+
+atiBBSysAppsUtilQualSurge24HourAvgDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Average Duration of Surge events occurring in the last 24 hours"
+     ::= { atiBBSysAppsUtilQualSurge 3 }
+
+atiBBSysAppsUtilQualSurge24HourMinDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Minimum Duration of Surge events occurring in the last 24 hours"
+     ::= { atiBBSysAppsUtilQualSurge 4 }
+
+atiBBSysAppsUtilQualSurge24HourMaxDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Maximum Duration of Surge events occurring in the last 24 hours"
+     ::= { atiBBSysAppsUtilQualSurge 5 }
+
+atiBBSysAppsUtilQualSurgeLifetimeCount OBJECT-TYPE
+     SYNTAX Integer32 ( 0..65535 )
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Number of Surge events since device initialized"
+     ::= { atiBBSysAppsUtilQualSurge 6 }
+
+atiBBSysAppsUtilQualSurgeLifetimeDurationSum OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Total accumulated time in Surge since device initialized"
+     ::= { atiBBSysAppsUtilQualSurge 7 }
+
+atiBBSysAppsUtilQualSurgeLifetimeMaxDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Time of longest Surge since device initialized"
+     ::= { atiBBSysAppsUtilQualSurge 8 }
+
+-- **********************************
+-- * UtilQualOutage
+
+atiBBSysAppsUtilQualOutageCurDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Time duration of current Outage event "
+     ::= { atiBBSysAppsUtilQualOutage 1 }
+
+atiBBSysAppsUtilQualOutage24HourCount OBJECT-TYPE
+     SYNTAX Integer32 ( 0..65535 )
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Number of Outage events in the last 24 hours"
+     ::= { atiBBSysAppsUtilQualOutage 2 }
+
+atiBBSysAppsUtilQualOutage24HourAvgDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Average Duration of Outage events occurring in the last 24 hours"
+     ::= { atiBBSysAppsUtilQualOutage 3 }
+
+atiBBSysAppsUtilQualOutage24HourMinDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Minimum Duration of Outage events occurring in the last 24 hours"
+     ::= { atiBBSysAppsUtilQualOutage 4 }
+
+atiBBSysAppsUtilQualOutage24HourMaxDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Maximum Duration of Outage events occurring in the last 24 hours"
+     ::= { atiBBSysAppsUtilQualOutage 5 }
+
+atiBBSysAppsUtilQualOutageLifetimeCount OBJECT-TYPE
+     SYNTAX Integer32 ( 0..65535 )
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Number of Outage events since device initialized"
+     ::= { atiBBSysAppsUtilQualOutage 6 }
+
+atiBBSysAppsUtilQualOutageLifetimeDurationSum OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Total accumulated time in Outage since device initialized"
+     ::= { atiBBSysAppsUtilQualOutage 7 }
+
+atiBBSysAppsUtilQualOutageLifetimeMaxDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Time of longest Outage since device initialized"
+     ::= { atiBBSysAppsUtilQualOutage 8 }
+
+-- **********************************
+-- * UtilQualFreq
+
+atiBBSysAppsUtilQualFreqCurDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Time duration of current frequency deviation event"
+     ::= { atiBBSysAppsUtilQualFreq 1 }
+
+atiBBSysAppsUtilQualFreq24HourCount OBJECT-TYPE
+     SYNTAX Integer32 ( 0..65535 )
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Number of frequency deviation events in the last 24 hours"
+     ::= { atiBBSysAppsUtilQualFreq 2 }
+
+atiBBSysAppsUtilQualFreq24HourAvgDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Average Duration of frequency deviation events occurring in the last
+           24 hours"
+     ::= { atiBBSysAppsUtilQualFreq 3 }
+
+atiBBSysAppsUtilQualFreq24HourMinDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Minimum Duration of frequency deviation events occurring in the last
+           24 hours"
+     ::= { atiBBSysAppsUtilQualFreq 4 }
+
+atiBBSysAppsUtilQualFreq24HourMaxDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Maximum Duration of frequency deviation events occurring in the last
+           24 hours"
+     ::= { atiBBSysAppsUtilQualFreq 5 }
+
+atiBBSysAppsUtilQualFreqLifetimeCount OBJECT-TYPE
+     SYNTAX Integer32 ( 0..65535 )
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Number of frequency deviation events since device initialized"
+     ::= { atiBBSysAppsUtilQualFreq 6 }
+
+atiBBSysAppsUtilQualFreqLifetimeDurationSum OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Total accumulated time in frequency deviation since device initalized"
+     ::= { atiBBSysAppsUtilQualFreq 7 }
+
+atiBBSysAppsUtilQualFreqLifetimeMaxDuration OBJECT-TYPE
+     SYNTAX TimeTicks
+     MAX-ACCESS read-only
+     STATUS current
+     DESCRIPTION
+          "Time of longest frequency deviation since device initialized"
+     ::= { atiBBSysAppsUtilQualFreq 8 }
+
+END

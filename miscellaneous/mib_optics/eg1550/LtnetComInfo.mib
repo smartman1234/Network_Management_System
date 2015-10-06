@@ -1,0 +1,227 @@
+-- ****************************************************************************
+-- *2009-12-08 LiGang增加了ltnetIpPort节点， 可以在同一个IP运行多个Agent程序。
+-- *
+-- *
+-- *
+-- *
+-- ****************************************************************************
+
+
+LTNET-COMMONINFO-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+
+    OBJECT-TYPE
+               FROM RFC-1212
+    DisplayString
+               FROM RFC1213-MIB  
+    ltnetRoot
+               FROM LTNET-ROOT
+     ;    
+ 
+-- *
+-- *  LuTongDefined MIB中使用的分组定义
+-- *
+
+ltnetCommonInfoGroup       OBJECT IDENTIFIER ::= { ltnetRoot 3 }
+ltnetIpSimpleInfo  OBJECT IDENTIFIER ::= { ltnetCommonInfoGroup 1 }
+ltnetIpDiscovery   OBJECT IDENTIFIER ::= { ltnetCommonInfoGroup 2 }
+ltnetIpAgentTrap   OBJECT IDENTIFIER ::= { ltnetCommonInfoGroup 3 }
+ltnetSubJoinedInfo   OBJECT IDENTIFIER ::= { ltnetCommonInfoGroup 4 }
+
+-- * ltnIpSimpleInfo组，描述IP设备的简单IP信息
+
+ltnetIpNetAddress OBJECT-TYPE
+    SYNTAX    Ipaddress
+    ACCESS    read-write
+    STATUS    mandatory
+    DESCRIPTION
+" "
+--  "设备IP地址"
+    ::= { ltnetIpSimpleInfo 1 }
+
+ltnetIpMask OBJECT-TYPE
+    SYNTAX    INTEGER (0..31)
+    ACCESS    read-write
+    STATUS    mandatory
+    DESCRIPTION
+" "
+--  "设备子网掩码，思科表示法。"
+    ::= { ltnetIpSimpleInfo 2 }
+
+ltnetIpDefaultGateway OBJECT-TYPE
+    SYNTAX    Ipaddress
+    ACCESS    read-write
+    STATUS    mandatory
+    DESCRIPTION
+" "
+--  "设备默认网关"
+    ::= { ltnetIpSimpleInfo 3 }
+
+ltnetIpDns OBJECT-TYPE
+    SYNTAX    Ipaddress
+    ACCESS    read-write
+    STATUS    optional
+    DESCRIPTION
+" "
+--  "设备DNS"
+    ::= { ltnetIpSimpleInfo 4 }
+
+ltnetIpPhysicalAddress  OBJECT-TYPE
+    SYNTAX    OCTET STRING
+    ACCESS    read-only
+    STATUS    mandatory
+    DESCRIPTION 
+          "This variable reports the media dependant 'physical' address of
+          the NE. This object was added to support the generation of traps."
+--  "设备MAC地址"
+    ::= { ltnetIpSimpleInfo 5 }
+
+ltnetIpPort OBJECT-TYPE
+    SYNTAX    INTEGER 
+    ACCESS    read-write
+    STATUS    optional
+    DESCRIPTION
+"Agent Port Default = 161"
+    ::= { ltnetIpSimpleInfo 6 }
+
+-- * ltIpDiscovery组
+
+ltnetIpFind OBJECT-TYPE
+    SYNTAX    INTEGER { discovery (1) }
+    ACCESS    read-write
+    STATUS    mandatory
+    DESCRIPTION
+" "
+-- "IP设置自动探测. 当软件设置此对象后, 代理以特定的格式响应. 此对象的设置为全网广播命令."
+-- "代理响应的绑定内容: ltnIpNetAddress+ltnIpPhysicalAddress+sysName+sysDescr+ltnetIpPort"
+     ::= { ltnetIpDiscovery 1 }
+
+ltnetIpReset OBJECT-TYPE
+    SYNTAX    INTEGER { reset (1) }
+    ACCESS    read-write
+    STATUS    mandatory
+    DESCRIPTION
+" "
+-- "收到此命令, 代理进行本机复位动作."
+     ::= { ltnetIpDiscovery 2 }
+
+
+-- * ltIpAgnetTrap组, 描述IP设备
+
+ltnetIpAgentTrapTable  OBJECT-TYPE
+    SYNTAX    SEQUENCE OF LtIpAgentTrapEntry
+    ACCESS    not-accessible
+    STATUS    optional
+    DESCRIPTION
+""
+-- "代理TRAP信息表."
+    ::= { ltnetIpAgentTrap 1 }
+
+ltnetIpAgentTrapEntry  OBJECT-TYPE
+    SYNTAX    LtIpAgentTrapEntry
+    ACCESS    not-accessible
+    STATUS    optional
+    DESCRIPTION
+""
+-- "代理TRAP信息表目."
+    INDEX { ltnetIpAgentTrapIndex }
+    ::= { ltnetIpAgentTrapTable 1 }
+
+LtnetIpAgentTrapEntry ::= SEQUENCE {
+	ltnetIpAgentTrapIndex
+		INTEGER,
+	ltnetIpAgentTrapIP
+		IpAddress,
+	ltnetIpAgentTrapCommunity
+		DisplayString,
+	ltnetIpAgentTrapStatus
+		INTEGER
+}
+
+ltnetIpAgentTrapIndex  OBJECT-TYPE
+    SYNTAX    INTEGER
+    ACCESS    read-only
+    STATUS    optional
+    DESCRIPTION
+""
+-- "TRAP表索引."
+	::= { ltnetIpAgentTrapEntry 1 }
+
+ltnetIpAgentTrapIP  OBJECT-TYPE
+    SYNTAX    IpAddress
+    ACCESS    read-write
+    STATUS    optional
+    DESCRIPTION
+""
+-- "发TRAP时目的主机的IP地址."
+	::= { ltnetIpAgentTrapEntry 2 }
+
+ltnetIpAgentTrapCommunity  OBJECT-TYPE
+    SYNTAX    DisplayString (SIZE(0..64))
+    ACCESS    read-write
+    STATUS    optional
+    DESCRIPTION
+""
+-- "发送TRAP时的共同体字符串."
+	::= { ltnetIpAgentTrapEntry 3 }
+
+ltnetIpAgentTrapStatus  OBJECT-TYPE
+    SYNTAX    INTEGER {
+		      commonAgentTrapEnable (1),
+		      commonAgentTrapDisable (2)
+	              }
+    ACCESS    read-write
+    STATUS    optional
+    DESCRIPTION
+""
+-- "表示该TRAP项是否启用."
+    ::= { ltnetIpAgentTrapEntry 4 }
+
+
+-- * 
+
+ltnetCommIdentifyNum OBJECT-TYPE
+     SYNTAX    OCTET STRING ( SIZE(6 .. 10) )
+     ACCESS    read-write
+     STATUS    optional
+     DESCRIPTION
+""
+-- "定义设备通信识别码。代理与被管设备通信时可能要通过地址或其它序列号来通讯。"
+        ::= { ltnetSubJoinedInfo   1 }
+
+ltnetCommonTime  OBJECT-TYPE
+     SYNTAX INTEGER
+     ACCESS read-write
+     STATUS mandatory
+     DESCRIPTION
+""
+-- "IP Proxy的当前时间的POSIX表示（自1970年1月1日0时以来的秒数）. 在收到IP代理发送的注册请求命令后, 由系统来设置."
+     ::= { ltnetSubJoinedInfo   2 }
+
+ltnetAlarmDelayTime  OBJECT-TYPE
+     SYNTAX INTEGER ( 0..600 )
+     ACCESS read-write
+     STATUS mandatory
+     DESCRIPTION
+""
+-- "预防报警抖动而预设的报警延时时间, 单位为秒, 取值范围0--600."
+--"此项控制Property表和DstProperty表的报警监测时延，一般属性表的报警监测有三种触发方式：①从设备取值时，②定时触发，③门限远程改变门限。“
+--"当使用延时机制时，要求每个可报警参数都保存一个计时值和一个预判值，对于①②两种条件不进行直接触发，而是计算预判值，一旦预判值趋势为更严重的报警则立刻开始计时，如果预判值在计时溢出前恢复到历史状态则重置计时，当计时溢出时触发报警监测并发送Trap”
+--"此项宏观作用：对于趋向严重的告警将产生明显的延时作用，对趋向正常的告警没有延时，为了用户操作的快速响应，对于条件③没有延时。"
+--"此项为上位机软件的一个设备报警延时判断依据，如果设备没有实现此项，上位机通过监测将实现软件延迟。"
+
+     ::= { ltnetSubJoinedInfo   3 }
+
+ltnetModuleRetriesTimes  OBJECT-TYPE
+     SYNTAX INTEGER ( 3..99 )
+     ACCESS read-write
+     STATUS mandatory
+     DESCRIPTION
+""
+-- "光平台模块识别防抖动次数设置20130608"
+
+     ::= { ltnetSubJoinedInfo   6 }
+
+
+END

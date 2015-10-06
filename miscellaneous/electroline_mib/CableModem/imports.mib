@@ -1,0 +1,362 @@
+--
+-- imports.mib: define OID's and textual conventions for BCMIBC.EXE v1.1.0e +
+--
+-- Last edited: 3/20/2008 
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+--
+-- Object Identifiers
+--
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+iso                     OBJECT IDENTIFIER ::= { 1 }
+org                     OBJECT IDENTIFIER ::= { iso 3 }
+dod                     OBJECT IDENTIFIER ::= { org 6 }
+internet                OBJECT IDENTIFIER ::= { dod 1 }
+mgmt                    OBJECT IDENTIFIER ::= { internet 2 }
+experimental            OBJECT IDENTIFIER ::= { internet 3 }
+private                 OBJECT IDENTIFIER ::= { internet 4 }
+security                OBJECT IDENTIFIER ::= { internet 5 }
+snmpV2                  OBJECT IDENTIFIER ::= { internet 6 }
+mib-2                   OBJECT IDENTIFIER ::= { mgmt 1 }
+system                  OBJECT IDENTIFIER ::= { mib-2 1 }
+interfaces              OBJECT IDENTIFIER ::= { mib-2 2 }
+ip                      OBJECT IDENTIFIER ::= { mib-2 4 }
+transmission            OBJECT IDENTIFIER ::= { mib-2 10 }
+enterprises             OBJECT IDENTIFIER ::= { private 1 }
+dot3                    OBJECT IDENTIFIER ::= { transmission 7 }
+docsDev                 OBJECT IDENTIFIER ::= { mib-2 69 }
+docsDevNotification     OBJECT IDENTIFIER ::= { docsDev 2 }
+docsIfMib               OBJECT IDENTIFIER ::= { transmission 127 }
+docsIfExtMib            OBJECT IDENTIFIER ::= { docsIfMib 21 }
+snmpModules             OBJECT IDENTIFIER ::= { snmpV2 3 }
+
+-- packetcable imports, from pktcMain.mib
+cableLabs               OBJECT IDENTIFIER ::= { enterprises 4491 }
+clabFunction 		OBJECT IDENTIFIER ::= { cableLabs 1 }
+clabFuncMib2 		OBJECT IDENTIFIER ::= { clabFunction 1 }
+clabFuncProprietary 	OBJECT IDENTIFIER ::= { clabFunction 2 }
+clabProject 		OBJECT IDENTIFIER ::= { cableLabs 2 }
+clabProjDocsis 		OBJECT IDENTIFIER ::= { clabProject 1 }
+clabProjPacketCable 	OBJECT IDENTIFIER ::= { clabProject 2 }
+clabProjOpenCable 	OBJECT IDENTIFIER ::= { clabProject 3 }
+clabProjCableHome       OBJECT IDENTIFIER ::= { clabProject 4 }
+
+-- Broadcom imports             
+broadcom                        OBJECT IDENTIFIER ::= { enterprises 4413 }
+cableData                       OBJECT IDENTIFIER ::= { broadcom 2 }
+cableDataProducts               OBJECT IDENTIFIER ::= { cableData 1 }
+cableDataMgmt                   OBJECT IDENTIFIER ::= { cableData 2 }
+cableDataMgmtMIB                OBJECT IDENTIFIER ::= { cableDataMgmt 2 }
+cableDataMgmtMIBObjects         OBJECT IDENTIFIER ::= { cableDataMgmtMIB 1 }
+cableDataMgmtBase               OBJECT IDENTIFIER ::= { cableDataMgmtMIBObjects 1 }
+residentialGatewayMgmt		OBJECT IDENTIFIER ::= { cableDataMgmtMIBObjects 7 }
+cableDataMgmtVendor             OBJECT IDENTIFIER ::= { cableDataMgmt 99 }
+broadcomCableDataMgmt           OBJECT IDENTIFIER ::= { cableDataMgmtVendor 4413 }
+cableDataAgentCapability        OBJECT IDENTIFIER ::= { cableData 3 }
+cableDataExperimental           OBJECT IDENTIFIER ::= { cableData 4 }
+cableDataPrivate                OBJECT IDENTIFIER ::= { cableData 99 }
+cableDataPrivateMIB             OBJECT IDENTIFIER ::= { cableDataPrivate 1 }
+cableDataPrivateMIBObjects      OBJECT IDENTIFIER ::= { cableDataPrivateMIB 1 }
+cableDataFactory                OBJECT IDENTIFIER ::= { cableDataPrivateMIBObjects 2 }
+cableDataFactoryVendor          OBJECT IDENTIFIER ::= { cableDataFactory 99 }
+cableDataEngineering            OBJECT IDENTIFIER ::= { cableDataPrivateMIBObjects 3 }
+
+
+-- Electroline
+dht                     OBJECT IDENTIFIER ::= { cableDataExperimental 1 }
+scteRoot                OBJECT IDENTIFIER ::= { enterprises 5591 }
+scteHmsTree             OBJECT IDENTIFIER ::= { scteRoot 1 }                                                 
+propertyIdent           OBJECT IDENTIFIER ::= { scteHmsTree 1 }
+alarmsIdent             OBJECT IDENTIFIER ::= { scteHmsTree 2 }
+commonIdent             OBJECT IDENTIFIER ::= { scteHmsTree 3 }
+psIdent                 OBJECT IDENTIFIER ::= { scteHmsTree 4 }
+fnIdent					OBJECT IDENTIFIER ::= { scteHmsTree 5 }
+genIdent                 OBJECT IDENTIFIER ::= { scteHmsTree 6 }
+transponderInterfaceBusIdent OBJECT IDENTIFIER ::= { scteHmsTree 7 }
+electrolineCoRoot		OBJECT IDENTIFIER ::= {  enterprises 5802 }
+electrolineRoot			OBJECT IDENTIFIER ::= {  electrolineCoRoot 1 }
+electrolineProducts     OBJECT IDENTIFIER ::= {  electrolineRoot 3 }
+electrolineHardwareProducts OBJECT IDENTIFIER ::= { electrolineProducts 1}
+electrolineDht			OBJECT IDENTIFIER ::= { electrolineHardwareProducts 2 }
+electrolineDvm			OBJECT IDENTIFIER ::= { electrolineHardwareProducts 3 }
+dhtInventory		OBJECT IDENTIFIER ::= { electrolineDht 1 }
+dhtConfiguration		OBJECT IDENTIFIER ::= { electrolineDht 2 }
+dhtStatus				OBJECT IDENTIFIER ::= { electrolineDht 3 } 
+dhtPrivate				OBJECT IDENTIFIER ::= { electrolineDht 4 } 
+dhtExtensionsMib		OBJECT IDENTIFIER ::= { electrolineDht 5 }
+dhtExtensionsMibObjects		OBJECT IDENTIFIER ::= { dhtExtensionsMib 1 } 
+dvmInventory		OBJECT IDENTIFIER ::= { electrolineDvm 1 }
+dvmConfiguration		OBJECT IDENTIFIER ::= { electrolineDvm 2 }
+dvmStatus				OBJECT IDENTIFIER ::= { electrolineDvm 3 } 
+dvmPrivate				OBJECT IDENTIFIER ::= { electrolineDvm 4 }
+electrolineExpr			OBJECT IDENTIFIER ::= { electrolineRoot 6 }
+electrolineExprHardwareProducts OBJECT IDENTIFIER ::= { electrolineExpr 1}
+electrolineExprDHT		OBJECT IDENTIFIER ::= { electrolineExprHardwareProducts 1 }
+dhtExprBCT		  			OBJECT IDENTIFIER ::= { electrolineExprDHT 1 }
+
+cablemodemMgmt OBJECT IDENTIFIER ::= { cableDataMgmtMIBObjects 2 }
+cmEmbeddedDevices OBJECT IDENTIFIER ::= { cablemodemMgmt 98 }
+
+-- 802.11 imports
+member-body             OBJECT IDENTIFIER   ::= { iso 2 }
+us                      OBJECT IDENTIFIER   ::= { member-body 840 }
+ieee802dot11            OBJECT IDENTIFIER   ::= { us 10036 }
+
+-- From HOST-RESOURCES-MIB
+host            OBJECT IDENTIFIER ::= { mib-2 25 }
+hrSystem        OBJECT IDENTIFIER ::= { host 1 }
+hrStorage       OBJECT IDENTIFIER ::= { host 2 }
+hrDevice        OBJECT IDENTIFIER ::= { host 3 }
+hrSWRun         OBJECT IDENTIFIER ::= { host 4 }
+hrSWRunPerf     OBJECT IDENTIFIER ::= { host 5 }
+hrSWInstalled   OBJECT IDENTIFIER ::= { host 6 }
+hrMIBAdminInfo  OBJECT IDENTIFIER ::= { host 7 }
+
+
+-- From CLAB-DEF-MIB                     
+pktcSigMib           OBJECT IDENTIFIER ::= { clabProjPacketCable 2 }
+pktcEventMib         OBJECT IDENTIFIER ::= { clabProjPacketCable 3 }
+pktcSecurity         OBJECT IDENTIFIER ::= { clabProjPacketCable 4 }
+pktcLawfulIntercept  OBJECT IDENTIFIER ::= { clabProjPacketCable 5 }
+pktcEnhancements     OBJECT IDENTIFIER ::= { clabProjPacketCable 6 }
+pktcPACMMibs         OBJECT IDENTIFIER ::= { clabProjPacketCable 7 }
+pktcApplicationMibs  OBJECT IDENTIFIER ::= { clabProjPacketCable 8 }
+pktcSupportMibs      OBJECT IDENTIFIER ::= { clabProjPacketCable 9 }
+pktcEUEMibs          OBJECT IDENTIFIER ::= { clabProjPacketCable 10 }
+
+-- Sub-tree for PacketCable MIB Enhancements
+pktcEnMtaMib         OBJECT IDENTIFIER ::= { pktcEnhancements 1 }
+pktcEnSigMib         OBJECT IDENTIFIER ::= { pktcEnhancements 2 }
+pktcEnEventMib       OBJECT IDENTIFIER ::= { pktcEnhancements 3 }
+pktcEnSecurityMib    OBJECT IDENTIFIER ::= { pktcEnhancements 4 }
+pktcEUEEnMib         OBJECT IDENTIFIER ::= { pktcEnhancements 5 }
+
+-- PacketCable PACM sub-tree
+pktcPACMTC           OBJECT IDENTIFIER ::= { pktcPACMMibs 1 }
+pktcPACMUEMib        OBJECT IDENTIFIER ::= { pktcPACMMibs 2 }
+pktcPACMUserMib      OBJECT IDENTIFIER ::= { pktcPACMMibs 3 }
+
+-- PacketCable E-UE sub-tree
+pktcEUEDeviceMibs    OBJECT IDENTIFIER ::= { pktcEUEMibs 1 }
+--pktcEUETCMIB         OBJECT IDENTIFIER ::= { pktcEUEMibs 2 }
+--pktcEUEDevMIB        OBJECT IDENTIFIER ::= { pktcEUEMibs 3 }
+--pktcEUEUserMIB       OBJECT IDENTIFIER ::= { pktcEUEMibs 4 }
+--pktcEUEProvMgmtMIB   OBJECT IDENTIFIER ::= { pktcEUEMibs 5 }
+--pktcEUEEventMIB      OBJECT IDENTIFIER ::= { pktcEUEMibs 6 }
+--pktcEUEPRSMIB        OBJECT IDENTIFIER ::= { pktcEUEMibs 7 }
+
+-- Device MIB Tree
+-- pktcEDVAMIB         OBJECT IDENTIFIER ::= { pktcEUEDeviceMibs 1 }
+
+-- Application MIB Tree
+--pktcEUERSTMIB        OBJECT IDENTIFIER ::= { pktcApplicationMibs 2 }
+
+-- PacketCable Service support sub-tree
+pktcESSupportMibs      OBJECT IDENTIFIER ::= { pktcSupportMibs 1 }
+
+
+-- Arris
+arris                           OBJECT IDENTIFIER ::= { enterprises 4115 }
+arrisProducts                   OBJECT IDENTIFIER ::= { arris 1 }
+arrisProdIdCM                   OBJECT IDENTIFIER ::= { arrisProducts 3 }
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+--
+-- Textual Conventions
+--
+-- The native types understood by BCMIBC are INTEGER, OCTET STRING, BITS,
+-- OBJECT IDENTIFIER, IpAddress, Counter64, Counter, Gauge, Unsigned32,
+-- TimeTicks, TimeInterval, UInteger32, DateAndTime,
+-- TestAndIncr, MacAddress, and DisplayString.  Add other TC's here as needed.
+--
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+-- INTEGER
+Integer32               ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+TenthdBmV               ::= TEXTUAL-CONVENTION  SYNTAX  Integer32
+TenthdB                 ::= TEXTUAL-CONVENTION  SYNTAX  Integer32
+InterfaceIndexOrZero    ::= TEXTUAL-CONVENTION  SYNTAX  Integer32 (0..2147483647)
+StorageType             ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER {
+                                                                 other(1), -- comment test1
+                                                                 volatile(2), --  comment test2
+                                                                 nonVolatile(3), -- comment test3
+                                                                 permanent(4), -- comment test4
+                                                                 readOnly(5)
+                                                                 }
+IANAifType              ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER {other(1), ethernetCsmacd(6), ieee80211(71), docsCableMaclayer (127), docsCableDownstream (128), docsCableUpstream (129), usb (160)}
+PktcCodecType           ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER {other(1), unknown(2), g729(3), g729a(4), g729e(5), g711mu(6), g726(7), g728(8)}
+IfDirection             ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER {downstream(1), upstream(2)}
+SchedulingType          ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER {undefined (1), bestEffort (2), nonRealTimePollingService(3), realTimePollingService(4), unsolictedGrantServiceWithAD(5), unsolictedGrantService(6)}
+InterfaceIndex          ::= TEXTUAL-CONVENTION  SYNTAX  Integer32 (1..2147483647)
+DocsisVersion           ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER {docsis10 (1), docsis11 (2)}
+InetAddressPrefixLength ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER (0..32) -- Use IPv4 max length of 32 bits for simplicity.
+InetPortNumber          ::= TEXTUAL-CONVENTION  SYNTAX  Unsigned32 (0..65535)
+BwifdBm                 ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+BwifdB                  ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+BwifOscState            ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+BwifRfType              ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+BwifRfFreqRange         ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+BwifThreshLimitType     ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+BwifSignalAttribute     ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+BwifFixedPointScale     ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+BwifFixedPointPrecision ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+BwifFixedPointValue     ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+BwifCollectionAction    ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+BwifCollectionStatus    ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+BwifUpdateTime          ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+BwifCodingRatio         ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+BwifModulationType      ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER
+PositiveInteger         ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER (1..2147483647)
+
+-- OCTET STRING
+SnmpAdminString         ::= TEXTUAL-CONVENTION  SYNTAX  DisplayString (SIZE (0..255))
+TAddress                ::= TEXTUAL-CONVENTION  SYNTAX  OCTET STRING
+BridgeId                ::= TEXTUAL-CONVENTION  SYNTAX  OCTET STRING
+OwnerString             ::= TEXTUAL-CONVENTION  SYNTAX  OCTET STRING (SIZE (0..255))
+SnmpEngineID            ::= TEXTUAL-CONVENTION  SYNTAX  OCTET STRING (SIZE (5..32))
+KeyChange               ::= TEXTUAL-CONVENTION  SYNTAX  OCTET STRING
+SnmpTagValue            ::= TEXTUAL-CONVENTION  SYNTAX  OCTET STRING (SIZE (0..255))
+
+-- BITS
+PktcRingCadence         ::= TEXTUAL-CONVENTION  SYNTAX  BITS {interval1 (0), interval2 (1), interval3 (2), interval4 (3), interval5 (4), interval6 (5), interval7 (6), interval8 (7), interval9 (8), interval10 (9), interval11 (10), interval12 (11), interval13 (12), interval14 (13), interval15 (14), interval16 (15), interval17 (16), interval18 (17), interval19 (18), interval20 (19), interval21 (20),interval22 (21), interval23 (22), interval24 (23), interval25 (24), interval26 (25), interval27 (26), interval28 (27), interval29 (28), interval30 (29)}
+
+-- OBJECT IDENTIFIER
+RowPointer              ::= TEXTUAL-CONVENTION  SYNTAX  OBJECT IDENTIFIER
+VariablePointer         ::= TEXTUAL-CONVENTION  SYNTAX  OBJECT IDENTIFIER
+Party                   ::= TEXTUAL-CONVENTION  SYNTAX  OBJECT IDENTIFIER
+AutonomousType          ::= TEXTUAL-CONVENTION  SYNTAX  OBJECT IDENTIFIER
+
+-- IpAddress
+NetworkAddress          ::= TEXTUAL-CONVENTION  SYNTAX  IpAddress
+
+-- InetAddress and InetAddressType TCs removed from here in order to allow 
+-- support for full IPv6 functionality in BCMIBC rev 3.6.0 and beyond.
+-- These TCs are now considered 'native' types by BCMIBC with their own set
+-- of special processing.  If these TCs are put back here then the 3.6 vintage
+-- BCMIBC will treat them exactly as before and not apply any of the special
+-- processing.
+-- InetAddress          ::= TEXTUAL-CONVENTION  SYNTAX  OCTET STRING (SIZE (4)) -- technically 0-255, but we're only V4
+-- InetAddressType      ::= TEXTUAL-CONVENTION  SYNTAX  INTEGER {unknown(0), ipv4(1), ipv6(2), ipv4z(3), ipv6z(4), dns(16)}
+
+-- Counter64
+
+-- Counter
+Counter32               ::= TEXTUAL-CONVENTION  SYNTAX  Counter
+ZeroBasedCounter32      ::= TEXTUAL-CONVENTION  SYNTAX  Counter
+
+-- Gauge
+Gauge32                 ::= TEXTUAL-CONVENTION  SYNTAX  Unsigned32
+
+-- Unsigned32
+BitRate                 ::= TEXTUAL-CONVENTION  SYNTAX  Unsigned32
+
+-- TimeTicks
+TimeStamp               ::= TEXTUAL-CONVENTION  SYNTAX  TimeTicks
+
+-- TimeInterval
+Timeout                 ::= TEXTUAL-CONVENTION  SYNTAX  TimeInterval 
+    
+-- UInteger32
+Clock                   ::= TEXTUAL-CONVENTION  SYNTAX  UInteger32
+
+-- RowStatus
+
+-- TruthValue
+
+-- DateAndTime
+
+-- TestAndIncr
+
+-- MacAddress
+PhysAddress             ::= TEXTUAL-CONVENTION  SYNTAX  MacAddress
+
+TDomain                 ::= TEXTUAL-CONVENTION  SYNTAX  OBJECT IDENTIFIER
+
+TAddress                ::= TEXTUAL-CONVENTION  SYNTAX  OCTET STRING (SIZE (1..255))
+
+SnmpTagList             ::= TEXTUAL-CONVENTION SYNTAX OCTET STRING (SIZE (0..255))
+
+SnmpMessageProcessingModel ::= TEXTUAL-CONVENTION  SYNTAX INTEGER(0 .. 2147483647)
+
+-- Even though in theory, SnmpSecurityModel can have values (0 .. 2147483647)
+-- in practice, only the following enumerated values are supported.
+SnmpSecurityModel       ::= TEXTUAL-CONVENTION  SYNTAX INTEGER {any(0), snmpv1(1), snmpv2c(2), usm(3)}
+
+SnmpSecurityLevel       ::= TEXTUAL-CONVENTION  SYNTAX INTEGER {noAuthNoPriv(1), authNoPriv(2), authPriv(3)}
+
+-- From RFC-2213 INTEGRATED-SERVICES-MIB
+BurstSize               ::= TEXTUAL-CONVENTION  SYNTAX   INTEGER (0..2147483647)
+
+-- SIP MIB TCs
+SipTransportProtocol ::= TEXTUAL-CONVENTION  SYNTAX BITS {other(0), udp(1), tcp(2), sctp(3), tls(4) }
+SipEntityRole        ::= TEXTUAL-CONVENTION  SYNTAX BITS {other(0), userAgent(1), proxyServer(2), redirectServer(3), registrarServer(4)}
+SipOptionTagHeaders  ::= TEXTUAL-CONVENTION  SYNTAX BITS {require(0), proxyRequire(1), supported(2), unsupported(3)}
+SipMethodIdentifier  ::= TEXTUAL-CONVENTION  SYNTAX Unsigned32 (1..4294967295)
+
+-- From DOCS-IF-MIB
+DocsisUpstreamType   ::= TEXTUAL-CONVENTION  SYNTAX INTEGER { unknown (0), tdma (1), atdma (2), scdma (3), tdmaAndAtdma (4)}
+DocsEqualizerData    ::= TEXTUAL-CONVENTION  SYNTAX OCTET STRING (SIZE (36..260))
+DocsisQosVersion     ::= TEXTUAL-CONVENTION SYNTAX INTEGER { docsis10 (1), docsis11 (2) }
+
+-- From INET-ADDRESS-MIB (RFC-4001)
+InetAddressIPv4 ::= TEXTUAL-CONVENTION  SYNTAX OCTET STRING (SIZE (4))
+InetAddressIPv6 ::= TEXTUAL-CONVENTION  SYNTAX OCTET STRING (SIZE (16))
+InetVersion ::= TEXTUAL-CONVENTION  SYNTAX INTEGER { unknown(0), ipv4(1), ipv6(2) }
+InetZoneIndex ::= TEXTUAL-CONVENTION  SYNTAX Unsigned32
+InetAddressDNS ::= TEXTUAL-CONVENTION  SYNTAX OCTET STRING (SIZE (1..255))
+
+-- From DOCS-BPI2-MIB (IETF draft 05)
+X509Certificate ::= TEXTUAL-CONVENTION  SYNTAX  OCTET STRING (SIZE (0..1400))
+
+-- From DOCS-IETF-BPI2-MIB
+DocsX509ASN1DEREncodedCertificate ::= TEXTUAL-CONVENTION SYNTAX    OCTET STRING (SIZE (0..4096))
+
+-- From CLAB-TOPO-MIB
+NodeName ::= TEXTUAL-CONVENTION  SYNTAX OCTET STRING (SIZE (0..16))
+
+-- From DOCS-LOADBALANCING-MIB
+ChannelChgInitTechMap ::= TEXTUAL-CONVENTION  SYNTAX BITS { reinitializeMac(0), broadcastInitRanging(1), unicastInitRanging(2), initRanging(3), direct(4) }
+
+-- From DOCS-IETF-QOS-MIB - RFC 4323
+DocsIetfQosRfMacIfDirection ::= TEXTUAL-CONVENTION  SYNTAX INTEGER { downstream(1), upstream(2) }
+DocsIetfQosBitRate ::= TEXTUAL-CONVENTION  SYNTAX Unsigned32
+DocsIetfQosSchedulingType ::= TEXTUAL-CONVENTION  SYNTAX INTEGER { undefined (1), bestEffort (2), nonRealTimePollingService(3), realTimePollingService(4), unsolictedGrantServiceWithAD(5), unsolictedGrantService(6) }
+
+-- From DIFFSERV-DSCP-TC - RFC 3289
+DscpOrAny ::= TEXTUAL-CONVENTION SYNTAX Integer32 (-1..63)
+
+-- From DOCS-IF3-MIB - D3 spec Annex Q
+CmRegState ::= TEXTUAL-CONVENTION  SYNTAX INTEGER { other(1), notReady(2), notSynchronized(3), phySynchronized(4), dsTopologyResolutionInProgress(21), usParametersAcquired(5), rangingInProgress(22), rangingComplete(6), eaeInProgress(14), dhcpv4InProgress(15), dhcpv6InProgress(16), dhcpv4Complete(7), dhcpv6Complete(17), todEstablished(8), securityEstablished(9), configFileDownloadComplete(10), registrationInProgress(18), registrationComplete(11), accessDenied(13), operational(12), bpiInit (19), forwardingDisabled(20), rfMuteAll(23) }
+CmtsCmRegState ::= TEXTUAL-CONVENTION  SYNTAX INTEGER { other (1), initialRanging(2), rangingAutoAdjComplete(4), startEae(10), startDhcpv4 (11), startDhcpv6(12), dhcpv4Complete(5), dhcpv6Complete(13), startConfigFileDownload(14), configFileDownloadComplete(15), startRegistration(16), registrationComplete(6), operational (8), bpiInit (9), forwardingDisabled(17), rfMuteAll(18) }
+ScdmaSelectionString ::= TEXTUAL-CONVENTION SYNTAX OCTET STRING (SIZE(16))
+AmplitudeData ::= TEXTUAL-CONVENTION SYNTAX OCTET STRING (SIZE(0 | 2..255))
+Tlv8 ::= TEXTUAL-CONVENTION SYNTAX OCTET STRING (SIZE(0 | 2..255))
+ChId ::= TEXTUAL-CONVENTION SYNTAX Unsigned32 (0..255)
+ChSetId ::= TEXTUAL-CONVENTION SYNTAX Unsigned32
+ChannelList ::= TEXTUAL-CONVENTION SYNTAX OCTET STRING (SIZE (0|2..255))
+AttributeMask ::= TEXTUAL-CONVENTION SYNTAX BITS { bonding(0), lowLatency(1), highAvailability(2) }
+AttrAggrRuleMask ::= TEXTUAL-CONVENTION SYNTAX OCTET STRING (SIZE (4))
+RcpId ::= TEXTUAL-CONVENTION SYNTAX OCTET STRING (SIZE (5))
+Dsid ::= TEXTUAL-CONVENTION SYNTAX Unsigned32 (0..1048575)
+
+-- From DOCS-L2VPN-MIB
+DocsL2vpnIfList ::= TEXTUAL-CONVENTION SYNTAX BITS { eCm(0), cmci(1), docsCableMacLayer(2), docsCableDownstream(3), docsCableUpstream(4), eMta(16), eStbIp(17), eStbDsg(18) }
+
+-- From CL-PKTC-EUE-TC-MIB
+PktcEUETCID                  ::= TEXTUAL-CONVENTION  SYNTAX OCTET STRING(SIZE(0..1023))
+PktcEUETCIDType              ::= TEXTUAL-CONVENTION  SYNTAX INTEGER { other(1), gruu(2), publicIdentity(3), privateIdentity(4), publicPrivatePair(5), username(6), macaddress(7), packetcableIdentity(8) }
+PktcEUETCActStatus           ::= TEXTUAL-CONVENTION  SYNTAX TruthValue
+PktcEUETCActStatusInfo       ::= TEXTUAL-CONVENTION  SYNTAX SnmpAdminString(SIZE(0..31))
+PktcEUETCUsrElementIndexType ::= TEXTUAL-CONVENTION  SYNTAX Unsigned32(0..63) 
+PktcEUETCAppOrgIdentifier    ::= TEXTUAL-CONVENTION  SYNTAX Unsigned32
+PktcEUETCAppIdentifier       ::= TEXTUAL-CONVENTION  SYNTAX INTEGER(1..127)
+PktcEUETCUsrAppIndexType     ::= TEXTUAL-CONVENTION  SYNTAX Unsigned32 (0..31)
+PktcEUETCCredsType           ::= TEXTUAL-CONVENTION  SYNTAX INTEGER { other(1), none(2), password(3), preSharedKey(4), certificate(5) }
+PktcEUETCCreds               ::= TEXTUAL-CONVENTION  SYNTAX OCTET STRING (SIZE (0..8192))
+
+

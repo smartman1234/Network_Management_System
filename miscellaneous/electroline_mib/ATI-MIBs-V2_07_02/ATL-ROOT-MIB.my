@@ -1,0 +1,75 @@
+-- ****************************************************************************
+-- *
+-- * Alpha Technologies, Inc.
+-- *
+-- * NAME : ATL-ROOT-MIB.txt
+-- *
+-- * ALPHA PART NUMBER : TBD
+-- *
+-- * SUMMARY : This is the root MIB for MIBs defined by Alpha Technologies.
+-- *   It defined unique branches for ATL and ATI in order to allow independant
+-- *   MIB work/definitions to be done independantly without concern that one
+-- *   company might define something that overlays definitions from the other
+-- *   companyl
+-- *
+-- * HISTORY : In the early 1990's, Alpha Technologies, LTD., applied for an
+-- *   SNMP Enterprise number so they could start developing MIBs.  They were
+-- *   issued enterprise number 926.  However the product for which they wanted
+-- *   a MIB ended up being built under a different enterprise number and they
+-- *   never used the enterprise number assigned to them.
+-- *
+-- *   In 1997, Alpha Technologies, Inc., built their first MIB.  Rather than
+-- *   get their own enterprise they requested, and were granted, permission
+-- *   by ATL to use their enterprise number.
+-- *
+-- *   Over the years ATI develped an extensive MIB structure under 926, and
+-- *   ATL continued to not use it.  In 2006, with the concurance of Victor
+-- *   Goncalvas at ATL and the encouragement of Randy Dalgren at Argus, ATL
+-- *   agreed to assign ownership of enterprise number 926 to ATI.  As of this
+-- *   writting the number is assigned to ATI with Bill Crawford as the primary
+-- *   contact.  This assignment was made with IANA.
+-- *
+-- *   Despite the ownership transfer to ATI, the name of the node in the MIB
+-- *   tree must remain ATL since that is a part of the naming rules for
+-- *   enterprise numbers.
+-- *
+-- * Revision History:
+-- *
+-- * 0.01.0  22-SEP-2008  Bill Crawford
+-- *         Draft for review
+-- *           
+-- ****************************************************************************
+ATL-ROOT-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+     enterprises
+          FROM RFC1155-SMI
+     OBJECT-TYPE
+          FROM RFC-1212
+;
+
+atl                       OBJECT IDENTIFIER ::= { enterprises 926 }
+
+-- Top level definition for Alpha Tech Inc, Bellingham WA
+alphaTechInc              OBJECT IDENTIFIER ::= { atl 1 }
+
+-- Top level definition for Alpha Tech LTD, Burnaby BC
+alphaTechLtd              OBJECT IDENTIFIER ::= { atl 2 }
+
+-- A unique identifier that MUST be at the end of the ATL enterprise number.
+-- See description for more details.
+atlTerminus               OBJECT IDENTIFIER ::= { atl 9999 }
+atlTerminusEntry OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS     read-only 
+    STATUS     mandatory
+    DESCRIPTION "Forces a single response that indicates the end of all items
+                 defined under this enterprise number.  Needed for proxy
+                 agents that need confirmation that, when doing GET-NEXT
+                 requests, that they have reached the end of this enterprise
+                 number without actually having to fall off the end.  When
+                 requested of the agent a value of one is returned."
+    ::= { atlTerminus 1 }
+
+END
+

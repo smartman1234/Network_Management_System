@@ -1,0 +1,81 @@
+ATI-MGMT-SYS-IO-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiMgmtSysIO
+        FROM ATI-MGMT-SYS-MIB
+    OBJECT-TYPE
+        FROM RFC-1212
+    ;
+
+atiMgmtSysIOSelect OBJECT-TYPE
+    SYNTAX     INTEGER { genericDevice(1), lapOnly(2), heaterControlOnly(3), generatorOnly(4), heaterControlAndLap(5),
+                         generatorAndLap(6), auxIO-1(96), auxIO-2(97), auxIO-3(98), auxIO-4(99) }
+    ACCESS read-write
+    STATUS     mandatory
+    DESCRIPTION "Indicates what function the IO pins are being used for."
+    ::= { atiMgmtSysIO 1 }
+
+atiMgmtSysIOLAPState OBJECT-TYPE
+    SYNTAX     INTEGER { notInstalled(1), ok(2), acNotPresent(3), lapFail(4), lapFault(5) }
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION "Current state of the LAP device:
+              1 - Value always rendered when the previous OID (atiMgmtSysIOSelect) is
+                  set to *notInstalled*.  Will never have this value
+                  when the previous OID is set to *installed*.
+              2 - Indicates that each unit detects AC input and the
+                  LAP devices report no fault.
+              3 - One or more of the power supplies can detect no
+                  AC.  When the AC fails the LAP relay also opens
+                  which looks like a fault, so in this state it is
+                  not possible to know if a LAP has failed.
+              4 - An LAP has failed and needs to be replaced.  This
+                  is the state when all power supplies detect AC
+                  but the LAP sense line indicates a fault.
+              5 - There is a fault, either the LAP has not been
+                  wired correctly or the relay in the LAP is stuck
+                  in the no-fault state.  This state occurs when
+                  at least one power supply senses AC fail, which
+                  should cause an LAP fault, but no fault is detected."
+
+    ::= { atiMgmtSysIO 2 }
+
+atiMgmtSysIOGenState OBJECT-TYPE
+    SYNTAX     INTEGER { notInstalled(1), genOff(2), genRunning(3), genNotDetected(4), error(5) }
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION "When the portable generator sense lines are being used, state of the generator"
+    ::= { atiMgmtSysIO 3 }
+
+atiMgmtSysIOPinCtrl OBJECT-TYPE
+    SYNTAX     INTEGER { contactOpen(1), contactClosed(2) }
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION "Status of the Output Pin. When atiMgmtSysIOSelect is set to some modes (i.e. any
+                 mode which enables the heater mat controller) this OID shows the control status
+                 of the device which is being enabled/disabled."
+    ::= { atiMgmtSysIO 20 }
+
+atiMgmtSysIOPinIn4 OBJECT-TYPE
+    SYNTAX     INTEGER { contactOpen(1), contactClosed(2) }
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION "Status of Input Pin"
+    ::= { atiMgmtSysIO 21 }
+
+atiMgmtSysIOPinIn5 OBJECT-TYPE
+    SYNTAX     INTEGER { contactOpen(1), contactClosed(2) }
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION "Status of Input Pin"
+    ::= { atiMgmtSysIO 22 }
+
+atiMgmtSysIOPinIn6 OBJECT-TYPE
+    SYNTAX     INTEGER { contactOpen(1), contactClosed(2) }
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION "Status of Input Pin"
+    ::= { atiMgmtSysIO 23 }
+
+END
+

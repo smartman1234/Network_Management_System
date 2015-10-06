@@ -1,0 +1,765 @@
+NSCRTV-HFCEMS-FIBERNODE-MIB DEFINITIONS ::= BEGIN
+
+     IMPORTS
+          OBJECT-TYPE
+               FROM RFC-1212
+          DisplayString
+               FROM RFC1213-MIB  
+          fnIdent
+              FROM NSCRTV-ROOT
+     ;    
+ 
+fnVendorOID OBJECT-TYPE                   
+     SYNTAX OBJECT IDENTIFIER
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+-- * "此对象提供厂商对光节点MIB的扩充,无扩充时此对象应指向光节点fnIdent."
+     ::= { fnIdent 1 }
+
+-- ****************
+-- * 上行光发送机
+-- ****************
+
+fnNumberReturnLaser OBJECT-TYPE
+     SYNTAX INTEGER ( 0..16 )
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--     "光节点上行光发送机信息表的条目数,‘0’表示设备无此功能."
+     ::= { fnIdent 2 }
+
+fnReturnLaserTable OBJECT-TYPE
+     SYNTAX SEQUENCE OF FnReturnLaserEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+""
+--     "光节点上行光发送机信息表."
+     ::= { fnIdent 3 }
+
+fnReturnLaserEntry OBJECT-TYPE
+     SYNTAX FnReturnLaserEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+""
+--     "上行光发送机表目."
+     INDEX { fnReturnLaserIndex }
+     ::= { fnReturnLaserTable 1 }
+
+FnReturnLaserEntry ::=
+     SEQUENCE
+     {
+          fnReturnLaserIndex
+               INTEGER,
+          fnReturnLaserCurrent
+               INTEGER,
+          fnReturnLaserTemp
+               INTEGER,
+          fnReturnLaserControl
+               INTEGER,
+          fnReturnLaserType
+               DisplayString,
+          fnReturnLaserWavelength
+	       DisplayString,
+          fnReturnLaserOpticalPower
+               INTEGER,
+          fnReturnLaserRFActive
+               INTEGER,
+--2005.10.12 添加激光器AGC检测(适合哈雷3824光站)
+          fnReturnLaserOpticalAGC
+               INTEGER,
+--2008.04.06 添加反向发射模块电流检测(适合BTN2光站)
+          fnReturnModuleCurrent
+               INTEGER
+     }
+
+fnReturnLaserIndex OBJECT-TYPE
+     SYNTAX INTEGER
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--     "上行光发送机索引号,可以是上行光发送机设备的序号或是插槽编号."
+    ::= { fnReturnLaserEntry 1 }
+
+fnReturnLaserCurrent OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--     "上行光发送机偏置电流,单位为mA.此对象要求在属性MIB中登记一个条目."
+    ::= { fnReturnLaserEntry 2 }
+
+fnReturnLaserTemp OBJECT-TYPE
+     SYNTAX INTEGER ( -32768..32767 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--     "上行激光器温度,单位为0C.此对象要求在属性MIB中登记一个条目."
+     ::= { fnReturnLaserEntry 3 }
+
+fnReturnLaserControl OBJECT-TYPE
+     SYNTAX INTEGER { off(1), on(2) }
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+""
+--      ""
+     ::= { fnReturnLaserEntry 4 }
+
+fnReturnLaserType OBJECT-TYPE
+     SYNTAX DisplayString
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--     "上行光发送机类型,有效值为：unisolated FP, isolated FP, uncooled DFB, cooled DFB,ITU等."
+     ::= { fnReturnLaserEntry 5 }
+
+fnReturnLaserWavelength OBJECT-TYPE
+     SYNTAX DisplayString
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--     "上行光发送机的波长."
+     ::= { fnReturnLaserEntry 6 }
+
+fnReturnLaserOpticalPower OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--     "上行光发送机光功率,单位为0.1毫瓦.此对象要求在属性MIB中登记一个条目."
+     ::= { fnReturnLaserEntry 7 }
+
+fnReturnLaserRFActive OBJECT-TYPE
+     SYNTAX INTEGER
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--     "返回与上行光发送机关联的RF工作通道索引."                  
+     ::= { fnReturnLaserEntry 8 }
+
+fnReturnLaserOpticalAGC OBJECT-TYPE
+     SYNTAX INTEGER
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--       " 激光器的光路AGC检测电压. 此对象要求在属性MIB中登记一个条目. "
+     ::= { fnReturnLaserEntry 40 }
+
+fnReturnModuleCurrent OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--     "反向发射模块电流,单位为mA.此对象要求在属性MIB中登记一个条目."
+--     " Modified by WangGang. "
+    ::= { fnReturnLaserEntry 41 }
+-- ********************
+-- * 下行光接收机
+-- ********************
+
+fnNumberOpticalReceiver OBJECT-TYPE
+     SYNTAX INTEGER ( 0..16 )
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--"下行光接收机表中的条目数,‘0’表示设备无此功能."
+     ::= { fnIdent 4 }
+
+fnOpticalReceiverTable OBJECT-TYPE
+     SYNTAX SEQUENCE OF FnOpticalReceiverEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+""
+--"下行光接收机表."
+     ::= { fnIdent 5}
+
+fnOpticalReceiverEntry OBJECT-TYPE
+     SYNTAX FnOpticalReceiverEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+""
+--	     "下行光接收机表目."
+     INDEX { fnOpticalReceiverIndex }
+     ::= { fnOpticalReceiverTable 1 }
+
+FnOpticalReceiverEntry ::=
+     SEQUENCE
+     {
+          fnOpticalReceiverIndex
+               INTEGER,
+          fnOpticalReceiverPower
+               INTEGER,
+          fnOpticalReceiverState
+               INTEGER,
+          fnOpticalReceiverRFActive
+               INTEGER,
+--2008.04.06 添加下行光接收模块电流检测(适合BTN2光站)
+          fnOpticalReceiverModuleCurrent
+               INTEGER
+     }
+
+fnOpticalReceiverIndex OBJECT-TYPE
+     SYNTAX INTEGER
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+-- 	     "下行光接收机索引号,可以是下行光接收机设备的序号或者是插槽编号."
+     ::= { fnOpticalReceiverEntry 1 }
+
+fnOpticalReceiverPower OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--	     "下行光接收机的接收光功率,单位为0.1mW,此对象要求在属性MIB中登记一个条目."
+     ::= { fnOpticalReceiverEntry 2 }
+
+fnOpticalReceiverState OBJECT-TYPE								
+     SYNTAX INTEGER { off(1), on(2) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--	     "下行光接收机的控制使能状态."
+     ::= { fnOpticalReceiverEntry 3 }
+
+fnOpticalReceiverRFActive OBJECT-TYPE
+     SYNTAX INTEGER
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--	     "返回与下行光接收机关联的RF工作通道索引."
+     ::= { fnOpticalReceiverEntry 4 }
+
+fnOpticalReceiverModuleCurrent OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--     "下行光接收模块电流,单位为mA.此对象要求在属性MIB中登记一个条目."
+--     " Modified by WangGang. "
+    ::= { fnOpticalReceiverEntry 41 }
+
+-- ********
+-- * EDFA
+-- ********
+
+fnOpticalAmpPresent OBJECT-TYPE
+     SYNTAX INTEGER { no(1), yes(2) }
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--	     "表示是否存在光放大器MIB."
+     ::= { fnIdent 6 }
+
+-- *********************
+-- * 下行RF工作通道
+-- *********************
+
+fnNumberRFActives OBJECT-TYPE           
+     SYNTAX INTEGER ( 1..16 )
+     ACCESS read-only
+STATUS mandatory
+ 
+       DESCRIPTION
+""
+--"此光节点中下行RF工作通道数目.
+--每个光节点至少应有一个RF工作通道.
+--在fnRFPortTable表中,需要将光节点上行激光器RF工作通道（fnReturnLaserRFActive）和光节点下行光接收机RF工作通--道（fnOpticalReceiverRFActive）对象映射到同一RF工作通道.
+--RF工作通道号的用处是在下行光接收机和RF分配端口之间建立对应关系.
+--例子（无意涵盖全部可能的状况）:
+--(具有冗余光接收机、单片射频放大的光节点)
+--接收机  RF工作通道   RF端口数      上行激光器RF工作通道   下行光接收机RF工作通道     光节点RF分配端口RF工--作通道
+--a       1            1～4               1                          1                              1
+--b       1            1～4               1                          1                              1
+--(具有单个光接收机、单片射频放大的小型光节点)
+--接收机  RF工作通道   RF端口数      上行激光器RF工作通道   下行光接收机RF工作通道     光节点RF分配端口RF工--作通道
+--a       1            1～3               1                          1                              1
+--(具有两个射频放大部分的大型光节点)
+--接收机  RF工作通道   RF端口数      上行激光器RF工作通道   下行光接收机RF工作通道     光节点RF分配端口RF工--作通道
+--a       1            1～4               1                          1                              1
+--b       2            5～8               2                          2                              2
+--(每个端口具有独立放大,自下行光接收机到RF输出口由内部电缆连接的大型光节点)
+--接收机  RF工作通道   RF端口数      上行激光器RF工作通道   下行光接收机RF工作通道     光节点RF分配端口RF工--作通道
+--a       1            1～4               1                          1                              1
+--b       2            5～8               2                          2                              2
+--这样,无论光节点的信号通道多么复杂,都可以用RF工作通道描述."
+     ::= { fnIdent 7}
+
+fnRFActiveTable OBJECT-TYPE 
+
+     SYNTAX SEQUENCE OF FnRFActiveEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+""
+--	     "RF工作通道表."
+     ::= { fnIdent 8}
+
+fnRFActiveEntry OBJECT-TYPE
+     SYNTAX FnRFActiveEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+""
+--	      "RF工作通道表目."
+     INDEX { fnRFActiveIndex }
+     ::= { fnRFActiveTable 1 }
+
+FnRFActiveEntry ::=
+     SEQUENCE
+     {
+          fnRFActiveIndex
+               INTEGER,
+          fnRFActiveControlType
+               INTEGER,
+          fnRFActiveOutputLevel
+               INTEGER,
+          fnRFActiveCurrent
+               INTEGER,
+          fnRFActiveControlLevel
+               INTEGER,
+	  fnRFActiveControlStepLevel
+               INTEGER
+     }
+
+fnRFActiveIndex OBJECT-TYPE
+     SYNTAX INTEGER
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--	     "RF工作通道索引."
+     ::= { fnRFActiveEntry 1 }
+
+fnRFActiveControlType OBJECT-TYPE
+     SYNTAX INTEGER { alc(1), asc(2), agc(3), none(4) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--        "RF工作通道控制类型：alc（自动电平控制）,asc（自动斜率控制）,agc（自动增益控制）,无固定类型."
+::= { fnRFActiveEntry 2 }
+
+fnRFActiveOutputLevel OBJECT-TYPE
+     SYNTAX INTEGER ( 0..127 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--"RF导频输出电平,单位为dBuV.
+--此对象要求在属性MIB中登记一个条目."
+     ::= { fnRFActiveEntry 3 }
+
+fnRFActiveCurrent OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--         "RF工作通道电流,单位为mA.
+--         此对象要求在属性MIB中登记一个条目."
+     ::= { fnRFActiveEntry 4 }
+
+fnRFActiveControlLevel OBJECT-TYPE
+      SYNTAX INTEGER
+      ACCESS read-only
+      STATUS optional
+      DESCRIPTION
+""
+--"该RF工作通道控制类型所指示的控制电平,单位为0.1VDC.
+--           此对象要求在属性MIB中登记一个条目."
+     ::= { fnRFActiveEntry 5 }
+
+fnRFActiveControlStepLevel OBJECT-TYPE
+      SYNTAX INTEGER
+      ACCESS read-write
+      STATUS optional
+      DESCRIPTION
+""
+--          "该RF工作通道控制类型所指示的控制电平衰减值，单位为0.1dBuv。
+--           控制取值为{0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5,  
+--                      7, 7.5, 8, 8.5, 9, 9.5, 10} "
+     ::= { fnRFActiveEntry 40 }
+
+-- ***********
+-- * RF 端口
+-- ***********
+
+fnNumberRFPort OBJECT-TYPE
+     SYNTAX INTEGER ( 0..16 )
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--	     "RF端口数目,0表示无此功能."
+     ::= { fnIdent 9 }
+
+fnPortMasterAttenuationControl OBJECT-TYPE
+     SYNTAX INTEGER { none(1), low(2), high(3) }
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+""
+-- "报告和控制适用于所有端口的上行通道衰减开关的状态.
+--none(1): 无衰减；
+--low(2): 典型的低衰减值；该衰减值可能并不适用于所用端口；
+--high(3): 典型的高衰减值；该衰减值可能并不适用于所用端口.
+--此对象的访问不影响fnRFPortReverseAttenuationControl对象的值"
+     ::= { fnIdent 10 }
+
+fnRFPortTable OBJECT-TYPE
+     SYNTAX SEQUENCE OF FnRFPortEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+""
+--	      "RF端口信息表."
+     ::= { fnIdent 11 }
+
+fnRFPortEntry OBJECT-TYPE
+     SYNTAX FnRFPortEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+""
+--	      "每个RF端口信息表目."
+     INDEX { fnRFPortIndex }
+     ::= { fnRFPortTable 1 }
+
+FnRFPortEntry ::=
+     SEQUENCE
+     {
+          fnRFPortIndex
+               INTEGER,
+          fnRFPortControlType
+               INTEGER,
+            fnRFPortControlLevel 
+               INTEGER,
+fnRFPortOutputRFLevel
+               INTEGER,
+          fnRFPortRFActive
+               INTEGER,
+          fnRFPortName
+               DisplayString,
+          fnRFPortReverseAttenuationControl
+               INTEGER,
+	  fnRFPortPowerFeedStatus
+				INTEGER,
+	fnRFPortControlRFLevel
+				INTEGER
+		  
+     }
+
+fnRFPortIndex OBJECT-TYPE
+     SYNTAX INTEGER
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--"RF端口索引,索引编号可根据实际应用情况确定,可以表示第几个端口,也可以是端口的编号."
+     ::= { fnRFPortEntry 1 }
+
+fnRFPortControlType OBJECT-TYPE
+     SYNTAX INTEGER { alc(1), asc(2), agc(3), none(4) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--	"控制类型：alc（自动电平控制）,asc（自动斜率控制）,agc（自动增益控制）,无固定类型."
+::= { fnRFPortEntry 2 }
+
+fnRFPortControlLevel OBJECT-TYPE
+     SYNTAX INTEGER
+ACCESS read-only
+    STATUS optional
+    DESCRIPTION
+""
+--"该RF端口控制类型所指示的控制电平,单位为0.1VDC.
+--         此对象要求在属性MIB中登记一个条目."
+     ::= { fnRFPortEntry 3 }
+
+fnRFPortOutputRFLevel OBJECT-TYPE
+     SYNTAX INTEGER ( 0..127 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--"放大器RF端口的导频输出电平,单位为dBuV.
+--此对象要求在属性MIB中登记一个条目."
+    ::= { fnRFPortEntry 4 }
+
+fnRFPortRFActive OBJECT-TYPE
+     SYNTAX INTEGER
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--"与此RF端口关联的RF工作通道索引."
+     ::= { fnRFPortEntry 5 }
+
+fnRFPortName OBJECT-TYPE
+     SYNTAX DisplayString
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--"端口的物理名称,例如端口1和端口2.
+--当此表中的对象产生告警陷阱消息时,此名称将被填入hfcAlarmTrap中的alarmText对象里."
+     ::= { fnRFPortEntry 6 }
+
+fnRFPortReverseAttenuationControl OBJECT-TYPE
+     SYNTAX INTEGER { none(1), low(2), high(3) }
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+""
+--"报告和控制该端口的上行通道衰减开关的状态.
+--none(1): 无衰减；
+--low(2): 回传通道典型的低衰减值,该衰减值可能并不适用于所有开关.
+--high(3): 回传通道典型的高衰减值,该衰减值可能并不适用于所用开关."
+::= { fnRFPortEntry 7 }
+
+fnRFPortPowerFeedStatus OBJECT-TYPE
+     SYNTAX INTEGER { on(1),off(2)  }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--	     "RF端口馈电状态,‘1’表示有馈电,‘2’表示无馈电"
+::= { fnRFPortEntry 8 }
+
+fnRFPortControlRFLevel OBJECT-TYPE
+     SYNTAX INTEGER
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+""
+--             "RF端口的控制电平, 调节端口电平的输出. 单位为1dBuv"
+::= { fnRFPortEntry 40 }
+
+-- **************
+-- * AB开关
+-- **************
+
+fnNumberABSwitch OBJECT-TYPE
+     SYNTAX INTEGER ( 0..16)
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--	"此光节点上AB开关总数,0表示设备无此功能."
+     ::= { fnIdent 12 }
+
+fnABSwitchTable OBJECT-TYPE
+     SYNTAX SEQUENCE OF FnABSwitchEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+""
+--	     "该光节点内的AB开关信息表"
+     ::= { fnIdent 13 }
+
+fnABSwitchEntry OBJECT-TYPE
+     SYNTAX FnABSwitchEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+""
+--	     "AB开关信息表目"
+     INDEX { fnABSwitchIndex }
+     ::= { fnABSwitchTable 1 }
+
+FnABSwitchEntry ::=
+     SEQUENCE
+     {
+          fnABSwitchIndex
+               INTEGER,
+          fnOpticalReceiverABSwitchState
+               INTEGER,
+          fnOpticalReceiverABSwitchControl
+               INTEGER
+     }
+
+fnABSwitchIndex OBJECT-TYPE
+     SYNTAX INTEGER
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--	     "AB开关索引"
+     ::= { fnABSwitchEntry 1 }
+
+fnOpticalReceiverABSwitchState OBJECT-TYPE
+     SYNTAX INTEGER  { pathA(1), pathB(2) }
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--	     "报告AB开关的状态,此对象要求在离散特性表中登记一个条目."
+     ::= { fnABSwitchEntry 2 }
+
+fnOpticalReceiverABSwitchControl OBJECT-TYPE
+     SYNTAX INTEGER { forcePathA(1), forcePathB(2), preferPathA(3), preferPathB(4) }
+     ACCESS read-write
+     STATUS mandatory
+     DESCRIPTION
+""
+--"光接收机的AB开关控制
+--	forcePathA －　强制AB开关切换到通道A上.禁止任何自动切换.
+--	forcePathB －　强制AB开关切换到通道B上.禁止任何自动切换.
+--preferPathA －　允许自动切换,通道A优先.厂商可以规定在一定条件下切换到通道B.但条件不再满足时AB开关将自动切--换回--通道A.
+--preferPathB－　允许自动切换,通道B优先.厂商可以规定在一定条件下切换到通道A.但条件不再满足时AB开关将自动切换--回通--道B.	
+--光节点应答器不必支持所有的枚举值.如果接收到的设置指令的参数值是不支持的,则回应一个BADVALUE错误."
+     ::= { fnABSwitchEntry 3 }
+
+-- ***********
+-- * 交流电源
+-- ***********
+
+fnLinePowerVoltage1 OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+-- "线路电源电压,单位为1VAC.此对象要求在属性MIB中登记一个条目."
+     ::= { fnIdent 14 }
+
+fnLinePowerVoltage2 OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--	"备份线路电源电压,单位为1VAC.此对象要求在属性MIB中登记一个条目."
+     ::= { fnIdent 15 }
+
+fnLinePowerCurrent OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--	"光节点的总电流,单位为0.1A.此对象要求在属性MIB中登记一个条目."
+     ::= { fnIdent 16}
+
+-- *****************
+-- * 直流电源
+-- *****************
+
+fnNumberDCPowerSupply OBJECT-TYPE
+     SYNTAX INTEGER ( 0..16 )
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--"内部直流电源的数目,‘0’表示设备无此功能."
+     ::= { fnIdent 17 }
+
+fnDCPowerSupplyMode OBJECT-TYPE
+     SYNTAX INTEGER { loadsharing(1), switchedRedundant(2) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--        "供电电源工作模式: 负载分担或备用切换.
+--         如果设备仅有一个直流电源供电,此对象不应被支持."
+     ::= { fnIdent 18 }
+
+fnDCPowerTable OBJECT-TYPE
+     SYNTAX SEQUENCE OF FnDCPowerEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+""
+--        "直流电源信息表"
+     ::= { fnIdent 19 }
+
+fnDCPowerEntry OBJECT-TYPE
+     SYNTAX FnDCPowerEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+""
+--   "直流电源信息表目."
+     INDEX { fnDCPowerIndex }
+     ::= { fnDCPowerTable 1 }
+
+FnDCPowerEntry ::=
+     SEQUENCE
+     {
+          fnDCPowerIndex
+               INTEGER,
+          fnDCPowerVoltage
+               INTEGER,
+          fnDCPowerCurrent
+               INTEGER,
+          fnDCPowerName
+               DisplayString
+     }
+
+fnDCPowerIndex OBJECT-TYPE
+     SYNTAX INTEGER
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--         "直流电源索引,表fnDCPowerTable的索引."
+     ::= { fnDCPowerEntry 1 }
+
+
+fnDCPowerVoltage OBJECT-TYPE
+     SYNTAX INTEGER ( -32768..32767 )
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--  "电源电压,单位为0.1V.此对象要求在属性MIB中登记一个条目."
+     ::= { fnDCPowerEntry 2 }
+
+fnDCPowerCurrent OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+""
+--  "电源电流,单位为0.1A.此对象要求在属性MIB中登记一个条目."
+     ::= { fnDCPowerEntry 3 }
+
+fnDCPowerName OBJECT-TYPE
+     SYNTAX DisplayString
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+""
+--"标明直流电源名称,例如：24V直流电源.
+--此字段值由用户规定,至少应标明工作电压并将多个电源相互区分开.
+--当此表中的对象产生告警时,此对象名称应放进hfcAlarmEvent陷阱的alarmText对象里."
+
+::= { fnDCPowerEntry 4 }
+
+
+END

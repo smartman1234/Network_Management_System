@@ -1,0 +1,240 @@
+ATI-MGMT-SYS-ACCESS-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiMgmtSysAccess 
+        FROM ATI-MGMT-SYS-MIB
+    OBJECT-TYPE
+        FROM RFC-1212
+    DisplayString
+        FROM SNMPv2-TC
+    NetworkAddress
+        FROM RFC1155-SMI
+;
+
+atiMgmtSysHttpAccess OBJECT-TYPE
+    SYNTAX     INTEGER { disabled(1), enabled(2) }
+    ACCESS read-write 
+    STATUS     optional
+    DESCRIPTION "As of DSM3, obsolete"
+    ::= { atiMgmtSysAccess 1 }
+
+atiMgmtSysHttpTextAccess OBJECT-TYPE
+    SYNTAX     INTEGER { disabled(1), enabled(2) }
+    ACCESS read-write 
+    STATUS     optional
+    DESCRIPTION "As of DSM3, obsolete"
+    ::= { atiMgmtSysAccess 2 }
+
+-- ****************************************************************************
+-- * System Parameters for TELNET access
+-- *
+-- * The OID : is 1.3.6.1.4.1.926.1.3.2.2.3
+-- ****************************************************************************
+
+atiMgmtSysTelnetAccess        OBJECT IDENTIFIER ::= { atiMgmtSysAccess 3 }
+
+atiMgmtSysTelnetCPENetwork OBJECT-TYPE
+    SYNTAX     NetworkAddress 
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Base IP address for Telnet access.  0.0.0.0
+                 means access is disabled from CPE Interface."
+    ::= { atiMgmtSysTelnetAccess 1 }
+
+atiMgmtSysTelnetCPEMask OBJECT-TYPE
+    SYNTAX     NetworkAddress 
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Mask applied to atiMgmtSysTelnetCPENetwork to
+                 determine the subnet of addresses to allow."
+    ::= { atiMgmtSysTelnetAccess 2 }
+
+atiMgmtSysTelnetCMNetwork OBJECT-TYPE
+    SYNTAX     NetworkAddress 
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Base IP address for Telnet access.  0.0.0.0
+                 means access is disabled from CM Interface."
+    ::= { atiMgmtSysTelnetAccess 3 }
+
+atiMgmtSysTelnetCMMask OBJECT-TYPE
+    SYNTAX     NetworkAddress 
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Mask applied to atiMgmtSysTelnetCMNetwork to
+                 determine the subnet of addresses to allow."
+    ::= { atiMgmtSysTelnetAccess 4 }
+
+-- ****************************************************************************
+-- * System Parameters for HTTP access
+-- *
+-- * The OID : is 1.3.6.1.4.1.926.1.3.2.2.4
+-- ****************************************************************************
+
+atiMgmtSysHttpPrams OBJECT IDENTIFIER ::= { atiMgmtSysAccess 4 }
+
+atiMgmtSysHttpEnabled OBJECT-TYPE
+    SYNTAX     INTEGER { disabled(1), enabled(2) }
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Device Accessibility. This value is non-volatile"
+    ::= { atiMgmtSysHttpPrams 1 }
+
+atiMgmtSysHttpWriteEnabled OBJECT-TYPE
+    SYNTAX     INTEGER { disabled(0), cmOnly(1), cpeOnly(2), cmAndCpe(3), localOnly(4), localAndCm(5), localAndCpe(6), localAndCmAndCpe(7) }
+    ACCESS     read-write 
+    STATUS     mandatory
+    DESCRIPTION "Device Accessibility. When the integer value is viewed as binary,
+                 the first bit (the 1's place) enables CM access, the second bit (2's place)
+                 CPE access, and the third bit (4's place) LOCAL access.  So, for example,
+                 to get CM and LOCAL access (no CPE) the integer value would be 1+4=5.
+                 access. This value is non-volatile"
+    ::= { atiMgmtSysHttpPrams 4 }
+
+-- ****************************************************************************
+-- * Table for HTTP Ports that can access the device
+-- ****************************************************************************
+
+atiMgmtSysHttpPortsTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiMgmtSysHttpPortsEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Table of open HTTP ports"
+    ::= { atiMgmtSysHttpPrams 2 }
+
+atiMgmtSysHttpPortsEntry OBJECT-TYPE
+    SYNTAX     AtiMgmtSysHttpPortsEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "One item in this table"
+    INDEX { atiMgmtSysHttpPortsIndex }
+    ::= { atiMgmtSysHttpPortsTable 1 }
+
+AtiMgmtSysHttpPortsEntry ::= SEQUENCE {
+    atiMgmtSysHttpPortsIndex   INTEGER,
+    atiMgmtSysHttpPortsPort    INTEGER
+}
+
+atiMgmtSysHttpPortsIndex OBJECT-TYPE
+    SYNTAX     INTEGER (0..255)
+    ACCESS     not-accessible 
+    STATUS     mandatory
+    DESCRIPTION "Index for this table"
+    ::= { atiMgmtSysHttpPortsEntry 1 }
+
+atiMgmtSysHttpPortsPort OBJECT-TYPE
+    SYNTAX     INTEGER (0..65535)
+    ACCESS     not-accessible 
+    STATUS     mandatory
+    DESCRIPTION "Port number"
+    ::= { atiMgmtSysHttpPortsEntry 2 }
+
+-- ****************************************************************************
+-- * Table for HTTP Passwords that can access the device
+-- ****************************************************************************
+
+atiMgmtSysHttpPasswordsTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiMgmtSysHttpPasswordsEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Table of HTTP passwords"
+    ::= { atiMgmtSysHttpPrams 3 }
+
+atiMgmtSysHttpPasswordsEntry OBJECT-TYPE
+    SYNTAX     AtiMgmtSysHttpPasswordsEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "One item in this table"
+    INDEX { atiMgmtSysHttpPasswordsLevel }
+    ::= { atiMgmtSysHttpPasswordsTable 1 }
+
+AtiMgmtSysHttpPasswordsEntry ::= SEQUENCE {
+    atiMgmtSysHttpPasswordsLevel    INTEGER,
+    atiMgmtSysHttpPasswordsPassword DisplayString
+}
+
+atiMgmtSysHttpPasswordsLevel OBJECT-TYPE
+    SYNTAX     INTEGER (0..255)
+    ACCESS     not-accessible 
+    STATUS     mandatory
+    DESCRIPTION "Security Level.  Index for this table"
+    ::= { atiMgmtSysHttpPasswordsEntry 1 }
+
+atiMgmtSysHttpPasswordsPassword OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Password,  Can be used to set
+                 passwords.  During a GET request
+                 it will always return a zero
+                 length string so that users without
+                 SET access will not be able to
+                 see the string, and so that it will
+                 not go on the wire in the clear."
+    ::= { atiMgmtSysHttpPasswordsEntry 2 }
+
+-- ****************************************************************************
+-- * System Parameters for CPE access
+-- *
+-- * The OID : is 1.3.6.1.4.1.926.1.3.2.2.5
+-- ****************************************************************************
+
+atiMgmtSysMonitoringCpeMode OBJECT IDENTIFIER ::= { atiMgmtSysAccess 5 }
+
+atiMgmtSysMonitoringCpeEnabled OBJECT-TYPE
+    SYNTAX     INTEGER { disabled(1), enabled(2) }
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "For status monitoring, the CM is always enabled (single IP).
+                 If the CPE is also enabled for status monitoring, then we
+                 consider that to be dual IP.  This value is to be kept in
+                 non-vol."
+    ::= { atiMgmtSysMonitoringCpeMode 1 }
+
+atiMgmtSysMonitoringCpeStaticIP OBJECT IDENTIFIER ::= { atiMgmtSysMonitoringCpeMode 2 }
+
+atiMgmtSysMonitoringCpeStaticMode OBJECT-TYPE
+    SYNTAX     INTEGER { dhcp(1), static(2) }
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Defines the method by which the CPE aquires its IP address.
+                 for Static, the next fields define the address.  The factory
+                 default value for this OID is dhcp(1). This value is to be
+                 kept in non-vol."
+    ::= { atiMgmtSysMonitoringCpeStaticIP 1 }
+
+atiMgmtSysMonitoringCpeStaticAddress OBJECT-TYPE
+    SYNTAX     NetworkAddress 
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "When the address source is static, this is the IP address
+                 the device will respond to.  If static is not enabled this
+                 value is ignored.  The factory default value for this
+                 OID is 0.0.0.0.  This value is to be kept in non-vol."
+    ::= { atiMgmtSysMonitoringCpeStaticIP 2 }
+
+atiMgmtSysMonitoringCpeStaticMask OBJECT-TYPE
+    SYNTAX     NetworkAddress 
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "When the address source is static, this is the mask the
+                 device will use to determine if other devices are on the
+                 local area network (LAN).  If static is not enabled this
+                 value is ignored.  The factory default value for this
+                 OID is 0.0.0.0.  This value is to be kept in non-vol."
+    ::= { atiMgmtSysMonitoringCpeStaticIP 3 }
+
+atiMgmtSysMonitoringCpeStaticGateway OBJECT-TYPE
+    SYNTAX     NetworkAddress 
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "When the address source is static, this is the IP address
+                 of the gateway the device is to use for accessing devices
+                 not on the local area network (LAN).  If static is not
+                 enabled this value is ignored.  The factory default
+                 value for this OID is 0.0.0.0.  This value is to be kept
+                 in non-vol."
+    ::= { atiMgmtSysMonitoringCpeStaticIP 4 }
+
+END
+

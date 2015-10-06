@@ -1,0 +1,120 @@
+
+-- ****************************************************************************
+-- *
+-- * Alpha Technologies, Inc.
+-- *
+-- * NAME : ATI-PACKET-CABLE-UPS-MIB.txt
+-- *
+-- * ALPHA PART NUMBER : TBD
+-- *
+-- * SUMMARY : This is the small power supply generic status and alarm MIB.
+-- *   Entry point is 1.3.6.1.4.1.926.1.4.2.2
+-- *
+-- * Revision History:
+-- *
+-- * 0.01.0  22-SEP-2008  Bill Crawford
+-- *           Draft for review
+-- *
+-- ****************************************************************************
+ATI-PACKET-CABLE-UPS-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiPacketCableUPS
+        FROM ATI-PRODUCT-PLATFORMS-MIB
+    OBJECT-TYPE
+        FROM RFC-1212
+    TRAP-TYPE
+        FROM RFC-1215
+    sysName
+        FROM SNMPv2-MIB
+    ;
+
+-- ****************************************************************************
+-- * The OID for atiPacketCableUPS is 1.3.6.1.4.1.926.1.4.2.2
+-- ****************************************************************************
+
+atiPacketCableUPSStatus     OBJECT IDENTIFIER ::= { atiPacketCableUPS  1 }
+atiPacketCableUPSTrapData   OBJECT IDENTIFIER ::= { atiPacketCableUPS  2 }
+
+
+-- ****************************************************************************
+-- * Status Information
+-- ****************************************************************************
+
+atiPCUPSInputVoltageStatus OBJECT-TYPE
+     SYNTAX INTEGER { ok(1), fail(2) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Status of power supply AC input voltage"
+     ::= { atiPacketCableUPSStatus 1 }
+
+atiPCUPSReplaceBatteryIndicator OBJECT-TYPE
+     SYNTAX INTEGER { ok(1), replace(2) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Status of UPS battery.  Indicates when it is time to replace the
+           battery"
+     ::= { atiPacketCableUPSStatus 2 }
+
+atiPCUPSMissingBatteryAlarm OBJECT-TYPE
+     SYNTAX INTEGER { ok(1), missing(2) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Indicates when battery is missing or disconnected"
+     ::= { atiPacketCableUPSStatus 3 }
+
+atiPCUPSBatteryLowAlarm OBJECT-TYPE
+     SYNTAX INTEGER { ok(1), batteryLow(2) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Indicates when battery is low and should be serviced"
+     ::= { atiPacketCableUPSStatus 4 }
+
+-- ****************************************************************************
+-- * Data for the Trap
+-- ****************************************************************************
+
+atiPCUPSAlarmOID OBJECT-TYPE
+     SYNTAX OBJECT IDENTIFIER
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "An entry to be used only for trap varbinds.  It will
+           contain the OID of the alarm item that has changed
+           state.
+
+           This item is not to respond to any SNMP request. "
+     ::= { atiPacketCableUPSTrapData 1 }
+
+atiPCUPSAlarmValue OBJECT-TYPE
+     SYNTAX INTEGER { ok(1), alarm(2) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "An entry to be used only for trap varbinds.  It will
+           contain the value of the alarm item that has changed
+           state.  In the trap, this item can be used to determine
+           if the trap is being sent because the item is going
+           into the alarm state or if it is returning from the
+           alarm state.
+
+           This item is not to respond to any SNMP request. "
+     ::= { atiPacketCableUPSTrapData 2 }
+
+-- ****************************************************************************
+-- * The trap
+-- ****************************************************************************
+
+atiPCUPSEvent TRAP-TYPE
+      ENTERPRISE atiPacketCableUPS
+      VARIABLES { sysName, atiPCUPSAlarmOID, atiPCUPSAlarmValue }
+      DESCRIPTION
+            "Enterprise specific trap that will be used to inform
+             that something has transitioned into the alarm state"
+      ::= 1
+
+END

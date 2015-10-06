@@ -1,0 +1,185 @@
+ATI-MGMT-SYS-DOWNLOAD-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiMgmtSysDownload
+        FROM ATI-MGMT-SYS-MIB
+    OBJECT-TYPE
+        FROM RFC-1212
+    DisplayString
+        FROM SNMPv2-TC
+    NetworkAddress
+        FROM RFC1155-SMI
+    InetAddressType,
+    InetAddress
+        FROM INET-ADDRESS-MIB     -- RFC 4001
+;
+
+atiMgmtSysDownloadTftpAddress OBJECT-TYPE
+    SYNTAX     NetworkAddress
+    ACCESS     read-write
+    STATUS     deprecated
+    DESCRIPTION "Address of download TFTP server"
+    ::= { atiMgmtSysDownload 1 }
+
+atiMgmtSysDownloadCtrl OBJECT-TYPE
+    SYNTAX     INTEGER { readOneNext(1), readTwoNext(2), idle(3), abort(4), psReprogram(5) }
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Download Control"
+    ::= { atiMgmtSysDownload 2 }
+
+atiMgmtSysDownloadStatus OBJECT-TYPE
+    SYNTAX     INTEGER { idle(1), ready(2), request(3), requested(4), transferring(5), testing(6), dataDone(7), error(8), closing(9), psDownloading(10), psProgramming(11) }
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION "Download Control"
+    ::= { atiMgmtSysDownload 3 }
+
+atiMgmtSysDownloadFile1 OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "First File Name"
+    ::= { atiMgmtSysDownload 4 }
+
+atiMgmtSysDownloadFile2 OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Second File Name"
+    ::= { atiMgmtSysDownload 5 }
+
+atiMgmtSysDownloadProgress OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION "Download Progress in Bytes"
+    ::= { atiMgmtSysDownload 6 }
+
+atiMgmtSysDownloadSysDescr OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "sysDescr string for testing"
+    ::= { atiMgmtSysDownload 7 }
+
+atiMgmtSysDownloadSysObjectID OBJECT-TYPE
+    SYNTAX     OBJECT IDENTIFIER
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "sysObjectID string for testing"
+    ::= { atiMgmtSysDownload 8 }
+
+atiMgmtSysDownloadConfigName OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Name of Config File"
+    ::= { atiMgmtSysDownload 9 }
+
+atiMgmtSysDownloadConfigAddress OBJECT-TYPE
+    SYNTAX     NetworkAddress
+    ACCESS     read-write
+    STATUS     deprecated
+    DESCRIPTION "Address of download TFTP server"
+    ::= { atiMgmtSysDownload 10 }
+
+atiMgmtSysDownloadCm OBJECT-TYPE
+    SYNTAX     INTEGER { auto(1), forceCm(2) }
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Download Control. In a dual IP system setting the value
+                 to forceCm will cause the device to fetch the configuration file
+                 over the CM interface rather than the CPE interface. When set to
+                 auto the configuration file will be read from the primary
+                 interface, the CM in single ip mode and the CPE when in dual ip
+                 mode."
+    ::= { atiMgmtSysDownload 11 }
+
+atiMgmtSysDownloadCfgCheckProgress OBJECT-TYPE
+    SYNTAX     INTEGER { idle(1), looking(2), tagged(3) }
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Configuration State Information.  Although this variable is
+                 declared as read-write, writes will not change the value
+                 of the variable.  But they will be acknowledged as if the
+                 write took place.  This is a marker for the configuration
+                 file to know where to start allowing sets to take place."
+    ::= { atiMgmtSysDownload 12 }
+
+atiMgmtSysDownloadReCfgTime OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Hours between requests for the config file"
+    ::= { atiMgmtSysDownload 13 }
+
+atiMgmtSysDownloadLoadFromCM OBJECT-TYPE
+    SYNTAX     INTEGER { allow(1), prevent(2), onceOnly(3) }
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Allows the auto reimaging from the Cable Modem
+                 to be disabled or to happen only once.  Manufacturing
+                 default value is 1."
+    ::= { atiMgmtSysDownload 14 }
+
+atiMgmtSysDownloadTftpServerAddressType OBJECT-TYPE
+    SYNTAX     InetAddressType
+    ACCESS     read-write
+    STATUS     current
+    DESCRIPTION "Address mode of
+      atiMgmtSysDownloadTftpServerAddress."
+    ::= { atiMgmtSysDownload 15 }
+
+atiMgmtSysDownloadTftpServerAddress OBJECT-TYPE
+    SYNTAX     InetAddress
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Address of download TFTP server.
+
+                If the TFTP server is unknown, return the zero-
+                length address string (see the TextualConvention).
+
+                If atiMgmtSysDownloadTftpAddress is also implemented
+                in this agent, this object is tied to it.  A set of
+                this object to an IPv4 address will result in also
+                setting the value of atiMgmtSysDownloadTftpAddress to
+                that address.  If this object is set to an IPv6
+                address, atiMgmtSysDownloadTftpAddress is set to
+                0.0.0.0. If atiMgmtSysDownloadTftpAddress is set,
+                this object is also set to that value.  Note that if
+                both are set in the same action, the order of which
+                one sets the other is undefined."
+    ::= { atiMgmtSysDownload 16 }
+
+atiMgmtSysDownloadConfigServerAddressType OBJECT-TYPE
+    SYNTAX     InetAddressType
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Address mode of
+      atiMgmtSysDownloadConfigServerAddress."
+    ::= { atiMgmtSysDownload 17 }
+
+atiMgmtSysDownloadConfigServerAddress OBJECT-TYPE
+    SYNTAX     InetAddress
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Address of download TFTP server.
+
+                If the TFTP server is unknown, return the zero-
+                length address string (see the TextualConvention).
+
+                If atiMgmtSysDownloadConfigAddress is also implemented
+                in this agent, this object is tied to it.  A set of
+                this object to an IPv4 address will result in also
+                setting the value of atiMgmtSysDownloadConfigAddress to
+                that address.  If this object is set to an IPv6
+                address, atiMgmtSysDownloadConfigAddress is set to
+                0.0.0.0. If atiMgmtSysDownloadConfigAddress is set,
+                this object is also set to that value.  Note that if
+                both are set in the same action, the order of which
+                one sets the other is undefined."
+    ::= { atiMgmtSysDownload 18 }
+
+END
+

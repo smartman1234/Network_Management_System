@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snmp-asset-adapter-configuration>
+
+	<package name="egfa">
+		<!-- A Cisco wireless sysoid, for example purposes only :) -->
+		<sysoid>.1.3.6.1.4.1.17409.1.11</sysoid>
+
+		<assetField name="description" formatString="${sysDescr}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.1.0" alias="sysDescr"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="dateinstalled" formatString="${sysUpTime}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.3.0" alias="sysUpTime"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="supportphone" formatString="${sysContact}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.4.0" alias="sysContact"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="displaycategory" formatString="${sysName}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.5.0" alias="sysName"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="region" formatString="${sysLocation}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.6.0" alias="sysLocation"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="comment" formatString="${sysServices}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.7.0" alias="sysServices"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="pollercategory" formatString="${ifDescr}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.4.1.17409.1.3.1.9.0" alias="ifDescr"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="assetnumber" formatString="${ifPhysAddress}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.4.1.17409.1.3.2.1.1.1.0" alias="ifPhysAddress"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="vmwarestate" formatString="${docsDevSwCurrentVers}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.4.1.17409.1.3.3.2.2.1.19.1" alias="docsDevSwCurrentVers"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="serialnumber" formatString="${commonSerialNumber}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.4.1.17409.1.90.7.4.2.0" alias="commonSerialNumber"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="modelnumber" formatString="${commonModelNumber}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.4.1.17409.1.3.1.3.0" alias="commonModelNumber"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="enable" formatString="${commonAlarmDetectionControl}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.11.30.0" alias="commonAlarmDetectionControl"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="building" formatString="${manutime}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.4.1.17409.1.3.3.2.2.1.18.1" alias="manutime"/>
+			</mibObjs>
+		</assetField>
+
+	</package>
+
+	<package name="eg1550">
+		<!-- A Cisco wireless sysoid, for example purposes only :) -->
+		<sysoid>.1.3.6.1.4.1.3222.14.2.1.1</sysoid>
+
+		<assetField name="description" formatString="${sysDescr}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.1.0" alias="sysDescr"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="dateinstalled" formatString="${sysUpTime}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.3.0" alias="sysUpTime"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="supportphone" formatString="${sysContact}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.4.0" alias="sysContact"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="displaycategory" formatString="${sysName}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.5.0" alias="sysName"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="region" formatString="${sysLocation}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.6.0" alias="sysLocation"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="comment" formatString="${sysServices}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.7.0" alias="sysServices"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="pollercategory" formatString="${ifDescr}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.4.1.33826.3.1.1.0" alias="ifDescr"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="assetnumber" formatString="${ifPhysAddress}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.4.1.33826.3.1.5.0" alias="ifPhysAddress"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="serialnumber" formatString="${snmpSetSerialNo}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.4.1.3222.4.6.1.1.2.1" alias="snmpSetSerialNo"/>
+			</mibObjs>
+		</assetField>
+
+	</package>
+
+	<package name="elink">
+		<!-- A Cisco wireless sysoid, for example purposes only :) -->
+		<sysoid>.1.3.6.1.4.1.5591.29317.1.11.1.3.1.1</sysoid>
+
+		<assetField name="description" formatString="${sysDescr}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.1.0" alias="sysDescr"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="dateinstalled" formatString="${sysUpTime}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.3.0" alias="sysUpTime"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="supportphone" formatString="${sysContact}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.4.0" alias="sysContact"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="displaycategory" formatString="${sysName}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.5.0" alias="sysName"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="region" formatString="${sysLocation}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.6.0" alias="sysLocation"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="comment" formatString="${sysServices}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.1.7.0" alias="sysServices"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="pollercategory" formatString="${ifDescr}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.4.1.5591.1.3.1.9.0" alias="ifDescr"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="assetnumber" formatString="${ifPhysAddress}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.2.1.2.2.1.6.1" alias="ifPhysAddress"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="vmwarestate" formatString="${docsDevSwCurrentVers}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.4.1.4885.2.1.3.1.1.1.0" alias="docsDevSwCurrentVers"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="serialnumber" formatString="${commonSerialNumber}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.4.1.5591.1.3.1.4.1" alias="commonSerialNumber"/>
+			</mibObjs>
+		</assetField>
+
+		<assetField name="modelnumber" formatString="${commonModelNumber}">
+			<mibObjs>
+				<!-- A Cisco 3G WAN adapter OID -->
+				<mibObj oid=".1.3.6.1.4.1.5591.1.3.1.1.0" alias="commonModelNumber"/>
+			</mibObjs>
+		</assetField>
+
+	</package>
+
+</snmp-asset-adapter-configuration>

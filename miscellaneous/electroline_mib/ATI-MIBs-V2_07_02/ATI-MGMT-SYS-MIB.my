@@ -1,0 +1,65 @@
+-- ****************************************************************************
+-- *
+-- * Alpha Technologies, Inc.
+-- *
+-- * NAME : ATI-MGMT-SYS-MIB.txt
+-- *
+-- * ALPHA PART NUMBER : TBD
+-- *
+-- * SUMMARY : This is the root MIB for 1.3.6.1.4.1.926.1.3.2 as defined in
+-- *    ATI-MANAGEMENT-MIB.txt.  This defines sub-branches for management items
+-- *    that will be used by an array of ATI products.
+-- *    
+-- *    This file defines the management branches for SNMP and also general
+-- *    system parameters.  It also defines the top level branches under each
+-- *    of these nodes.
+-- *
+-- * Revision History:
+-- *
+-- * 0.01.0  22-SEP-2008  Bill Crawford
+-- *           Draft for review
+-- * 0.01.1  11-FEB-2010  Bill Crawford
+-- *           added atiMgmtSysLAP
+-- *           
+-- ****************************************************************************
+ATI-MGMT-SYS-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiMgmtSys
+        FROM ATI-MANAGEMENT-MIB
+;
+
+-- Defines TFTP parameters used primarily for downloads of new images.
+-- Depending on the product, this functionality is also used for operations
+-- such as parameter cloning.
+atiMgmtSysDownload        OBJECT IDENTIFIER ::= { atiMgmtSys  1 }
+
+-- Enables/disables server interfaces.
+atiMgmtSysAccess          OBJECT IDENTIFIER ::= { atiMgmtSys  2 }
+
+-- Defines remote server address, such as for a network time server.
+atiMgmtSysServers         OBJECT IDENTIFIER ::= { atiMgmtSys  3 }
+
+-- Defines parameters used for controling external devices, such at a
+-- battery header mat.
+atiMgmtSysTempMgr         OBJECT IDENTIFIER ::= { atiMgmtSys  4 }
+
+-- Defines a unique set of parameters that is used for a Cableware
+-- product for which we need to identify ourselves to.
+atiMgmtSysPhoneHome       OBJECT IDENTIFIER ::= { atiMgmtSys  5 }
+
+-- Defines general parameters, such as tamper polarity.
+atiMgmtSysGnrlControls    OBJECT IDENTIFIER ::= { atiMgmtSys  6 }
+
+-- Defines general configuration parameters about this device
+atiMgmtSysGnrlInfo        OBJECT IDENTIFIER ::= { atiMgmtSys  7 }
+
+-- Defines parameters used for monitoring the LAP surge device
+atiMgmtSysIO             OBJECT IDENTIFIER ::= { atiMgmtSys  8 }
+
+-- Defines parameters used for controling reset and restore of
+-- default parameters.
+atiMgmtSysNvDefaults      OBJECT IDENTIFIER ::= { atiMgmtSys  9 }
+
+END
+

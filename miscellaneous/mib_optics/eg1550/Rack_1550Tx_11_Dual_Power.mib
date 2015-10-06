@@ -1,0 +1,487 @@
+NETISNMPPROXY DEFINITIONS ::= BEGIN
+
+        IMPORTS
+                  mgmt, enterprises, NetworkAddress, IpAddress, Counter, Gauge, TimeTicks                         
+                  FROM RFC1155-SMI                  
+                  OBJECT-TYPE            FROM RFC-1212
+                  TRAP-TYPE              FROM RFC-1215;
+
+			
+			
+          -- textual conventions
+
+          DisplayString ::=
+              OCTET STRING
+          -- This data type is used to model textual information taken
+          -- from the NVT ASCII character set.  By convention, objects
+          -- with this syntax are declared as having
+          --      SIZE (0..255)
+
+          PhysAddress ::=
+              OCTET STRING
+          -- This data type is used to model media addresses.  For many
+          -- types of media, this will be in a binary representation.
+          -- For example, an ethernet address would be represented as
+          -- a string of 6 octets.
+
+		  Boolean ::= INTEGER { false(0), true(1) }
+
+        -- directories in NETI MIB
+        neti      	      OBJECT IDENTIFIER ::= { enterprises 3222 }
+        snmpproxy	      OBJECT IDENTIFIER ::= { neti 4}
+        entityno   	      OBJECT IDENTIFIER ::= { snmpproxy 1}
+       
+        oneU1550DualPower          OBJECT IDENTIFIER ::= { snmpproxy 6}
+        
+	fodPFNO	OBJECT-TYPE
+      		SYNTAX	INTEGER
+     		ACCESS	read-only
+     		STATUS	mandatory
+     		DESCRIPTION
+     			"Number of FOD-Platform"
+     		::= { entityno 1} 
+       fod1310TxNO	OBJECT-TYPE
+      		SYNTAX	INTEGER
+     		ACCESS	read-only
+     		STATUS	mandatory
+     		DESCRIPTION
+     			"Number of FOD-1310Tx"
+     		::= { entityno 2}    		
+        		
+       fodRPRNO	OBJECT-TYPE
+      		SYNTAX	INTEGER
+     		ACCESS	read-only
+     		STATUS	mandatory
+     		DESCRIPTION
+     			"Number of FOD-RPR"
+     		::= { entityno 3}    		  		
+       fodFRXNO	OBJECT-TYPE
+      		SYNTAX	INTEGER
+     		ACCESS	read-only
+     		STATUS	mandatory
+     		DESCRIPTION
+     			"Number of FOD-FRX"
+     		::= { entityno 4}    				
+
+	
+       OneU1550NO	OBJECT-TYPE
+      		        SYNTAX	INTEGER
+     		        ACCESS	read-only
+     		        STATUS	mandatory
+     		        DESCRIPTION
+     			"Number of One_U_1550"
+     		        ::= { entityno 5}  
+     		        
+       OneUEDFANO	OBJECT-TYPE
+      		        SYNTAX	INTEGER
+     		        ACCESS	read-only
+     		        STATUS	mandatory
+     		        DESCRIPTION
+     			"Number of One_U_EDFA"
+     		        ::= { entityno 6}    	  	
+       OneUFRXNO	OBJECT-TYPE
+      		        SYNTAX	INTEGER
+     		        ACCESS	read-only
+     		        STATUS	mandatory
+     		        DESCRIPTION
+     			"Number of One_U_FRX"
+     		        ::= { entityno 7}    
+       OneUFRXENO	OBJECT-TYPE
+      		        SYNTAX	INTEGER
+     		        ACCESS	read-only
+     		        STATUS	mandatory
+     		        DESCRIPTION
+     			"Number of One_U_FRX_E (NE1101E)"
+     		        ::= { entityno 8}    
+       
+       OneU1310NO	OBJECT-TYPE
+      		        SYNTAX	INTEGER
+     		        ACCESS	read-only
+     		        STATUS	mandatory
+     		        DESCRIPTION
+     			"Number of One_U_1310 (NE1000L)"
+     		        ::= { entityno 9}
+     		        
+   
+--oneU1550Table
+	
+        oneU1550StatusTable OBJECT-TYPE
+       	SYNTAX  SEQUENCE OF OneU1550StatusTableDEF
+        ACCESS  read-write
+        STATUS  mandatory
+	DESCRIPTION
+        	"Table"
+	::= { oneU1550DualPower 1 }
+	
+	oneU1550StatusEntry OBJECT-TYPE
+       	SYNTAX  OneU1550StatusTableDEF
+        ACCESS  read-write
+        STATUS  mandatory
+	DESCRIPTION
+        	"TableEntry"
+        INDEX   { oneU1550StatusIndex}                --1.3.6.4.1.3222.4.6.1.1
+	::= { oneU1550StatusTable 1 }
+        
+        OneU1550StatusTableDEF ::= SEQUENCE { 
+        oneU1550StatusIndex	          INTEGER,       
+        oneU1550StatusDEVICEADDRESS	  INTEGER,
+        oneU1550StatusSUBID	          INTEGER,
+        oneU1550StatusVersion	          INTEGER,
+              
+        oneU1550StatusLaserIM         	DisplayString,
+        oneU1550StatusLaserTemp       	DisplayString,
+        oneU1550StatusLaserBias         DisplayString,        
+        oneU1550StatusRFModulationLevel DisplayString,
+        oneU1550StatusDC24V             DisplayString,
+        oneU1550StatusDC12V            	DisplayString,
+        oneU1550StatusDC5V              DisplayString,
+        oneU1550StatusDCM5V             DisplayString,
+        oneU1550StatusTxOpticalPower	DisplayString,
+        oneU1550StatusGain_Control_Mode DisplayString,
+        oneU1550StatusSBS_CONTROL       DisplayString,
+        oneU1550StatusCTB_CONTROL    	DisplayString,
+        oneU1550StatusModuleLevel      	DisplayString,
+        oneU1550StatusPresentPower1	DisplayString,        
+        oneU1550StatusPresentPower2	DisplayString,        
+        oneU1550StatusPOWERMode      	DisplayString
+               
+        }
+
+	oneU1550StatusIndex 	OBJECT-TYPE
+       	SYNTAX  INTEGER
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 Status Index"
+	::= { oneU1550StatusEntry 1 }
+	
+	
+	oneU1550StatusDEVICEADDRESS  	OBJECT-TYPE
+       	SYNTAX  INTEGER
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 IDcode"
+	::= { oneU1550StatusEntry 2 }
+	
+	oneU1550StatusSUBID		OBJECT-TYPE
+       	SYNTAX  INTEGER
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 sub-ID"
+	::= { oneU1550StatusEntry 3 }
+	
+	oneU1550StatusVersion OBJECT-TYPE
+       	SYNTAX  INTEGER
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 Firmware Version ,minor version"
+	::= { oneU1550StatusEntry 4 }
+	
+		
+	oneU1550StatusLaserIM	OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 Laser IM"
+	::= { oneU1550StatusEntry 5 }
+	
+	
+	
+	oneU1550StatusLaserTemp	OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 Laser Temp"
+	::= { oneU1550StatusEntry 6 }
+	
+	oneU1550StatusLaserBias	OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 Laser Bias"
+	::= { oneU1550StatusEntry 7 }
+	
+	
+	
+	oneU1550StatusRFModulationLevel OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 RF Modulation Level"
+	::= { oneU1550StatusEntry 8 }
+	
+	oneU1550StatusDC24V  OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 DC24V Voltage"
+	::= { oneU1550StatusEntry 9 }
+	
+	
+	oneU1550StatusDC12V	OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 DC12V Voltage"
+	::= { oneU1550StatusEntry 10 }
+	
+	oneU1550StatusDC5V	OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 DC5V Voltage"
+	::= { oneU1550StatusEntry 11 }
+	
+	oneU1550StatusDCM5V	OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 -5VDC Voltage"
+	::= { oneU1550StatusEntry 12 }
+	
+	oneU1550StatusTxOpticalPower OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 Tx Optical Power"
+	::= { oneU1550StatusEntry 13 }
+	
+	oneU1550StatusGain_Control_Mode OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-write
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 Gain Control Setting, Please enter 'AGC' or 'MGC'"
+	::= { oneU1550StatusEntry 14 }
+	
+	oneU1550StatusSBS_CONTROL OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-write
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 SBS CONTROL Setting , Please enter '+13' or '+16' or '+18' ,Fix SBS Function only Read.
+        	 About SBS 0.5 dBm step function, Please enter '+13.0' ,'+13.5','+14.0',+14.5','+15.0','+15.5',
+        	 '+16.0','+16.5','+17.0','+17.5','+18.0','+18.5','+19.0' change the SBS status.
+	         About SBS 0.1 dBm step function, Please enter '+13.0 ~ +19.0' for 0.1db/step 
+		 change the SBS status. Example: '+13.4' ,'+18.9'."
+	::= { oneU1550StatusEntry 15 }
+	
+	oneU1550StatusCTB_CONTROL OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-write
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 CTB_CONTROL_Setting ,  Please enter 'VIDEO' or 'CW'"
+	::= { oneU1550StatusEntry 16 }
+	
+	oneU1550StatusModuleLevel OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-write
+        STATUS  mandatory
+	DESCRIPTION
+      	"one_U_1550 Tx RF Module Level , Please enter 'UP' or 'DOWN'"
+	::= { oneU1550StatusEntry 17 }
+	
+	
+	oneU1550StatusPresentPower1 OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 Present AC Power 1 status"
+	::= { oneU1550StatusEntry 18 }
+	
+	
+	oneU1550StatusPresentPower2 OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-only
+        STATUS  mandatory
+	DESCRIPTION
+        	"one_U_1550 Present AC Power 2 status"
+	::= { oneU1550StatusEntry 19 }
+	
+	oneU1550StatusPOWERMode OBJECT-TYPE
+       	SYNTAX  DisplayString
+        ACCESS  read-write
+        STATUS  mandatory
+	DESCRIPTION
+      	"one_U_1550 Tx AC Power supply status,Please enter 'DUAL' or 'SINGLE'"
+	::= { oneU1550StatusEntry 20 }
+	
+	
+--oneU1550AlarmTable 
+	oneU1550AlarmTable OBJECT-TYPE
+       	SYNTAX  SEQUENCE OF OneU1550AlarmTableDEF
+        ACCESS  read-write
+        STATUS  mandatory
+	DESCRIPTION
+        	"Table"
+	::= { oneU1550DualPower 2 }
+	
+	oneU1550AlarmEntry OBJECT-TYPE
+       	SYNTAX  OneU1550AlarmTableDEF
+        ACCESS  read-write
+        STATUS  mandatory
+	DESCRIPTION
+        	"TableEntry"
+        INDEX   { oneU1550AlarmIndex }
+	::= { oneU1550AlarmTable 1 }
+        
+        OneU1550AlarmTableDEF ::= SEQUENCE {  
+        oneU1550AlarmIndex		INTEGER,      
+        oneU1550AlarmDEVICEADDRESS	INTEGER,
+        oneU1550AlarmSUBID		INTEGER,
+        oneU1550AlarmLaserIM	        INTEGER,
+        oneU1550AlarmLaserBias		INTEGER,
+        oneU1550AlarmLaserTemp 	        INTEGER,
+        oneU1550AlarmRFModLvL		INTEGER,
+        oneU1550Alarm24VDCVoltage	INTEGER,
+        oneU1550Alarm12VDCVoltage	INTEGER,
+        oneU1550Alarm5VDCVoltage 	INTEGER,
+        oneU1550AlarmM5VDCVoltage       INTEGER,
+        oneU1550AlarmCSOSystem	        INTEGER,
+        oneU1550AlarmTxOptPower 	INTEGER,
+        oneU1550AlarmSBS1Power  	INTEGER,
+        oneU1550AlarmSBS2Power          INTEGER,
+        oneU1550AlarmCOMMFail           INTEGER,
+        oneU1550AlarmPowerSupply        INTEGER
+        
+        }
+
+	oneU1550AlarmIndex 	OBJECT-TYPE 
+	SYNTAX  INTEGER 
+	ACCESS  read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm Index" 
+	::= { 	oneU1550AlarmEntry 1 }
+
+	
+	oneU1550AlarmDEVICEADDRESS	OBJECT-TYPE 
+	SYNTAX	INTEGER 
+	ACCESS  read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm IDcode" 
+	::= { 	oneU1550AlarmEntry 2 }
+
+	oneU1550AlarmSUBID		OBJECT-TYPE
+	SYNTAX  INTEGER 
+	ACCESS  read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm sub-ID" 
+	::= { oneU1550AlarmEntry 3 }
+
+	oneU1550AlarmLaserIM OBJECT-TYPE        	
+	SYNTAX  INTEGER 
+	ACCESS 	read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm LaserIM" 
+	::= {	oneU1550AlarmEntry 4 }
+
+	oneU1550AlarmLaserBias OBJECT-TYPE        	
+	SYNTAX  INTEGER 
+	ACCESS 	read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm LaserBias" 
+	::= { oneU1550AlarmEntry 5 }
+
+	oneU1550AlarmLaserTemp	OBJECT-TYPE        	
+	SYNTAX  INTEGER 
+	ACCESS 	read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm LaserTemp" 
+	::= { oneU1550AlarmEntry 6 }
+
+	oneU1550AlarmRFModLvL   OBJECT-TYPE        	
+	SYNTAX  INTEGER 
+	ACCESS 	read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm RFModLvL" 
+	::= { oneU1550AlarmEntry 7 }
+
+	oneU1550Alarm24VDCVoltage	OBJECT-TYPE        	
+	SYNTAX  INTEGER 
+	ACCESS  read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm DC24V Voltage" 
+	::= { oneU1550AlarmEntry 8 }
+
+	oneU1550Alarm12VDCVoltage	OBJECT-TYPE        	
+	SYNTAX  INTEGER 
+	ACCESS  read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm DC12V 
+	Voltage" ::= { oneU1550AlarmEntry 9 }
+
+	
+	oneU1550Alarm5VDCVoltage 	OBJECT-TYPE 
+	SYNTAX  INTEGER 
+	ACCESS 	read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm DC5V Voltage" 
+	::= { oneU1550AlarmEntry 10 }
+
+	oneU1550AlarmM5VDCVoltage	OBJECT-TYPE        	
+	SYNTAX  INTEGER 
+	ACCESS  read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm -5VDC Voltage" 
+	::= { oneU1550AlarmEntry 11 }
+ 
+	oneU1550AlarmCSOSystem 	OBJECT-TYPE 
+	SYNTAX  INTEGER 
+	ACCESS  read-only  
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm CSO System" 
+	::= { 	oneU1550AlarmEntry 12 }
+
+	oneU1550AlarmTxOptPower	OBJECT-TYPE        	
+	SYNTAX  INTEGER 
+	ACCESS 	read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm Tx Opt Power" 
+	::= { oneU1550AlarmEntry 13 }	
+
+	oneU1550AlarmSBS1Power 	OBJECT-TYPE        	
+	SYNTAX  INTEGER 
+	ACCESS 	read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm SBS1 PM Power" 
+	::= { oneU1550AlarmEntry 14 }
+
+	oneU1550AlarmSBS2Power	OBJECT-TYPE        	
+	SYNTAX  INTEGER 
+	ACCESS 	read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm SBS2 FM Power" 
+	::= { oneU1550AlarmEntry 15 }
+
+	oneU1550AlarmCOMMFail	OBJECT-TYPE        	
+	SYNTAX  INTEGER 
+	ACCESS 	read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Alarm communicate fail" 
+	::= { oneU1550AlarmEntry 16 }
+
+	oneU1550AlarmPowerSupply	OBJECT-TYPE        	
+	SYNTAX  INTEGER 
+	ACCESS  read-only 
+	STATUS  mandatory 
+	DESCRIPTION "one_U_1550 Power Supply ALARM 1 is Power 1 FAILURE, 2 is power 2 FAILURE " 
+	::= { oneU1550AlarmEntry 17 }
+
+	
+	  
+
+END  

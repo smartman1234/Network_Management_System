@@ -1,0 +1,41 @@
+ATI-MGMT-SYS-GENRL-INFO-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiMgmtSysGnrlInfo 
+        FROM ATI-MGMT-SYS-MIB
+    OBJECT-TYPE
+        FROM RFC-1212
+    DisplayString
+        FROM SNMPv2-TC
+;
+
+atiMgmtSysGnrlInfoConfigs OBJECT IDENTIFIER ::= { atiMgmtSysGnrlInfo 1 }
+
+atiMgmtSysGnrlInfoConfigsMain OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION "An ASCII string programmed into the main board non-vol memory
+                 containing information such as the product number, configuration
+                 number serial number, etc."
+    ::= { atiMgmtSysGnrlInfoConfigs 1 }
+
+atiMgmtSysGnrlInfoConfigsDaughter OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION "An ASCII string programmed into the daughter board non-vol memory
+                 containing information such as the product number, configuration
+                 number serial number, etc."
+    ::= { atiMgmtSysGnrlInfoConfigs 2 }
+
+atiMgmtSysGnrlInfoConfigsBase OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION "An ASCII string describing the base configuration of the device,
+                 i.e. DSM3, DSM3x, DPM, etc."
+    ::= { atiMgmtSysGnrlInfoConfigs 3 }
+
+END
+

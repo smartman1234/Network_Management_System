@@ -1,0 +1,345 @@
+ATI-TABLES-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiTables 
+        FROM ATI-ROOT-MIB
+    OBJECT-TYPE
+        FROM RFC-1212
+    DisplayString
+        FROM SNMPv2-TC
+;
+
+atiCibTables         OBJECT IDENTIFIER ::= { atiTables 1 }
+
+atiCibDiscTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiCibDiscEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Table of Discrete Data Items"
+    ::= { atiCibTables 1 }
+
+atiCibDiscEntry OBJECT-TYPE
+    SYNTAX     AtiCibDiscEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "One item in this table"
+    INDEX { atiCibDiscClass, atiCibDiscAddr, atiCibDiscIndex }
+    ::= { atiCibDiscTable 1 }
+
+AtiCibDiscEntry ::= SEQUENCE {
+    atiCibDiscClass INTEGER,
+    atiCibDiscAddr INTEGER,
+    atiCibDiscIndex INTEGER,
+    atiCibDiscName DisplayString,
+    atiCibDiscValue INTEGER,
+    atiCibDiscEnum DisplayString,
+    atiCibDiscAccess INTEGER,
+    atiCibDiscAlarm INTEGER
+}
+
+atiCibDiscClass OBJECT-TYPE
+    SYNTAX     INTEGER { ipu(4), sag(6), apu(7), bss(8), doc(11), xm2(12), xm3(13), enc(14), app(16), btq(17), utl(18), ecm(19), ssc(20) }
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Class of the device"
+    ::= { atiCibDiscEntry 1 }
+
+atiCibDiscAddr OBJECT-TYPE
+    SYNTAX     INTEGER (0..255)
+    ACCESS read-only 
+    STATUS     mandatory
+    DESCRIPTION "Address of device with this device class"
+    ::= { atiCibDiscEntry 2 } 
+
+atiCibDiscIndex OBJECT-TYPE
+    SYNTAX     INTEGER (0..255)
+    ACCESS read-only 
+    STATUS     mandatory
+    DESCRIPTION "Index for this table"
+    ::= { atiCibDiscEntry 3 }
+
+atiCibDiscName OBJECT-TYPE
+    SYNTAX     DisplayString 
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Name of this item"
+    ::= { atiCibDiscEntry 4 }
+
+atiCibDiscValue OBJECT-TYPE
+    SYNTAX     INTEGER 
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Value of this item"
+    ::= { atiCibDiscEntry 5 }
+
+atiCibDiscEnum OBJECT-TYPE
+    SYNTAX     DisplayString 
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Enumerated name for the current value"
+    ::= { atiCibDiscEntry 6 }
+
+atiCibDiscAccess OBJECT-TYPE
+    SYNTAX     INTEGER { readonly(1), readwrite(2), masterwrite(5), syswrite(37) }
+    ACCESS read-only 
+    STATUS     mandatory
+    DESCRIPTION "Device Accessability"
+    ::= { atiCibDiscEntry 7 }
+
+atiCibDiscAlarm OBJECT-TYPE
+    SYNTAX     INTEGER { ok(1), alarmminor(2), alarmmajor(3), alarminfo(4), alarmwarn(5) }
+    ACCESS read-only 
+    STATUS     mandatory
+    DESCRIPTION "If item is in alarm, alarm level per the device attributes table"
+    ::= { atiCibDiscEntry 8 }
+
+atiCibAnaTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiCibAnaEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Table of Analog Data Items"
+    ::= { atiCibTables 2 }
+
+atiCibAnaEntry OBJECT-TYPE
+    SYNTAX     AtiCibAnaEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "One item in this table"
+    INDEX { atiCibAnaClass, atiCibAnaAddr, atiCibAnaIndex }
+    ::= { atiCibAnaTable 1 }
+
+AtiCibAnaEntry ::= SEQUENCE {
+    atiCibAnaClass INTEGER,
+    atiCibAnaAddr INTEGER,
+    atiCibAnaIndex INTEGER,
+    atiCibAnaName DisplayString,
+    atiCibAnaValue INTEGER,
+    atiCibAnaUnits DisplayString,
+    atiCibAnaAccess INTEGER
+}
+
+atiCibAnaClass OBJECT-TYPE
+    SYNTAX     INTEGER { ipu(4), sag(6), apu(7), bss(8), doc(11), xm2(12), xm3(13), enc(14), app(16), btq(17), utl(18), ecm(19), ssc(20) }
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Class of the device"
+    ::= { atiCibAnaEntry 1 }
+
+atiCibAnaAddr OBJECT-TYPE
+    SYNTAX     INTEGER (0..255)
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Address of device with this device class"
+    ::= { atiCibAnaEntry 2 } 
+
+atiCibAnaIndex OBJECT-TYPE
+    SYNTAX     INTEGER (0..255)
+    ACCESS read-only 
+    STATUS     mandatory
+    DESCRIPTION "Index for this table"
+    ::= { atiCibAnaEntry 3 }
+
+atiCibAnaName OBJECT-TYPE
+    SYNTAX     DisplayString 
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Name of this item"
+    ::= { atiCibAnaEntry 4 }
+
+atiCibAnaValue OBJECT-TYPE
+    SYNTAX     INTEGER 
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Value of this item"
+    ::= { atiCibAnaEntry 5 }
+
+atiCibAnaUnits OBJECT-TYPE
+    SYNTAX     DisplayString 
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Units for this item"
+    ::= { atiCibAnaEntry 6 }
+
+atiCibAnaAccess OBJECT-TYPE
+    SYNTAX     INTEGER { readonly(1), readwrite(2), masterwrite(5), syswrite(37) }
+    ACCESS read-only 
+    STATUS     mandatory
+    DESCRIPTION "Device Accessability"
+    ::= { atiCibAnaEntry 7 }
+
+atiCibCountTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiCibCountEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Table of Counter Data Items"
+    ::= { atiCibTables 3 }
+
+atiCibCountEntry OBJECT-TYPE
+    SYNTAX     AtiCibCountEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "One item in this table"
+    INDEX { atiCibCountClass, atiCibCountAddr, atiCibCountIndex }
+    ::= { atiCibCountTable 1 }
+
+AtiCibCountEntry ::= SEQUENCE {
+    atiCibCountClass INTEGER,
+    atiCibCountAddr INTEGER,
+    atiCibCountIndex INTEGER,
+    atiCibCountName DisplayString,
+    atiCibCountValue INTEGER,
+    atiCibCountUnits DisplayString,
+    atiCibCountAccess INTEGER
+}
+
+atiCibCountClass OBJECT-TYPE
+    SYNTAX     INTEGER { ipu(4), sag(6), apu(7), bss(8), doc(11), xm2(12), xm3(13), enc(14), app(16), btq(17), utl(18), ecm(19), ssc(20) }
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Class of the device"
+    ::= { atiCibCountEntry 1 }
+
+atiCibCountAddr OBJECT-TYPE
+    SYNTAX     INTEGER (0..255)
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Address of device with this device class"
+    ::= { atiCibCountEntry 2 }
+
+atiCibCountIndex OBJECT-TYPE
+    SYNTAX     INTEGER (0..255)
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Index for this table"
+    ::= { atiCibCountEntry 3 }
+
+atiCibCountName OBJECT-TYPE
+    SYNTAX     DisplayString 
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Name of this item"
+    ::= { atiCibCountEntry 4 }
+
+atiCibCountValue OBJECT-TYPE
+    SYNTAX     INTEGER 
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Value of this item"
+    ::= { atiCibCountEntry 5 }
+
+atiCibCountUnits OBJECT-TYPE
+    SYNTAX     DisplayString 
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Units of item shown"
+    ::= { atiCibCountEntry 6 }
+
+atiCibCountAccess OBJECT-TYPE
+    SYNTAX     INTEGER { readonly(1), readwrite(2), masterwrite(5), syswrite(37) }
+    ACCESS read-only 
+    STATUS     mandatory
+    DESCRIPTION "Device Accessability"
+    ::= { atiCibCountEntry 7 }
+
+atiCibTextTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiCibTextEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Table of Text Data Items"
+    ::= { atiCibTables 4 }
+
+atiCibTextEntry OBJECT-TYPE
+    SYNTAX     AtiCibTextEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "One item in this table"
+    INDEX { atiCibTextIndex }
+    ::= { atiCibTextTable 1 }
+
+AtiCibTextEntry ::= SEQUENCE {
+    atiCibTextIndex INTEGER,
+    atiCibTextName DisplayString,
+    atiCibTextValue DisplayString,
+    atiCibTextAccess INTEGER
+}
+
+atiCibTextIndex OBJECT-TYPE
+    SYNTAX     INTEGER (0..255)
+    ACCESS read-only 
+    STATUS     mandatory
+    DESCRIPTION "Index for this table"
+    ::= { atiCibTextEntry 1 }
+
+atiCibTextName OBJECT-TYPE
+    SYNTAX     DisplayString 
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Name of this item"
+    ::= { atiCibTextEntry 2 }
+
+atiCibTextValue OBJECT-TYPE
+    SYNTAX     DisplayString 
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Value of this item"
+    ::= { atiCibTextEntry 3 }
+
+atiCibTextAccess OBJECT-TYPE
+    SYNTAX     INTEGER { readonly(1), readwrite(2), masterwrite(5), syswrite(37) }
+    ACCESS read-only 
+    STATUS     mandatory
+    DESCRIPTION "Device Accessability"
+    ::= { atiCibTextEntry 4 }
+
+atiCibVersionTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiCibVersionEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Table of Device Version strings"
+    ::= { atiCibTables 5 }
+
+atiCibVersionEntry OBJECT-TYPE
+    SYNTAX     AtiCibVersionEntry
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "One item in this table"
+    INDEX { atiCibVersionClass, atiCibVersionAddr, atiCibVersionIndex }
+    ::= { atiCibVersionTable 1 }
+
+AtiCibVersionEntry ::= SEQUENCE {
+    atiCibVersionClass INTEGER,
+    atiCibVersionAddr INTEGER,
+    atiCibVersionIndex INTEGER,
+    atiCibVersionText DisplayString
+}
+
+atiCibVersionClass OBJECT-TYPE
+    SYNTAX     INTEGER { ipu(4), sag(6), apu(7), bss(8), doc(11), xm2(12), xm3(13), enc(14), app(16), btq(17), utl(18), ecm(19), ssc(20) }
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Class of the device"
+    ::= { atiCibVersionEntry 1 }
+
+atiCibVersionAddr OBJECT-TYPE
+    SYNTAX     INTEGER (0..255)
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Address of Device within its class"
+    ::= { atiCibVersionEntry 2 }
+
+atiCibVersionIndex OBJECT-TYPE
+    SYNTAX     INTEGER (0..255)
+    ACCESS read-only 
+    STATUS     mandatory
+    DESCRIPTION "Index for this text line"
+    ::= { atiCibVersionEntry 3 }
+
+atiCibVersionText OBJECT-TYPE
+    SYNTAX     DisplayString 
+    ACCESS read-only
+    STATUS     mandatory
+    DESCRIPTION "Version Information"
+    ::= { atiCibVersionEntry 4 }
+
+END
+

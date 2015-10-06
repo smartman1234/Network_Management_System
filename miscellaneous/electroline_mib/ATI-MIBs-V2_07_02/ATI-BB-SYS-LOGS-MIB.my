@@ -1,0 +1,320 @@
+
+-- ****************************************************************************
+-- *
+-- * Alpha Technologies, Inc.
+-- *
+-- * NAME : ATI-BB-SYS-LOGS-MIB.txt
+-- *
+-- * ALPHA PART NUMBER : TBD
+-- *
+-- * SUMMARY : This is the generic view of broadband powering systems.
+-- *   Entry point is 1.3.6.1.4.1.926.1.4.1.2
+-- *
+-- * Revision History:
+-- *
+-- * 0.01.0  03-DEC-2010  Bill Crawford
+-- *           Draft for review
+-- *
+-- ****************************************************************************
+ATI-BB-SYS-LOGS-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    OBJECT-TYPE
+        FROM RFC-1212
+    DisplayString, DateAndTime
+        FROM SNMPv2-TC
+    atiBBSysLogs
+        FROM ATI-PRODUCT-PLATFORMS-MIB
+    ;
+
+-- ****************************************************************************
+-- * Application Card Events
+-- ****************************************************************************
+
+atiBBSysLogsEventsTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiBBSysLogsEventsEntry
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Table of Logged Events"
+    ::= { atiBBSysLogs 1 }
+
+atiBBSysLogsEventsEntry OBJECT-TYPE
+    SYNTAX     AtiBBSysLogsEventsEntry
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "One item in this table"
+    INDEX { atiBBSysLogsEventsIndex }
+    ::= { atiBBSysLogsEventsTable 1 }
+
+AtiBBSysLogsEventsEntry ::= SEQUENCE {
+    atiBBSysLogsEventsIndex       INTEGER,
+    atiBBSysLogsEventsTimestamp   DateAndTime,
+    atiBBSysLogsEventsTrigger     INTEGER,
+    atiBBSysLogsEventsDescription DisplayString
+}
+
+atiBBSysLogsEventsIndex OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Table/Entry Index"
+    ::= { atiBBSysLogsEventsEntry 1 }
+
+atiBBSysLogsEventsTimestamp OBJECT-TYPE
+    SYNTAX  DateAndTime
+    ACCESS  read-only
+    STATUS  mandatory
+    DESCRIPTION
+        "Relative time event occured"
+    ::= { atiBBSysLogsEventsEntry 2 }
+
+atiBBSysLogsEventsTrigger OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Code indicating what triggered the event"
+    ::= { atiBBSysLogsEventsEntry 3 }
+
+atiBBSysLogsEventsDescription OBJECT-TYPE
+    SYNTAX     DisplayString (SIZE(0..64))
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Text description of the event"
+    ::= { atiBBSysLogsEventsEntry 4 }
+
+-- ****************************************************************************
+-- * Application Card Configuration
+-- ****************************************************************************
+
+atiBBSysLogsConfigTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiBBSysLogsConfigEntry
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Table of logged Configuration items"
+    ::= { atiBBSysLogs 2 }
+
+atiBBSysLogsConfigEntry OBJECT-TYPE
+    SYNTAX     AtiBBSysLogsConfigEntry
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "One item in this table"
+    INDEX { atiBBSysLogsConfigIndex }
+    ::= { atiBBSysLogsConfigTable 1 }
+
+AtiBBSysLogsConfigEntry ::= SEQUENCE {
+    atiBBSysLogsConfigIndex       INTEGER,
+    atiBBSysLogsConfigTimestamp   DateAndTime,
+    atiBBSysLogsConfigTrigger     INTEGER,
+    atiBBSysLogsConfigDescription DisplayString
+}
+
+atiBBSysLogsConfigIndex OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Table/Entry Index"
+    ::= { atiBBSysLogsConfigEntry 1 }
+
+atiBBSysLogsConfigTimestamp OBJECT-TYPE
+    SYNTAX  DateAndTime
+    ACCESS  read-only
+    STATUS  mandatory
+    DESCRIPTION
+        "Relative time event occured"
+    ::= { atiBBSysLogsConfigEntry 2 }
+
+atiBBSysLogsConfigTrigger OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Code indicating what triggered the event"
+    ::= { atiBBSysLogsConfigEntry 3 }
+
+atiBBSysLogsConfigDescription OBJECT-TYPE
+    SYNTAX     DisplayString (SIZE(0..64))
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Text description of the event"
+    ::= { atiBBSysLogsConfigEntry 4 }
+
+-- ****************************************************************************
+-- * Application Card Performance
+-- ****************************************************************************
+
+atiBBSysLogsPerformTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiBBSysLogsPerformEntry
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Table of logged performance information"
+    ::= { atiBBSysLogs 3 }
+
+atiBBSysLogsPerformEntry OBJECT-TYPE
+    SYNTAX     AtiBBSysLogsPerformEntry
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "One item in this table"
+    INDEX { atiBBSysLogsPerformIndex }
+    ::= { atiBBSysLogsPerformTable 1 }
+
+AtiBBSysLogsPerformEntry ::= SEQUENCE {
+    atiBBSysLogsPerformIndex       INTEGER,
+    atiBBSysLogsPerformTimestamp   DateAndTime,
+    atiBBSysLogsPerformTrigger     INTEGER,
+    atiBBSysLogsPerformDescription DisplayString
+}
+
+atiBBSysLogsPerformIndex OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Table/Entry Index"
+    ::= { atiBBSysLogsPerformEntry 1 }
+
+atiBBSysLogsPerformTimestamp OBJECT-TYPE
+    SYNTAX  DateAndTime
+    ACCESS  read-only
+    STATUS  mandatory
+    DESCRIPTION
+        "Relative time event occured"
+    ::= { atiBBSysLogsPerformEntry 2 }
+
+atiBBSysLogsPerformTrigger OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Code indicating what triggered the event"
+    ::= { atiBBSysLogsPerformEntry 3 }
+
+atiBBSysLogsPerformDescription OBJECT-TYPE
+    SYNTAX     DisplayString (SIZE(0..64))
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Text description of the event"
+    ::= { atiBBSysLogsPerformEntry 4 }
+
+-- ****************************************************************************
+-- * Application Card Battery
+-- ****************************************************************************
+
+atiBBSysLogsBatteryTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiBBSysLogsBatteryEntry
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Table of logged battery information"
+    ::= { atiBBSysLogs 4 }
+
+atiBBSysLogsBatteryEntry OBJECT-TYPE
+    SYNTAX     AtiBBSysLogsBatteryEntry
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "One item in this table"
+    INDEX { atiBBSysLogsBatteryIndex }
+    ::= { atiBBSysLogsBatteryTable 1 }
+
+AtiBBSysLogsBatteryEntry ::= SEQUENCE {
+    atiBBSysLogsBatteryIndex       INTEGER,
+    atiBBSysLogsBatteryTimestamp   DateAndTime,
+    atiBBSysLogsBatteryTrigger     INTEGER,
+    atiBBSysLogsBatteryDescription DisplayString
+}
+
+atiBBSysLogsBatteryIndex OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Table/Entry Index"
+    ::= { atiBBSysLogsBatteryEntry 1 }
+
+atiBBSysLogsBatteryTimestamp OBJECT-TYPE
+    SYNTAX  DateAndTime
+    ACCESS  read-only
+    STATUS  mandatory
+    DESCRIPTION
+        "Relative time event occured"
+    ::= { atiBBSysLogsBatteryEntry 2 }
+
+atiBBSysLogsBatteryTrigger OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Code indicating what triggered the event"
+    ::= { atiBBSysLogsBatteryEntry 3 }
+
+atiBBSysLogsBatteryDescription OBJECT-TYPE
+    SYNTAX     DisplayString (SIZE(0..64))
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Text description of the event"
+    ::= { atiBBSysLogsBatteryEntry 4 }
+
+-- ****************************************************************************
+-- * Application Card Discharge
+-- ****************************************************************************
+
+atiBBSysLogsDischargeTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiBBSysLogsDischargeEntry
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Table of logged Discharge information"
+    ::= { atiBBSysLogs 5 }
+
+atiBBSysLogsDischargeEntry OBJECT-TYPE
+    SYNTAX     AtiBBSysLogsDischargeEntry
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "One item in this table"
+    INDEX { atiBBSysLogsDischargeIndex }
+    ::= { atiBBSysLogsDischargeTable 1 }
+
+AtiBBSysLogsDischargeEntry ::= SEQUENCE {
+    atiBBSysLogsDischargeIndex       INTEGER,
+    atiBBSysLogsDischargeTimestamp   DateAndTime,
+    atiBBSysLogsDischargeTrigger     INTEGER,
+    atiBBSysLogsDischargeDescription OCTET STRING
+}
+
+atiBBSysLogsDischargeIndex OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Table/Entry Index"
+    ::= { atiBBSysLogsDischargeEntry 1 }
+
+atiBBSysLogsDischargeTimestamp OBJECT-TYPE
+    SYNTAX  DateAndTime
+    ACCESS  read-only
+    STATUS  mandatory
+    DESCRIPTION
+        "Relative time event occured"
+    ::= { atiBBSysLogsDischargeEntry 2 }
+
+atiBBSysLogsDischargeTrigger OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Code indicating what triggered the event"
+    ::= { atiBBSysLogsDischargeEntry 3 }
+
+atiBBSysLogsDischargeDescription OBJECT-TYPE
+    SYNTAX     OCTET STRING (SIZE(0..64))
+    ACCESS     read-only
+    STATUS     mandatory
+    DESCRIPTION
+        "Text description of the event"
+    ::= { atiBBSysLogsDischargeEntry 4 }
+
+END

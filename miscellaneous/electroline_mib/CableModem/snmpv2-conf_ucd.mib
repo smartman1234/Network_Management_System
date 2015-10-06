@@ -1,0 +1,30 @@
+--
+-- Extracted from http://www.ietf.org/rfc/rfc2580.txt
+--
+-- This file is mainly provided for dependency satisfaction by certain
+-- MIB compilers and SNMP managers.
+--
+
+SNMPv2-CONF DEFINITIONS ::= BEGIN
+
+IMPORTS ObjectName, NotificationName -- , ObjectSyntax
+                                               FROM SNMPv2-SMI;
+
+-- definitions for conformance groups
+
+-- OBJECT-GROUP MACRO ::=
+
+-- more definitions for conformance groups
+
+-- NOTIFICATION-GROUP MACRO ::=
+
+-- definitions for compliance statements
+
+-- MODULE-COMPLIANCE MACRO ::=
+
+-- definitions for capabilities statements
+
+-- AGENT-CAPABILITIES MACRO ::=
+
+END -- SNMPv2-CONF DEFINITIONS
+

@@ -1,0 +1,2746 @@
+--****************************************************************************
+--
+-- Copyright (c) 2007-2009 Broadcom Corporation
+--
+-- This program is the proprietary software of Broadcom Corporation and/or
+-- its licensors, and may only be used, duplicated, modified or distributed
+-- pursuant to the terms and conditions of a separate, written license
+-- agreement executed between you and Broadcom (an "Authorized License").
+-- Except as set forth in an Authorized License, Broadcom grants no license
+-- (express or implied), right to use, or waiver of any kind with respect to
+-- the Software, and Broadcom expressly reserves all rights in and to the
+-- Software and all intellectual property rights therein.  IF YOU HAVE NO
+-- AUTHORIZED LICENSE, THEN YOU HAVE NO RIGHT TO USE THIS SOFTWARE IN ANY WAY,
+-- AND SHOULD IMMEDIATELY NOTIFY BROADCOM AND DISCONTINUE ALL USE OF THE
+-- SOFTWARE.  
+--
+-- Except as expressly set forth in the Authorized License,
+--
+-- 1.     This program, including its structure, sequence and organization,
+-- constitutes the valuable trade secrets of Broadcom, and you shall use all
+-- reasonable efforts to protect the confidentiality thereof, and to use this
+-- information only in connection with your use of Broadcom integrated circuit
+-- products.
+--
+-- 2.     TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE SOFTWARE IS PROVIDED
+-- "AS IS" AND WITH ALL FAULTS AND BROADCOM MAKES NO PROMISES, REPRESENTATIONS
+-- OR WARRANTIES, EITHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE, WITH
+-- RESPECT TO THE SOFTWARE.  BROADCOM SPECIFICALLY DISCLAIMS ANY AND ALL
+-- IMPLIED WARRANTIES OF TITLE, MERCHANTABILITY, NONINFRINGEMENT, FITNESS FOR
+-- A PARTICULAR PURPOSE, LACK OF VIRUSES, ACCURACY OR COMPLETENESS, QUIET
+-- ENJOYMENT, QUIET POSSESSION OR CORRESPONDENCE TO DESCRIPTION. YOU ASSUME
+-- THE ENTIRE RISK ARISING OUT OF USE OR PERFORMANCE OF THE SOFTWARE.
+--
+-- 3.     TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL BROADCOM
+-- OR ITS LICENSORS BE LIABLE FOR (i) CONSEQUENTIAL, INCIDENTAL, SPECIAL,
+-- INDIRECT, OR EXEMPLARY DAMAGES WHATSOEVER ARISING OUT OF OR IN ANY WAY
+-- RELATING TO YOUR USE OF OR INABILITY TO USE THE SOFTWARE EVEN IF BROADCOM
+-- HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES; OR (ii) ANY AMOUNT IN
+-- EXCESS OF THE AMOUNT ACTUALLY PAID FOR THE SOFTWARE ITSELF OR U.S. $1,
+-- WHICHEVER IS GREATER. THESE LIMITATIONS SHALL APPLY NOTWITHSTANDING ANY
+-- FAILURE OF ESSENTIAL PURPOSE OF ANY LIMITED REMEDY.
+--
+--****************************************************************************
+--
+-- This MIB is the DOCS-IF-MIB which has been edited to remove all objects
+-- which are not required for cablemodem applications, as specified in the 
+-- conformances section.  The ACCESS clauses have also been modified to reflect
+-- cablemodem requirements according to the conformances section, since many
+-- objects are read-write or read-create on CMTS but read-only on CM.
+--
+-- http://www.ietf.org/rfc/rfc4546.txt
+--
+
+DOCS-IF-MIB DEFINITIONS ::= BEGIN
+
+  IMPORTS
+     MODULE-IDENTITY,
+     OBJECT-TYPE,
+     Unsigned32,
+     Integer32,
+     Counter32,
+     Counter64,
+     TimeTicks,
+     IpAddress,
+     transmission
+             FROM SNMPv2-SMI        -- [RFC2578]
+     TEXTUAL-CONVENTION,
+     MacAddress,
+     RowStatus,
+     TruthValue,
+     TimeInterval,
+     TimeStamp,
+     StorageType
+             FROM SNMPv2-TC         -- [RFC2579]
+     OBJECT-GROUP,
+
+     MODULE-COMPLIANCE
+             FROM SNMPv2-CONF       -- [RFC2580]
+     ifIndex, InterfaceIndexOrZero
+             FROM IF-MIB            -- [RFC2863]
+     InetAddressType,
+     InetAddress
+             FROM INET-ADDRESS-MIB  -- [RFC4001]
+     IANAifType
+             FROM IANAifType-MIB;   -- [IANA]
+
+docsIfMib MODULE-IDENTITY
+     LAST-UPDATED    "200605240000Z" -- May 24, 2006
+     ORGANIZATION    "IETF IPCDN Working Group"
+     CONTACT-INFO
+         "        David Raftus
+          Postal: ATI Technologies Inc.
+                  340 Terry Fox Drive, Suite 202
+                  Ottawa Ontario
+                  Canada
+          Phone:  +1 613 592 1052 ext.222
+          E-mail: david.raftus@ati.com
+
+                  Eduardo Cardona
+          Postal: Cable Television Laboratories, Inc.
+                  858 Coal Creek Circle
+                  Louisville, CO 80027-9750
+                  U.S.A.
+          Phone:  Tel:    +1 303 661 9100
+                  Fax:    +1 303 661 9199
+          E-mail: e.cardona@cablelabs.com;mibs@cablelabs.com
+
+          IETF IPCDN Working Group
+          General Discussion: ipcdn@ietf.org
+          Subscribe: http://www.ietf.org/mailman/listinfo/ipcdn
+          Archive: ftp://ftp.ietf.org/ietf-mail-archive/ipcdn
+          Co-chairs: Richard Woundy, Richard_Woundy@cable.comcast.com
+                     Jean-Francois Mule, jf.mule@cablelabs.com"
+     DESCRIPTION
+         "This is the MIB Module for DOCSIS 2.0-compliant Radio
+          Frequency (RF) interfaces in Cable Modems and
+          Cable Modem Termination Systems.
+
+          Copyright (C) The Internet Society (2006).  This
+          version of this MIB module is part of RFC 4546; see
+          the RFC itself for full legal notices."
+
+     REVISION        "200605240000Z"
+     DESCRIPTION
+         "Revision of the IETF RF MIB module for DOCSIS 2.0.
+          This version published as RFC 4546.
+          This MIB module revision includes the following
+          among others:
+          Usage of ifType (205) for upstream logical channels.
+          Addition of downstream and upstream utilization
+          counters.
+          Additional statistics per upstream interface.
+          Upstream channel offline configuration mechanism.
+          Added MIB support for new DOCSIS 2.0 modulation
+          attributes.
+          Euro-DOCSIS downstream interleave values.
+          Adjustments to RFC 2670 definitions based on
+          the MIB review guidelines from the IETF
+          Operations and Management Area (OPS)."
+
+     REVISION "199908190000Z"
+     DESCRIPTION
+         "Initial version, published as RFC 2670.
+          Modified by Mike St. Johns to fix problems identified by
+          the first pass of the MIB doctor.  Of special note,
+          docsIfRangingResp and docsIfCmtsInsertionInterval were
+          obsoleted and replaced by other objects with the same
+          functionality, but with more appropriate syntax."
+     ::= { transmission 127 }
+
+
+-- Textual Conventions
+
+TenthdBmV ::= TEXTUAL-CONVENTION
+     DISPLAY-HINT "d-1"
+     STATUS       current
+     DESCRIPTION
+         "This data type represents power levels that are normally
+          expressed in dBmV.  Units are in tenths of a dBmV;
+          for example, 5.1 dBmV will be represented as 51."
+     SYNTAX       Integer32
+
+TenthdB ::= TEXTUAL-CONVENTION
+     DISPLAY-HINT "d-1"
+     STATUS       current
+     DESCRIPTION
+         "This data type represents power levels that are normally
+          expressed in dB.  Units are in tenths of a dB;
+          for example, 5.1 dB will be represented as 51."
+     SYNTAX       Integer32
+
+DocsisVersion ::= TEXTUAL-CONVENTION
+    STATUS          current
+    DESCRIPTION
+        "Indicates the DOCSIS Radio Frequency specification being
+         referenced.
+         'docsis10' indicates DOCSIS 1.0.
+         'docsis11' indicates DOCSIS 1.1.
+         'docsis20' indicates DOCSIS 2.0.
+         'docsis30' indicates DOCSIS 3.0."
+    SYNTAX        INTEGER {
+         docsis10 (1),
+         docsis11 (2),
+         docsis20 (3),
+         docsis30 (4) -- Added per 3.0 OSS spec
+    }
+
+DocsisQosVersion ::= TEXTUAL-CONVENTION
+    STATUS          current
+    DESCRIPTION
+        "Indicates the referenced quality-of-service
+         level.
+         'docsis10 refers to DOCSIS 1.0 Class of
+         Service queuing services, and 'docsis11' refers
+         to DOCSIS 1.1 Quality of Service."
+    SYNTAX        INTEGER {
+        docsis10 (1),
+        docsis11 (2)
+    }
+
+DocsisUpstreamType ::= TEXTUAL-CONVENTION
+    STATUS          current
+    DESCRIPTION
+         "Indicates the DOCSIS Upstream Channel Type.
+          'unknown' means information not available.
+          'tdma' is related to TDMA, Time Division
+          Multiple Access; 'atdma' is related to A-TDMA,
+          Advanced Time Division Multiple Access,
+          'scdma' is related to S-CDMA, Synchronous
+          Code Division Multiple Access.
+          'tdmaAndAtdma is related to simultaneous support of
+          TDMA and A-TDMA modes."
+    SYNTAX          INTEGER {
+        unknown(0),
+        tdma(1),
+        atdma(2),
+        scdma(3),
+        tdmaAndAtdma(4)
+    }
+
+ DocsEqualizerData ::= TEXTUAL-CONVENTION
+      STATUS       current
+      DESCRIPTION
+          "This data type represents the equalizer data
+           as measured at the receiver interface.
+           The format of the equalizer follows the structure of the
+           Transmit Equalization Adjust RNG-RSP TLV of DOCSIS RFI
+           v2.0 :
+           1 byte Main tap location 1..(n + m)
+           1 byte Number of forward taps per symbol
+           1 byte Number of forward taps: n
+           1 byte Number of reverse taps: m
+
+           Following are the equalizer coefficients:
+           First, forward taps coefficients:
+           2 bytes F1 (real),  2 bytes  F1 (imag)
+           ...
+           2 bytes Fn (real),  2 bytes  Fn (imag)
+
+           Then, reverse taps coefficients:
+           2 bytes D1 (real),  2 bytes  D1 (imag)
+           ...
+
+           2 bytes Dm (real),  2 bytes  Dm (imag)
+
+           The equalizer coefficients are considered signed 16-bit
+           integers in the range from -32768 (0x8000) to 32767
+           (0x7FFF).
+
+           DOCSIS specifications require up to a maximum of
+           64 equalizer taps (n + m); therefore, this object size
+            can get up 260 bytes (4 + 4x64).
+           The minimum object size (other than zero) for a t-spaced
+           tap with a minimum of 8 symbols will be 36 (4 + 4x8)."
+      REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Figure 8-23."
+      SYNTAX       OCTET STRING(SIZE (0 | 36..260))
+
+
+docsIfMibObjects  OBJECT IDENTIFIER ::= { docsIfMib 1 }
+docsIfBaseObjects OBJECT IDENTIFIER ::= { docsIfMibObjects 1 }
+docsIfCmObjects   OBJECT IDENTIFIER ::= { docsIfMibObjects 2 }
+
+-- N/A for CM
+-- docsIfCmtsObjects OBJECT IDENTIFIER ::= { docsIfMibObjects 3 }
+
+--
+-- BASE GROUP
+--
+
+--
+-- The following table is implemented on both the Cable Modem
+-- and the Cable Modem Termination System.  This table is
+-- read only for the CM.
+--
+
+docsIfDownstreamChannelTable OBJECT-TYPE
+     SYNTAX      SEQUENCE OF DocsIfDownstreamChannelEntry
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "This table describes the attributes of downstream
+          channels (frequency bands)."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Tables 6-16, and 6-17."
+     ::= { docsIfBaseObjects 1 }
+
+docsIfDownstreamChannelEntry OBJECT-TYPE
+     SYNTAX      DocsIfDownstreamChannelEntry
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "An entry provides a list of attributes for a single
+          downstream channel.
+          An entry in this table exists for each ifEntry with an
+          ifType of docsCableDownstream(128)."
+     INDEX { ifIndex }
+     ::= { docsIfDownstreamChannelTable 1 }
+
+DocsIfDownstreamChannelEntry ::= SEQUENCE {
+         docsIfDownChannelId               Integer32,
+         docsIfDownChannelFrequency        Integer32,
+         docsIfDownChannelWidth            Integer32,
+         docsIfDownChannelModulation       INTEGER,
+         docsIfDownChannelInterleave       INTEGER,
+         docsIfDownChannelPower            TenthdBmV,
+         docsIfDownChannelAnnex            INTEGER,
+         docsIfDownChannelStorageType      StorageType
+     }
+
+docsIfDownChannelId OBJECT-TYPE
+     SYNTAX      Integer32 (0..255)
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "The Cable Modem Termination System identification of the
+          downstream channel within this particular MAC interface.
+          if the interface is down, the object returns the most
+          current value.  If the downstream channel ID is unknown,
+          this object returns a value of 0."
+     ::= { docsIfDownstreamChannelEntry 1 }
+
+docsIfDownChannelFrequency OBJECT-TYPE
+     SYNTAX      Integer32 (0..1000000000)
+     UNITS       "hertz"
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "The center of the downstream frequency associated with
+          this channel.  This object will return the current tuner
+          frequency.  If a CMTS provides IF output, this object
+          will return 0, unless this CMTS is in control of the
+          final downstream frequency.  See the associated
+          compliance object for a description of valid frequencies
+          that may be written to this object."
+
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 6.3.3."
+     ::= { docsIfDownstreamChannelEntry 2 }
+
+docsIfDownChannelWidth OBJECT-TYPE
+     SYNTAX      Integer32 (0..16000000)
+     UNITS       "hertz"
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "The bandwidth of this downstream channel.  Most
+          implementations are expected to support a channel width
+          of 6 MHz (North America) and/or 8 MHz (Europe).  See the
+          associated compliance object for a description of the
+          valid channel widths for this object."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Table 6-17."
+     ::= { docsIfDownstreamChannelEntry 3 }
+
+docsIfDownChannelModulation OBJECT-TYPE
+     SYNTAX      INTEGER {
+         unknown(1),
+         other(2),
+         qam64(3),
+         qam256(4)
+     }
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "The modulation type associated with this downstream
+          channel.  If the interface is down, this object either
+          returns the configured value (CMTS), the most current
+          value (CM), or the value of unknown(1).  See the
+          associated conformance object for write conditions and
+          limitations.  See the reference for specifics on the
+          modulation profiles implied by qam64 and qam256."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Table 6-17."
+     ::= { docsIfDownstreamChannelEntry 4 }
+
+docsIfDownChannelInterleave OBJECT-TYPE
+     SYNTAX      INTEGER {
+         unknown(1),
+         other(2),
+         taps8Increment16(3),
+         taps16Increment8(4),
+         taps32Increment4(5),
+         taps64Increment2(6),
+         taps128Increment1(7),
+         taps12increment17(8)
+     }
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "The Forward Error Correction (FEC) interleaving used
+          for this downstream channel.
+          Values are defined as follows:
+          taps8Increment16(3):   protection 5.9/4.1 usec,
+                                 latency .22/.15 msec
+          taps16Increment8(4):   protection 12/8.2 usec,
+                                 latency .48/.33 msec
+          taps32Increment4(5):   protection 24/16 usec,
+                                 latency .98/.68 msec
+          taps64Increment2(6):   protection 47/33 usec,
+                                 latency 2/1.4 msec
+          taps128Increment1(7):  protection 95/66 usec,
+                                 latency 4/2.8 msec
+          taps12increment17(8):  protection 18/14 usec,
+                                 latency 0.43/0.32 msec
+
+         The value 'taps12increment17' is supported by EuroDOCSIS
+         cable systems only, and the others by DOCSIS cable systems.
+
+          If the interface is down, this object either returns
+          the configured value (CMTS), the most current value (CM),
+          or the value of unknown(1).
+          The value of other(2) is returned if the interleave
+          is known but not defined in the above list.
+          See the associated conformance object for write
+          conditions and limitations.  See the reference for the FEC
+          configuration described by the setting of this object."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Table 6-15."
+     ::= { docsIfDownstreamChannelEntry 5 }
+
+docsIfDownChannelPower OBJECT-TYPE
+     SYNTAX      TenthdBmV
+     UNITS       "dBmV"
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "At the CMTS, the operational transmit power.  At the CM,
+          the received power level.
+          If the interface is down, this object either returns
+          the configured value (CMTS), the most current value (CM)
+          or the value of 0.  See the associated conformance object
+          for write conditions and limitations.  See the reference
+          for recommended and required power levels."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Tables 6-16, 6-17."
+     ::= { docsIfDownstreamChannelEntry 6 }
+
+docsIfDownChannelAnnex OBJECT-TYPE
+     SYNTAX      INTEGER {
+         unknown(1),
+         other(2),
+         annexA(3),
+         annexB(4),
+         annexC(5)
+     }
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "The value of this object indicates the conformance of
+          the implementation to important regional cable standards.
+          annexA : Annex A from ITU-T J.83 is used.
+                   (equivalent to EN 300 429)
+          annexB : Annex B from ITU-T J.83 is used.
+          annexC : Annex C from ITU-T J.83 is used."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Sections 6.3.1, and H.3.1."
+     ::= { docsIfDownstreamChannelEntry 7 }
+
+docsIfDownChannelStorageType OBJECT-TYPE
+     SYNTAX       StorageType
+     MAX-ACCESS   read-only
+     STATUS       current
+     DESCRIPTION
+         "The storage type for this conceptual row.
+          Entries with this object set to permanent(4)
+          do not require write operations for read-write
+          objects."
+     ::= { docsIfDownstreamChannelEntry 8 }
+
+--
+-- The following table is implemented on both the CM and the CMTS.
+-- For the CM, only attached channels appear in the table.  For the
+-- CM, this table is read-only as well.
+--
+
+docsIfUpstreamChannelTable OBJECT-TYPE
+     SYNTAX      SEQUENCE OF DocsIfUpstreamChannelEntry
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "This table describes the attributes of attached upstream
+          channels."
+     ::= { docsIfBaseObjects 2 }
+
+docsIfUpstreamChannelEntry OBJECT-TYPE
+     SYNTAX      DocsIfUpstreamChannelEntry
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "List of attributes for a single upstream channel.  For
+          DOCSIS 2.0 CMTSs, an entry in this table exists for
+          each ifEntry with an ifType of docsCableUpstreamChannel
+          (205).
+          For DOCSIS 1.x CM/CMTSs and DOCSIS 2.0 CMs, an entry in
+          this table exists for each ifEntry with an ifType of
+          docsCableUpstream (129).
+
+          For DOCSIS 2.0 CMTSs, two classes of interfaces can be
+          defined for this table:
+           o Upstream Physical Interfaces: The traditional DOCSIS
+             1.x CMTS upstream interface ifType 129 and the DOCSIS
+             2.0 ifType 205 that are functional.  In other words,
+             interfaces that represent upstream receivers within
+             an RF MAC interface.
+             Entries of physical interfaces are exposed to the
+             management interface with their corresponding
+             ifStack hierarchy and are not administratively
+             created by this table.
+
+           o Upstream Temporary Interfaces: A fictitious
+             interface created for the purpose of manipulating
+             physical interface parameters offline, then
+             validating prior to updating the target physical
+             interface.
+
+          In case of a reinitialization of the managed system,
+          physical interfaces values persist while the temporary
+          interfaces are not recreated.
+
+          This mechanism helps to minimize service disruptions
+          originating in situations where a group of interface
+          parameter values need to be consistent with each other
+          in SET operations.  A temporary buffer
+          (temporary interface) is provided to allow the CMTS
+          to validate the parameters offline."
+     INDEX { ifIndex }
+     ::= { docsIfUpstreamChannelTable 1 }
+
+DocsIfUpstreamChannelEntry ::= SEQUENCE {
+         docsIfUpChannelId                     Integer32,
+         docsIfUpChannelFrequency              Integer32,
+         docsIfUpChannelWidth                  Integer32,
+         docsIfUpChannelModulationProfile      Unsigned32,
+         docsIfUpChannelSlotSize               Unsigned32,
+         docsIfUpChannelTxTimingOffset         Unsigned32,
+         docsIfUpChannelRangingBackoffStart    Integer32,
+         docsIfUpChannelRangingBackoffEnd      Integer32,
+         docsIfUpChannelTxBackoffStart         Integer32,
+         docsIfUpChannelTxBackoffEnd           Integer32,
+         docsIfUpChannelScdmaActiveCodes       Unsigned32,
+         docsIfUpChannelScdmaCodesPerSlot      Integer32,
+         docsIfUpChannelScdmaFrameSize         Unsigned32,
+         docsIfUpChannelScdmaHoppingSeed       Unsigned32,
+         docsIfUpChannelType                   DocsisUpstreamType,
+         docsIfUpChannelCloneFrom              InterfaceIndexOrZero,
+         docsIfUpChannelUpdate                 TruthValue,
+         docsIfUpChannelStatus                 RowStatus,
+         docsIfUpChannelPreEqEnable            TruthValue
+     }
+
+docsIfUpChannelId OBJECT-TYPE
+     SYNTAX      Integer32 (0..255)
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "The CMTS identification of the upstream channel."
+     ::= { docsIfUpstreamChannelEntry 1 }
+
+docsIfUpChannelFrequency OBJECT-TYPE
+     SYNTAX      Integer32 (0..1000000000)
+     UNITS       "hertz"
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "The center of the frequency band associated with this
+          upstream interface.  This object returns 0 if the frequency
+          is undefined or unknown.  Minimum permitted upstream
+          frequency is 5,000,000 Hz for current technology.  See
+          the associated conformance object for write conditions
+          and limitations."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Table 4-2."
+     ::= { docsIfUpstreamChannelEntry 2 }
+
+docsIfUpChannelWidth OBJECT-TYPE
+     SYNTAX      Integer32 (0..64000000)
+     UNITS       "hertz"
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "The bandwidth of this upstream interface.  This object
+          returns 0 if the interface width is undefined or unknown.
+          Minimum permitted interface width is currently 200,000 Hz.
+          See the associated conformance object for write conditions
+          and limitations."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Table 6-5."
+     ::= { docsIfUpstreamChannelEntry 3 }
+
+docsIfUpChannelModulationProfile OBJECT-TYPE
+     SYNTAX      Unsigned32
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "An entry identical to the docsIfModIndex in the
+          docsIfCmtsModulationTable that describes this channel.
+          This channel is further instantiated there by a grouping
+          of interval usage codes (IUCs) that, together, fully
+          describe the channel modulation.  This object returns 0 if
+          the docsIfCmtsModulationTable entry does not exist or is
+          empty.  See the associated conformance object for write
+          conditions and limitations.
+          Setting this object returns an 'inconsistentValue'
+          error if the following conditions are not satisfied:
+          1. All the IUC entries in the selected modulation profile
+          MUST have the same value of docsIfCmtsModChannelType.
+          2. All of the Modulation parameters in the selected
+          modulation profile MUST be consistent with the other
+          parameters in this docsIfUpstreamChannelEntry."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Table 8-19."
+     ::= { docsIfUpstreamChannelEntry 4 }
+
+docsIfUpChannelSlotSize OBJECT-TYPE
+     SYNTAX      Unsigned32
+     UNITS       "ticks"
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "Applicable to TDMA and ATDMA channel types only.
+          The number of 6.25 microsecond ticks in each upstream
+          mini-slot.  Returns zero if the value is undefined or
+          unknown or in case of an SCDMA channel.
+          See the associated conformance object for write
+          conditions and limitations."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 8.1.2.4."
+     ::= { docsIfUpstreamChannelEntry 5 }
+
+docsIfUpChannelTxTimingOffset OBJECT-TYPE
+     SYNTAX      Unsigned32
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "At the CM, a measure of the current round trip time
+          obtained from the ranging offset (initial ranging offset +
+          ranging offset adjustments).
+          At the CMTS, the maximum of timing offset, among all the
+          CMs that are/were present on the channel, taking into
+          account all ( initial + periodic ) timing offset
+          corrections that were sent for each of the CMs.  Generally,
+          these measurements are positive, but if the measurements
+          are negative, the value of this object is zero.  Used for
+          timing of CM upstream transmissions to ensure synchronized
+          arrivals at the CMTS.
+          Units are one 64th fraction of 6.25 microseconds."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 6.2.19."
+     ::= { docsIfUpstreamChannelEntry 6 }
+
+docsIfUpChannelRangingBackoffStart OBJECT-TYPE
+     SYNTAX      Integer32 (0..16)
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "The initial random backoff window to use when retrying
+          Ranging Requests.  Expressed as a power of 2.  A value of
+          16 at the CMTS indicates that a proprietary adaptive retry
+          mechanism is to be used.  See the associated conformance
+          object for write conditions and limitations."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Sections 8.3.4, and 9.4."
+     ::= { docsIfUpstreamChannelEntry 7 }
+
+docsIfUpChannelRangingBackoffEnd OBJECT-TYPE
+     SYNTAX      Integer32 (0..16)
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "The final random backoff window to use when retrying
+          Ranging Requests.  Expressed as a power of 2.  A value of
+          16 at the CMTS indicates that a proprietary adaptive retry
+          mechanism is to be used.  See the associated conformance
+          object for write conditions and limitations."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 8.3.4, and 9.4."
+     ::= { docsIfUpstreamChannelEntry 8 }
+
+docsIfUpChannelTxBackoffStart OBJECT-TYPE
+     SYNTAX      Integer32 (0..16)
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "The initial random backoff window to use when retrying
+          transmissions.  Expressed as a power of 2.  A value of 16
+          at the CMTS indicates that a proprietary adaptive retry
+          mechanism is to be used.  See the associated conformance
+          object for write conditions and limitations."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 8.3.4, and 9.4."
+     ::= { docsIfUpstreamChannelEntry 9 }
+
+docsIfUpChannelTxBackoffEnd OBJECT-TYPE
+     SYNTAX      Integer32 (0..16)
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "The final random backoff window to use when retrying
+          transmissions.  Expressed as a power of 2.  A value of 16
+          at the CMTS indicates that a proprietary adaptive retry
+          mechanism is to be used.  See the associated conformance
+          object for write conditions and limitations."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 8.3.4, and 9.4."
+     ::= { docsIfUpstreamChannelEntry 10 }
+
+docsIfUpChannelScdmaActiveCodes OBJECT-TYPE
+     SYNTAX     Unsigned32 (0|64..66|68..70|72|74..78|80..82|84..88
+                             |90..96|98..100|102|104..106|108
+                             |110..112|114..126|128)
+     MAX-ACCESS read-only -- R/O for CM
+     STATUS     current
+     DESCRIPTION
+         "Applicable for SCDMA channel types only.
+          Number of active codes.  Returns zero for
+          Non-SCDMA channel types.  Note that legal
+          values from 64..128 MUST be non-prime."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 6.2.11.2.1."
+     ::= { docsIfUpstreamChannelEntry 11 }
+
+docsIfUpChannelScdmaCodesPerSlot OBJECT-TYPE
+     SYNTAX      Integer32(0 | 2..32)
+     UNITS       "codesperMinislots"
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "Applicable for SCDMA channel types only.
+          The number of SCDMA codes per mini-slot.
+          Returns zero if the value is undefined or unknown or in
+          case of a TDMA or ATDMA channel."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 6.2.11.2.1."
+     ::= { docsIfUpstreamChannelEntry 12 }
+
+docsIfUpChannelScdmaFrameSize OBJECT-TYPE
+     SYNTAX      Unsigned32 (0..32)
+     UNITS       "spreadIntervals"
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "Applicable for SCDMA channel types only.
+          SCDMA Frame size in units of spreading intervals.
+          This value returns zero for non-SCDMA Profiles."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 6.2.12."
+     ::= { docsIfUpstreamChannelEntry 13 }
+
+docsIfUpChannelScdmaHoppingSeed OBJECT-TYPE
+     SYNTAX     Unsigned32 (0..32767)
+     MAX-ACCESS read-only -- R/O for CM
+     STATUS     current
+     DESCRIPTION
+         "Applicable for SCDMA channel types only.
+          15-bit seed used for code hopping sequence initialization.
+          Returns zero for non-SCDMA channel types.
+          Setting this value to a value different than zero for
+          non-SCDMA channel types returns the error 'wrongValue'."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 6.2.14.1."
+     ::= { docsIfUpstreamChannelEntry 14 }
+
+docsIfUpChannelType OBJECT-TYPE
+     SYNTAX      DocsisUpstreamType
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Reflects the Upstream channel type.
+          This object returns the value of docsIfCmtsModChannelType
+          for the modulation profile selected in
+          docsIfUpChannelModulationProfile for this row."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 6.2.1."
+     ::= { docsIfUpstreamChannelEntry 15 }
+
+docsIfUpChannelCloneFrom OBJECT-TYPE
+     SYNTAX      InterfaceIndexOrZero
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "This object contains the ifIndex value of the physical
+          interface row entry whose parameters are to be adjusted.
+
+          Upon setting this object to the ifIndex value of a
+          physical interface, the following interface objects values
+          are copied to this entry:
+          docsIfUpChannelFrequency,
+          docsIfUpChannelWidth,
+          docsIfUpChannelModulationProfile,
+          docsIfUpChannelSlotSize,
+          docsIfUpChannelRangingBackoffStart,
+          docsIfUpChannelRangingBackoffEnd,
+          docsIfUpChannelTxBackoffStart,
+          docsIfUpChannelTxBackoffEnd,
+          docsIfUpChannelScdmaActiveCodes,
+          docsIfUpChannelScdmaCodesPerSlot,
+          docsIfUpChannelScdmaFrameSize,
+          docsIfUpChannelScdmaHoppingSeed,
+          docsIfUpChannelType, and
+          docsIfUpChannelPreEqEnable
+          Setting this object to the value of a non-existent or
+          a temporary upstream interface returns the error
+          'wrongValue'.
+          This object MUST contain a value of zero for physical
+          interfaces entries.
+          Setting this object in row entries that correspond to
+          physical interfaces returns the error 'wrongValue'."
+     ::= { docsIfUpstreamChannelEntry 16 }
+
+docsIfUpChannelUpdate OBJECT-TYPE
+     SYNTAX      TruthValue
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "Used to perform the copy of adjusted parameters from the
+          temporary interface entry to the physical interface
+          indicated by the docsIfUpChannelCloneFrom object.  The
+          transfer is initiated through an SNMP SET to 'true' of
+          this object.
+          A SET to 'true' fails and returns error 'commitFailed'
+          if docsIfUpChannelStatus value is 'notInService', which
+          means that the interface parameters values are not
+          compatible with each other or have not been validated yet.
+          Reading this object always returns 'false'."
+     ::= { docsIfUpstreamChannelEntry 17 }
+
+docsIfUpChannelStatus OBJECT-TYPE
+     SYNTAX      RowStatus
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "This object is only used for the creation of a temporary
+          upstream row with the purpose of updating the parameters
+          of a physical upstream channel entry.
+
+          The following restrictions apply to this object:
+          1. This object is not writable for physical interfaces.
+          2. Temporary interface entries are only created by a SET
+             of this object to createandWait(5).
+          3. ifAdminStatus from the Interface MIB RFC 2863 is used
+             to take a physical upstream channel offline, to be
+             consistent with DOCSIS 1.x operation, as indicated in
+             RFC 2670.
+             In addition,
+              o ifAdminStatus 'down' is reflected in this object
+                as 'notInService'.
+              o ifOperStatus 'down' while ifAdminStatus 'up' is
+                reflected in this object as 'notInservice'.
+          4. Temporary created rows MUST be set to 'active' with
+             the purpose of validating upstream parameter
+             consistency prior to transferring the parameters to the
+             physical interface.
+
+          Below is a mandatory procedure for adjusting the values
+          of a physical interface:
+          1. Create a temporary interface entry through an SNMP SET
+             using 'createAndWait'.  At this point, the RowStatus
+             reports 'notReady'.
+             The Manager entity uses an ifIndex value outside the
+             operational range of the physical interfaces for the
+             creation of a temporary interface.
+          2. Set the docsIfUpChannelCloneFrom object to the ifIndex
+             value of the physical row to update.  Now
+             docsIfUpChannelStatus reports 'notInService'.
+          3. Change the upstream parameters to the desired values
+             in the temporary row.
+          4. Validate that all parameters are consistent by setting
+             docsIfUpChannelStatus to 'active'.  A failure to set the
+             RowStatus to 'active' returns the error 'commitFailed',
+             which means the parameters are not compatible with the
+             target physical interface.
+          5. With docsIfUpChannelStatus 'active', transfer the
+             parameters to the target physical interface by setting
+             the object docsIfUpChannelUpdate to 'true'.
+          6. Delete the temporary row by setting
+             docsIfUpChannelStatus to 'destroy'."
+     ::= { docsIfUpstreamChannelEntry 18 }
+
+docsIfUpChannelPreEqEnable OBJECT-TYPE
+     SYNTAX      TruthValue
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "At the CMTS, this object is used to enable or disable
+          pre-equalization on the upstream channel represented by
+          this table instance.  At the CM, this object is read-only
+          and reflects the status of pre-equalization as represented
+          in the RNG-RSP.  Pre-equalization is considered enabled at
+          the CM if a RNG-RSP with pre-equalization data has been
+          received at least once since the last mac
+          reinitialization."
+     DEFVAL {false}
+     ::= { docsIfUpstreamChannelEntry 19 }
+
+-- The following table describes the attributes of each class of
+-- service.  The entries in this table are referenced from the
+-- docsIfServiceEntries.  They exist as a separate table in order to
+-- reduce redundant information in docsIfServiceTable.
+--
+-- This table is implemented at both the CM and the CMTS.
+-- The CM need only maintain entries for the classes of service
+-- referenced by its docsIfCmServiceTable.
+--
+
+docsIfQosProfileTable OBJECT-TYPE
+     SYNTAX      SEQUENCE OF DocsIfQosProfileEntry
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "Describes the attributes for each class of service."
+     ::= { docsIfBaseObjects 3 }
+
+docsIfQosProfileEntry OBJECT-TYPE
+     SYNTAX      DocsIfQosProfileEntry
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "Describes the attributes for a single class of service.
+          If implemented as read-create in the Cable Modem
+          Termination System, creation of entries in this table is
+          controlled by the value of
+          docsIfCmtsQosProfilePermissions.
+
+          If implemented as read-only, entries are created based
+          on information in REG-REQ MAC messages received from
+          cable modems (for Cable Modem Termination System), or
+          based on information extracted from the TFTP option file
+          (for Cable Modem).
+          In the Cable Modem Termination System, read-only entries
+          are removed if no longer referenced by
+          docsIfCmtsServiceTable.
+
+          An entry in this table MUST not be removed while it is
+          referenced by an entry in docsIfCmServiceTable (Cable
+          Modem) or docsIfCmtsServiceTable (Cable Modem Termination
+          System).
+
+          An entry in this table SHOULD NOT be changeable while
+          it is referenced by an entry in docsIfCmtsServiceTable.
+
+          If this table is created automatically, there SHOULD only
+          be a single entry for each Class of Service.  Multiple
+          entries with the same Class of Service parameters are NOT
+          RECOMMENDED."
+     INDEX { docsIfQosProfIndex }
+     ::= { docsIfQosProfileTable 1 }
+
+DocsIfQosProfileEntry ::= SEQUENCE {
+         docsIfQosProfIndex                Integer32,
+         docsIfQosProfPriority             Integer32,
+         docsIfQosProfMaxUpBandwidth       Integer32,
+         docsIfQosProfGuarUpBandwidth      Integer32,
+         docsIfQosProfMaxDownBandwidth     Integer32,
+         docsIfQosProfMaxTxBurst           Integer32,  -- deprecated
+         docsIfQosProfBaselinePrivacy      TruthValue,
+         docsIfQosProfStatus               RowStatus,
+         docsIfQosProfMaxTransmitBurst     Integer32,
+         docsIfQosProfStorageType          StorageType -- N/A for CM per conformances, but required per spec.  Spec wins.
+     }
+
+docsIfQosProfIndex OBJECT-TYPE
+     SYNTAX      Integer32 (1..16383)
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "The index value that uniquely identifies an entry
+          in the docsIfQosProfileTable."
+     ::= { docsIfQosProfileEntry 1 }
+
+docsIfQosProfPriority OBJECT-TYPE
+     SYNTAX      Integer32 (0..7)
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "A relative priority assigned to this service when
+          allocating bandwidth.  Zero indicates lowest priority
+          and seven indicates highest priority.
+          Interpretation of priority is device-specific.
+          MUST NOT be changed while this row is active."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Annex C.1.1.4."
+     DEFVAL { 0 }
+     ::= { docsIfQosProfileEntry 2 }
+
+docsIfQosProfMaxUpBandwidth OBJECT-TYPE
+     SYNTAX      Integer32 (0..100000000)
+     UNITS "bits per second"
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "The maximum upstream bandwidth, in bits per second,
+          allowed for a service with this service class.
+          Zero if there is no restriction of upstream bandwidth.
+          MUST NOT be changed while this row is active."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Annex C.1.1.4."
+     DEFVAL { 0 }
+     ::= { docsIfQosProfileEntry 3 }
+
+docsIfQosProfGuarUpBandwidth OBJECT-TYPE
+     SYNTAX      Integer32 (0..100000000)
+     UNITS "bits per second"
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "Minimum guaranteed upstream bandwidth, in bits per second,
+          allowed for a service with this service class.
+          MUST NOT be changed while this row is active."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Annex C.1.1.4."
+     DEFVAL { 0 }
+     ::= { docsIfQosProfileEntry 4 }
+
+docsIfQosProfMaxDownBandwidth OBJECT-TYPE
+     SYNTAX      Integer32 (0..100000000)
+     UNITS "bits per second"
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "The maximum downstream bandwidth, in bits per second,
+          allowed for a service with this service class.
+          Zero if there is no restriction of downstream bandwidth.
+          MUST NOT be changed while this row is active."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Annex C.1.1.4."
+
+     DEFVAL { 0 }
+     ::= { docsIfQosProfileEntry 5 }
+
+docsIfQosProfMaxTxBurst OBJECT-TYPE
+     SYNTAX      Integer32 (0..255)
+     UNITS "mini-slots"
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      deprecated
+     DESCRIPTION
+         "The maximum number of mini-slots that may be requested
+          for a single upstream transmission.
+          A value of zero means there is no limit.
+          MUST NOT be changed while this row is active.
+          This object has been deprecated and replaced by
+          docsIfQosProfMaxTransmitBurst, to fix a mismatch
+          of the units and value range with respect to the DOCSIS
+          Maximum Upstream Channel Transmit Burst Configuration
+          Setting."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          C.1.1.4."
+     DEFVAL { 0 }
+     ::= { docsIfQosProfileEntry 6 }
+
+docsIfQosProfBaselinePrivacy OBJECT-TYPE
+     SYNTAX      TruthValue
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "Indicates whether Baseline Privacy is enabled for this
+          service class.
+          MUST NOT be changed while this row is active."
+     DEFVAL { false }
+     ::= { docsIfQosProfileEntry 7 }
+
+docsIfQosProfStatus OBJECT-TYPE
+     SYNTAX      RowStatus
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "This is object is used to create or delete rows in
+          this table.  This object MUST NOT be changed from active
+          while the row is referenced by any entry in either
+          docsIfCmServiceTable (on the CM) or
+          docsIfCmtsServiceTable (on the CMTS)."
+     ::= { docsIfQosProfileEntry 8 }
+
+docsIfQosProfMaxTransmitBurst OBJECT-TYPE
+     SYNTAX      Integer32 (0..65535)
+     UNITS       "bytes"
+     MAX-ACCESS  read-only -- R/O for CM
+     STATUS      current
+     DESCRIPTION
+         "The maximum number of bytes that may be requested for a
+          single upstream transmission.  A value of zero means there
+          is no limit.  Note: This value does not include any
+          physical layer overhead.
+          MUST NOT be changed while this row is active."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Annex C.1.1.4."
+     DEFVAL { 0 }
+     ::= { docsIfQosProfileEntry 9 }
+
+-- N/A for CM per conformances, but required by spec.  Spec wins.
+docsIfQosProfStorageType OBJECT-TYPE
+    SYNTAX       StorageType
+    MAX-ACCESS   read-only
+    STATUS       current
+    DESCRIPTION
+        "The storage type for this conceptual row.
+         Entries with this object set to permanent(4)
+         do not require write operations for writable
+         objects."
+    ::= { docsIfQosProfileEntry 10 }
+
+docsIfSignalQualityTable OBJECT-TYPE
+     SYNTAX      SEQUENCE OF DocsIfSignalQualityEntry
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "At the CM, describes the PHY signal quality of downstream
+          channels.  At the CMTS, this object describes the PHY
+          signal quality of upstream channels.  At the CMTS, this
+          table MAY exclude contention intervals."
+     ::= { docsIfBaseObjects 4 }
+
+docsIfSignalQualityEntry OBJECT-TYPE
+     SYNTAX      DocsIfSignalQualityEntry
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "At the CM, this object describes the PHY characteristics of
+          a downstream channel.  At the CMTS, it describes the PHY
+          signal quality of an upstream channel.
+          An entry in this table exists for each ifEntry with an
+          ifType of docsCableDownstream(128) for Cable Modems.
+          For DOCSIS 1.1 Cable Modem Termination Systems, an entry
+          exists for each ifEntry with an ifType of
+          docsCableUpstream (129).
+          For DOCSIS 2.0 Cable Modem Termination Systems, an entry
+          exists for each ifEntry with an ifType of
+          docsCableUpstreamChannel (205)."
+     INDEX { ifIndex }
+     ::= { docsIfSignalQualityTable 1 }
+
+DocsIfSignalQualityEntry ::= SEQUENCE {
+         docsIfSigQIncludesContention  TruthValue,
+         docsIfSigQUnerroreds          Counter32,
+         docsIfSigQCorrecteds          Counter32,
+         docsIfSigQUncorrectables      Counter32,
+         docsIfSigQSignalNoise         TenthdB,
+         docsIfSigQMicroreflections    Integer32,
+         docsIfSigQEqualizationData    DocsEqualizerData,
+         docsIfSigQExtUnerroreds       Counter64,
+         docsIfSigQExtCorrecteds       Counter64,
+         docsIfSigQExtUncorrectables   Counter64
+     }
+
+docsIfSigQIncludesContention OBJECT-TYPE
+     SYNTAX      TruthValue
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "true(1) if this CMTS includes contention intervals in
+          the counters in this table.  Always false(2) for CMs."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 9.4.1"
+     ::= { docsIfSignalQualityEntry 1 }
+
+docsIfSigQUnerroreds OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "codewords"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Codewords received on this channel without error.
+          This includes all codewords, whether or not they
+          were part of frames destined for this device.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Sections 6.2.4, and 6.3.6."
+     ::= { docsIfSignalQualityEntry 2 }
+
+docsIfSigQCorrecteds OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "codewords"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Codewords received on this channel with correctable
+          errors.  This includes all codewords, whether or not
+          they were part of frames destined for this device.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Sections 6.2.4, and 6.3.6."
+     ::= { docsIfSignalQualityEntry 3 }
+
+docsIfSigQUncorrectables OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "codewords"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Codewords received on this channel with uncorrectable
+          errors.  This includes all codewords, whether or not
+          they were part of frames destined for this device.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Sections 6.2.4, and 6.3.6."
+     ::= { docsIfSignalQualityEntry 4 }
+
+docsIfSigQSignalNoise OBJECT-TYPE
+     SYNTAX      TenthdB
+     UNITS       "TenthdB"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Signal/Noise ratio as perceived for this channel.
+          At the CM, this object  describes the Signal/Noise of the
+          downstream channel.  At the CMTS, it describes the
+          average Signal/Noise of the upstream channel."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Tables 4-1 and 4-2"
+     ::= { docsIfSignalQualityEntry 5 }
+
+docsIfSigQMicroreflections OBJECT-TYPE
+     SYNTAX      Integer32 (0..255)
+     UNITS       "-dBc"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Microreflections, including in-channel response
+          as perceived on this interface, measured in dBc below
+          the signal level.
+          This object is not assumed to return an absolutely
+          accurate value, but it gives a rough indication
+          of microreflections received on this interface.
+          It is up to the implementer to provide information
+          as accurately as possible."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Tables 4-1 and 4-2"
+     ::= { docsIfSignalQualityEntry 6 }
+
+docsIfSigQEqualizationData OBJECT-TYPE
+        SYNTAX      DocsEqualizerData
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION
+            "At the CM, this object returns the equalization data for
+             the downstream channel.
+
+             At the CMTS, this object is not applicable and is not
+             instantiated.  Note that previous CMTS implementations
+             may instantiate this object in two ways:
+             - An equalization value indicating an equalization
+               average for the upstream channel.  Those values have
+               vendor-dependent interpretations.
+             - Return a zero-length OCTET STRING to indicate that
+               the value is unknown or if there is no equalization
+               data available or defined."
+        REFERENCE
+            "DOCSIS Radio Frequency Interface Specification,
+             Figure 6-23."
+        ::= { docsIfSignalQualityEntry 7 }
+
+docsIfSigQExtUnerroreds OBJECT-TYPE
+     SYNTAX      Counter64
+     UNITS       "codewords"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Codewords received on this channel without error.
+          This includes all codewords, whether or not they
+          were part of frames destined for this device.
+          This is the 64-bit version of docsIfSigQUnerroreds.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Sections 6.2.4, and 6.3.6."
+     ::= { docsIfSignalQualityEntry 8 }
+
+docsIfSigQExtCorrecteds OBJECT-TYPE
+     SYNTAX      Counter64
+     UNITS       "codewords"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Codewords received on this channel with correctable
+          errors.  This includes all codewords, whether or not
+          they were part of frames destined for this device.
+          This is the 64-bit version of docsIfSigQCorrecteds.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Sections 6.2.4, and 6.3.6."
+     ::= { docsIfSignalQualityEntry 9 }
+
+docsIfSigQExtUncorrectables OBJECT-TYPE
+     SYNTAX      Counter64
+     UNITS       "codewords"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Codewords received on this channel with uncorrectable
+          errors.  This includes all codewords, whether or not
+          they were part of frames destined for this device.
+          This is the 64-bit version of docsIfSigQUncorrectables.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Sections 6.2.4, 6.3.6."
+     ::= { docsIfSignalQualityEntry 10 }
+
+--
+-- DOCSIS Version of the device
+--
+
+docsIfDocsisBaseCapability OBJECT-TYPE
+        SYNTAX      DocsisVersion
+        MAX-ACCESS  read-only
+        STATUS      current
+        DESCRIPTION
+            "Indication of the DOCSIS capability of the device."
+        REFERENCE
+            "Data-Over-Cable Service Interface Specifications: Radio
+             Frequency Interface Specification SP-RFIv2.0-I10-051209,
+             Annex G."
+        ::= { docsIfBaseObjects 5 }
+
+--
+-- CABLE MODEM GROUP
+--
+
+--
+-- The CM MAC Table
+--
+
+docsIfCmMacTable OBJECT-TYPE
+     SYNTAX      SEQUENCE OF DocsIfCmMacEntry
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "Describes the attributes of each CM MAC interface,
+          extending the information available from ifEntry."
+     ::= { docsIfCmObjects 1 }
+
+docsIfCmMacEntry OBJECT-TYPE
+     SYNTAX      DocsIfCmMacEntry
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "An entry containing objects describing attributes of
+          each MAC entry, extending the information in ifEntry.
+          An entry in this table exists for each ifEntry with an
+          ifType of docsCableMaclayer(127)."
+     INDEX { ifIndex }
+     ::= { docsIfCmMacTable 1 }
+
+DocsIfCmMacEntry ::= SEQUENCE {
+         docsIfCmCmtsAddress           MacAddress,
+         docsIfCmCapabilities          BITS,
+         docsIfCmRangingRespTimeout    TimeTicks,
+         docsIfCmRangingTimeout        TimeInterval
+      }
+
+docsIfCmCmtsAddress OBJECT-TYPE
+     SYNTAX      MacAddress
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Identifies the CMTS that is believed to control this MAC
+          domain.  At the CM, this will be the source address from
+          SYNC, MAP, and other MAC-layer messages.  If the CMTS is
+          unknown, returns 00-00-00-00-00-00."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 8.2.2."
+     ::= { docsIfCmMacEntry 1 }
+
+docsIfCmCapabilities OBJECT-TYPE
+     SYNTAX      BITS {
+         atmCells(0),
+         concatenation(1)
+     }
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Identifies the capabilities of the MAC implementation
+          at this interface.  Note that packet transmission is
+          always supported.  Therefore, there is no specific bit
+          required to explicitly indicate this capability.
+          Note that BITS objects are encoded most significant bit
+          first.  For example, if bit 1 is set, the value of this
+          object is the octet string '40'H."
+     ::= { docsIfCmMacEntry 2 }
+
+docsIfCmRangingRespTimeout OBJECT-TYPE
+     SYNTAX      TimeTicks
+     MAX-ACCESS  read-write
+     STATUS      obsolete
+     DESCRIPTION
+         "Waiting time for a Ranging Response packet.
+          This object has been obsoleted and replaced by
+          docsIfCmRangingTimeout to correct the typing to
+          TimeInterval."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 9.1.6."
+     DEFVAL { 20 }
+     ::= { docsIfCmMacEntry 3 }
+
+docsIfCmRangingTimeout OBJECT-TYPE
+     SYNTAX      TimeInterval
+     UNITS       "HundredOfSeconds"
+     MAX-ACCESS  read-write -- R/O access is OK per conformances
+     STATUS      current
+     DESCRIPTION
+         "Waiting time for a Ranging Response packet.
+          This object MUST NOT persist at reinitialization
+          of the managed system."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 9.1.6, timer T3."
+     DEFVAL { 20 }
+     ::= { docsIfCmMacEntry 4 }
+
+--
+-- CM status table.
+-- This table is implemented only at the CM.
+--
+
+docsIfCmStatusTable OBJECT-TYPE
+     SYNTAX      SEQUENCE OF DocsIfCmStatusEntry
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "This table maintains a number of status objects
+          and counters for Cable Modems."
+     ::= { docsIfCmObjects 2 }
+
+docsIfCmStatusEntry OBJECT-TYPE
+     SYNTAX      DocsIfCmStatusEntry
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "A set of status objects and counters for a single MAC
+          layer instance in Cable Modem.
+          An entry in this table exists for each ifEntry with an
+          ifType of docsCableMaclayer(127)."
+     INDEX { ifIndex }
+     ::= { docsIfCmStatusTable 1 }
+
+DocsIfCmStatusEntry ::= SEQUENCE {
+         docsIfCmStatusValue               INTEGER,
+         docsIfCmStatusCode                OCTET STRING,
+         docsIfCmStatusTxPower             TenthdBmV,
+         docsIfCmStatusResets              Counter32,
+         docsIfCmStatusLostSyncs           Counter32,
+         docsIfCmStatusInvalidMaps         Counter32,
+         docsIfCmStatusInvalidUcds         Counter32,
+         docsIfCmStatusInvalidRangingResponses   Counter32,
+         docsIfCmStatusInvalidRegistrationResponses Counter32,
+         docsIfCmStatusT1Timeouts          Counter32,
+         docsIfCmStatusT2Timeouts          Counter32,
+         docsIfCmStatusT3Timeouts          Counter32,
+         docsIfCmStatusT4Timeouts          Counter32,
+         docsIfCmStatusRangingAborteds     Counter32,
+         docsIfCmStatusDocsisOperMode      DocsisQosVersion,
+         docsIfCmStatusModulationType      DocsisUpstreamType,
+         docsIfCmStatusEqualizationData    DocsEqualizerData,
+         docsIfCmStatusUCCs                Counter32,
+         docsIfCmStatusUCCFails            Counter32
+     }
+
+docsIfCmStatusValue OBJECT-TYPE
+     SYNTAX      INTEGER {
+         other(1),
+         notReady(2),
+         notSynchronized(3),
+         phySynchronized(4),
+         usParametersAcquired(5),
+         rangingComplete(6),
+         ipComplete(7),
+         todEstablished(8),
+         securityEstablished(9),
+         paramTransferComplete(10),
+         registrationComplete(11),
+         operational(12),
+         accessDenied(13)
+     }
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Current Cable Modem connectivity state, as specified
+          in the RF Interface Specification.  Interpretations for
+          state values 1-12 are clearly outlined in the SP-RFI
+          reference given below.
+          The state value accessDenied(13) indicates the CMTS has
+          sent a Registration Aborted message to the CM.  The same
+          state is reported as accessDenied(7) by the CMTS object
+          docsIfCmtsCmStatusValue."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 11.2.
+          Data-Over-Cable Service Interface Specifications:
+          Operations Support System Interface Specification
+          SP-OSSIv2.0-I09-050812, Section 6.3.4.2."
+     ::= { docsIfCmStatusEntry 1 }
+
+docsIfCmStatusCode OBJECT-TYPE
+     SYNTAX      OCTET STRING (SIZE( 0 | 5 | 6 ))
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Status code for a Cable Modem as defined in the
+          OSSI Specification.  The status code consists
+          of a single character indicating error groups, followed
+          by a two- or three-digit number indicating the status
+          condition, followed by a decimal.
+          An example of a returned value could be 'T101.0'.
+          The zero-length OCTET STRING indicates no status code yet
+          registered."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications:
+          Operations Support System Interface Specification
+          SP-OSSIv2.0-I09-050812, Annex D."
+     ::= { docsIfCmStatusEntry 2 }
+
+docsIfCmStatusTxPower OBJECT-TYPE
+     SYNTAX      TenthdBmV
+     UNITS       "TenthdBmV"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "The operational transmit power for the attached upstream
+          channel."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 6.2.18."
+     ::= { docsIfCmStatusEntry 3 }
+
+docsIfCmStatusResets OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "resets"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Number of times the CM reset or initialized this
+          interface.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     ::= { docsIfCmStatusEntry 4 }
+
+docsIfCmStatusLostSyncs OBJECT-TYPE
+     SYNTAX      Counter32
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Number of times the CM lost synchronization with
+          the downstream channel.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 8.3.2."
+     ::= { docsIfCmStatusEntry 5 }
+
+docsIfCmStatusInvalidMaps OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "maps"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Number of times the CM received invalid MAP messages.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 8.3.4."
+     ::= { docsIfCmStatusEntry 6 }
+
+docsIfCmStatusInvalidUcds OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "messages"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Number of times the CM received invalid UCD messages.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 8.3.3."
+     ::= { docsIfCmStatusEntry 7 }
+
+docsIfCmStatusInvalidRangingResponses OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "messages"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Number of times the CM received invalid ranging response
+          messages.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 8.3.6."
+     ::= { docsIfCmStatusEntry 8 }
+
+docsIfCmStatusInvalidRegistrationResponses OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "messages"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Number of times the CM received invalid registration
+          response messages.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 8.3.8."
+     ::= { docsIfCmStatusEntry 9 }
+
+docsIfCmStatusT1Timeouts OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "timeouts"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Number of times counter T1 expired in the CM.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Figure 9-2."
+     ::= { docsIfCmStatusEntry 10 }
+
+docsIfCmStatusT2Timeouts OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "timeouts"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Number of times counter T2 expired in the CM.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Figure 9-2."
+     ::= { docsIfCmStatusEntry 11 }
+
+docsIfCmStatusT3Timeouts OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "timeouts"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Number of times counter T3 expired in the CM.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Figure 9-2."
+     ::= { docsIfCmStatusEntry 12 }
+
+docsIfCmStatusT4Timeouts OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "timeouts"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Number of times counter T4 expired in the CM.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Figure 9-2."
+     ::= { docsIfCmStatusEntry 13 }
+
+docsIfCmStatusRangingAborteds OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "attempts"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Number of times the ranging process was aborted
+          by the CMTS.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 9.3.3."
+     ::= { docsIfCmStatusEntry 14 }
+
+docsIfCmStatusDocsisOperMode OBJECT-TYPE
+     SYNTAX      DocsisQosVersion
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+          "Indication of whether the device has registered using 1.0
+           Class of Service or 1.1 Quality of Service.
+           An unregistered CM SHOULD indicate 'docsis11' for a
+           docsIfDocsisBaseCapability value of DOCSIS 1.1/2.0.  An
+           unregistered CM SHOULD indicate 'docsis10'  for a
+           docsIfDocsisBaseCapability value of DOCSIS 1.0."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Annex G."
+     ::= { docsIfCmStatusEntry 15 }
+
+docsIfCmStatusModulationType OBJECT-TYPE
+      SYNTAX      DocsisUpstreamType
+      MAX-ACCESS  read-only
+      STATUS      current
+      DESCRIPTION
+          "Indicates modulation type status currently used by the
+           CM.  Since this object specifically identifies PHY mode,
+           the shared upstream channel type is not permitted."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 6.2.1."
+
+      ::= { docsIfCmStatusEntry 16 }
+
+docsIfCmStatusEqualizationData OBJECT-TYPE
+     SYNTAX      DocsEqualizerData
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "Pre-equalization data for this CM after convolution with
+          data indicated in the RNG-RSP.  This data is valid when
+          docsIfUpChannelPreEqEnable is set to true."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Figure 8-23."
+     ::= { docsIfCmStatusEntry 17 }
+
+docsIfCmStatusUCCs OBJECT-TYPE
+     SYNTAX          Counter32
+     UNITS           "attempts"
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION
+         "The number of successful Upstream Channel Change
+          transactions.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     ::= { docsIfCmStatusEntry 18 }
+
+docsIfCmStatusUCCFails OBJECT-TYPE
+     SYNTAX          Counter32
+     UNITS           "attempts"
+     MAX-ACCESS      read-only
+     STATUS          current
+     DESCRIPTION
+         "The number of failed Upstream Channel Change
+          transactions.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     ::= { docsIfCmStatusEntry 19 }
+
+--
+-- The Cable Modem Service Table
+--
+
+docsIfCmServiceTable OBJECT-TYPE
+     SYNTAX      SEQUENCE OF DocsIfCmServiceEntry
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "Describes the attributes of each upstream service queue
+          on a CM."
+     ::= { docsIfCmObjects 3 }
+
+docsIfCmServiceEntry OBJECT-TYPE
+     SYNTAX      DocsIfCmServiceEntry
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "Describes the attributes of an upstream bandwidth service
+          queue.
+          An entry in this table exists for each Service ID.
+          The primary index is an ifIndex with an ifType of
+          docsCableMaclayer(127)."
+     INDEX { ifIndex, docsIfCmServiceId }
+     ::= { docsIfCmServiceTable 1 }
+
+DocsIfCmServiceEntry ::= SEQUENCE {
+         docsIfCmServiceId               Integer32,
+         docsIfCmServiceQosProfile       Integer32,
+         docsIfCmServiceTxSlotsImmed     Counter32,
+         docsIfCmServiceTxSlotsDed       Counter32,
+         docsIfCmServiceTxRetries        Counter32,
+         docsIfCmServiceTxExceededs      Counter32,
+         docsIfCmServiceRqRetries        Counter32,
+         docsIfCmServiceRqExceededs      Counter32,
+         docsIfCmServiceExtTxSlotsImmed  Counter64,
+         docsIfCmServiceExtTxSlotsDed    Counter64
+      }
+
+docsIfCmServiceId OBJECT-TYPE
+     SYNTAX      Integer32 (1..16383)
+     MAX-ACCESS  not-accessible
+     STATUS      current
+     DESCRIPTION
+         "Identifies a service queue for upstream bandwidth.  The
+          attributes of this service queue are shared between the
+          CM and the CMTS.  The CMTS allocates upstream bandwidth
+          to this service queue based on requests from the CM and
+          on the class of service associated with this queue."
+     ::= { docsIfCmServiceEntry 1 }
+
+docsIfCmServiceQosProfile OBJECT-TYPE
+     SYNTAX      Integer32 (0..16383)
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "The index in docsIfQosProfileTable describing the quality
+          of service attributes associated with this particular
+          service.  If no associated entry in docsIfQosProfileTable
+          exists, this object returns a value of zero."
+     ::= { docsIfCmServiceEntry 2 }
+
+docsIfCmServiceTxSlotsImmed OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "mini-slots"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "The number of upstream mini-slots that have been used to
+          transmit data PDUs in immediate (contention) mode.  This
+          includes only those PDUs that are presumed to have
+          arrived at the head-end (i.e., those that were explicitly
+          acknowledged).  It does not include retransmission attempts
+          or mini-slots used by requests.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 9.4."
+     ::= { docsIfCmServiceEntry 3 }
+
+docsIfCmServiceTxSlotsDed OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "mini-slots"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "The number of upstream mini-slots that have been used to
+          transmit data PDUs in dedicated mode (i.e., as a result
+          of a unicast Data Grant).
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 9.4."
+     ::= { docsIfCmServiceEntry 4 }
+
+docsIfCmServiceTxRetries OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "attempts"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "The number of attempts to transmit data PDUs containing
+          requests for acknowledgment that did not result in
+          acknowledgment.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 9.4."
+     ::= { docsIfCmServiceEntry 5 }
+
+docsIfCmServiceTxExceededs OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "attempts"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "The number of data PDU transmission failures due to
+          excessive retries without acknowledgment.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 9.4."
+     ::= { docsIfCmServiceEntry 6 }
+
+docsIfCmServiceRqRetries OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "attempts"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "The number of attempts to transmit bandwidth requests
+          that did not result in acknowledgment.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 9.4."
+     ::= { docsIfCmServiceEntry 7 }
+
+docsIfCmServiceRqExceededs OBJECT-TYPE
+     SYNTAX      Counter32
+     UNITS       "attempts"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "The number of requests for bandwidth that failed due to
+          excessive retries without acknowledgment.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 9.4."
+     ::= { docsIfCmServiceEntry 8 }
+
+docsIfCmServiceExtTxSlotsImmed OBJECT-TYPE
+     SYNTAX      Counter64
+     UNITS       "mini-slots"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "The number of upstream mini-slots that have been used to
+          transmit data PDUs in immediate (contention) mode.  This
+          includes only those PDUs that are presumed to have
+          arrived at the head-end (i.e., those that were explicitly
+          acknowledged).  It does not include retransmission attempts
+          or mini-slots used by requests.
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 9.4."
+     ::= { docsIfCmServiceEntry 9 }
+
+docsIfCmServiceExtTxSlotsDed OBJECT-TYPE
+     SYNTAX      Counter64
+     UNITS       "mini-slots"
+     MAX-ACCESS  read-only
+     STATUS      current
+     DESCRIPTION
+         "The number of upstream mini-slots that have been used to
+          transmit data PDUs in dedicated mode (i.e., as a result
+          of a unicast Data Grant).
+          Discontinuities in the value of this counter can occur
+          at reinitialization of the managed system, and at other
+          times as indicated by the value of
+          ifCounterDiscontinuityTime for the associated ifIndex."
+     REFERENCE
+         "Data-Over-Cable Service Interface Specifications: Radio
+          Frequency Interface Specification SP-RFIv2.0-I10-051209,
+          Section 9.4."
+     ::= { docsIfCmServiceEntry 10 }
+
+--
+-- CMTS GROUP
+-- N/A for CM
+--
+
+--
+-- notification group is for future extension.
+--
+
+docsIfNotification OBJECT IDENTIFIER     ::= { docsIfMib 2 }
+
+--
+-- MIB Compliance statements.
+--
+
+--
+-- Conformance definitions
+--
+
+docsIfConformance  OBJECT IDENTIFIER     ::= { docsIfMib 3 }
+docsIfCompliances  OBJECT IDENTIFIER     ::= { docsIfConformance 1 }
+docsIfGroups       OBJECT IDENTIFIER     ::= { docsIfConformance 2 }
+
+docsIfBasicCompliance MODULE-COMPLIANCE
+     STATUS      deprecated
+     DESCRIPTION
+         "The compliance statement for devices that implement
+          DOCSIS 1.x compliant Radio Frequency Interfaces."
+
+MODULE  -- docsIfMib
+
+-- unconditionally mandatory groups
+MANDATORY-GROUPS {
+     docsIfBasicGroup
+     }
+
+-- conditionally mandatory group
+GROUP docsIfCmGroup
+     DESCRIPTION
+         "This group is implemented only in cable modems, not in
+          cable modem termination systems."
+
+OBJECT  docsIfDownChannelFrequency
+     WRITE-SYNTAX Integer32 (54000000..860000000)
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems.  The values above are
+          appropriate for a cable plant using a Sub-Split channel
+          plan.  If DOCSIS is extended to cover other types of
+          channel plans (and frequency allocations), this object
+          will be modified accordingly."
+
+OBJECT  docsIfDownChannelWidth
+     WRITE-SYNTAX Integer32 (6000000)
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "It is important to implement this object as read-only.
+          In cable modems, this object is always implemented as
+          read-only.  The above value is appropriate for cable
+          plants running under NTSC (National Television
+          Standards Committee) standards.  If DOCSIS is extended to
+          work with other standards (e.g., European standards), this
+          object will be modified accordingly."
+
+OBJECT  docsIfDownChannelModulation
+     WRITE-SYNTAX INTEGER {
+                            qam64 (3),
+                            qam256 (4)
+                          }
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfDownChannelInterleave
+     WRITE-SYNTAX INTEGER {
+                 taps8Increment16(3),
+                 taps16Increment8(4),
+                 taps32Increment4(5),
+                 taps64Increment2(6),
+                 taps128Increment1(7)
+                  }
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfDownChannelPower
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelFrequency
+     WRITE-SYNTAX Integer32 (5000000..42000000)
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems.  The values above are
+          appropriate for a cable plant using a Sub-Split channel
+          plan.  If DOCSIS is extended to cover other types of
+          channel plans (and frequency allocations), this object
+          will be modified accordingly."
+
+OBJECT  docsIfUpChannelWidth
+     WRITE-SYNTAX Integer32 (200000..3200000)
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems.  The above value is appropriate
+          for cable plants running under NTSC (National Television
+          Standards Committee) standards.  If DOCSIS is extended to
+          work with other standards (e.g., European standards), this
+          object will be modified accordingly."
+
+OBJECT  docsIfUpChannelModulationProfile
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelSlotSize
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+OBJECT  docsIfUpChannelRangingBackoffStart
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelRangingBackoffEnd
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelTxBackoffStart
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelTxBackoffEnd
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfQosProfPriority
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+
+OBJECT  docsIfQosProfMaxUpBandwidth
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+
+OBJECT  docsIfQosProfGuarUpBandwidth
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+
+OBJECT  docsIfQosProfMaxDownBandwidth
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+
+OBJECT  docsIfQosProfMaxTxBurst
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+
+OBJECT  docsIfQosProfBaselinePrivacy
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+
+OBJECT  docsIfQosProfStatus
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+          
+     ::= { docsIfCompliances 1 }
+
+docsIfBasicComplianceV2 MODULE-COMPLIANCE
+     STATUS      current
+     DESCRIPTION
+         "The compliance statement for devices that implement
+          DOCSIS 2.0 Radio Frequency Interfaces."
+
+MODULE  -- docsIfMib
+
+-- unconditionally mandatory groups
+MANDATORY-GROUPS {
+     docsIfBasicGroupV2
+     }
+
+-- conditionally mandatory group
+GROUP docsIfCmGroupV2
+     DESCRIPTION
+         "This group is implemented only in cable modems, not in
+          cable modem termination systems."
+
+OBJECT  docsIfDownChannelFrequency
+     WRITE-SYNTAX Integer32 (47000000..862000000)
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems.
+          A range of 54MHz to 860MHz is appropriate for a cable
+          plant using a North American Sub-Split channel plan.
+          The spectrum range has been expanded to accommodate
+          a lower edge of 47MHz and an upper edge of 862MHz
+          for some European channel plans.
+          If DOCSIS is extended to cover other types of channel
+          plans (and frequency allocations), this object will be
+          modified accordingly."
+
+OBJECT  docsIfDownChannelWidth
+     WRITE-SYNTAX Integer32 (6000000 | 8000000)
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "It is important to implement this object as read-only.
+          In cable modems, this object is always implemented as
+          read-only.  The value of 6 MHz is appropriate for cable
+          plants running under NTSC (National Television
+          Standards Committee) standards.  The value of 8 MHz is
+          appropriate for cable plants running under ETSI
+          standards.  For other regional standards, this
+          object will be modified accordingly."
+
+OBJECT  docsIfDownChannelModulation
+     WRITE-SYNTAX INTEGER {
+                            qam64 (3),
+                            qam256 (4)
+                          }
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfDownChannelInterleave
+     WRITE-SYNTAX INTEGER {
+                 taps8Increment16(3),
+                 taps16Increment8(4),
+                 taps32Increment4(5),
+                 taps64Increment2(6),
+                 taps128Increment1(7),
+                 taps12increment17(8)
+                  }
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfDownChannelPower
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-write in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelFrequency
+     WRITE-SYNTAX Integer32 (5000000..65000000)
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-create in cable modem termination systems;
+          read-only in cable modems.
+          A range of 5MHz to 42MHz is appropriate for a cable
+          plant using a North American Sub-Split channel plan.
+          The spectrum range has been expanded to accommodate
+          an upper edge of 65MHz for some European channel plans.
+          If DOCSIS is extended to cover other types of channel
+          plans (and frequency allocations), this object will
+          be modified accordingly."
+
+OBJECT  docsIfUpChannelWidth
+     WRITE-SYNTAX Integer32 (200000..6400000)
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-create in cable modem termination systems,
+          read-only in cable modems.  The above value is appropriate
+          for cable plants running under NTSC (National Television
+          Standards Committee) standards.  If DOCSIS is extended to
+          work with other standards (e.g., European standards), this
+          object will be modified accordingly."
+
+OBJECT  docsIfUpChannelModulationProfile
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-create in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelSlotSize
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+
+OBJECT  docsIfUpChannelRangingBackoffStart
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-create in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelRangingBackoffEnd
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-create in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelTxBackoffStart
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-create in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelTxBackoffEnd
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-create in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelScdmaActiveCodes
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-create in cable modem termination systems;
+          read-only in cable modems.
+          The number of active codes when SCDMA is in use MUST range
+          from 64 to 128 and MUST be a non-Prime value.
+          Providing this range allows for the following features
+          and capabilities:
+             1) Power management in S-CDMA spreader-on frames
+                (with a 3 dB spread).
+             2) Avoidance of code 0.
+             3) Flexible mini-slot sizes with and without the use of
+                code 0."
+
+OBJECT  docsIfUpChannelScdmaCodesPerSlot
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-create in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelScdmaFrameSize
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-create in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelScdmaHoppingSeed
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-create in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelCloneFrom
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-create in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelUpdate
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-create in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfUpChannelStatus
+        MIN-ACCESS  read-only
+        DESCRIPTION
+            "Read-create in Cable Modem Termination Systems;
+             read-only in Cable Modems.
+             Entries associated to physical interfaces only support
+             the read-only value 'active'."
+
+OBJECT  docsIfUpChannelPreEqEnable
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "Read-create in cable modem termination systems;
+          read-only in cable modems."
+
+OBJECT  docsIfQosProfPriority
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+
+OBJECT  docsIfQosProfMaxUpBandwidth
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+
+OBJECT  docsIfQosProfGuarUpBandwidth
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+
+OBJECT  docsIfQosProfMaxDownBandwidth
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+
+OBJECT  docsIfQosProfBaselinePrivacy
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+
+OBJECT  docsIfQosProfStatus
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+
+OBJECT  docsIfQosProfMaxTransmitBurst
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "This object is always read-only in cable modems.
+          It is compliant to implement this object as read-only
+          in cable modem termination systems."
+
+OBJECT  docsIfCmRangingTimeout
+     MIN-ACCESS  read-only
+     DESCRIPTION
+         "It is compliant to implement this object as read-only."
+
+OBJECT docsIfCmStatusModulationType
+    SYNTAX          INTEGER {
+        unknown(0),
+        tdma(1),
+        atdma(2),
+        scdma(3)
+    }
+     DESCRIPTION
+         "CM does not use both modulation burst profiles of a
+          'tdmAndAtdma' ChannelType; therefore, 'tdmAndAtdma'is
+          not supported."
+          
+     ::= { docsIfCompliances 2 }
+
+docsIfBasicGroup OBJECT-GROUP
+     OBJECTS {
+         docsIfDownChannelId,
+         docsIfDownChannelFrequency,
+         docsIfDownChannelWidth,
+         docsIfDownChannelModulation,
+         docsIfDownChannelInterleave,
+         docsIfDownChannelPower,
+         docsIfUpChannelId,
+         docsIfUpChannelFrequency,
+         docsIfUpChannelWidth,
+         docsIfUpChannelModulationProfile,
+         docsIfUpChannelSlotSize,
+         docsIfUpChannelTxTimingOffset,
+         docsIfUpChannelRangingBackoffStart,
+         docsIfUpChannelRangingBackoffEnd,
+         docsIfUpChannelTxBackoffStart,
+         docsIfUpChannelTxBackoffEnd,
+         docsIfQosProfPriority,
+         docsIfQosProfMaxUpBandwidth,
+         docsIfQosProfGuarUpBandwidth,
+         docsIfQosProfMaxDownBandwidth,
+         docsIfQosProfMaxTxBurst,
+         docsIfQosProfBaselinePrivacy,
+         docsIfQosProfStatus,
+         docsIfSigQIncludesContention,
+         docsIfSigQUnerroreds,
+         docsIfSigQCorrecteds,
+         docsIfSigQUncorrectables,
+         docsIfSigQSignalNoise,
+         docsIfSigQMicroreflections,
+         docsIfSigQEqualizationData
+     }
+     STATUS      deprecated
+     DESCRIPTION
+         "Group of objects implemented in both cable modems and
+          cable modem termination systems."
+     ::= { docsIfGroups 1 }
+
+docsIfCmGroup OBJECT-GROUP
+     OBJECTS {
+         docsIfCmCmtsAddress,
+         docsIfCmCapabilities,
+         docsIfCmRangingTimeout,
+         docsIfCmStatusValue,
+         docsIfCmStatusCode,
+         docsIfCmStatusTxPower,
+         docsIfCmStatusResets,
+         docsIfCmStatusLostSyncs,
+         docsIfCmStatusInvalidMaps,
+         docsIfCmStatusInvalidUcds,
+         docsIfCmStatusInvalidRangingResponses,
+         docsIfCmStatusInvalidRegistrationResponses,
+         docsIfCmStatusT1Timeouts,
+         docsIfCmStatusT2Timeouts,
+         docsIfCmStatusT3Timeouts,
+         docsIfCmStatusT4Timeouts,
+         docsIfCmStatusRangingAborteds,
+         docsIfCmServiceQosProfile,
+         docsIfCmServiceTxSlotsImmed,
+         docsIfCmServiceTxSlotsDed,
+         docsIfCmServiceTxRetries,
+         docsIfCmServiceTxExceededs,
+         docsIfCmServiceRqRetries,
+         docsIfCmServiceRqExceededs
+     }
+     STATUS      deprecated
+     DESCRIPTION
+         "Group of objects implemented in cable modems."
+     ::= { docsIfGroups 2 }
+
+-- obsolete group
+-- RFC 2670 already had a obsolete group, even though RFC2670
+-- was the first version of this MIB Module.
+
+docsIfObsoleteGroup OBJECT-GROUP
+     OBJECTS {
+         docsIfCmRangingRespTimeout
+     }
+     STATUS      obsolete
+     DESCRIPTION
+         "Group of objects obsoleted."
+     ::= { docsIfGroups 4 }
+
+docsIfBasicGroupV2 OBJECT-GROUP
+     OBJECTS {
+         docsIfDownChannelId,
+         docsIfDownChannelFrequency,
+         docsIfDownChannelWidth,
+         docsIfDownChannelModulation,
+         docsIfDownChannelInterleave,
+         docsIfDownChannelPower,
+         docsIfDownChannelAnnex,
+         docsIfDownChannelStorageType,
+         docsIfUpChannelId,
+         docsIfUpChannelFrequency,
+         docsIfUpChannelWidth,
+         docsIfUpChannelModulationProfile,
+         docsIfUpChannelSlotSize,
+         docsIfUpChannelTxTimingOffset,
+         docsIfUpChannelRangingBackoffStart,
+         docsIfUpChannelRangingBackoffEnd,
+         docsIfUpChannelTxBackoffStart,
+         docsIfUpChannelTxBackoffEnd,
+         docsIfUpChannelScdmaActiveCodes,
+         docsIfUpChannelScdmaCodesPerSlot,
+         docsIfUpChannelScdmaFrameSize,
+         docsIfUpChannelScdmaHoppingSeed,
+         docsIfUpChannelType,
+         docsIfUpChannelCloneFrom,
+         docsIfUpChannelUpdate,
+         docsIfUpChannelStatus,
+         docsIfUpChannelPreEqEnable,
+         docsIfQosProfPriority,
+         docsIfQosProfMaxUpBandwidth,
+         docsIfQosProfGuarUpBandwidth,
+         docsIfQosProfMaxDownBandwidth,
+         docsIfQosProfBaselinePrivacy,
+         docsIfQosProfStatus,
+         docsIfQosProfMaxTransmitBurst,
+         docsIfSigQIncludesContention,
+         docsIfSigQUnerroreds,
+         docsIfSigQCorrecteds,
+         docsIfSigQUncorrectables,
+         docsIfSigQSignalNoise,
+         docsIfSigQMicroreflections,
+         docsIfSigQExtUnerroreds,
+         docsIfSigQExtCorrecteds,
+         docsIfSigQExtUncorrectables,
+         docsIfDocsisBaseCapability
+     }
+     STATUS      current
+     DESCRIPTION
+         "Group of objects implemented in both cable modems and
+          cable modem termination systems."
+     ::= { docsIfGroups 5 }
+
+docsIfCmGroupV2 OBJECT-GROUP
+     OBJECTS {
+         docsIfCmCmtsAddress,
+         docsIfCmCapabilities,
+         docsIfCmRangingTimeout,
+         docsIfCmStatusValue,
+         docsIfCmStatusCode,
+         docsIfCmStatusTxPower,
+         docsIfCmStatusResets,
+         docsIfCmStatusLostSyncs,
+         docsIfCmStatusInvalidMaps,
+         docsIfCmStatusInvalidUcds,
+         docsIfCmStatusInvalidRangingResponses,
+         docsIfCmStatusInvalidRegistrationResponses,
+         docsIfCmStatusT1Timeouts,
+         docsIfCmStatusT2Timeouts,
+         docsIfCmStatusT3Timeouts,
+         docsIfCmStatusT4Timeouts,
+         docsIfCmStatusRangingAborteds,
+         docsIfCmStatusDocsisOperMode,
+         docsIfCmStatusModulationType,
+         docsIfCmStatusEqualizationData,
+         docsIfCmStatusUCCs,
+         docsIfCmStatusUCCFails,
+         docsIfCmServiceQosProfile,
+         docsIfCmServiceTxSlotsImmed,
+         docsIfCmServiceTxSlotsDed,
+         docsIfCmServiceTxRetries,
+         docsIfCmServiceTxExceededs,
+         docsIfCmServiceRqRetries,
+         docsIfCmServiceRqExceededs,
+         docsIfCmServiceExtTxSlotsImmed,
+         docsIfCmServiceExtTxSlotsDed,
+         docsIfSigQEqualizationData
+     }
+     STATUS      current
+     DESCRIPTION
+         "Group of objects implemented in cable modems."
+     ::= { docsIfGroups 6 }
+
+END

@@ -1,0 +1,737 @@
+--*********************************
+--  前端控制器MIB初稿
+--  最后更新日期：2006/6/16
+--  无锡路通电子技术有限公司
+--*********************************
+-- 更改记录
+-- 2004/7/15 transponder表status字段的枚举值改为与程序一致，1/2/3>>0/1/2
+-- 2004/7/17, trapEnable枚举也改为0disable/1enable
+-- 2004/7/28, 一些整数的上限由65536改为65535
+-- 2004/7/29 远程心跳的下限由128改为1
+-- 2004/8/12 MAC统计、远程监控等项目改为optional
+-- 2004/10/8 startTime改为sysUpTime,timetick类型
+-- 2005/4/8 remoteCenterIP改为managerIP
+-- 2005/7/4 remoteCenterPort改为manualDeleteIndex，read仍然返回161
+-- 2005/11/29 transponderTime改为timetick类型; trapCount改为offlineCount
+-- 2006/1/9 增加了transponderRXPort字段
+-- 2006/3/9 增加节点heTransponderAddNew，用于新增应答器信息
+--            修改节点heResetAllTransponder为heTransponderResetIndex，以支持对单个应答器的复位
+--            增加heDebugGroup组，用于远程调试。
+-- 2006/4/27 HE和应答器IP配置相关字段改为RW; 子网掩码类型改为INTEGER(16..30)
+-- 2006/6/13 增加了tranpsonderNEStatus字段
+-- 2006/6/16 transponderRXPort改为RW
+
+
+NSCRTV-HFCEMS-HE-MIB DEFINITIONS ::= BEGIN
+IMPORTS
+     OBJECT-TYPE        FROM RFC-1212
+     TRAP-TYPE          FROM RFC-1215
+     Counter            FROM RFC1155-SMI
+     IpAddress          FROM RFC1155-SMI
+     TimeTicks          FROM RFC1155-SMI
+     DisplayString      FROM RFC1213-MIB  
+     nscrtvHFCemsTree   FROM NSCRTV-ROOT
+;
+
+heIdent OBJECT IDENTIFIER ::= { nscrtvHFCemsTree 88 }
+heAdminGroup	OBJECT IDENTIFIER ::= { heIdent 1 }
+heTranponderGroup	OBJECT IDENTIFIER ::= { heIdent 2 }
+heIpGroup	OBJECT IDENTIFIER ::= { heIdent 3 }
+heMacControlGroup	OBJECT IDENTIFIER ::= { heIdent 4 }
+heMacStatsGroup	OBJECT IDENTIFIER ::= { heIdent 5 }
+heDebugGroup OBJECT IDENTIFIER ::= { heIdent 6 }
+heDebugControl OBJECT IDENTIFIER ::= { heDebugGroup 1 }
+heDebugMessage OBJECT IDENTIFIER ::= { heDebugGroup 2 }
+
+--公用信息管理组
+
+heLogicalID  OBJECT-TYPE
+     SYNTAX OCTET STRING (SIZE(0..40))
+     ACCESS read-write
+     STATUS mandatory
+     DESCRIPTION 
+"Replaced By LiGang"
+-- 	"指定HE的逻辑标识符（LogicID），此值一般与HE的其他属性无关。"
+     ::= { heAdminGroup 1 }
+
+heVendor  OBJECT-TYPE
+     SYNTAX DisplayString (SIZE(0..32))
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION 
+"Replaced By LiGang"
+-- 	"HE设备生产厂家"
+     ::= { heAdminGroup 2 }
+
+heModelNumber  OBJECT-TYPE
+     SYNTAX DisplayString (SIZE(0..32))
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION 
+"Replaced By LiGang"
+-- 	"HE设备的型号"
+     ::= { heAdminGroup 3 }
+
+heSerialNumber  OBJECT-TYPE
+     SYNTAX DisplayString (SIZE(0..32))
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION 
+"Replaced By LiGang"
+-- 	"HE设备的序列号，初步定为yyyymmddxxxx格式，原则上不允许重复，可以唯一标识该HE，"
+     ::= { heAdminGroup 4 }
+
+heVendorInfo  OBJECT-TYPE
+     SYNTAX DisplayString (SIZE(0..32))
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION 
+"Replaced By LiGang"
+-- 	"HE设备供应商的其它特殊指定信息"
+     ::= { heAdminGroup 5 }
+
+heUserInfo  OBJECT-TYPE
+     SYNTAX DisplayString (SIZE(0..32))
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION 
+"Replaced By LiGang"
+-- 	"HE设备用户信息"
+     ::= { heAdminGroup 6 }
+ 
+heLicenseInfo  OBJECT-TYPE
+     SYNTAX DisplayString (SIZE(0..32))
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION 
+"Replaced By LiGang"
+-- 	"HE设备用户授权信息，如注册码"
+     ::= { heAdminGroup 7 }
+          
+hesoftwareVersion  OBJECT-TYPE
+     SYNTAX DisplayString (SIZE(0..16))
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION 
+"Replaced By LiGang"
+-- 	"HE软件版本号"
+     ::= { heAdminGroup 8}
+       
+heCurrentTime OBJECT-TYPE
+     SYNTAX Counter 
+     ACCESS read-write
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+--           "HE当前时间，以POSIX（自1970年1月1日0时以来的秒数）格式表示，可设置"
+     ::= { heAdminGroup 9 }
+
+heSysUpTime OBJECT-TYPE
+     SYNTAX TimeTicks 
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+--           "HE启动时间, timetick计数"
+     ::= { heAdminGroup 10 }
+
+heRemoteUpdate  OBJECT-TYPE
+     SYNTAX INTEGER 
+--{ reset (1) }
+     ACCESS read-write
+     STATUS mandatory
+     DESCRIPTION 
+"Replaced By LiGang"
+--      	"写入1将复位HE，写入其它值按IP处理进行远程升级，读此值返回1"
+     ::= { heAdminGroup 11 }    	
+                     
+--应答器地址映射表信息管理组：
+
+transponderNumber OBJECT-TYPE
+     SYNTAX INTEGER ( 0..32767 )
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+-- 	     "已经注册到HE的应答器数量，HE对应答器数量的限制：至少支持256个，最多不超过32767个"
+     ::= { heTranponderGroup 1 }
+
+transponderInfoTable OBJECT-TYPE
+     SYNTAX SEQUENCE OF TransponderInfoEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+-- 	     "应答器地址映射表"
+     ::= { heTranponderGroup 2 }
+
+transponderInfoEntry OBJECT-TYPE
+     SYNTAX TransponderInfoEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+-- 	     "地址映射表表目。"
+     INDEX { transponderIndex }
+     ::= { transponderInfoTable 1 }
+
+TransponderInfoEntry ::=
+     SEQUENCE --索引,应答器IP、MAC, 在线状态、最后一次状态变化时间
+     {
+          transponderIndex
+               INTEGER,
+          transponderIpAddress 
+               IpAddress,
+          transponderMACAddress 
+               OCTET STRING,
+          transponderStatus 
+               INTEGER,
+          transponderTime 
+               TimeTicks,
+          transponderMACCount
+          	Counter,
+          transponderMACLost
+          	Counter,
+          transponderSnmpCount
+          	Counter,
+          transponderSnmpLost
+          	Counter,
+          transponderOfflineCount
+          	Counter,       	
+ 	  transponderRXPort
+		DisplayString,
+	  transponderNEStatus
+		OCTET STRING
+    }
+
+transponderIndex OBJECT-TYPE
+     SYNTAX INTEGER ( 0..32767 )
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+--           "应答器索引"
+     ::= { transponderInfoEntry 1 }
+
+transponderIpAddress OBJECT-TYPE
+     SYNTAX IpAddress 
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+--           "应答器IP地址"
+     ::= { transponderInfoEntry 2 }
+     
+transponderMACAddress OBJECT-TYPE
+     SYNTAX OCTET STRING (SIZE(6))
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+--           "应答器MAC地址"
+     ::= { transponderInfoEntry 3 }
+
+transponderStatus OBJECT-TYPE
+     SYNTAX INTEGER { na(0), onLine(1), offLine(2) }     	 
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+--           "应答器状态"
+     ::= { transponderInfoEntry 4 }
+
+transponderTime OBJECT-TYPE
+     SYNTAX TimeTicks 
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+--           "应答器最后一次状态变化后的持续时间，以timetick格式表示，
+--           若transponderStatus＝0，此值无意义"
+     ::= { transponderInfoEntry 5 }
+
+transponderMACCount OBJECT-TYPE
+     SYNTAX Counter     	 
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--           "应答器MAC包总数"
+     ::= { transponderInfoEntry 6 }
+ 
+transponderMACLost OBJECT-TYPE
+     SYNTAX Counter     	 
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--           "应答器MAC丢包数"
+     ::= { transponderInfoEntry 7 }
+     
+transponderSnmpCount OBJECT-TYPE
+     SYNTAX Counter     	 
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--           "应答器SNMP总包数"
+     ::= { transponderInfoEntry 8 }
+
+transponderSnmpLost OBJECT-TYPE
+     SYNTAX Counter     	 
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--           "应答器SNMP丢包数"
+     ::= { transponderInfoEntry 9 } 
+     
+transponderOfflineCount OBJECT-TYPE
+     SYNTAX Counter     	 
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--           "应答器MAC层掉线的次数"
+     ::= { transponderInfoEntry 10 }      
+ 
+transponderRXPort OBJECT-TYPE
+     SYNTAX DisplayString (SIZE(0..16))
+     ACCESS read-write
+     STATUS mandatory
+     DESCRIPTION 
+"Replaced By LiGang"
+-- 	"应答器接收RF端口信息"
+     ::= {transponderInfoEntry 11 }         
+  
+transponderNEStatus OBJECT-TYPE
+     SYNTAX OCTET STRING (SIZE(1))
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION 
+"Replaced By LiGang"
+-- 	"与7.5.4 STATRESP PDU中的Status参数对应
+--            Bit 0: CHNLRQST
+--            Bit 1: CNTNRM
+--            Bit 2: CNTCUR
+--            Bit 3: MAJOR ALARMS
+--            Bit 4: MINOR ALARMS
+--            Bit 5: RSVD1
+--            Bit 6: RSVD2
+-- 		   Bit 7: RSVD3"
+     ::= {transponderInfoEntry 12 }   
+   
+--HE IP网络配置：
+
+heIpAddress OBJECT-TYPE
+     SYNTAX IpAddress 
+     ACCESS read-write
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+--           "HE的IP地址"
+     ::= { heIpGroup 1 }
+
+heIPMask OBJECT-TYPE
+     SYNTAX INTEGER ( 16..30 )
+     ACCESS read-write
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+--           "HE的IP子网掩码"
+     ::= { heIpGroup 2 }
+     
+heIPDefaultGateway OBJECT-TYPE
+     SYNTAX IpAddress 
+     ACCESS read-write
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+--           "HE的缺省网关地址"
+     ::= { heIpGroup 3 }     
+
+--应答器IP分配策略：网段划分，DHCP策略,多网段支持
+heTransponderIpAddress OBJECT-TYPE
+     SYNTAX IpAddress 
+     ACCESS read-write
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+--           "应答器网段的IP地址"
+     ::= { heIpGroup 4 }
+
+heTransponderIPMask OBJECT-TYPE
+     SYNTAX INTEGER ( 16..30 )
+     ACCESS read-write
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+--           "应答器网段的子网掩码"
+     ::= { heIpGroup 5 }
+ 
+--manager列表     
+managerNumber OBJECT-TYPE
+     SYNTAX INTEGER ( 0..8 )
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By LiGang"
+-- 	     "管理计算机(manager)数量"
+     ::= { heIpGroup 6 }
+
+managerTable  OBJECT-TYPE
+	SYNTAX SEQUENCE OF ManagerEntry
+	ACCESS     not-accessible
+	STATUS     mandatory
+	DESCRIPTION 
+"Replaced By LiGang"
+-- 		"代理TRAP信息表"
+	::= { heIpGroup 7 }
+
+managerEntry  OBJECT-TYPE
+	SYNTAX 	ManagerEntry
+	ACCESS     not-accessible
+	STATUS     mandatory
+	DESCRIPTION 
+"Replaced By LiGang"
+-- 		"manager信息表目"
+	INDEX { managerIndex }
+	::= { managerTable 1 }
+
+ManagerEntry ::= SEQUENCE {
+	managerIndex
+		INTEGER,
+	managerIpAddress
+		IpAddress,
+	managerTrapCommunity
+		DisplayString,
+	managerTrapControl
+		INTEGER
+}
+
+managerIndex  OBJECT-TYPE
+	SYNTAX     INTEGER(1..8)
+	ACCESS     read-only
+	STATUS     mandatory
+	DESCRIPTION 
+"Replaced By LiGang"
+-- 		"manager表索引"
+	::= { managerEntry 1 }
+	
+managerIpAddress  OBJECT-TYPE
+	SYNTAX     IpAddress
+	ACCESS     read-write
+	STATUS     mandatory
+	DESCRIPTION 
+"Replaced By LiGang"
+-- 		"manager的IP地址，0表示无意义"
+	::= { managerEntry 2 }
+
+managerTrapCommunity  OBJECT-TYPE
+	SYNTAX     DisplayString (SIZE(0..64))
+	ACCESS     read-write
+	STATUS     mandatory
+	DESCRIPTION 
+"Replaced By LiGang"
+-- 		"manager的Trap社区串"
+	::= { managerEntry 3 }
+	
+managerTrapControl  OBJECT-TYPE
+	SYNTAX     INTEGER { disabled(0), enabled(1) }
+	ACCESS     read-write
+	STATUS     mandatory
+	DESCRIPTION 
+"Replaced By LiGang"
+-- 		"是否允许向该manager发送trap"
+	::= { managerEntry 4 }
+
+heManagerIpAddress  OBJECT-TYPE
+	SYNTAX     IpAddress
+	ACCESS     read-write
+	STATUS     optional
+	DESCRIPTION 
+"Replaced By LiGang"
+-- 		"远程监控中心的IP地址，0表示无意义，缺省为218.90.141.146"
+	::= { heIpGroup 8 }
+	
+heManualDeleteIndex  OBJECT-TYPE
+	SYNTAX     INTEGER (0..253)
+	ACCESS     read-write
+	STATUS     optional
+	DESCRIPTION 
+"Replaced By LiGang"
+-- 		"手工删除应答器的索引"
+	::= { heIpGroup 9 }
+
+remoteCenterTrapControl  OBJECT-TYPE
+	SYNTAX     INTEGER { disabled(0), enabled(1) }
+	ACCESS     read-write
+	STATUS     optional
+	DESCRIPTION 
+"Replaced By LiGang"
+-- 		"是否允许向远程监控中心转发应答器trap，缺省为Disabled"
+	::= { heIpGroup 10 }
+
+remotePulseInterval OBJECT-TYPE
+	SYNTAX INTEGER (1..65535)
+	ACCESS read-write
+	STATUS optional
+	DESCRIPTION
+"Replaced By LiGang"
+-- 		"HE向远程监控中心发送的linkUp心跳的时间间隔,单位秒,缺省值180"
+	::= { heIpGroup 11 }
+
+heTransponderAddNew OBJECT-TYPE
+	SYNTAX OCTET STRING (SIZE(8)) 
+	ACCESS read-write
+	STATUS optional
+	DESCRIPTION
+"Replaced By LiGang"
+-- 	增加一个应答器Byte(0~5)是MAC地址，Byte(6,7)是对应的整数索引，低字节在前
+--如果该索引的应答器已经存在，将被覆盖
+	::= { heIpGroup 12 }		
+
+
+	     
+--代理、网关模式选择？
+
+
+--MAC管理策略组：
+heReturnPathFrequency OBJECT-TYPE
+	SYNTAX INTEGER (17000000..65000000)
+	ACCESS read-write
+	STATUS mandatory
+	DESCRIPTION
+"Replaced By LiGang"
+-- 		"上行信道频率,单位Hz，缺省值18MHz"
+	::= { heMacControlGroup 1 }
+	
+heForwardPathFrequency OBJECT-TYPE
+	SYNTAX INTEGER (108000000..116000000)
+	ACCESS read-write
+	STATUS mandatory
+	DESCRIPTION
+"Replaced By LiGang"
+-- 		"下行信道频率,单位Hz，缺省值110MHz"
+	::= { heMacControlGroup 2 }
+
+--为了使系统能比较好的工作,"heRegisterBroadcastingInterval"和"heContentionAlarmInterval"是否需要加一定
+--的范围限制.
+heRegisterBroadcastingInterval OBJECT-TYPE
+	SYNTAX INTEGER (128..65535)
+	ACCESS read-write
+	STATUS mandatory
+	DESCRIPTION
+"Replaced By LiGang"
+-- 		"定时注册广播时间间隔,单位秒,缺省值3600，写入0表示立刻发注册广播"
+	::= { heMacControlGroup 3 }
+
+heTimeBroadcastingInterval OBJECT-TYPE
+	SYNTAX INTEGER (128..65535)
+	ACCESS read-write
+	STATUS mandatory
+	DESCRIPTION
+"Replaced By LiGang"
+-- 		"TIME指令广播间隔,单位秒，缺省值3600"
+	::= { heMacControlGroup 4 }
+
+heContentionAlarmInterval OBJECT-TYPE
+	SYNTAX INTEGER (0..65535)
+	ACCESS read-write
+	STATUS mandatory
+	DESCRIPTION
+"Replaced By LiGang"
+-- 		"竞争报警广播间隔,单位秒，0表示不进行竞争报警"
+	::= { heMacControlGroup 5 }
+				
+heContentionDelay OBJECT-TYPE
+	SYNTAX INTEGER (1..200)
+	ACCESS read-write
+	STATUS mandatory
+	DESCRIPTION
+"Replaced By LiGang"
+-- 		"注册或报警竞争广播的等待延时,单位秒，缺省值为1秒"
+	::= { heMacControlGroup 6 }
+
+heOfflineTrapDelay OBJECT-TYPE
+	SYNTAX INTEGER (0..255)
+	ACCESS read-write
+	STATUS optional
+	DESCRIPTION
+"Replaced By LiGang"
+-- 		"应答器掉线trap发送的延时,单位秒，缺省值为30秒"
+	::= { heMacControlGroup 7 }
+		
+heUnicastTransponder OBJECT-TYPE
+     SYNTAX INTEGER 
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--           "单播应答器索引(0..253)，超出索引范围、无效的索引或负数表示停止单播"
+	::= { heMacControlGroup 8 }
+
+heCarrierTransponder OBJECT-TYPE
+     SYNTAX INTEGER 
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--           "载波测试应答器索引(0..253)，超出索引范围、无效的索引或负数表示关闭载波测试功能"
+	::= { heMacControlGroup 9 }
+	
+
+heTransponderResetIndex OBJECT-TYPE
+     SYNTAX INTEGER (0..254) 
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION 
+"Replaced By LiGang"
+--      	"将对应索引(0..253)应答器复位，执行完毕后读此值返回-1。写入254复位所有应答器，写入其他值无效"
+     ::= { heMacControlGroup 10 }
+
+		
+--前端发射、接收电平控制
+
+--轮询策略
+	
+--HE数据包统计
+heSnmpCount OBJECT-TYPE
+	SYNTAX Counter 
+	ACCESS read-only
+	STATUS optional
+	DESCRIPTION
+"Replaced By LiGang"
+-- 		"SNMP总包数"
+	::= { heMacStatsGroup 1 }
+	
+heSnmpLost OBJECT-TYPE
+	SYNTAX Counter 
+	ACCESS read-only
+	STATUS optional
+	DESCRIPTION
+"Replaced By LiGang"
+-- 		"SNMP丢包数"
+	::= { heMacStatsGroup 2 }
+	
+heMACCount OBJECT-TYPE
+	SYNTAX Counter 
+	ACCESS read-only
+	STATUS optional
+	DESCRIPTION
+"Replaced By LiGang"
+-- 		"MAC总包数"
+	::= { heMacStatsGroup 3 }
+	
+heMACLost OBJECT-TYPE
+	SYNTAX Counter 
+	ACCESS read-only
+	STATUS optional
+	DESCRIPTION
+"Replaced By LiGang"
+-- 		"MAC丢包包数"
+	::= { heMacStatsGroup 4 }
+	
+heClearMacStats  OBJECT-TYPE
+     SYNTAX INTEGER { reset (1) }
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION 
+"Replaced By LiGang"
+--      	"写入1将把所有包统计信息清零，包括应答器表中的各项，写入其它值无效，读此值返回1"
+     ::= { heMacStatsGroup 5 }  
+
+heClearMacStatsTime OBJECT-TYPE
+     SYNTAX Counter 
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--           "最后一次清除统计数据的时间，以POSIX（自1970年1月1日0时以来的秒数）格式表示，
+     ::= { heMacStatsGroup 6 }
+
+
+
+
+-- Debug
+heDebugManagerIPAddress OBJECT-TYPE
+     SYNTAX IpAddress
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--   调试Trap的目标地址，对heDebugEnable进行设置后，HE将根据下行消息中Manager的源地址修改此字段 
+     ::= { heDebugControl 1 }
+
+heDebugManagerPort OBJECT-TYPE
+     SYNTAX INTEGER (0..65535)
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--   调试Trap的目标端口，对heDebugEnable进行设置后，HE将根据下行消息中Manager的源端口修改此字段 
+     ::= { heDebugControl 2 }
+
+heDebugEnable OBJECT-TYPE
+     SYNTAX INTEGER { disabled(0), enabled(1)}
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--   调试Trap始能，设置1开始调试，设置0停止调试。HE记忆时间为10秒，超时将自动关闭。
+     ::= { heDebugControl 3 }
+
+heDebugSnmpEnable OBJECT-TYPE
+     SYNTAX INTEGER { disabled(0), enabled(1)}
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--   SNMP层开关
+     ::= { heDebugControl 4 }
+
+heDebugMacEnable OBJECT-TYPE
+     SYNTAX INTEGER { disabled(0), enabled(1)}
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--   MAC层开关
+     ::= { heDebugControl 5 }
+
+
+heDebugMessageSnmp OBJECT-TYPE
+     SYNTAX DisplayString 
+     ACCESS not-accessible
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--           "调试信息：SNMP。
+     ::= { heDebugMessage 1 }
+
+heDebugMessageMAC OBJECT-TYPE
+     SYNTAX DisplayString 
+     ACCESS not-accessible
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--           "调试信息：MAC。
+     ::= { heDebugMessage 2 }
+
+heDebugMessageIntegrate OBJECT-TYPE
+     SYNTAX DisplayString 
+     ACCESS not-accessible
+     STATUS optional
+     DESCRIPTION
+"Replaced By LiGang"
+--           "调试信息：综合。
+     ::= { heDebugMessage 3 }
+
+heDebugEvent TRAP-TYPE
+     ENTERPRISE heDebugGroup
+     VARIABLES { heDebugMessageSnmp , heDebugMessageMAC , heDebugMessageIntegrate ,heSnmpCount,heSnmpLost,heMACCount,heMACLost}
+     DESCRIPTION
+"Replaced By LiGang"
+-- 	"调试信息，可以根据实际情况选填发送的字段，但是前三个OID中至少包含一个。"
+     ::= 1
+END

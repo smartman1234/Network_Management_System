@@ -1,0 +1,244 @@
+ATI-MGMT-SNMP-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiMgmtSnmp
+        FROM ATI-MANAGEMENT-MIB
+    OBJECT-TYPE
+        FROM RFC-1212
+    DisplayString
+        FROM SNMPv2-TC
+    NetworkAddress
+        FROM RFC1155-SMI
+    InetAddressType,
+    InetAddress
+        FROM INET-ADDRESS-MIB     -- RFC 4001
+;
+-- ****************************************************************************
+-- * Table for IP address to which traps are to be sent
+-- ****************************************************************************
+
+atiMgmtSnmpTrapTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiMgmtSnmpTrapEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Table of SNMP Trap Addresses"
+    ::= { atiMgmtSnmp 1 }
+
+atiMgmtSnmpTrapEntry OBJECT-TYPE
+    SYNTAX     AtiMgmtSnmpTrapEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "One item in this table"
+    INDEX { atiMgmtSnmpTrapIndex }
+    ::= { atiMgmtSnmpTrapTable 1 }
+
+AtiMgmtSnmpTrapEntry ::= SEQUENCE {
+    atiMgmtSnmpTrapIndex             INTEGER,
+    atiMgmtSnmpTrapAddress           NetworkAddress,
+    atiMgmtSnmpTrapServerAddressType InetAddressType,
+    atiMgmtSnmpTrapServerAddress     InetAddress
+}
+
+atiMgmtSnmpTrapIndex OBJECT-TYPE
+    SYNTAX     INTEGER (0..255)
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Index for this table"
+    ::= { atiMgmtSnmpTrapEntry 1 }
+
+atiMgmtSnmpTrapAddress OBJECT-TYPE
+    SYNTAX     NetworkAddress
+    ACCESS     read-write
+    STATUS     deprecated
+    DESCRIPTION "Address for this entry"
+    ::= { atiMgmtSnmpTrapEntry 2 }
+
+atiMgmtSnmpTrapServerAddressType OBJECT-TYPE
+    SYNTAX     InetAddressType
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Address mode of
+      atiMgmtSnmpTrapServerAddress."
+    ::= { atiMgmtSnmpTrapEntry 3 }
+
+atiMgmtSnmpTrapServerAddress OBJECT-TYPE
+    SYNTAX     InetAddress
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Address of trap server.
+
+                If the trap server is unknown, return the zero-
+                length address string (see the TextualConvention).
+
+                If atiMgmtSnmpTrapAddress is also implemented
+                in this agent, this object is tied to it.  A set of
+                this object to an IPv4 address will result in also
+                setting the value of atiMgmtSnmpTrapAddress to
+                that address.  If this object is set to an IPv6
+                address, atiMgmtSnmpTrapAddress is set to
+                0.0.0.0. If atiMgmtSnmpTrapAddress is set,
+                this object is also set to that value.  Note that if
+                both are set in the same action, the order of which
+                one sets the other is undefined."
+    ::= { atiMgmtSnmpTrapEntry 4 }
+
+-- ****************************************************************************
+-- * Table for IP address that can access the device
+-- ****************************************************************************
+
+atiMgmtSnmpAccessTable OBJECT-TYPE
+    SYNTAX     SEQUENCE OF AtiMgmtSnmpAccessEntry
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "Table of SNMP Access Addresses"
+    ::= { atiMgmtSnmp 2 }
+
+atiMgmtSnmpAccessEntry OBJECT-TYPE
+    SYNTAX     AtiMgmtSnmpAccessEntry 
+    ACCESS     not-accessible
+    STATUS     mandatory
+    DESCRIPTION "One item in this table"
+    INDEX { atiMgmtSnmpAccessIndex }
+    ::= { atiMgmtSnmpAccessTable 1 }
+
+AtiMgmtSnmpAccessEntry ::= SEQUENCE {
+    atiMgmtSnmpAccessIndex   INTEGER,
+    atiMgmtSnmpAccessAddress NetworkAddress
+}
+
+atiMgmtSnmpAccessIndex OBJECT-TYPE
+    SYNTAX     INTEGER (0..255)
+    ACCESS     not-accessible 
+    STATUS     mandatory
+    DESCRIPTION "Index for this table"
+    ::= { atiMgmtSnmpAccessEntry 1 }
+
+atiMgmtSnmpAccessAddress OBJECT-TYPE
+    SYNTAX     NetworkAddress 
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Address for this entry"
+    ::= { atiMgmtSnmpAccessEntry 2 }
+
+-- ****************************************************************************
+-- * SNMP Access Parameters
+-- ****************************************************************************
+
+atiMgmtSnmpAccess        OBJECT IDENTIFIER ::= { atiMgmtSnmp 3 }
+
+atiMgmtSnmpSnmpv1Access OBJECT-TYPE
+    SYNTAX     INTEGER { disabled(1), enabled(2) }
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Device Accessability"
+    ::= { atiMgmtSnmpAccess 1 }
+
+atiMgmtSnmpSnmpv2Access OBJECT-TYPE
+    SYNTAX     INTEGER { disabled(1), enabled(2) }
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Device Accessability"
+    ::= { atiMgmtSnmpAccess 2 }
+
+atiMgmtSnmpAlphaSetAccess OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-write
+    STATUS     mandatory        
+    DESCRIPTION "Writing the Alpha Set key to this location
+                 will enable Alpha sets.  Always returns as
+                 a null string.  This is the only Alpha
+                 variable that can be set when Alpha sets
+                 are disabled"
+    ::= { atiMgmtSnmpAccess 3 }
+
+atiMgmtSnmpAlphaSetKey OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Alpha Set key for enabling Alpha Sets.
+                 Location for changing the Alpha Set key.
+                 Writing to this location does not enable
+                 Alpha sets  Always returns as a null
+                 string.  Alpha Sets must be enabled to
+                 write this item."
+    ::= { atiMgmtSnmpAccess 4 }
+
+atiMgmtSnmpCPESetEnabled OBJECT-TYPE
+    SYNTAX     INTEGER { false(1), true(2) }
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Corresponds to whether or not the action
+                 taken on atiMgmtSnmpAlphaSetKey was
+                 successful.  Once enabled, writing false
+                 to this variable will disable CPE sets."
+    ::= { atiMgmtSnmpAccess 5 }
+
+atiMgmtSnmpSnmpCPEAccess OBJECT-TYPE
+    SYNTAX     INTEGER { disabled(1), enabled(2) }
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Enables the CPE interface"
+    ::= { atiMgmtSnmpAccess 6 }
+
+-- ****************************************************************************
+-- * Community String Parameters
+-- ****************************************************************************
+
+atiMgmtSnmpCommunities    OBJECT IDENTIFIER ::= { atiMgmtSnmp 4 }
+
+atiMgmtSnmpCommGet OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Get Community String"
+    ::= { atiMgmtSnmpCommunities 1 }
+
+atiMgmtSnmpCommSet OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Set Community String.  Always returns as a
+                 null string."
+    ::= { atiMgmtSnmpCommunities 2 }
+
+atiMgmtSnmpCommTrap OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Trap Community String"
+    ::= { atiMgmtSnmpCommunities 3 }
+
+-- ****************************************************************************
+-- * SNMP Control items
+-- ****************************************************************************
+
+atiMgmtSnmpControls       OBJECT IDENTIFIER ::= { atiMgmtSnmp 5 }
+
+atiMgmtSnmpTrapOnNormal OBJECT-TYPE
+    SYNTAX     INTEGER { disabled(1), enabled(2) }
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "Indicates if traps are to be sent when
+                 an item in an alarm state returns to normal."
+    ::= { atiMgmtSnmpControls 1 }
+
+atiMgmtSnmpTrapSendCount OBJECT-TYPE
+    SYNTAX     INTEGER (1..9)
+    ACCESS read-write 
+    STATUS     optional
+    DESCRIPTION "Number of times a trap is to be sent/repeated. This
+                 feature is not implemented in all products."
+    ::= { atiMgmtSnmpControls 2 }
+
+atiMgmtSysSnmpTimeout OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "How many minutes allowed to pass without SNMP
+                 communications.  On the lapse of this many minutes
+                 the device will reset.  Setting this value to
+                 zero will prevent timeout resets"
+    ::= { atiMgmtSnmpControls 3 }
+
+END
+

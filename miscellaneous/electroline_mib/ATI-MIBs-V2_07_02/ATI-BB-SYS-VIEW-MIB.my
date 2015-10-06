@@ -1,0 +1,307 @@
+
+-- ****************************************************************************
+-- *
+-- * Alpha Technologies, Inc.
+-- *
+-- * NAME : ATI-BB-SYS-VIEW-MIB.txt
+-- *
+-- * ALPHA PART NUMBER : TBD
+-- *
+-- * SUMMARY : This is the generic view of broadband powering systems.
+-- *   Entry point is 1.3.6.1.4.1.926.1.4.1.1
+-- *
+-- * Revision History:
+-- *
+-- * 0.01.0  22-SEP-2008  Bill Crawford
+-- *           Draft for review
+-- *           
+-- ****************************************************************************
+ATI-BB-SYS-VIEW-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiBBSysView
+        FROM ATI-PRODUCT-PLATFORMS-MIB
+    OBJECT-TYPE
+        FROM RFC-1212
+    ;
+
+atiBBSysViewSelects           OBJECT IDENTIFIER ::= { atiBBSysView 1 }
+atiBBSysViewAlarms            OBJECT IDENTIFIER ::= { atiBBSysView 2 }
+atiBBSysViewScalars           OBJECT IDENTIFIER ::= { atiBBSysView 3 }
+atiBBSysViewCounters          OBJECT IDENTIFIER ::= { atiBBSysView 4 }
+
+-- **********************************
+-- * Selects
+
+atiBBSysViewSelfTestControl OBJECT-TYPE
+     SYNTAX INTEGER { stop(1), start(2) }
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+          "Starts/Stops a system self test."
+     ::= { atiBBSysViewSelects 1 }
+
+atiBBSysViewSelfTestInhibit OBJECT-TYPE
+     SYNTAX INTEGER { normal(1), inhibited(2) }
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+          "System self test is prevented.  On reset the DSM
+           gets this value from the master XM2."
+     ::= { atiBBSysViewSelects 2 }
+
+atiBBSysViewSystemControlMgr OBJECT-TYPE
+     SYNTAX INTEGER { running(1), disabled(2) }
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+          "If the System Control Manager is running, the
+           Small System Controller/Adminstrator (SSC or SSA)
+           is running and there is co-ordination between the
+           power supplies for charging, testing, etc.  THE
+           VALUE OF THIS ITEM IS TO BE STORED IN NON-VOL
+           MEMORY"
+     ::= { atiBBSysViewSelects 3 }
+
+atiBBSysViewFactoryDefaults OBJECT-TYPE
+     SYNTAX INTEGER { normal(1), reset(2) }
+     ACCESS read-write
+     STATUS obsolete
+     DESCRIPTION
+          "Will set all parameters back to the factory
+           default value."
+     ::= { atiBBSysViewSelects 4 }
+
+-- **********************************
+-- * Alarms
+
+atiBBSysViewMajorAlarm OBJECT-TYPE
+     SYNTAX INTEGER { ok(1), alarm(2) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Indicates if any of the items monitored
+           are in a major alarm state."
+     ::= { atiBBSysViewAlarms 1 }
+
+atiBBSysViewMinorAlarm OBJECT-TYPE
+     SYNTAX INTEGER { ok(1), alarm(2) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Indicates if any of the items monitored
+           are in a minor alarm state."
+     ::= { atiBBSysViewAlarms 2 }
+
+atiBBSysViewSelfTestResult OBJECT-TYPE
+     SYNTAX INTEGER { ok(1), fail(2) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "If any of the items being monitored indicate
+           that self test failed, this item indicates
+           a failure."
+     ::= { atiBBSysViewAlarms 3 }
+
+atiBBSysViewTempProbeStatus OBJECT-TYPE
+     SYNTAX INTEGER { ok(1), missing(2) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "If any of the devices being monitored indicate
+           a temp probe failure, this item will be true."
+     ::= { atiBBSysViewAlarms 4 }
+
+atiBBSysViewInputStatus OBJECT-TYPE
+     SYNTAX INTEGER { ok(1), noAcPresent(2) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "If ALL the items being monitored indicate
+           no AC, this item will be true."
+     ::= { atiBBSysViewAlarms 5 }
+
+-- **********************************
+-- * Scalars
+
+atiBBSysViewInputVoltage OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Input voltage as reported by the master power supply.
+           1/100ths of a volt"
+     ::= { atiBBSysViewScalars 1 }
+
+
+atiBBSysViewInputFrequency OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Input Frequency as reported by the master power supply.
+           1/100ths of a Hz."
+     ::= { atiBBSysViewScalars 2 }
+
+
+atiBBSysViewInputCurrent OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Calculation of the total input current (all Power Supplies).
+           1/100ths of an amp"
+     ::= { atiBBSysViewScalars 3 }
+
+
+atiBBSysViewBatteryVoltage OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Battery String voltage as reported by the master power supply.
+           1/100ths of a volt."
+     ::= { atiBBSysViewScalars 4 }
+
+
+atiBBSysViewBatteryTemperature OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Battery Temperature being measured by the temperature probe
+           of the master power supply.  1/100ths of a degree C."
+     ::= { atiBBSysViewScalars 5 }
+
+
+atiBBSysViewChargerCurrent OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Sum of the charging current from all power supplies.
+           1/100th of an Amp."
+     ::= { atiBBSysViewScalars 6 }
+
+
+atiBBSysViewChargerVoltsFloat OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+          "Voltage/cell (battery) at which the charger will switch
+           from equalize to float.  1/100ths of a volt."
+     ::= { atiBBSysViewScalars 7 }
+
+
+atiBBSysViewChargerVoltsEqualize OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+          "Voltage/cell (battery) at which the charger will switch
+           from bulk to equalize.  1/100ths of a volt."
+     ::= { atiBBSysViewScalars 8 }
+
+
+atiBBSysViewChargerVoltsTemperatureComp OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+          "Charger compensation factor based on battery temprature.
+           1/100000ths of a volt per degree C."
+     ::= { atiBBSysViewScalars 9 }
+
+atiBBSysViewBatteryCapacity OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+          "Calculated amp/hours for the total battery string."
+     ::= { atiBBSysViewScalars 10 }
+
+-- **********************************
+-- * Counters
+
+atiBBSysViewSelfTestInterval OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+          "Number of days between automated self tests."
+     ::= { atiBBSysViewCounters 1 }
+
+atiBBSysViewSelfTestCountdown OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+          "Number of days until the next automated self test."
+     ::= { atiBBSysViewCounters 2 }
+
+atiBBSysViewSelfTestDuration OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+          "Number of minutes for which an automated self test will run."
+     ::= { atiBBSysViewCounters 3 }
+
+atiBBSysViewInverterRuntime OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Number of minutes the inverter has run due to an AC fail event."
+     ::= { atiBBSysViewCounters 4 }
+
+atiBBSysViewStandbyEvents OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Number of times the inverter has gone into standby due to an
+           AC fail event."
+     ::= { atiBBSysViewCounters 5 }
+
+atiBBSysViewRuntimeRemaining OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Seconds of estimated runtime remaining when in standby."
+     ::= { atiBBSysViewCounters 6 }
+
+atiBBSysViewTimeInStandby OBJECT-TYPE
+     SYNTAX INTEGER ( 0..2147483647 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Seconds. If currently in standby, time in standby. If not in
+           standby this value will be zero."
+     ::= { atiBBSysViewCounters 7 }
+
+atiBBSysViewTimeSinceLastStandby OBJECT-TYPE
+     SYNTAX INTEGER ( 0..2147483647 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Seconds. The accumulated time since the end of last standby event and
+           the start of the next standby event. The counter will reset to zero
+           after the next standby event has ended."
+     ::= { atiBBSysViewCounters 8 }
+
+atiBBSysViewTimeInLastStandby OBJECT-TYPE
+     SYNTAX INTEGER ( 0..2147483647 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+          "Seconds. The length (time) of last standby event.  If currently in a
+           standby event this value will be the length of the previous standby
+           event. This value will be updated at the conclusion of each standby
+           event. This item is saved in non-vol memory."
+     ::= { atiBBSysViewCounters 9 }
+
+
+END

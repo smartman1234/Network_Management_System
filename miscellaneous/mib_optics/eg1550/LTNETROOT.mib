@@ -1,0 +1,27 @@
+LTNET-ROOT DEFINITIONS ::= BEGIN
+
+IMPORTS
+     enterprises
+          FROM RFC1155-SMI
+;
+ltnetRoot  OBJECT IDENTIFIER ::= { enterprises 33826 }
+
+-- DESCRIPTION
+--     "ltnetRoot定义路通网络公司MIB根节点."
+
+ltnetHFCemsTree  OBJECT IDENTIFIER  ::= { ltnetRoot 1 }
+
+-- DESCRIPTION
+--     "ltnetHFCemsTree定义HFC网络设备管理系统MIB根节点,"
+--     "所有HFC网络设备管理系统的MIB均应在该节点下定义."
+
+osIdent OBJECT IDENTIFIER ::= { ltnetHFCemsTree 1}
+	
+--     DESCRIPTION
+--     "光开关(OpticalSwitch)MIB分支节点标识."
+	
+ltnetSmartDeviceTree  OBJECT IDENTIFIER  ::= { ltnetRoot 2 }
+--     "智能设备树"
+
+		
+END

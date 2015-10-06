@@ -1,0 +1,139 @@
+CABH-PS-CSA-MIB DEFINITIONS ::= BEGIN
+IMPORTS
+    MODULE-IDENTITY,
+    OBJECT-TYPE,
+    Unsigned32
+                        FROM SNMPv2-SMI
+    TruthValue
+                        FROM SNMPv2-TC
+    OBJECT-GROUP,
+    MODULE-COMPLIANCE   FROM SNMPv2-CONF
+    rip2IfStatEntry     FROM RIPv2-MIB
+    clabProjCableHome   FROM CLAB-DEF-MIB;
+    
+cabhPsCsaMib    MODULE-IDENTITY
+
+    LAST-UPDATED    "20040324000Z"  -- March 24, 2004
+    ORGANIZATION    "CableLabs Broadband Access Department"
+    CONTACT-INFO
+            "Stuart Hogan"
+    DESCRIPTION
+            "This MIB module supplies the additional management
+            objects, for the Portal Services logical element of a
+            CableOffice(TM) Commerical Services Annex compliant
+            Commercial Gateway device. Thes management objects are
+            in addition to the required CableHome management objects."
+    ::= { clabProjCableHome 7 }
+    
+-- Textual Conventions
+
+cabhPsCsaNotifications  OBJECT IDENTIFIER ::= { cabhPsCsaMib 0 }
+cabhPsCsaMibObjects     OBJECT IDENTIFIER ::= { cabhPsCsaMib 1 }
+cabhPsCsaConformance    OBJECT IDENTIFIER ::= { cabhPsCsaMib 2 }
+cabhPsCsaCompliances    OBJECT IDENTIFIER ::= { cabhPsCsaConformance 1 }
+cabhPsCsaGroups         OBJECT IDENTIFIER ::= { cabhPsCsaConformance 2 }
+
+cabhPsDevCsaObjects     OBJECT IDENTIFIER ::= {cabhPsCsaMibObjects 1 } 
+-- cabhSecCsaObjects    OBJECT IDENTIFIER ::= {cabhPsCsaMibObjects 2 } 
+-- cabhCapCsaObjects    OBJECT IDENTIFIER ::= {cabhPsCsaMibObjects 3 } 
+cabhCdpCsaObjects       OBJECT IDENTIFIER ::= {cabhPsCsaMibObjects 4 } 
+-- cabhCtpCsaObjects   OBJECT IDENTIFIER ::= { cabhPsCsaMibObjects 5 }
+-- cabhQosCsaObjects    OBJECT IDENTIFIER ::= {cabhPsCsaMibObjects 6 } 
+
+cabhPsDevCsaRipExtension OBJECT IDENTIFIER ::= { cabhPsDevCsaObjects 1 } 
+-- cabhCdpCsaServerEnable   OBJECT IDENTIFIER ::= { cabhCdpCsaObjects 1 }
+
+
+--=======================================================================
+--
+-- CSA - Commercial Service Annex RIP 2 Extension MIB Object
+--
+--=======================================================================
+
+
+cabhPsDevCsaRip2IfConfExtTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF CabhPsDevCsaRip2IfConfExtEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION
+        "This table contains the RIPv2 Key ID used to authenticate 
+        the CSA device routing information with the next upstream 
+        router. This table augments the rip2IfConfTable with the 
+        authentication Key ID value."
+    REFERENCE
+        "RFC 1724, RIP Version 2 MIB Extension."
+    ::= { cabhPsDevCsaRipExtension 1 }
+
+cabhPsDevCsaRip2IfConfExtEntry OBJECT-TYPE
+    SYNTAX CabhPsDevCsaRip2IfConfExtEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION
+        "Contains the Key ID of the authentication key in an 
+        interface."
+    AUGMENTS { rip2IfStatEntry }
+	::= { cabhPsDevCsaRip2IfConfExtTable 1 }
+
+CabhPsDevCsaRip2IfConfExtEntry ::= SEQUENCE {
+   cabhPsDevCsaRip2IfConfAuthKeyId Unsigned32
+}
+
+cabhPsDevCsaRip2IfConfAuthKeyId OBJECT-TYPE
+   SYNTAX Unsigned32 (0..255)
+   MAX-ACCESS read-create 
+   STATUS current
+   DESCRIPTION
+       "The Authentication Key value used for authenticate messages.
+       This value has no meaning if ospfIfAuthType is 'none' or 'simplePassword'."
+	DEFVAL { 0 }
+   ::= { cabhPsDevCsaRip2IfConfExtEntry 1 } 
+
+
+
+--=======================================================================
+--
+-- CSA - Commercial Service Annex CDP Server MIB Object
+--
+--=======================================================================
+
+cabhCdpCsaServerEnable OBJECT-TYPE
+    SYNTAX      TruthValue
+    MAX-ACCESS  read-write
+    STATUS      current
+    DESCRIPTION
+        "Setting this object to true enables the CableHome DHCP
+        Server (CDS). If properly configured and activated, an
+        enabled CDS responds to DHCP client messages from LAN
+        IP devices. Setting this object to false disables the CDS.
+        When disabled, the CDS must not respond to DHCP client
+        messages."
+    DEFVAL { true }
+    ::= { cabhCdpCsaObjects 1 }
+    
+cabhPsCsaCompliance MODULE-COMPLIANCE
+    STATUS  current
+    DESCRIPTION
+        "The compliance statement for devices that implement the 
+        CableHome Portal Services logical element and Commercial
+        Service Annex."
+    MODULE  -- cabhPsCsaMib
+   
+-- unconditionally mandatory groups
+
+MANDATORY-GROUPS {
+    cabhPSDevCsaGroup
+    }
+    ::= { cabhPsCsaCompliances 1 }
+    
+cabhPsCsaGroup OBJECT-GROUP
+    OBJECTS {
+        cabhPsDevCsaRip2IfConfAuthKeyId,
+        cabhCdpCsaServerEnable
+        }
+    STATUS  current
+    DESCRIPTION
+        "Group of additional objects for CableHome Portal Services
+        that supports Commercial Service Annex."
+    ::= { cabhPsCsaGroups 1 }
+END
+        

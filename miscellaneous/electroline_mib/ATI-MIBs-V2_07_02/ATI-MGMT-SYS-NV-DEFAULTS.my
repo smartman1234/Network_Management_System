@@ -1,0 +1,55 @@
+ATI-MGMT-SYS-NV-DEFAULTS DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiMgmtSysNvDefaults 
+        FROM ATI-MGMT-SYS-MIB
+    OBJECT-TYPE
+        FROM RFC-1212
+    ;
+
+atiMgmtSysNvDefaultsLevelOne OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "This variable is used to cause a Level 1 reset of the NV memory.
+                 Level 1 is the factory defaults.  The reset occurs when a value
+                 other than its current value is written to the location AND when
+                 the value written is evenly divisible by 2131 (x modulo 2131 = 0).
+                 When a valid value is written to this variable, the variable will
+                 be maintained in non-vol and always the value returned on read-
+                 back until such time as another valid value is written to the
+                 variable."
+    ::= { atiMgmtSysNvDefaults 1 }
+
+atiMgmtSysNvDefaultsLevelTwo OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "This variable is used to cause a Level 2 reset of the NV memory.
+                 Level 2 is the custom defaults.  The reset occurs when a value
+                 other than its current value is written to the location AND when
+                 the value written is evenly divisible by 6121 (x modulo 6121 = 0).
+                 When a valid value is written to this variable, the variable will
+                 be maintained in non-vol and always the value returned on read-
+                 back until such time as another valid value is written to the
+                 variable."
+    ::= { atiMgmtSysNvDefaults 2 }
+
+atiMgmtSysNvDefaultsSetLevelTwo OBJECT-TYPE
+    SYNTAX     INTEGER
+    ACCESS read-write 
+    STATUS     mandatory
+    DESCRIPTION "This variable is used to cause the current parameters to be
+                 memorized as the Level 2 Default parameters.  Once set, when a 
+                 Level 2 reset is requested these parameters will be restored to
+                 NV memory. The reset occurs when a value other than its
+                 current value is written to the location AND when the value
+                 has been calculated (Contact Alpha for a correctly calculated
+                 value). When a valid value is written to this variable, the
+                 variable will be maintained in non-vol and always the value
+                 returned on read-back until such time as another valid value is
+                 written to the variable."
+    ::= { atiMgmtSysNvDefaults 3 }
+    
+END
+

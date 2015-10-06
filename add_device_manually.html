@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Manual Requisition by IP</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+  <button type="button" class="btn btn-link" onclick=closeWin();>Close this Window</button>
+
+
+  <script>
+    function closeWin() {
+      window.close();
+    }
+  </script>
+
+
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2><small>Manual Requisition by IP (IPV4):</small></h2>
+          
+          <div class="clearfix"></div>
+        </div>
+
+
+<form action="php_scripts/register_new_device_action.php" method="post">
+
+<b>IP Address:  </b>
+<input type="text" name="ipadress" value="10.16.181.168">
+
+<br>
+<br>
+
+<b>Label:  </b>
+<input type="text" name="label" placeholder="DHT">
+
+<br>
+<br>
+
+
+
+<b>MAC Address:  </b>
+<input type="text" name="macaddress">
+
+<br>
+<br>
+
+<input type="submit" value="Add for Provisioning">
+</form>
+
+
+
+
+
+
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+
+
+</body>
+</html>

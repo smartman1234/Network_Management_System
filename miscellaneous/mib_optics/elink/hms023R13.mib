@@ -1,0 +1,138 @@
+-- ****************************************************************************
+-- *
+-- * Module Name:   HMS023R13.MIB  SCTE-HMS-ALARMS-MIB
+-- *
+-- * SCTE Status:   ADOPTED FEBRUARY 15, 2002
+-- *
+-- * Description:   This MIB describes the historical list of alarms detected by the transponder,
+-- *                as well as the SNMP trap generated for these alarms.
+-- * 
+-- ****************************************************************************
+
+SCTE-HMS-ALARMS-MIB DEFINITIONS ::= BEGIN
+
+     IMPORTS
+          TRAP-TYPE
+               FROM RFC-1215
+          OBJECT-TYPE
+               FROM RFC-1212
+          DisplayString
+               FROM RFC1213-MIB  
+          alarmsIdent
+               FROM SCTE-HMS-ROOTS  
+          commonPhysAddress
+               FROM SCTE-HMS-COMMON-MIB  
+          commonLogicalID
+               FROM SCTE-HMS-COMMON-MIB  
+          scteHmsTree
+               FROM SCTE-ROOT
+     ;     
+
+     alarmLogNumberOfEntries OBJECT-TYPE
+          SYNTAX INTEGER
+          ACCESS read-only
+          STATUS mandatory
+          DESCRIPTION
+                "The current number of entries in the alarmLogTable." 
+          ::= { alarmsIdent 1 }
+
+     alarmLogLastIndex OBJECT-TYPE
+          SYNTAX INTEGER
+          ACCESS read-only
+          STATUS mandatory
+          DESCRIPTION
+                "Index of the most recent alarm entry logged in the alarmLogTable." 
+          ::= { alarmsIdent 2 }
+
+     alarmLogTable OBJECT-TYPE
+          SYNTAX SEQUENCE OF AlarmLogEntry
+          ACCESS not-accessible
+          STATUS mandatory
+          DESCRIPTION
+                "A list of alarms that have been logged.
+                Agent should generate generic SNMP HMS trap every time a new alarm entry is logged.
+                This table should support a minimum of 16 entries."
+          ::= { alarmsIdent 3 }
+
+     alarmLogEntry OBJECT-TYPE
+          SYNTAX AlarmLogEntry
+          ACCESS not-accessible
+          STATUS mandatory
+          DESCRIPTION
+               "A set of data describing an alarm event that has 
+               been logged."
+          INDEX { alarmLogIndex }
+          ::= { alarmLogTable 1 }
+
+     AlarmLogEntry ::=
+          SEQUENCE
+          {
+               alarmLogIndex
+                    INTEGER,
+               alarmLogInformation
+                    OCTET STRING
+          }
+
+     alarmLogIndex OBJECT-TYPE
+          SYNTAX INTEGER (1..32767)
+          ACCESS read-only
+          STATUS mandatory
+          DESCRIPTION
+               "An index that uniquely identifies an entry
+               in the log table.  Indexes are assigned beginning with 1 
+               and increased by one with each new log entry up to 32767. The next
+               entry after 32767 is one. The agent may choose to delete the oldest
+               instances of alarmLogEntry as required because of
+               lack of memory.  It is an implementation-specific
+               matter as to when this deletion may occur."
+          ::= { alarmLogEntry 1 }
+
+     alarmLogInformation OBJECT-TYPE
+          SYNTAX OCTET STRING ( SIZE ( 17..255 ) )
+          ACCESS read-only
+          STATUS mandatory
+          DESCRIPTION
+               "Alarm information encoded as octet string.  Format of this octet is:
+
+               Octet 1-4: POSIX Time of alarm occurrence (Most significant byte first)
+               Octet   5: Alarm Type (See description below)
+               Octet   6: Contents of commonNeStatus immediately after alarm occurred;
+               Octet 7-m: Alarm Object Identifier (BER encoded)
+               Octet n-z: Alarm value (BER encoded)
+
+               Alarm Type(Enumerated type):
+               1 NOMINAL
+               2 HIHI
+               3 HI
+               4 LO
+               5 LOLO
+               6 Discrete Major
+               7 Discrete Minor "
+          ::= { alarmLogEntry 2 }  
+
+     alarmText OBJECT-TYPE
+          SYNTAX DisplayString
+          ACCESS read-only
+          STATUS optional
+          DESCRIPTION
+               "This object is mandatory for transponders that are required
+               to report a text field with the trap.  This field is a place
+               holder for text that contains the prescribed text as identified by
+               the object description of the item in alarm.  This object
+               is therefore volatile and shall not be expected to contain a
+               given value at any specific time.  Values returned are of 
+               no use.  Access is read-only to satisfy SMIv1 requirements.
+
+               Those objects which should report a name shall be identified as such."
+          ::= { alarmsIdent 4 }
+         
+hmsAlarmEvent TRAP-TYPE
+     ENTERPRISE scteHmsTree
+     VARIABLES { commonPhysAddress, commonLogicalID, alarmLogInformation }
+     DESCRIPTION
+          "The SNMP trap that is generated when an alarm event is found.
+          At the option of the transponder, the alarmText variable may be reported as a fourth varbind, for
+          those instances where an additional text field is required."
+     ::= 1
+
+END

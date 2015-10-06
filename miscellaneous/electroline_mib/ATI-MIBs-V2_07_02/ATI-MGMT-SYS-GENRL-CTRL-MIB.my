@@ -1,0 +1,69 @@
+ATI-MGMT-SYS-GENRL-CTRL-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiMgmtSysGnrlControls
+        FROM ATI-MGMT-SYS-MIB
+    OBJECT-TYPE
+        FROM RFC-1212
+    DisplayString
+        FROM SNMPv2-TC
+;
+
+atiMgmtSysTamperPolarity OBJECT-TYPE
+    SYNTAX     INTEGER { doorOpenWhenContactOpen(1), doorOpenWhenContactClosed(2) }
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Determines when tamper is active"
+    ::= { atiMgmtSysGnrlControls 1 }
+
+atiMgmtSysAlphaBusSize OBJECT-TYPE
+    SYNTAX     INTEGER { addressSize9Bit(1), addressSize8Bit(2) }
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Some devices do not use 9 bit multiprocessor mode on the
+                 internal proprietary comms bus.  This is true of the GMX.
+                 At the time of this writing only the GMX is 8 bit, everything
+                 else is 9 bit."
+    ::= { atiMgmtSysGnrlControls 2 }
+
+atiMgmtSysBatteryCalMode OBJECT-TYPE
+    SYNTAX     INTEGER { float(1), negative(2) }
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "In some products the battery negative is tied to ground,
+                 with others it floats. It has been determined that when
+                 the A/D reading change depending on whether or not the
+                 negative pole is tied to ground, requiring different
+                 calibration and multiple calibration tables. This
+                 parameter determins which of the calibration tables
+                 to use."
+    ::= { atiMgmtSysGnrlControls 3 }
+
+atiMgmtSysAlphaBusSpeed OBJECT-TYPE
+    SYNTAX     INTEGER { baud9600(1), baud57600(2) }
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Select the speed at which the AlphaBus will communicate"
+    ::= { atiMgmtSysGnrlControls 4 }
+
+atiMgmtSysCTO OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Rread and write the 'Configurated To Order' string.
+                 This is intended to be set only during factory test
+                 and configuration, it should not be attemped outside
+                 that scope."
+    ::= { atiMgmtSysGnrlControls 5 }
+
+atiMgmtSysCLI OBJECT-TYPE
+    SYNTAX     DisplayString
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Debugging door into the TELNET interface.  Intended
+                 only for debugging and test by manufacture, it should
+                 not be attempted outside that scope."
+    ::= { atiMgmtSysGnrlControls 6 }
+
+END
+

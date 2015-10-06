@@ -1,0 +1,20 @@
+ATI-MGMT-SYS-SERVERS-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    atiMgmtSysServers 
+        FROM ATI-MGMT-SYS-MIB
+    OBJECT-TYPE
+        FROM RFC-1212
+    NetworkAddress
+        FROM RFC1155-SMI
+;
+
+atiMgmtSysServSntp OBJECT-TYPE
+    SYNTAX     NetworkAddress 
+    ACCESS     read-write
+    STATUS     mandatory
+    DESCRIPTION "Address for the Simple Network Timer Protocol Server"
+    ::= { atiMgmtSysServers 1 }
+
+END
+

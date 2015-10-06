@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Batch Requisition by IP</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+  <button type="button" class="btn btn-link" onclick="location.href='#';">Close this Window</button>
+
+
+
+
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2><small>Batch Requisition by IP</small></h2>
+          
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+
+          <form action="php_scripts/upload_file_batch_requisition.php" method="post" enctype="multipart/form-data">
+            Select .CSV format file:
+            <br>
+            <br>
+            <input type="file" name="fileToUpload">
+            <br>
+            <br>
+            <input type="submit" value="Upload for Provisioning" name="submit">
+          </form>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</body>
+</html>

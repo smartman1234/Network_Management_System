@@ -1,0 +1,176 @@
+NSCRTV-HFCEMS-LINE-MIB DEFINITIONS ::= BEGIN
+
+     IMPORTS
+          OBJECT-TYPE
+               FROM RFC-1212
+          DisplayString
+               FROM RFC1213-MIB  
+          lineIdent
+              FROM NSCRTV-ROOT
+;
+
+lineVendorOID OBJECT-TYPE                   
+     SYNTAX OBJECT IDENTIFIER
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION 
+"Replaced By  "
+-- "Replace By  "
+-- -- "此对象提供厂商对线路MIB的扩充，无扩充时此对象应指向线路MIB节点lineIdent。"
+     ::= { lineIdent 1 }     
+
+-- ***********
+-- * RF电平
+-- ***********
+
+lineRFLevel OBJECT-TYPE
+     SYNTAX INTEGER ( 0..127 )
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By  "
+-- "RF导频输出电平，单位为dBuV。
+-- 此对象要求在属性MIB中登记一个条目。"
+     ::= {lineIdent 2 }
+
+-- ***********
+-- * 交流电源
+-- ***********
+
+lineLinePowerVoltage OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+"Replaced By  "
+-- "线路馈电电压，单位为1VAC。此对象要求在属性MIB中登记一个条目。"
+     ::= { lineIdent 3 }
+
+lineLinePowerCurrent OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+"Replaced By  "
+-- "线路馈电电流，单位为0.1A。此对象要求在属性MIB中登记一个条目。"
+     ::= { lineIdent 4 }
+
+
+-- *****************
+-- * 直流电源
+-- *****************
+
+lineNumberDCPowerSupply OBJECT-TYPE
+     SYNTAX INTEGER ( 0..16 )
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By  "
+-- 	    "内部直流电源的数目，‘0’表示设备无此功能。"
+     ::= { lineIdent 5 }
+
+lineDCPowerTable OBJECT-TYPE
+     SYNTAX SEQUENCE OF LineDCPowerEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By  "
+-- 	     "直流电源信息表。"
+     ::= { lineIdent 6 }
+
+lineDCPowerEntry OBJECT-TYPE
+     SYNTAX LineDCPowerEntry
+     ACCESS not-accessible
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By  "
+-- 	     "直流电源信息表目。"
+     INDEX { lineDCPowerIndex }
+     ::= { lineDCPowerTable 1 }
+
+LineDCPowerEntry ::=
+     SEQUENCE
+     {
+          lineDCPowerIndex
+               INTEGER,
+          lineDCPowerVoltage
+               INTEGER,
+          lineDCPowerCurrent
+               INTEGER,
+          lineDCPowerName
+               DisplayString
+     }
+
+
+lineDCPowerIndex OBJECT-TYPE
+     SYNTAX INTEGER
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By  "
+--          "直流电源索引。"
+     ::= { lineDCPowerEntry 1 }
+
+lineDCPowerVoltage OBJECT-TYPE
+     SYNTAX INTEGER ( -32768..32767 )
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By  "
+-- 	     "电源电压，单位为0.1V。此对象要求在属性MIB中登记一个条目。"
+     ::= { lineDCPowerEntry 2 }
+
+lineDCPowerCurrent OBJECT-TYPE
+     SYNTAX INTEGER ( 0..65535 )
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+"Replaced By  "
+-- 	     "电源的电流，单位为0.1A。此对象要求在属性MIB中登记一个条目。"
+     ::= { lineDCPowerEntry 3 }
+
+lineDCPowerName OBJECT-TYPE
+     SYNTAX DisplayString
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+"Replaced By  "
+-- "标明该电源的名称，例如：24V直流电源A。
+-- 此字段值由用户规定，至少应标明工作电压并将多个电源相互区分开。
+-- 当此表中的对象产生告警时，此对象名称应放进hfcAlarmEvent陷阱的alarmText对象里。"
+     ::= { lineDCPowerEntry 4 }
+
+lineRFSwitch OBJECT-TYPE
+     SYNTAX INTEGER { twoway (1), singleway(2), off(3), autotwoway/off(4), autosingleway/off(5) }
+     ACCESS read-write
+     STATUS optional
+     DESCRIPTION
+"Replaced By  "
+-- -- (1)双向
+-- -- (2)单向
+-- -- (3)关断
+	::= { lineIdent 7 }
+
+lineboxState OBJECT-TYPE
+     SYNTAX INTEGER { closed (1), opened(2) }
+     ACCESS read-only
+     STATUS optional
+     DESCRIPTION
+"Replaced By  "
+	::= { lineIdent 8 }    
+
+-- ***********
+-- * RF反向电平
+-- ***********
+
+lineReverseRFLevel OBJECT-TYPE
+     SYNTAX INTEGER ( 0..127 )
+     ACCESS read-only
+     STATUS mandatory
+     DESCRIPTION
+ "Replaced By WangGang"
+-- "RF导频输出电平，单位为dBuV。
+-- 此对象要求在属性MIB中登记一个条目。"
+     ::= {lineIdent 9 }
+
+END
