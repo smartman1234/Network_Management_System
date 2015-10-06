@@ -24,7 +24,7 @@ function deviceCat($oid){
 		break;
 
 		case ".1.3.6.1.4.1.311.1.1.3.1.1":
-		return "Elink Headend Server";
+		return "Elink Headend Client PC";
 		break;
 
 		case ".1.3.6.1.4.1.3222.14.2.1.1":

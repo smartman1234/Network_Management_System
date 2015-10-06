@@ -17,6 +17,8 @@ echo "<br>";
 
 
 
+
+
 $query = "SELECT 
 node.nodeid, 
 node.nodecreatetime, 
@@ -38,6 +40,8 @@ public.assets,
 public.node
 WHERE 
 assets.nodeid = node.nodeid AND assets.nodeid = $nodeid;";
+
+
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
 
@@ -51,10 +55,13 @@ echo "\t</tr>\n";
 
 while ($row = pg_fetch_object($result)) {	
 
+echo "<form action=edit_asset_value_action.php method=post>";
+
   echo "\t<tr>\n";  
   echo "\t\t<td align=left><b>Device ID:</b></td>";
-  echo "\t\t<td align=left>$row->nodeid</td>";
-  echo "\t<tr>\n";   
+  echo "\t\t<td align=left><input  name=nodeid value=$row->nodeid ></td>";
+  echo "\t<tr>\n"; 
+
 
   echo "\t<tr>\n";  
   echo "\t\t<td align=left><b>Discovered Time:  </b></td>";

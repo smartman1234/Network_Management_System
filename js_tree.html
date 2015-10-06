@@ -1,3 +1,9 @@
+<!-- This will be embedded into the main page  -->
+Right click the valid node to enquire the detailed status value.
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +14,7 @@
 </head>
 <body>
   <!-- 3 setup a container element -->
-<!--   <div id="event_result"></div> -->
+  <!--   <div id="event_result"></div> -->
   <!--  <div id="label"></div>
 -->
 <br>
@@ -16,28 +22,28 @@
   <!-- in this example the tree is populated from inline HTML -->
   <ul>
     <li data-jstree='{"icon":"images/tree.png"}'>
-      SNMP Master
+    SNMP Server: <?php echo gethostbyname(gethostname());?>
       <ul>
 
         <?php 
 
-    require "php_scripts/extractIpForTopology.php";
+        require "php_scripts/extractIpForTopology.php";
 
-    ?></ul>
-    </li>
+        ?></ul>
+      </li>
 
-  </ul>
-</div>
+    </ul>
+  </div>
 
-<!-- 4 include the jQuery library -->
-<script src="js/dist/jquery.js"></script>
-<!-- 5 include the minified jstree source -->
-<script src="js/dist/jstree.min.js"></script>
-<script>
+  <!-- 4 include the jQuery library -->
+  <script src="js/dist/jquery.js"></script>
+  <!-- 5 include the minified jstree source -->
+  <script src="js/dist/jstree.min.js"></script>
+  <script>
     $(function () {
     // 6 create an instance when the DOM is ready
 
-$('#jstree')
+    $('#jstree')
   // listen for event
   .on('changed.jstree', function (e, data) {
     var i, j, r = [];
@@ -49,13 +55,13 @@ $('#jstree')
   })
 
 
-    $.jstree.defaults.core.themes.variant = "large";
-    $("#jstree").jstree({
-      "core" : {
-        "multiple" : false,
-        "animation" : 1
-      }
-    });
+  $.jstree.defaults.core.themes.variant = "large";
+  $("#jstree").jstree({
+    "core" : {
+      "multiple" : false,
+      "animation" : 1
+    }
+  });
     // 7 bind to events triggered on the tree
     $('#jstree').on("changed.jstree", function (e, data) {
       console.log(data.selected);

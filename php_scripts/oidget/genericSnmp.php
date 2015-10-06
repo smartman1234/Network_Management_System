@@ -19,6 +19,27 @@ function snmpget_smallp($ip, $oid) {
 }
 
 
+
+function ext($in) {
+	$out = "";
+	$index = strpos ( $in, ":" );
+	if ($index != FALSE) {
+		$out = substr ( $in, $index + 2 );
+	}
+	return $out;
+}
+
+function removeQuotation($in){
+	$out = $in;
+	if ($in[0] == '"') {
+		# code...
+		$out = ltrim($in, '"');
+		$out = rtrim($out, '"');
+	}
+	return $out;
+}
+
+
 // deprecated 
 // function snmpget_egfa($ip, $oid) {
 // 	$command = $command = "C:\usr\bin\snmpget -Ov -v 1 -c PUBLIC " . $ip . " " .  $oid . " 2>&1";
@@ -44,23 +65,5 @@ function snmpget_smallp($ip, $oid) {
 // 	return $result;
 // }
 
-function ext($in) {
-	$out = "";
-	$index = strpos ( $in, ":" );
-	if ($index != FALSE) {
-		$out = substr ( $in, $index + 2 );
-	}
-	return $out;
-}
-
-function removeQuotation($in){
-	$out = $in;
-	if ($in[0] == '"') {
-		# code...
-		$out = ltrim($in, '"');
-		$out = rtrim($out, '"');
-	}
-	return $out;
-}
 
 ?>

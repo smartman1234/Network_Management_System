@@ -13,7 +13,7 @@ function addzero($value){
   return $value;
 }
 }
-
+$nodeid = addzero($_POST["nodeid"]);
 $rack =  quotation($_POST["rack"]);
 $dateinstalled = quotation($_POST["dateinstalled"]);
 $supportphone = quotation($_POST["supportphone"]);
@@ -25,8 +25,6 @@ $longitude = addzero($_POST["longitude"]);
 
 
 session_start();
-$nodeid = $_SESSION['NODEID'];
-
 
 
 require "db_initialize.php";
