@@ -14,7 +14,7 @@ function addzero($value){
 }
 }
 $nodeid = addzero($_POST["nodeid"]);
-$rack =  quotation($_POST["rack"]);
+//$rack =  quotation($_POST["rack"]);
 $dateinstalled = quotation($_POST["dateinstalled"]);
 $supportphone = quotation($_POST["supportphone"]);
 $comment = quotation($_POST["comment"]);
@@ -31,7 +31,6 @@ require "db_initialize.php";
 
 $query = "UPDATE public.assets
 SET
-rack=$rack,
 dateinstalled=$dateinstalled,
 supportphone=$supportphone,
 comment=$comment,

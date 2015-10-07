@@ -47,9 +47,7 @@ $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
 echo "<table width=40%>\n";
 echo "\t<tr>\n";
-echo "<td align=left><b>Asset Field</b></td>";
-echo "<td align=left><b>Value</b></td>";
-echo "\t</tr>\n";
+
 
 
 
@@ -68,10 +66,7 @@ echo "<form action=edit_asset_value_action.php method=post>";
   echo "\t\t<td align=left>$row->nodecreatetime</td>";
   echo "\t<tr>\n"; 
 
-  echo "\t<tr>\n";  
-  echo "\t\t<td align=left><b>OID:   </b></td>";
-  echo "\t\t<td align=left>$row->nodesysoid</td>";
-  echo "\t<tr>\n"; 
+
 
   echo "\t<tr>\n";    
   echo "\t\t<td align=left><b>Description:  </b></td>";
@@ -91,10 +86,7 @@ echo "<form action=edit_asset_value_action.php method=post>";
 
   echo "<form action=edit_asset_value_action.php method=post>";
 
-  echo "\t<tr>\n";  
-  echo "\t\t<td align=left><b>Rack:   </b></td>";
-  echo "\t\t<td align=left><input type=text name=rack value=$row->rack ></td>";
-  echo "\t<tr>\n"; 
+
 
   echo "\t<tr>\n";  
   echo "\t\t<td align=left><b>Date Installed:   </b></td>";

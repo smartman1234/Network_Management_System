@@ -42,7 +42,7 @@ COPY(
 	ORDER BY
 	alarms.lasteventtime,
 	alarms.severity) 
-TO 'C:\Bitnami\wappstack-5.5.30-0\apache2\htdocs/rapidnms/for_downloading/email_alert_data.csv' With CSV HEADER;
+TO 'C:/rapidnms/data.csv' With CSV HEADER;
 ";
 
 echo "test";
