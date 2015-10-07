@@ -97,12 +97,15 @@
 * change text   --- ok
 * email address    --- ok
 * toggle the ip   --- ok
+* email contend   --- ok
+
+
 
 * fix buton top 
 * change tree 
 * change elink oid 
 * extend the white space on the main page 
-* email contend 
+
 
 
 

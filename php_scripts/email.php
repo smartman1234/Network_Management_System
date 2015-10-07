@@ -1,6 +1,6 @@
 <?php
-
-function sendEmail($to_address, $subject, $body, $attachment){
+// $attachment
+function sendEmail($to_address, $subject, $body){
 
 require_once ('PHPMailer/class.phpmailer.php');
 include ("PHPMailer/class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
@@ -22,7 +22,7 @@ try {
 	
 	$mail->Subject = $subject;
 	$mail->Body = $body;
-	$mail->AddAttachment($attachment);
+	//$mail->AddAttachment($attachment);
 	$mail->Send ();
 	
 	echo '<script language="javascript">';
