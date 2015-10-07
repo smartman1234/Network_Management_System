@@ -18,6 +18,7 @@ notifications.answeredby,
 notifications.pagetime,  
 notifications.respondtime,  
 notifications.subject, 
+node.nodeid,
 node.nodelabel, 
 node.nodesysoid
 FROM 
@@ -47,7 +48,7 @@ echo "<tbody>";
 
 while ($row = pg_fetch_object($result)) {	
 	echo "\t<tr class=even pointer>\n";		
-	echo "\t\t<td align=left><a href= http://$row->ipaddr target=_blank>$row->ipaddr</a></td>";
+	echo "\t\t<td align=left><a href=php_scripts/display_status_value.php?nodeid=$row->nodeid target=_blank >$row->ipaddr</a></td>";
 
 	$deviceCategory = deviceCat($row->nodesysoid);
 	echo "\t\t<td align=left>$deviceCategory</td>";

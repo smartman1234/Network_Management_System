@@ -15,6 +15,7 @@ $query = "SELECT
   outages.iflostservice, 
   outages.ifregainedservice, 
   node.nodelabel,
+  node.nodeid,
   node.nodesysoid
 FROM 
   public.outages, 
@@ -46,7 +47,7 @@ while ($row = pg_fetch_object($result)) {
 	echo "\t\t<td align=left>$status</td>";
 	echo "\t\t<td align=left>$row->nodelabel</td>";
 
-	echo "\t\t<td align=left><a href= http://$row->ipaddr target=_blank>$row->ipaddr</a></td>";
+	echo "\t\t<td align=left><a href=php_scripts/display_status_value.php?nodeid=$row->nodeid target=_blank >$row->ipaddr</a></td>";
 
 	$deviceCategory = deviceCat($row->nodesysoid);
 	echo "\t\t<td align=left>$deviceCategory</td>";

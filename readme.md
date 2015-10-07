@@ -96,13 +96,13 @@
 // 2015-10-07
 * change text   --- ok
 * email address    --- ok
-* email contend   --- ok
+* toggle the ip   --- ok
 
-* toggle the ip 
 * fix buton top 
 * change tree 
 * change elink oid 
 * extend the white space on the main page 
+* email contend 
 
 
 

@@ -19,6 +19,7 @@ assets.description,
 node.nodecreatetime, 
 node.nodesysoid, 
 node.nodelabel, 
+node.nodeid,
 node.nodelabelsource, 
 node.lastcapsdpoll
 FROM 
@@ -43,19 +44,20 @@ echo "<th align=left class=table-filterable table-sortable:default><b>Status</b>
 echo "<th align=left class=table-filterable table-sortable:default><b>Alarm </b></th>";
 echo "<th align=left class=table-sortable:alphanumeric><b>Discovered Time</b><img src=images/sorticon.png width=30 height=20></th>";
 echo "<th align=left class=table-sortable:alphanumeric><b>Latest Polling</b><img src=images/sorticon.png width=30 height=20></th>";
-echo "<th align=left><b>SNMP</b></th>";
+echo "<th align=left><b>SNMP Status</b></th>";
 echo "<th align=left><b>Setup</b></th>";
 echo "</tr>";
 echo "</thead>";
 echo "<tbody>";
 
-
+// <a href=php_scripts/snmpSpecificIp_Inventory.php?ip=$row->ipaddr target=_blank > 
+// <a href=php_scripts/snmpinfo_from_snmpinterface.php?nodeid=$row->nodeid target=_blank > 
 while ($row = pg_fetch_object($result)) {	
 	echo "\t<tr class=even pointer>\n";	
 	echo "\t\t<td align=left>$row->nodeid</td>";
 	$deviceCategory = deviceCat($row->nodesysoid);
 	echo "\t\t<td align=left>$deviceCategory</td>";
-	echo "\t\t<td align=left><a href=php_scripts/snmpSpecificIp_Inventory.php?ip=$row->ipaddr target=_blank > $row->ipaddr </a></td>";
+	echo "\t\t<td align=left>$row->ipaddr </td>";
 	echo "\t\t<td align=left>$row->nodelabel</td>";
 	$profile = assigned_profile($row->nodelabelsource);
 	echo "\t\t<td align=left>$profile</td>";
@@ -66,7 +68,7 @@ while ($row = pg_fetch_object($result)) {
 	echo "\t\t<td align=left>$vis</td>";
 	echo "\t\t<td align=left>$row->nodecreatetime</td>";
 	echo "\t\t<td align=left>$row->lastcapsdpoll</td>";
-	echo "\t\t<td align=center><a href=php_scripts/snmpinfo_from_snmpinterface.php?nodeid=$row->nodeid target=_blank > <img src=images/search-icon-md.png style=width:20px;height:20px;>  </a></td>";
+	echo "\t\t<td align=center><a href=php_scripts/display_status_value.php?nodeid=$row->nodeid target=_blank ><img src=images/search-icon-md.png style=width:20px;height:20px;>  </a></td>";
 	echo "\t\t<td align=center><a href=php_scripts/inventory_setup.php?nodeid=$row->nodeid target=_blank ><img src=images/17-512.png style=width:20px;height:20px;></a></td>";
 	echo "\t</tr>\n";
 }
