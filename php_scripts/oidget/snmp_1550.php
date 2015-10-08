@@ -34,7 +34,7 @@ function get_1550($ip){
 	$lab [2] = "sub-ID";
 	$lab [3] = "Firmware Version";
 	$lab [4] = "Laser IM";
-	$lab [5] = "Laser Temperature";
+	$lab [5] = "Laser Temperature (C)";
 	$lab [6] = "Laser Bias";
 	$lab [7] = "RF Modulation Level";
 	$lab [8] = "DC24V Voltage";
