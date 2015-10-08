@@ -33,13 +33,13 @@
     <![endif]-->
 </head>
 <script>
-function startTimer(duration, display) {
-    var start = Date.now(),
+    function startTimer(duration, display) {
+        var start = Date.now(),
         diff,
         minutes,
         seconds;
 
-    function timer() {
+        function timer() {
         // get the number of seconds that have elapsed since 
         // startTimer() was called
         diff = duration - (((Date.now() - start) / 1000) | 0);
@@ -66,7 +66,7 @@ function startTimer(duration, display) {
 
 window.onload = function() {
     var fiveMinutes = 60 * 1,
-        display = document.querySelector('#time');
+    display = document.querySelector('#time');
     startTimer(fiveMinutes, display);
 };
 </script>
@@ -107,83 +107,83 @@ window.onload = function() {
                           document.write("<b></b>")
                               document.write("<b>" + hours + ":" + minutes + " " + suffix + "</b>")    //-->
                           </script>
-                    </h3>
-                    <div class="clearfix"></div>
-                    <!-- menu prile quick info -->
-                    <div class="profile">
+                      </h3>
+                      <div class="clearfix"></div>
+                      <!-- menu prile quick info -->
+                      <div class="profile">
                         <div class="profile_pic">
                             <img src="images/Administrator-icon.png" alt="..." class="img-circle profile_img"></div>
-                        <div class="profile_info">
-                            <span>Welcome,</span>
-                            <h2>NMS Administrator</h2>
+                            <div class="profile_info">
+                                <span>Welcome,</span>
+                                <h2>NMS Administrator</h2>
+                            </div>
                         </div>
-                    </div>
-                    <!-- /menu prile quick info -->
-                    <br />
-                    <!-- sidebar menu -->
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <ul class="nav side-menu">
-                                <li>
-                                    <a href="main.html"> <i class="fa fa-home"></i> Main Dashboard
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="inventory.html">
-                                        <i class="fa fa-file-text-o"></i> Discovered Inventory
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="alarm_list.html">
-                                        <i class="fa fa-bell"></i> Real-time Alarms
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="outage_list.html">
-                                        <i class="fa fa-exclamation-triangle"></i> Outages
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-comment-o"></i> System Notices
-                                        <span class="fa fa-chevron-down"></span>
-                                    </a>
-                                    <ul class="nav child_menu" style="display: none">
-                                        <li>
-                                            <a href="notification_outstanding.html">Outstanding Notices</a>
-                                        </li>
-                                        <li>
-                                            <a href="notification_ack.html">All Acknowledged Notices</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="device_history.html">
-                                        <i class="fa fa-history"></i> Device History
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="network_mapping.html">
-                                        <i class="fa fa-globe"></i> Network Mapping
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="menu_section">
-                            <h3>Advanced Configuration</h3>
-                            <ul class="nav side-menu">
-                                <li>
-                                    <a href="add_device.html">
-                                        <i class="fa fa-plus-square"></i> Adding New Devices
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="discovery_config.html">
-                                        <i class="fa fa-search"></i> Discovery Configuration
-                                    </a>
-                                </li>
-                               
-                                <li>
+                        <!-- /menu prile quick info -->
+                        <br />
+                        <!-- sidebar menu -->
+                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                            <div class="menu_section">
+                                <ul class="nav side-menu">
+                                    <li>
+                                        <a href="main.html"> <i class="fa fa-home"></i> Main Dashboard
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="inventory.html">
+                                            <i class="fa fa-file-text-o"></i> Discovered Inventory
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="alarm_list.html">
+                                            <i class="fa fa-bell"></i> Real-time Alarms
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="outage_list.html">
+                                            <i class="fa fa-exclamation-triangle"></i> Outages
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-comment-o"></i> System Notices
+                                            <span class="fa fa-chevron-down"></span>
+                                        </a>
+                                        <ul class="nav child_menu" style="display: none">
+                                            <li>
+                                                <a href="notification_outstanding.html">Outstanding Notices</a>
+                                            </li>
+                                            <li>
+                                                <a href="notification_ack.html">All Acknowledged Notices</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="device_history.html">
+                                            <i class="fa fa-history"></i> Device History
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="network_mapping.html">
+                                            <i class="fa fa-globe"></i> Network Mapping
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="menu_section">
+                                <h3>Advanced Configuration</h3>
+                                <ul class="nav side-menu">
+                                    <li>
+                                        <a href="add_device.html">
+                                            <i class="fa fa-plus-square"></i> Adding New Devices
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="discovery_config.html">
+                                            <i class="fa fa-search"></i> Discovery Configuration
+                                        </a>
+                                    </li>
+                                    
+                                    <li>
                                      <a href=<?php require 'php_scripts/server_checker.php'; echo "'" . $db . "'" ; ?> target="_blank">
                                         <i class="fa fa-database"></i> Database Maintenance
                                     </a>
@@ -241,98 +241,7 @@ window.onload = function() {
                                     </li>
                                 </ul>
                             </li>
-                            <li role="presentation" class="dropdown">
-                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-envelope-o">Acknowledged Notices by Admin</i>
-                                    <span class="badge bg-green">
-
-                                        <?php
-                                                require "php_scripts/ack_notice_top_navi_number.php";
-                                                echo $ack_number; 
-                                                ?></span>
-                                </a>
-                                <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                                <img src="images/internet-device-Vista-icon.png" alt="Profile Image" />
-                                            </span>
-                                            <span>
-                                                <span>
-                                                    <?php
-                                                                require "php_scripts/acked_notice_top_navi.php";
-                                                                echo $notice0; 
-                                                                ?></span>
-                                            <span class="time">
-                                                    <?php
-                                                                    require "php_scripts/acked_notice_top_navi.php";
-                                                                    echo $ip0; 
-                                                                    ?></span>
-                                            </span>
-                                            <span class="message">
-                                                <?php
-                                                                    require "php_scripts/acked_notice_top_navi.php";
-                                                                    echo $time0; 
-                                                                    ?></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                                <img src="images/internet-device-Vista-icon.png" alt="Profile Image" />
-                                            </span>
-                                            <span>
-                                                <span>
-                                                    <?php
-                                                                            require "php_scripts/acked_notice_top_navi.php";
-                                                                            echo $notice1; 
-                                                                            ?></span>
-                                            <span class="time">
-                                                    <?php
-                                                                                require "php_scripts/acked_notice_top_navi.php";
-                                                                                echo $ip1; 
-                                                                                ?></span>
-                                            </span>
-                                            <span class="message">
-                                                <?php
-                                                                                require "php_scripts/acked_notice_top_navi.php";
-                                                                                echo $time1; 
-                                                                                ?></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                                <img src="images/internet-device-Vista-icon.png" alt="Profile Image" />
-                                            </span>
-                                            <span>
-                                                <span>
-                                                    <?php
-                                                                                        require "php_scripts/acked_notice_top_navi.php";
-                                                                                        echo $notice2; 
-                                                                                        ?></span>
-                                            <span class="time">
-                                                    <?php
-                                                                                            require "php_scripts/acked_notice_top_navi.php";
-                                                                                            echo $ip2; 
-                                                                                            ?></span>
-                                            </span>
-                                            <span class="message">
-                                                <?php
-                                                                                            require "php_scripts/acked_notice_top_navi.php";
-                                                                                            echo $time2; 
-                                                                                            ?></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="text-center">
-                                            <a href="notification_ack.html"> <strong>See All Acknowledged Notices</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
+                            
                         </ul>
                     </nav>
                 </div>
@@ -353,27 +262,28 @@ window.onload = function() {
                         </div>
                     </div>
                     <script>
-                    document.getElementById("mouseCur").style.cursor = "help";
+                        document.getElementById("mouseCur").style.cursor = "help";
 
-                    function POPUP_Fcuntion() {
+                        function POPUP_Fcuntion() {
 
-                        alert("This system provides a means for you to easily track and share important information about capital assets in your organization. This data, when coupled with the information about your network that the OpenNMS system obtains during network discovery, can be a powerful tool not only for solving problems, but in tracking the current state of equipment repairs as well as network or system-related moves, additions, or changes. There are two ways to add or modify the asset data stored in the OpenNMS system: 1) import the data from another source (Importing asset data is described on the Admin page; or 2) Enter the data by hand.");
-                    }
+                            alert("This system provides a means for you to easily track and share important information about capital assets in your organization. This data, when coupled with the information about your network that the OpenNMS system obtains during network discovery, can be a powerful tool not only for solving problems, but in tracking the current state of equipment repairs as well as network or system-related moves, additions, or changes. There are two ways to add or modify the asset data stored in the OpenNMS system: 1) import the data from another source (Importing asset data is described on the Admin page; or 2) Enter the data by hand.");
+                        }
                     </script>
                     <div class="clearfix"></div>
                     <div class="row">
-                        <button type="button" class="btn btn-primary" onclick="reload()">Refresh this List</button>
+                        <button type="button" class="btn btn-primary" onclick="reload()">Refresh List</button>
+                        
+                        <button type="button" class="btn btn-primary" onclick="location.href='php_scripts/export_inventory.php';">Export Data</button>
+
+
                         <button type="button" class="btn btn-primary" onclick="location.href='device_history.html';">Search Records by IP</button>
-                        <button type="button" class="btn btn-primary" onclick=window.open( "add_device_manually.html", "Ratting", "width=600,height=400,0,status=0,");>Manual Requisition by IP</button>
-                        <button type="button" class="btn btn-primary" onclick=window.open( "add_device_from_file.html", "Ratting", "width=600,height=400,0,status=0,");>Batch Requisition by IP</button>
-                        <button type="button" class="btn btn-primary" onclick=window.open( "pending_provisioning_from_xml.html", "Ratting", "width=600,height=400,0,status=0,");>Pending Provisioning</button>
-                        <button type="button" class="btn btn-primary">Print</button>
-                        <button type="button" class="btn btn-primary">Export as .CSV</button>
-                        <button type="button" class="btn btn-primary">Email this Table</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='add_device.html';");>Add Devices</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='discovery_config.html';">Configure Discovery</button>
+
                         <script>
-                        function reload() {
-                            location.reload();
-                        }
+                            function reload() {
+                                location.reload();
+                            }
                         </script>
                     </div>
                     <div class="row">
@@ -381,102 +291,102 @@ window.onload = function() {
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2>
-                                    Server IP:
+                                        Server IP:
                                         <b><?php
-                                                require "php_scripts/ipAddress.php";
-                                                echo $serverIp;
-                                                ?></b>
-                                        (User:
-                                        <b><?php
-                                                require "php_scripts/ipAddress.php";
-                                                echo $clientIp;
-                                                ?></b>
-                                        )
-                                        <br><br>
-                                        Total registered inventory number: <b><?php
-                                            require "php_scripts/total_devices_network_number.php";
-                                            echo $total_device_number;
+                                            require "php_scripts/ipAddress.php";
+                                            echo $serverIp;
                                             ?></b>
-                                        <br>
-                                        <br>
-                                        Current time:
-                                        <script type="text/javascript">
-                                                var currentDate = new Date()
-                                                var day = currentDate.getDate()
-                                                var month = currentDate.getMonth() + 1
-                                                var year = currentDate.getFullYear()
-                                                var currentTime = new Date()
-                                                var hours = currentTime.getHours()
-                                                var minutes = currentTime.getMinutes()
+                                            (User:
+                                                <b><?php
+                                                    require "php_scripts/ipAddress.php";
+                                                    echo $clientIp;
+                                                    ?></b>
+                                                    )
+                                                    <br><br>
+                                                    Total registered inventory number: <b><?php
+                                                    require "php_scripts/total_devices_network_number.php";
+                                                    echo $total_device_number;
+                                                    ?></b>
+                                                    <br>
+                                                    <br>
+                                                    Current time:
+                                                    <script type="text/javascript">
+                                                        var currentDate = new Date()
+                                                        var day = currentDate.getDate()
+                                                        var month = currentDate.getMonth() + 1
+                                                        var year = currentDate.getFullYear()
+                                                        var currentTime = new Date()
+                                                        var hours = currentTime.getHours()
+                                                        var minutes = currentTime.getMinutes()
 
-                                                if (minutes < 10)
-                                                    minutes = "0" + minutes
+                                                        if (minutes < 10)
+                                                            minutes = "0" + minutes
 
-                                                var suffix = "AM";
-                                                if (hours >= 12) {
-                                                    suffix = "PM";
-                                                    hours = hours - 12;
-                                                }
-                                                if (hours == 0) {
-                                                    hours = 12;
-                                                }
-                                                document.write("<b>" + day + "/" + month + "/" + year + "</b>")
-                                                document.write("<b></b>")
-                                                document.write("  ")
-                                                document.write("<b>" + hours + ":" + minutes + " " + suffix + "</b>")
-                                            </script>
-                                    </h2>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <table id="example" class="table table-striped responsive-utilities jambo_table table-autosort table-autofilter table-autopage:10 table-autostripe table-page-number:t1page table-page-count:t1pages table-filtered-rowcount:t1filtercount table-rowcount:t1allcount">
-                                        <style type="text/css">
-                                        th {
-                                            color: #000000;
-                                            background-color: #2A3F54
-                                        }
-                                        </style>
-                                        <?php
-                                                require "php_scripts/inventory_listview.php";           
-                                                ?>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <td></td>
-                                                    <td class="table-page:previous" style="cursor:pointer;">&lt; &lt; Previous</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td style="text-align:center;">
-                                                        Page
-                                                        <span id="t1page"></span> &nbsp;of
-                                                        <span id="t1pages"></td>
-                                            </span>
+                                                        var suffix = "AM";
+                                                        if (hours >= 12) {
+                                                            suffix = "PM";
+                                                            hours = hours - 12;
+                                                        }
+                                                        if (hours == 0) {
+                                                            hours = 12;
+                                                        }
+                                                        document.write("<b>" + day + "/" + month + "/" + year + "</b>")
+                                                        document.write("<b></b>")
+                                                        document.write("  ")
+                                                        document.write("<b>" + hours + ":" + minutes + " " + suffix + "</b>")
+                                                    </script>
+                                                </h2>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <table id="example" class="table table-striped responsive-utilities jambo_table table-autosort table-autofilter table-autopage:10 table-autostripe table-page-number:t1page table-page-count:t1pages table-filtered-rowcount:t1filtercount table-rowcount:t1allcount">
+                                                    <style type="text/css">
+                                                        th {
+                                                            color: #000000;
+                                                            background-color: #2A3F54
+                                                        }
+                                                    </style>
+                                                    <?php
+                                                    require "php_scripts/inventory_listview.php";           
+                                                    ?>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td class="table-page:previous" style="cursor:pointer;">&lt; &lt; Previous</td>
                                                         <td></td>
                                                         <td></td>
-                                                        <td class="table-page:next" style="cursor:pointer;">Next &gt; &gt;</td>
+                                                        <td style="text-align:center;">
+                                                            Page
+                                                            <span id="t1page"></span> &nbsp;of
+                                                            <span id="t1pages"></td>
+                                                            </span>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="table-page:next" style="cursor:pointer;">Next &gt; &gt;</td>
+                                                            <td></td>
+                                                        </tr>
                                                         <td></td>
-                                                </tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td colspan="8.5">
-                                                    <span id="t1filtercount"></span> &nbsp;of
-                                                    <span id="t1allcount"></span> &nbsp;rows match filter(s)
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                            </tfoot>
-                                    </table>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td colspan="8.5">
+                                                            <span id="t1filtercount"></span> &nbsp;of
+                                                            <span id="t1allcount"></span> &nbsp;rows match filter(s)
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <br />
                                 </div>
                             </div>
-                        </div>
-                        <br />
-                        <br />
-                        <br />
-                    </div>
-                </div>
-                <!-- footer content -->
+                            <!-- footer content -->
                 <!-- ------------------------------------------------------------------------------------- 
                 Below is the footer  -->
                 <!-- footer content -->
@@ -485,9 +395,9 @@ window.onload = function() {
                         <p class="pull-right">
                             Electroline Rapid NMS Dashboard is an extension Web-UI of the OpenNMS system. |
                             <span class="lead">
-                            <i class="fa fa-desktop"></i>
-                            Electroline Equipment Inc.
-                        </span>
+                                <i class="fa fa-desktop"></i>
+                                Electroline Equipment Inc.
+                            </span>
                         </p>
                     </div>
                     <div class="clearfix"></div>
@@ -520,17 +430,17 @@ window.onload = function() {
     <!--[if lte IE 8]>
 <script type="text/javascript" src="js/excanvas.min.js"></script>
 <![endif]-->
-    <script type="text/javascript" src="js/flot/jquery.flot.js"></script>
-    <script type="text/javascript" src="js/flot/jquery.flot.pie.js"></script>
-    <script type="text/javascript" src="js/flot/jquery.flot.orderBars.js"></script>
-    <script type="text/javascript" src="js/flot/jquery.flot.time.min.js"></script>
-    <script type="text/javascript" src="js/flot/date.js"></script>
-    <script type="text/javascript" src="js/flot/jquery.flot.spline.js"></script>
-    <script type="text/javascript" src="js/flot/jquery.flot.stack.js"></script>
-    <script type="text/javascript" src="js/flot/curvedLines.js"></script>
-    <script type="text/javascript" src="js/flot/jquery.flot.resize.js"></script>
-    <!-- flot -->
-    <script type="text/javascript">
+<script type="text/javascript" src="js/flot/jquery.flot.js"></script>
+<script type="text/javascript" src="js/flot/jquery.flot.pie.js"></script>
+<script type="text/javascript" src="js/flot/jquery.flot.orderBars.js"></script>
+<script type="text/javascript" src="js/flot/jquery.flot.time.min.js"></script>
+<script type="text/javascript" src="js/flot/date.js"></script>
+<script type="text/javascript" src="js/flot/jquery.flot.spline.js"></script>
+<script type="text/javascript" src="js/flot/jquery.flot.stack.js"></script>
+<script type="text/javascript" src="js/flot/curvedLines.js"></script>
+<script type="text/javascript" src="js/flot/jquery.flot.resize.js"></script>
+<!-- flot -->
+<script type="text/javascript">
     //define chart clolors ( you maybe add more colors if you want or flot will add it automatic )
     var chartColours = ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'];
 
@@ -631,10 +541,10 @@ window.onload = function() {
             }
         }], options);
     });
-    </script>
-    <!-- /flot -->
-    <!--  -->
-    <script>
+</script>
+<!-- /flot -->
+<!--  -->
+<script>
     $('document').ready(function() {
         $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
             type: 'bar',
@@ -689,12 +599,12 @@ window.onload = function() {
         var myDoughnut = new Chart(document.getElementById("canvas1i2").getContext("2d")).Doughnut(doughnutData);
         var myDoughnut = new Chart(document.getElementById("canvas1i3").getContext("2d")).Doughnut(doughnutData);
     });
-    </script>
-    <!-- -->
-    <!-- Datatables -->
-    <script src="js/datatables/js/jquery.dataTables.js"></script>
-    <script src="js/datatables/tools/js/dataTables.tableTools.js"></script>
-    <script>
+</script>
+<!-- -->
+<!-- Datatables -->
+<script src="js/datatables/js/jquery.dataTables.js"></script>
+<script src="js/datatables/tools/js/dataTables.tableTools.js"></script>
+<script>
     $(document).ready(function() {
         $('input.tableflat').iCheck({
             checkboxClass: 'icheckbox_flat-green',
@@ -709,17 +619,17 @@ window.onload = function() {
                 "sSearch": "Search all columns:"
             },
             "aoColumnDefs": [{
-                    'bSortable': false,
-                    'aTargets': [0]
+                'bSortable': false,
+                'aTargets': [0]
                 } //disables sorting for column one
-            ],
-            'iDisplayLength': 12,
-            "sPaginationType": "full_numbers",
-            "dom": 'T<"clear">lfrtip',
-            "tableTools": {
-                "sSwfPath": "<?php echo base_url('assets2/js/Datatables/tools/swf/copy_csv_xls_pdf.swf'); ?>"
-            }
-        });
+                ],
+                'iDisplayLength': 12,
+                "sPaginationType": "full_numbers",
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "<?php echo base_url('assets2/js/Datatables/tools/swf/copy_csv_xls_pdf.swf'); ?>"
+                }
+            });
         $("tfoot input").keyup(function() {
             /* Filter on the column based on the index of this element's parent <th> */
             oTable.fnFilter(this.value, $("tfoot th").index($(this).parent()));
@@ -740,7 +650,7 @@ window.onload = function() {
             }
         });
     });
-    </script>
+</script>
 </body>
 
 </html>

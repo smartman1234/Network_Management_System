@@ -99,9 +99,10 @@
 * toggle the ip   --- ok
 * email contend   --- ok
 
+// 2015-10-08
 
-
-* fix buton top 
+* fix buton top  --- ok
+* fix right top corner  --- ok
 * change tree 
 * change elink oid 
 * extend the white space on the main page 

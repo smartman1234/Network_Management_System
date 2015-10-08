@@ -250,217 +250,126 @@ window.onload = function() {
                                 </li>
                             </ul>
                         </li>
-                        <li role="presentation" class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-envelope-o">Acknowledged Notices by Admin</i>
-                                <span class="badge bg-green">
-
-                                    <?php
-                                    require "php_scripts/ack_notice_top_navi_number.php";
-                                    echo $ack_number; 
-                                    ?></span>
-                                </a>
-                                <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
-                                    <li>
-                                        <a>
-                                            <span class="image">
-                                                <img src="images/internet-device-Vista-icon.png" alt="Profile Image" />
-                                            </span>
-                                            <span>
-                                                <span>
+                        
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <br />
+            <div class="">
+                <div class="row top_tiles">
+                    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                            <div class="icon">
+                                <i class="fa fa-table"></i>
+                            </div>
+                            <div class="count">
+                                <a href="inventory.html">
+                                    <?php require "php_scripts/total_devices_network_number.php";
+                                    echo $total_device_number;?></a>
+                                </div>
+                                <h3>Total Devices in Network</h3>
+                                <p>
+                                    Online Devices:
+                                    <?php require "php_scripts/nodeidInElementToArray.php";
+                                    echo $total_online_number;?></p>
+                                </div>
+                            </div>
+                            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="tile-stats">
+                                    <div class="icon">
+                                        <i class="fa fa-bell"></i>
+                                    </div>
+                                    <div class="count">
+                                        <a href="alarm_list.html">
+                                            <?php
+                                            require "php_scripts/real_time_alarm_total_number.php";
+                                            echo $total_alarm_number;
+                                            ?></a>
+                                        </div>
+                                        <h3>Real-time Alarms</h3>
+                                        <p>
+                                            <a href="alarm_list.html">Search alarm details</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="tile-stats">
+                                        <div class="icon">
+                                            <i class="fa fa-exclamation-triangle"></i>
+                                        </div>
+                                        <div class="count">
+                                            <a href="outage_list.html">
+                                                <?php
+                                                require "php_scripts/unsolved_outage_number.php";
+                                                echo $total_unsolved_outage_number;?></a>
+                                            </div>
+                                            <h3>Unsolved Outages</h3>
+                                            <p>
+                                                <a href="outage_list.html">Investigate unsolved and solved outages</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="tile-stats">
+                                            <div class="icon">
+                                                <i class="fa fa-comment-o"></i>
+                                            </div>
+                                            <div class="count">
+                                                <a href="notification_outstanding.html">
                                                     <?php
-                                                    require "php_scripts/acked_notice_top_navi.php";
-                                                    echo $notice0; 
-                                                    ?></span>
-                                                    <span class="time">
-                                                        <?php
-                                                        require "php_scripts/acked_notice_top_navi.php";
-                                                        echo $ip0; 
-                                                        ?></span>
-                                                    </span>
-                                                    <span class="message">
-                                                        <?php
-                                                        require "php_scripts/acked_notice_top_navi.php";
-                                                        echo $time0; 
-                                                        ?></span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a>
-                                                        <span class="image">
-                                                            <img src="images/internet-device-Vista-icon.png" alt="Profile Image" />
-                                                        </span>
-                                                        <span>
-                                                            <span>
-                                                                <?php
-                                                                require "php_scripts/acked_notice_top_navi.php";
-                                                                echo $notice1; 
-                                                                ?></span>
-                                                                <span class="time">
-                                                                    <?php
-                                                                    require "php_scripts/acked_notice_top_navi.php";
-                                                                    echo $ip1; 
-                                                                    ?></span>
-                                                                </span>
-                                                                <span class="message">
-                                                                    <?php
-                                                                    require "php_scripts/acked_notice_top_navi.php";
-                                                                    echo $time1; 
-                                                                    ?></span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a>
-                                                                    <span class="image">
-                                                                        <img src="images/internet-device-Vista-icon.png" alt="Profile Image" />
-                                                                    </span>
-                                                                    <span>
-                                                                        <span>
-                                                                            <?php
-                                                                            require "php_scripts/acked_notice_top_navi.php";
-                                                                            echo $notice2; 
-                                                                            ?></span>
-                                                                            <span class="time">
-                                                                                <?php
-                                                                                require "php_scripts/acked_notice_top_navi.php";
-                                                                                echo $ip2; 
-                                                                                ?></span>
-                                                                            </span>
-                                                                            <span class="message">
-                                                                                <?php
-                                                                                require "php_scripts/acked_notice_top_navi.php";
-                                                                                echo $time2; 
-                                                                                ?></span>
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="text-center">
-                                                                                <a href="notification_ack.html"> <strong>See All Acknowledged Notices</strong>
-                                                                                    <i class="fa fa-angle-right"></i>
-                                                                                </a>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-                                                                </li>
-                                                            </ul>
-                                                        </nav>
+                                                    require "php_scripts/pending_notification_number.php";
+                                                    echo $total_pending_notification_number;
+                                                    ?></a>
+                                                </div>
+                                                <h3>Pending notifications</h3>
+                                                <p>
+                                                    <a href="notification_outstanding.html">Discover all notifications</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <h2>
+                                                        <a>Monitored Devices</a>
+                                                        (Server IP: <b><?php
+                                                            require "php_scripts/ipAddress.php";
+                                                            echo $serverIp;
+                                                            ?></b>
+                                                            , User:
+                                                            <b><?php
+                                                                require "php_scripts/ipAddress.php";
+                                                                echo $clientIp;
+                                                                ?></b>
+                                                                )
+                                                                <br>
+                                                                <br></h2>
+                                                                <div class="clearfix"></div>
+                                                                <div class="clearfix"></div>
+                                                            </div>
+                                                            <div class="x_content">
+                                                                <div class="col-md-9 col-sm-12 col-xs-12">
+                                                                    <div class="demo-container">
+                                                                        <script src="js/dist/jquery.js"></script>
+                                                                        <script>
+                                                                            $(function() {
+                                                                                $("#includedContent").load("js_tree.html");
+                                                                            });
+                                                                        </script>
+                                                                        <div id="includedContent"></div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <!-- /top navigation -->
-                                                <!-- page content -->
-                                                <div class="right_col" role="main">
-                                                    <br />
-                                                    <div class="">
-                                                        <div class="row top_tiles">
-                                                            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                                                <div class="tile-stats">
-                                                                    <div class="icon">
-                                                                        <i class="fa fa-table"></i>
-                                                                    </div>
-                                                                    <div class="count">
-                                                                        <a href="inventory.html">
-                                                                            <?php require "php_scripts/total_devices_network_number.php";
-                                                                            echo $total_device_number;?></a>
-                                                                        </div>
-                                                                        <h3>Total Devices in Network</h3>
-                                                                        <p>
-                                                                            Online Devices:
-                                                                            <?php require "php_scripts/nodeidInElementToArray.php";
-                                                                            echo $total_online_number;?></p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                                                        <div class="tile-stats">
-                                                                            <div class="icon">
-                                                                                <i class="fa fa-bell"></i>
-                                                                            </div>
-                                                                            <div class="count">
-                                                                                <a href="alarm_list.html">
-                                                                                    <?php
-                                                                                    require "php_scripts/real_time_alarm_total_number.php";
-                                                                                    echo $total_alarm_number;
-                                                                                    ?></a>
-                                                                                </div>
-                                                                                <h3>Real-time Alarms</h3>
-                                                                                <p>
-                                                                                    <a href="alarm_list.html">Search alarm details</a>
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                                                            <div class="tile-stats">
-                                                                                <div class="icon">
-                                                                                    <i class="fa fa-exclamation-triangle"></i>
-                                                                                </div>
-                                                                                <div class="count">
-                                                                                    <a href="outage_list.html">
-                                                                                        <?php
-                                                                                        require "php_scripts/unsolved_outage_number.php";
-                                                                                        echo $total_unsolved_outage_number;?></a>
-                                                                                    </div>
-                                                                                    <h3>Unsolved Outages</h3>
-                                                                                    <p>
-                                                                                        <a href="outages_list.html">Investigate unsolved and solved outages</a>
-                                                                                    </p>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                                                                <div class="tile-stats">
-                                                                                    <div class="icon">
-                                                                                        <i class="fa fa-comment-o"></i>
-                                                                                    </div>
-                                                                                    <div class="count">
-                                                                                        <a href="notification_outstanding.html">
-                                                                                            <?php
-                                                                                            require "php_scripts/pending_notification_number.php";
-                                                                                            echo $total_pending_notification_number;
-                                                                                            ?></a>
-                                                                                        </div>
-                                                                                        <h3>Pending notifications</h3>
-                                                                                        <p>
-                                                                                            <a href="notification_outstanding.html">Discover all notifications</a>
-                                                                                        </p>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="x_panel">
-                                                                                        <div class="x_title">
-                                                                                            <h2>
-                                                                                                <a>Monitored Devices</a>
-                                                                                                (Server IP: <b><?php
-                                                                                                    require "php_scripts/ipAddress.php";
-                                                                                                    echo $serverIp;
-                                                                                                    ?></b>
-                                                                                                    , User:
-                                                                                                    <b><?php
-                                                                                                        require "php_scripts/ipAddress.php";
-                                                                                                        echo $clientIp;
-                                                                                                        ?></b>
-                                                                                                        )
-                                                                                                        <br>
-                                                                                                        <br></h2>
-                                                                                                        <div class="clearfix"></div>
-                                                                                                        <div class="clearfix"></div>
-                                                                                                    </div>
-                                                                                                    <div class="x_content">
-                                                                                                        <div class="col-md-9 col-sm-12 col-xs-12">
-                                                                                                            <div class="demo-container">
-                                                                                                                <script src="js/dist/jquery.js"></script>
-                                                                                                                <script>
-                                                                                                                    $(function() {
-                                                                                                                        $("#includedContent").load("js_tree.html");
-                                                                                                                    });
-                                                                                                                </script>
-                                                                                                                <div id="includedContent"></div>
-                                                                                                            </div>
-                                                                                                        </div>
-
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
                     <!--            <div class="row"></div>
                 -->
             </div>
