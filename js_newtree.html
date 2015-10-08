@@ -1,0 +1,130 @@
+<!-- This will be embedded into the main page  -->
+<b>Right click the valid node to enquire the detailed status value.</b>
+
+<br>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>jsTree test</title>
+  <!-- 2 load the theme CSS file -->
+  <link rel="stylesheet" href="js/dist/themes/default/style.min.css" />
+</head>
+<body>
+  <!-- 3 setup a container element -->
+  <!--   <div id="event_result"></div> -->
+  <!--  <div id="label"></div>
+-->
+<br>
+<div id="jstree_demo">
+  <!-- in this example the tree is populated from inline HTML -->
+  <ul>
+    <li data-jstree='{"icon":"images/tree.png"}'>
+      SNMP Server: <?php echo gethostbyname(gethostname());?>
+      <ul>
+
+        <?php 
+
+        require "php_scripts/extractIpForTopology.php";
+
+        ?></ul>
+      </li>
+
+    </ul>
+  </div>
+
+  <!-- 4 include the jQuery library -->
+  <script src="js/dist/jquery.js"></script>
+  <!-- 5 include the minified jstree source -->
+  <script src="js/dist/jstree.min.js"></script>
+
+
+
+
+
+
+  <script type="text/javascript">document.getElementById('event_result').value;</script>
+
+</body>
+</html>
+
+
+<!-- <script>
+    $(function () {
+    // 6 create an instance when the DOM is ready
+
+    $('#jstree')
+  // listen for event
+  .on('changed.jstree', function (e, data) {
+    var i, j, r = [];
+    for(i = 0, j = data.selected.length; i < j; i++) {
+      r.push(data.instance.get_node(data.selected[i]).text);
+    }
+    $('#event_result').html(r.join(', '));
+
+  })
+
+
+  $.jstree.defaults.core.themes.variant = "large";
+  $("#jstree").jstree({
+    "core" : {
+      "multiple" : false,
+      "animation" : 1
+    }
+  });
+    // 7 bind to events triggered on the tree
+    $('#jstree').on("changed.jstree", function (e, data) {
+      console.log(data.selected);
+    });
+    // 8 interact with the tree - either way is OK
+    $('button').on('click', function () {
+
+      $.jstree.reference('#jstree').select_node('child_node_1');
+    });
+  });
+
+</script> -->
+
+
+
+<script>
+  $('#jstree_demo').jstree({
+    "core" : {
+      "animation" : 0,
+      "check_callback" : true,
+      "themes" : { "stripes" : true },
+      'data' : {
+        'url' : function (node) {
+          return node.id === '#' ?
+          'ajax_demo_roots.json' : 'ajax_demo_children.json';
+        },
+        'data' : function (node) {
+          return { 'id' : node.id };
+        }
+      }
+    },
+    "types" : {
+      "#" : {
+        "max_children" : 1, 
+        "max_depth" : 4, 
+        "valid_children" : ["root"]
+      },
+      "root" : {
+        "icon" : "./assets/images/tree_icon.png",
+        "valid_children" : ["default"]
+      },
+      "default" : {
+        "valid_children" : ["default","file"]
+      },
+      "file" : {
+        "icon" : "glyphicon glyphicon-file",
+        "valid_children" : []
+      }
+    },
+    "plugins" : [
+    "contextmenu", "dnd", "search",
+    "state", "types", "wholerow"
+    ]
+  });
+</script>

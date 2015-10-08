@@ -103,7 +103,7 @@
 
 * fix buton top  --- ok
 * fix right top corner  --- ok
-* change tree 
+* change tree   // toublesome 
 * change elink oid 
 * extend the white space on the main page 
 
@@ -119,7 +119,6 @@
 * delete&ack(alarm&notice) curl fix
 * discovery/add/polling
 * xml file manipulation 
-* all buttons
 * email background 
 
 
