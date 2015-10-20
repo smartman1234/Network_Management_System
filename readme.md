@@ -108,18 +108,8 @@
 * extend the white space on the main page 
 
 
+// 2015-10-20
 
-
-
-
-
-
-
- 
-* delete&ack(alarm&notice) curl fix
-* discovery/add/polling
-* xml file manipulation 
-* email background 
 
 
 
