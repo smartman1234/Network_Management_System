@@ -33,40 +33,40 @@
 <script>
     function startTimer(duration, display) {
         var start = Date.now(),
-        diff,
-        minutes,
-        seconds;
+            diff,
+            minutes,
+            seconds;
 
         function timer() {
-        // get the number of seconds that have elapsed since 
-        // startTimer() was called
-        diff = duration - (((Date.now() - start) / 1000) | 0);
+            // get the number of seconds that have elapsed since 
+            // startTimer() was called
+            diff = duration - (((Date.now() - start) / 1000) | 0);
 
-        // does the same job as parseInt truncates the float
-        minutes = (diff / 60) | 0;
-        seconds = (diff % 60) | 0;
+            // does the same job as parseInt truncates the float
+            minutes = (diff / 60) | 0;
+            seconds = (diff % 60) | 0;
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.textContent = minutes + ":" + seconds;
+            display.textContent = minutes + ":" + seconds;
 
-        if (diff <= 0) {
-            // add one second so that the count down starts at the full duration
-            // example 05:00 not 04:59
-            start = Date.now() + 1000;
-        }
+            if (diff <= 0) {
+                // add one second so that the count down starts at the full duration
+                // example 05:00 not 04:59
+                start = Date.now() + 1000;
+            }
+        };
+        // we don't want to wait a full second before the timer starts
+        timer();
+        setInterval(timer, 1000);
+    }
+
+    window.onload = function() {
+        var fiveMinutes = 60 * 1,
+            display = document.querySelector('#time');
+        startTimer(fiveMinutes, display);
     };
-    // we don't want to wait a full second before the timer starts
-    timer();
-    setInterval(timer, 1000);
-}
-
-window.onload = function() {
-    var fiveMinutes = 60 * 1,
-    display = document.querySelector('#time');
-    startTimer(fiveMinutes, display);
-};
 </script>
 
 <body class="nav-md">
@@ -106,237 +106,223 @@ window.onload = function() {
                   document.write("<b>" + hours + ":" + minutes + " " + suffix + "</b>")    //-->
               </script>
           </h3>
-          <div class="clearfix"></div>
-          <!-- menu prile quick info -->
-          <div class="profile">
-            <div class="profile_pic">
-                <img src="images/Administrator-icon.png" alt="..." class="img-circle profile_img"></div>
-                <div class="profile_info">
-                    <span>Welcome,</span>
-                    <h2>NMS Administrator</h2>
-                </div>
-            </div>
-            <!-- /menu prile quick info -->
-            <br />
-            <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                <div class="menu_section">
-                    <ul class="nav side-menu">
-                        <li>
-                            <a href="main.html"> <i class="fa fa-home"></i>
-                                Main Dashboard
-                            </a>
-                        </li>
-                        <li>
-                            <a href="inventory.html">
-                                <i class="fa fa-file-text-o"></i>
-                                Discovered Inventory
-                            </a>
-                        </li>
-                        <li>
-                            <a href="alarm_list.html">
-                                <i class="fa fa-bell"></i>
-                                Real-time Alarms
-                            </a>
-                        </li>
-                        <li>
-                            <a href="outage_list.html">
-                                <i class="fa fa-exclamation-triangle"></i>
-                                Outages
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-comment-o"></i>
-                                System Notices
-                                <span class="fa fa-chevron-down"></span>
-                            </a>
-                            <ul class="nav child_menu" style="display: none">
+                    <div class="clearfix"></div>
+                    <!-- menu prile quick info -->
+                    <div class="profile">
+                        <div class="profile_pic">
+                            <img src="images/Administrator-icon.png" alt="..." class="img-circle profile_img">
+                        </div>
+                        <div class="profile_info">
+                            <span>Welcome,</span>
+                            <h2>NMS Administrator</h2>
+                        </div>
+                    </div>
+                    <!-- /menu prile quick info -->
+                    <br />
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
                                 <li>
-                                    <a href="notification_outstanding.html">Outstanding Notices</a>
+                                    <a href="main.html"> <i class="fa fa-home"></i> Main Dashboard
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="notification_ack.html">All Acknowledged Notices</a>
+                                    <a href="inventory.html">
+                                        <i class="fa fa-file-text-o"></i> Discovered Inventory
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="alarm_list.html">
+                                        <i class="fa fa-bell"></i> Real-time Alarms
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="outage_list.html">
+                                        <i class="fa fa-exclamation-triangle"></i> Outages
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-comment-o"></i> System Notices
+                                        <span class="fa fa-chevron-down"></span>
+                                    </a>
+                                    <ul class="nav child_menu" style="display: none">
+                                        <li>
+                                            <a href="notification_outstanding.html">Outstanding Notices</a>
+                                        </li>
+                                        <li>
+                                            <a href="notification_ack.html">All Acknowledged Notices</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="device_history.html">
+                                        <i class="fa fa-history"></i> Device History
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="network_mapping.html">
+                                        <i class="fa fa-globe"></i> Network Mapping
+                                    </a>
                                 </li>
                             </ul>
-                        </li>
-                        <li>
-                            <a href="device_history.html">
-                                <i class="fa fa-history"></i>
-                                Device History
-                            </a>
-                        </li>
-                        <li>
-                            <a href="network_mapping.html">
-                                <i class="fa fa-globe"></i>
-                                Network Mapping
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="menu_section">
-                    <h3>Advanced Configuration</h3>
-                    <ul class="nav side-menu">
-                        <li>
-                            <a href="add_device.html">
-                                <i class="fa fa-plus-square"></i>
-                                Adding New Devices
-                            </a>
-                        </li>
-                        <li>
-                            <a href="discovery_config.html">
-                                <i class="fa fa-search"></i>
-                                Discovery Configuration
-                            </a>
-                        </li>
-                        <li>
-                            <a href=<?php require 'php_scripts/server_checker.php'; echo "'" . $db . "'" ; ?>
+                        </div>
+                        <div class="menu_section">
+                            <h3>Advanced Configuration</h3>
+                            <ul class="nav side-menu">
+                                <li>
+                                    <a href="add_device.html">
+                                        <i class="fa fa-plus-square"></i> Adding New Devices
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="discovery_config.html">
+                                        <i class="fa fa-search"></i> Discovery Configuration
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href=<?php require 'php_scripts/server_checker.php'; echo "'" . $db . "'" ; ?>
                                 target="_blank">
                                 <i class="fa fa-database"></i>
                                 Database Maintenance
                             </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <br>
-            <br>
-            <div>
-                <img src="images/media.gif" alt="Mountain View" style="width: 90%; height: 90%"> <b>Electroline Optical Device Platfom V1.0</b>
-            </div>
-            <!-- /sidebar menu -->
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-                <a data-toggle="tooltip" data-placement="top" title="ScreenShot">
-                    <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
-                </a>
-                <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                    <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                </a>
-                <a data-toggle="tooltip" data-placement="top" title="Lock">
-                    <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                </a>
-                <a data-toggle="tooltip" data-placement="top" title="Logout" href="index.html">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                </a>
-            </div>
-            <!-- /menu footer buttons --> </div>
-        </div>
-        <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <nav class="" role="navigation">
-                    <div class="nav toggle">
-                        <a id="menu_toggle">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </div>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/UserGroup1.png" alt="">
-                                User Administration
-                                <span class=" fa fa-angle-down"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-                                <li>
-                                    <a href="account_management.html">Account Configuration</a>
-                                </li>
-                                <li>
-                                    <a href="index.html">
-                                        <i class="fa fa-sign-out pull-right"></i>
-                                        Log Out
-                                    </a>
                                 </li>
                             </ul>
-                        </li>
-                        
-                    </ul>
-                </nav>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div>
+                        <img src="images/media.gif" alt="Mountain View" style="width: 90%; height: 90%"> <b>Electroline Optical Device Platfom V1.0</b>
+                    </div>
+                    <!-- /sidebar menu -->
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small">
+                        <a data-toggle="tooltip" data-placement="top" title="ScreenShot">
+                            <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Lock">
+                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="index.html">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <!-- /menu footer buttons -->
+                </div>
             </div>
-        </div>
-        <!-- /top navigation -->
-        <!-- page content -->
-        <div class="right_col" role="main">
-            <br />
-            <div class="">
-                <div class="row top_tiles">
-                    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="tile-stats">
-                            <div class="icon">
-                                <i class="fa fa-table"></i>
-                            </div>
-                            <div class="count">
-                                <a href="inventory.html">
-                                    <?php require "php_scripts/total_devices_network_number.php";
-                                    echo $total_device_number;?></a>
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav class="" role="navigation">
+                        <div class="nav toggle">
+                            <a id="menu_toggle">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="images/UserGroup1.png" alt=""> User Administration
+                                    <span class=" fa fa-angle-down"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
+                                    <li>
+                                        <a href="account_management.html">Account Configuration</a>
+                                    </li>
+                                    <li>
+                                        <a href="index.html">
+                                            <i class="fa fa-sign-out pull-right"></i> Log Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <br />
+                <div class="">
+                    <div class="row top_tiles">
+                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="tile-stats">
+                                <div class="icon">
+                                    <i class="fa fa-table"></i>
+                                </div>
+                                <div class="count">
+                                    <a href="inventory.html">
+                                        <?php require "php_scripts/total_devices_network_number.php"; echo $total_device_number;?>
+                                    </a>
                                 </div>
                                 <h3>Total Devices in Network</h3>
                                 <p>
                                     Online Devices:
-                                    <?php require "php_scripts/nodeidInElementToArray.php";
-                                    echo $total_online_number;?></p>
-                                </div>
+                                    <?php require "php_scripts/nodeidInElementToArray.php"; echo $total_online_number;?>
+                                </p>
                             </div>
-                            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                <div class="tile-stats">
-                                    <div class="icon">
-                                        <i class="fa fa-bell"></i>
-                                    </div>
-                                    <div class="count">
-                                        <a href="alarm_list.html">
-                                            <?php
-                                            require "php_scripts/real_time_alarm_total_number.php";
-                                            echo $total_alarm_number;
-                                            ?></a>
-                                        </div>
-                                        <h3>Real-time Alarms</h3>
-                                        <p>
-                                            <a href="alarm_list.html">Search alarm details</a>
-                                        </p>
-                                    </div>
+                        </div>
+                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="tile-stats">
+                                <div class="icon">
+                                    <i class="fa fa-bell"></i>
                                 </div>
-                                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                    <div class="tile-stats">
-                                        <div class="icon">
-                                            <i class="fa fa-exclamation-triangle"></i>
-                                        </div>
-                                        <div class="count">
-                                            <a href="outage_list.html">
-                                                <?php
-                                                require "php_scripts/unsolved_outage_number.php";
-                                                echo $total_unsolved_outage_number;?></a>
-                                            </div>
-                                            <h3>Unsolved Outages</h3>
-                                            <p>
-                                                <a href="outage_list.html">Investigate unsolved and solved outages</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                        <div class="tile-stats">
-                                            <div class="icon">
-                                                <i class="fa fa-comment-o"></i>
-                                            </div>
-                                            <div class="count">
-                                                <a href="notification_outstanding.html">
-                                                    <?php
-                                                    require "php_scripts/pending_notification_number.php";
-                                                    echo $total_pending_notification_number;
-                                                    ?></a>
-                                                </div>
-                                                <h3>Pending notifications</h3>
-                                                <p>
-                                                    <a href="notification_outstanding.html">Discover all notifications</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="x_panel">
-                                                <div class="x_title">
-                                                    <h2>
+                                <div class="count">
+                                    <a href="alarm_list.html">
+                                        <?php require "php_scripts/real_time_alarm_total_number.php"; echo $total_alarm_number; ?>
+                                    </a>
+                                </div>
+                                <h3>Real-time Alarms</h3>
+                                <p>
+                                    <a href="alarm_list.html">Search alarm details</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="tile-stats">
+                                <div class="icon">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="count">
+                                    <a href="outage_list.html">
+                                        <?php require "php_scripts/unsolved_outage_number.php"; echo $total_unsolved_outage_number;?>
+                                    </a>
+                                </div>
+                                <h3>Unsolved Outages</h3>
+                                <p>
+                                    <a href="outage_list.html">Investigate unsolved and solved outages</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="tile-stats">
+                                <div class="icon">
+                                    <i class="fa fa-comment-o"></i>
+                                </div>
+                                <div class="count">
+                                    <a href="notification_outstanding.html">
+                                        <?php require "php_scripts/pending_notification_number.php"; echo $total_pending_notification_number; ?>
+                                    </a>
+                                </div>
+                                <h3>Pending notifications</h3>
+                                <p>
+                                    <a href="notification_outstanding.html">Discover all notifications</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>
                                                         <a>Monitored Devices</a>
                                                         (Server IP: <b><?php
                                                             require "php_scripts/ipAddress.php";
@@ -350,315 +336,316 @@ window.onload = function() {
                                                                 )
                                                                 <br>
                                                                 <br></h2>
-                                                                <div class="clearfix"></div>
-                                                                <div class="clearfix"></div>
-                                                            </div>
-                                                            <div class="x_content">
-                                                                <div class="col-md-9 col-sm-12 col-xs-12">
-                                                                    <div class="demo-container">
-                                                                        <script src="js/dist/jquery.js"></script>
-                                                                        <script>
-                                                                            $(function() {
-                                                                                $("#includedContent").load("js_tree.html");
-                                                                            });
-                                                                        </script>
-                                                                        <div id="includedContent"></div>
-                                                                    </div>
-                                                                </div>
+                                    <div class="clearfix"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <div class="col-md-9 col-sm-12 col-xs-12">
+                                        <div class="demo-container">
+                                            <script src="js/dist/jquery.js"></script>
+                                            <script>
+                                                $(function() {
+                                                    $("#includedContent").load("js_tree.html");
+                                                });
+                                            </script>
+                                            <div id="includedContent"></div>
+                                        </div>
+                                    </div>
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!--            <div class="row"></div>
                 -->
+                </div>
             </div>
-        </div>
-        <!-- footer content -->
-        <footer>
-            <div class="">
-                <p class="pull-right">
-                    Electroline Rapid NMS Dashboard is an extension Web-UI of the OpenNMS system. |
-                    <span class="lead">
+            <!-- footer content -->
+            <footer>
+                <div class="">
+                    <p class="pull-right">
+                        Electroline Rapid NMS Dashboard is an extension Web-UI of the OpenNMS system. |
+                        <span class="lead">
                         <i class="fa fa-desktop"></i>
                         Electroline Equipment Inc.
                     </span>
-                </p>
-            </div>
-            <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content --> </div>
+                    </p>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
         <!-- /page content -->
     </div>
-</div>
-<div id="custom_notifications" class="custom-notifications dsp_none">
-    <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group"></ul>
-    <div class="clearfix"></div>
-    <div id="notif-group" class="tabbed_notifications"></div>
-</div>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/nicescroll/jquery.nicescroll.min.js"></script>
-<!-- chart js -->
-<script src="js/chartjs/chart.min.js"></script>
-<!-- bootstrap progress js -->
-<script src="js/progressbar/bootstrap-progressbar.min.js"></script>
-<!-- icheck -->
-<script src="js/icheck/icheck.min.js"></script>
-<!-- daterangepicker -->
-<script type="text/javascript" src="js/moment.min2.js"></script>
-<script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
-<!-- sparkline -->
-<script src="js/sparkline/jquery.sparkline.min.js"></script>
-<script src="js/custom.js"></script>
-<!-- flot js -->
-<!--[if lte IE 8]>
+    </div>
+    <div id="custom_notifications" class="custom-notifications dsp_none">
+        <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group"></ul>
+        <div class="clearfix"></div>
+        <div id="notif-group" class="tabbed_notifications"></div>
+    </div>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
+    <!-- chart js -->
+    <script src="js/chartjs/chart.min.js"></script>
+    <!-- bootstrap progress js -->
+    <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- icheck -->
+    <script src="js/icheck/icheck.min.js"></script>
+    <!-- daterangepicker -->
+    <script type="text/javascript" src="js/moment.min2.js"></script>
+    <script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
+    <!-- sparkline -->
+    <script src="js/sparkline/jquery.sparkline.min.js"></script>
+    <script src="js/custom.js"></script>
+    <!-- flot js -->
+    <!--[if lte IE 8]>
 <script type="text/javascript" src="js/excanvas.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="js/flot/jquery.flot.js"></script>
-<script type="text/javascript" src="js/flot/jquery.flot.pie.js"></script>
-<script type="text/javascript" src="js/flot/jquery.flot.orderBars.js"></script>
-<script type="text/javascript" src="js/flot/jquery.flot.time.min.js"></script>
-<script type="text/javascript" src="js/flot/date.js"></script>
-<script type="text/javascript" src="js/flot/jquery.flot.spline.js"></script>
-<script type="text/javascript" src="js/flot/jquery.flot.stack.js"></script>
-<script type="text/javascript" src="js/flot/curvedLines.js"></script>
-<script type="text/javascript" src="js/flot/jquery.flot.resize.js"></script>
-<!-- flot -->
-<script type="text/javascript">
-    //define chart clolors ( you maybe add more colors if you want or flot will add it automatic )
-    var chartColours = ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'];
+    <script type="text/javascript" src="js/flot/jquery.flot.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.pie.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.orderBars.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.time.min.js"></script>
+    <script type="text/javascript" src="js/flot/date.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.spline.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.stack.js"></script>
+    <script type="text/javascript" src="js/flot/curvedLines.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.resize.js"></script>
+    <!-- flot -->
+    <script type="text/javascript">
+        //define chart clolors ( you maybe add more colors if you want or flot will add it automatic )
+        var chartColours = ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'];
 
-    //generate random number for charts
-    randNum = function() {
-        return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
-    }
-
-    $(function() {
-        var d1 = [];
-        //var d2 = [];
-
-        //here we generate data for chart
-        for (var i = 0; i < 30; i++) {
-            d1.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i + 10]);
-            //    d2.push([new Date(Date.today().add(i).days()).getTime(), randNum()]);
+        //generate random number for charts
+        randNum = function() {
+            return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
         }
 
-        var chartMinDate = d1[0][0]; //first day
-        var chartMaxDate = d1[20][0]; //last day
+        $(function() {
+            var d1 = [];
+            //var d2 = [];
 
-        var tickSize = [1, "day"];
-        var tformat = "%d/%m/%y";
+            //here we generate data for chart
+            for (var i = 0; i < 30; i++) {
+                d1.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i + 10]);
+                //    d2.push([new Date(Date.today().add(i).days()).getTime(), randNum()]);
+            }
 
-        //graph options
-        var options = {
-            grid: {
-                show: true,
-                aboveData: true,
-                color: "#3f3f3f",
-                labelMargin: 10,
-                axisMargin: 0,
-                borderWidth: 0,
-                borderColor: null,
-                minBorderMargin: 5,
-                clickable: true,
-                hoverable: true,
-                autoHighlight: true,
-                mouseActiveRadius: 100
-            },
-            series: {
-                lines: {
+            var chartMinDate = d1[0][0]; //first day
+            var chartMaxDate = d1[20][0]; //last day
+
+            var tickSize = [1, "day"];
+            var tformat = "%d/%m/%y";
+
+            //graph options
+            var options = {
+                grid: {
                     show: true,
-                    fill: true,
-                    lineWidth: 2,
-                    steps: false
+                    aboveData: true,
+                    color: "#3f3f3f",
+                    labelMargin: 10,
+                    axisMargin: 0,
+                    borderWidth: 0,
+                    borderColor: null,
+                    minBorderMargin: 5,
+                    clickable: true,
+                    hoverable: true,
+                    autoHighlight: true,
+                    mouseActiveRadius: 100
                 },
-                points: {
-                    show: true,
-                    radius: 4.5,
-                    symbol: "circle",
-                    lineWidth: 3.0
+                series: {
+                    lines: {
+                        show: true,
+                        fill: true,
+                        lineWidth: 2,
+                        steps: false
+                    },
+                    points: {
+                        show: true,
+                        radius: 4.5,
+                        symbol: "circle",
+                        lineWidth: 3.0
+                    }
+                },
+                legend: {
+                    position: "ne",
+                    margin: [0, -25],
+                    noColumns: 0,
+                    labelBoxBorderColor: null,
+                    labelFormatter: function(label, series) {
+                        // just add some space to labes
+                        return label + '&nbsp;&nbsp;';
+                    },
+                    width: 40,
+                    height: 1
+                },
+                colors: chartColours,
+                shadowSize: 0,
+                tooltip: true, //activate tooltip
+                tooltipOpts: {
+                    content: "%s: %y.0",
+                    xDateFormat: "%d/%m",
+                    shifts: {
+                        x: -30,
+                        y: -50
+                    },
+                    defaultTheme: false
+                },
+                yaxis: {
+                    min: 0
+                },
+                xaxis: {
+                    mode: "time",
+                    minTickSize: tickSize,
+                    timeformat: tformat,
+                    min: chartMinDate,
+                    max: chartMaxDate
                 }
-            },
-            legend: {
-                position: "ne",
-                margin: [0, -25],
-                noColumns: 0,
-                labelBoxBorderColor: null,
-                labelFormatter: function(label, series) {
-                    // just add some space to labes
-                    return label + '&nbsp;&nbsp;';
+            };
+            var plot = $.plot($("#placeholder33x"), [{
+                label: "Email Sent",
+                data: d1,
+                lines: {
+                    fillColor: "rgba(150, 202, 89, 0.12)"
+                }, //#96CA59 rgba(150, 202, 89, 0.42)
+                points: {
+                    fillColor: "#fff"
+                }
+            }], options);
+        });
+    </script>
+    <!-- /flot -->
+    <!--  -->
+    <script>
+        $('document').ready(function() {
+            $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
+                type: 'bar',
+                height: '125',
+                barWidth: 13,
+                colorMap: {
+                    '7': '#a1a1a1'
                 },
-                width: 40,
-                height: 1
-            },
-            colors: chartColours,
-            shadowSize: 0,
-            tooltip: true, //activate tooltip
-            tooltipOpts: {
-                content: "%s: %y.0",
-                xDateFormat: "%d/%m",
-                shifts: {
-                    x: -30,
-                    y: -50
+                barSpacing: 2,
+                barColor: '#26B99A'
+            });
+
+            $(".sparkline11").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3], {
+                type: 'bar',
+                height: '40',
+                barWidth: 8,
+                colorMap: {
+                    '7': '#a1a1a1'
                 },
-                defaultTheme: false
-            },
-            yaxis: {
-                min: 0
-            },
-            xaxis: {
-                mode: "time",
-                minTickSize: tickSize,
-                timeformat: tformat,
-                min: chartMinDate,
-                max: chartMaxDate
+                barSpacing: 2,
+                barColor: '#26B99A'
+            });
+
+            $(".sparkline22").sparkline([2, 4, 3, 4, 7, 5, 4, 3, 5, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6], {
+                type: 'line',
+                height: '40',
+                width: '200',
+                lineColor: '#26B99A',
+                fillColor: '#ffffff',
+                lineWidth: 3,
+                spotColor: '#34495E',
+                minSpotColor: '#34495E'
+            });
+
+            var doughnutData = [{
+                value: 30,
+                color: "#455C73"
+            }, {
+                value: 30,
+                color: "#9B59B6"
+            }, {
+                value: 60,
+                color: "#BDC3C7"
+            }, {
+                value: 100,
+                color: "#26B99A"
+            }, {
+                value: 120,
+                color: "#3498DB"
+            }];
+            var myDoughnut = new Chart(document.getElementById("canvas1i").getContext("2d")).Doughnut(doughnutData);
+            var myDoughnut = new Chart(document.getElementById("canvas1i2").getContext("2d")).Doughnut(doughnutData);
+            var myDoughnut = new Chart(document.getElementById("canvas1i3").getContext("2d")).Doughnut(doughnutData);
+        });
+    </script>
+    <!-- -->
+    <!-- datepicker -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            var cb = function(start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
             }
-        };
-        var plot = $.plot($("#placeholder33x"), [{
-            label: "Email Sent",
-            data: d1,
-            lines: {
-                fillColor: "rgba(150, 202, 89, 0.12)"
-            }, //#96CA59 rgba(150, 202, 89, 0.42)
-            points: {
-                fillColor: "#fff"
-            }
-        }], options);
-    });
-</script>
-<!-- /flot -->
-<!--  -->
-<script>
-    $('document').ready(function() {
-        $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
-            type: 'bar',
-            height: '125',
-            barWidth: 13,
-            colorMap: {
-                '7': '#a1a1a1'
-            },
-            barSpacing: 2,
-            barColor: '#26B99A'
-        });
 
-        $(".sparkline11").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3], {
-            type: 'bar',
-            height: '40',
-            barWidth: 8,
-            colorMap: {
-                '7': '#a1a1a1'
-            },
-            barSpacing: 2,
-            barColor: '#26B99A'
+            var optionSet1 = {
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2012',
+                maxDate: '12/31/2015',
+                dateLimit: {
+                    days: 60
+                },
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                opens: 'left',
+                buttonClasses: ['btn btn-default'],
+                applyClass: 'btn-small btn-primary',
+                cancelClass: 'btn-small',
+                format: 'MM/DD/YYYY',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Submit',
+                    cancelLabel: 'Clear',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Custom',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    firstDay: 1
+                }
+            };
+            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+            $('#reportrange').daterangepicker(optionSet1, cb);
+            $('#reportrange').on('show.daterangepicker', function() {
+                console.log("show event fired");
+            });
+            $('#reportrange').on('hide.daterangepicker', function() {
+                console.log("hide event fired");
+            });
+            $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+                console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
+            });
+            $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
+                console.log("cancel event fired");
+            });
+            $('#options1').click(function() {
+                $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+            });
+            $('#options2').click(function() {
+                $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+            });
+            $('#destroy').click(function() {
+                $('#reportrange').data('daterangepicker').remove();
+            });
         });
-
-        $(".sparkline22").sparkline([2, 4, 3, 4, 7, 5, 4, 3, 5, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6], {
-            type: 'line',
-            height: '40',
-            width: '200',
-            lineColor: '#26B99A',
-            fillColor: '#ffffff',
-            lineWidth: 3,
-            spotColor: '#34495E',
-            minSpotColor: '#34495E'
-        });
-
-        var doughnutData = [{
-            value: 30,
-            color: "#455C73"
-        }, {
-            value: 30,
-            color: "#9B59B6"
-        }, {
-            value: 60,
-            color: "#BDC3C7"
-        }, {
-            value: 100,
-            color: "#26B99A"
-        }, {
-            value: 120,
-            color: "#3498DB"
-        }];
-        var myDoughnut = new Chart(document.getElementById("canvas1i").getContext("2d")).Doughnut(doughnutData);
-        var myDoughnut = new Chart(document.getElementById("canvas1i2").getContext("2d")).Doughnut(doughnutData);
-        var myDoughnut = new Chart(document.getElementById("canvas1i3").getContext("2d")).Doughnut(doughnutData);
-    });
-</script>
-<!-- -->
-<!-- datepicker -->
-<script type="text/javascript">
-    $(document).ready(function() {
-
-        var cb = function(start, end, label) {
-            console.log(start.toISOString(), end.toISOString(), label);
-            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
-        }
-
-        var optionSet1 = {
-            startDate: moment().subtract(29, 'days'),
-            endDate: moment(),
-            minDate: '01/01/2012',
-            maxDate: '12/31/2015',
-            dateLimit: {
-                days: 60
-            },
-            showDropdowns: true,
-            showWeekNumbers: true,
-            timePicker: false,
-            timePickerIncrement: 1,
-            timePicker12Hour: true,
-            ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            },
-            opens: 'left',
-            buttonClasses: ['btn btn-default'],
-            applyClass: 'btn-small btn-primary',
-            cancelClass: 'btn-small',
-            format: 'MM/DD/YYYY',
-            separator: ' to ',
-            locale: {
-                applyLabel: 'Submit',
-                cancelLabel: 'Clear',
-                fromLabel: 'From',
-                toLabel: 'To',
-                customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                firstDay: 1
-            }
-        };
-        $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
-        $('#reportrange').daterangepicker(optionSet1, cb);
-        $('#reportrange').on('show.daterangepicker', function() {
-            console.log("show event fired");
-        });
-        $('#reportrange').on('hide.daterangepicker', function() {
-            console.log("hide event fired");
-        });
-        $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
-            console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
-        });
-        $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
-            console.log("cancel event fired");
-        });
-        $('#options1').click(function() {
-            $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
-        });
-        $('#options2').click(function() {
-            $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
-        });
-        $('#destroy').click(function() {
-            $('#reportrange').data('daterangepicker').remove();
-        });
-    });
-</script>
-<!-- /datepicker -->
+    </script>
+    <!-- /datepicker -->
 </body>
 
 </html>

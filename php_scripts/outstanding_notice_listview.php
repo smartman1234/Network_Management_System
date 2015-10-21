@@ -62,7 +62,7 @@ while ($row = pg_fetch_object($result)) {
 
 	echo "\t\t<td align=left>$row->pagetime</td>";
 	echo "\t\t<td align=left>$row->subject</td>";
-  echo "\t\t<td align=center><a href=php_scripts/notice_acknowledge_dialog.php?noticeid=$row->notifyid target=_blank><img src=images/2c_go.png width=25 height=25></i></a></td>";
+  echo "\t\t<td align=center><a href=php_scripts/curl_acknowlegeNotice.php?noticeid=$row->notifyid target=_blank><img src=images/2c_go.png width=25 height=25></i></a></td>";
 
   echo "\t</tr>\n";
 }

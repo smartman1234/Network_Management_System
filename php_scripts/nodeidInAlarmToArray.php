@@ -3,7 +3,7 @@
 require "db_initialize.php";
 
 
-$nodeid = $_REQUEST["nodeid"];
+// $nodeid = $_REQUEST["nodeid"];   // maybe troublsome 
 
 $query = "SELECT 
   alarms.nodeid

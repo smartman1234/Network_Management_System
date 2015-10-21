@@ -1,3 +1,5 @@
+<!-- deprcated file 
+ -->
 <?php
 require "db_init.php";
 require "email.php";

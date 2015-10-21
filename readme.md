@@ -108,7 +108,11 @@
 * extend the white space on the main page 
 
 
-// 2015-10-20
+// 2015-10-21   --- curl, build db, see how to daemon, page should havea button to manuelly refresh data 
+* change the export location to php_script/DataFolder, plus not hard code the path    --- ok
+* open the php debug mode  (add php_flag display_errors 1 in .htaccess)
+* alarm curl (curl_acknowledgeAlarm.php)     ---- ok
+* notifi curl (curl_acknowledgeAlarm.php)   ---- ok
 
 
 

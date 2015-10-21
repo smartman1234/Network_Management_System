@@ -1,4 +1,5 @@
 First Round Task List for Improvement 
+
 1, the tree diagram on the main page. 
 	1)	Filter redundant information, with MAC, IP and name 
 	2)	Sub-tree structure if it is headend platform 
@@ -19,7 +20,11 @@ First Round Task List for Improvement
 	2)	send alarm notification in background 
 7, Email: highlight MAC address 
 8, Change table header color 
-9, Alarm and notification curl acknowledgement 
+
+
+DONE 9, Alarm and notification curl acknowledgement    
 10, Device delete curl function 
 11, add new devices function, via curl or xml
 12, discovery function, via curl or xml 
+13, build a new alarm list table
+14, change alalrm list term to anthoer one 
