@@ -117,6 +117,7 @@
 // 2015-10-22
 * change the alarmlist term to network failure  --- ok 
 * change the vanguard name and path  --- ok 
+* delete node via curl   --- ok 
 
 
 

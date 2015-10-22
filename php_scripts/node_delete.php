@@ -11,7 +11,7 @@ $_SESSION['NODEID'] = $nodeid;
 
 echo "Do you confirm to delete the Device ". $nodeid . "?";
 
-echo "<form action=node_delete_action.php method=post>
+echo "<form action=curl_deleteNode.php method=post>
 <input type=submit value=Yes>";
 
 

@@ -1,2 +1,3 @@
 AddType application/x-httpd-php .html .htm
 AddType application/octet-stream csv
+php_flag display_errors 1
