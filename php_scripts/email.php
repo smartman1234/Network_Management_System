@@ -52,7 +52,7 @@ $server_port = $_SERVER['SERVER_PORT'];
 $cl = $_SERVER['REMOTE_ADDR'];
 
 
-$u = "http://" . $serverIp . ":" . $server_port . "/rapidnms/alarm_list.html";
+$u = "http://" . $serverIp . ":" . $server_port . "/vanguardhe/alarm_list.html";
 
 
 

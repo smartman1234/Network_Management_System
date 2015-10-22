@@ -16,8 +16,7 @@ $result1 = pg_query($query1) or die('Query failed: ' . pg_last_error());
 
 while ($row1 = pg_fetch_object($result1)){
 
-$name = $row1->
-name;
+$name = $row1->name;
 $to_email = $row1->email;
 
 
@@ -77,7 +76,7 @@ $des[] = $row->description;
 
 
 
-$subject = $name . ", you have new alarm notifications from RapidNMS   ". date('Y-m-d H:i:s');
+$subject = $name . ", you have new alarms from Electroline Vanguard-HE   ". date('Y-m-d H:i:s');
 $body = $device[0] . " (" . $ip[0] . "): " . $des[0] . " (" . $time[0] . "). ";
 //$attachment = "for_downloading/email_alert_data.csv";
 

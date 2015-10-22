@@ -1,5 +1,3 @@
-First Round Task List for Improvement 
-
 1, the tree diagram on the main page. 
 	1)	Filter redundant information, with MAC, IP and name 
 	2)	Sub-tree structure if it is headend platform 
@@ -11,7 +9,7 @@ First Round Task List for Improvement
 	1)	automatically figure the available devices
 	2)	highlight MAC address
 	3)	set alarm and filtration form 
-4, Change name to Vanguard series 
+
 5, 1550 and EGFA:
 	1)	highlight MAC address
 	2)	set alarm and filtration form 
@@ -21,10 +19,20 @@ First Round Task List for Improvement
 7, Email: highlight MAC address 
 8, Change table header color 
 
-
-DONE 9, Alarm and notification curl acknowledgement    
+13, build a new alarm list table
+  
 10, Device delete curl function 
 11, add new devices function, via curl or xml
 12, discovery function, via curl or xml 
-13, build a new alarm list table
-14, change alalrm list term to anthoer one 
+
+
+
+
+
+
+
+FIRST ROUND OF IMPROVEMENT
+FINISHED--------------------------------FINISHED
+DONE 4, Change name to Vanguard series, and pathway
+DONE 9, Alarm and notification curl acknowledgement  
+DONE 14, change alalrm list term to anthoer one 

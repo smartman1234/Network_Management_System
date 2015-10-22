@@ -114,6 +114,9 @@
 * alarm curl (curl_acknowledgeAlarm.php)     ---- ok
 * notifi curl (curl_acknowledgeAlarm.php)   ---- ok
 
+// 2015-10-22
+* change the alarmlist term to network failure  --- ok 
+* change the vanguard name and path  --- ok 
 
 
 
