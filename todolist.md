@@ -23,7 +23,7 @@
   
 
 11, add new devices function, via curl or xml
-12, discovery function, via curl or xml 
+
 
 
 
@@ -37,3 +37,4 @@ DONE 4, Change name to Vanguard series, and pathway
 DONE 9, Alarm and notification curl acknowledgement  
 DONE 14, change alalrm list term to anthoer one 
 DONE 10, Device delete curl function 
+DONE 12, discovery function, via xml 

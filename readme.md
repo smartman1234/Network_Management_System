@@ -119,7 +119,9 @@
 * change the vanguard name and path  --- ok 
 * delete node via curl   --- ok 
 
-
+// 2015-10-23
+* discovery configuration via XML --- ok 
+* add new devices function    --- toublesome 
 
 
 
