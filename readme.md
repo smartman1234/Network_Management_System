@@ -124,4 +124,9 @@
 * add new devices function    --- toublesome 
 
 
+// 2015-10-25
+* finish node provisioning   --- ok 
+* create database auto check function with user login 
+
+
 

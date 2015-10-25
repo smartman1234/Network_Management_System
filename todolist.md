@@ -20,9 +20,10 @@
 8, Change table header color 
 
 13, build a new alarm list table
+14 auto check and construct user database 
   
 
-11, add new devices function, via curl or xml
+
 
 
 
@@ -38,3 +39,4 @@ DONE 9, Alarm and notification curl acknowledgement
 DONE 14, change alalrm list term to anthoer one 
 DONE 10, Device delete curl function 
 DONE 12, discovery function, via xml 
+DONE 11, add new devices function, via curl or xml
