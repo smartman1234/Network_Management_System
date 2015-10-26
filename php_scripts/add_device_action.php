@@ -58,9 +58,9 @@ function addNodeViaCurlRequisition($ip, $label){
 		</interface>
 	</node>'; 
 
-	//$serverIp = gethostbyname(gethostname());
+	$serverIp = gethostbyname(gethostname());
 
-	$serverIp = "69.70.200.230";
+	//$serverIp = "69.70.200.230";
 
 
 	$url = "http://" . $serverIp . ":8980/opennms/rest/requisitions/TEST/nodes";

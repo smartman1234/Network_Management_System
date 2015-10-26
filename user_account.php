@@ -3,17 +3,17 @@
 $username_input = $_POST["username"];
 $password_input = $_POST["password"];
 
-$dbconn = pg_connect("host=localhost dbname=account4rapidnms user=postgres password=admin")
+$dbconn = pg_connect("host=localhost dbname=vanguardhe user=postgres password=admin")
 or die('Could not connect: ' . pg_last_error());
 
 $query = "SELECT 
-  account_user_information.username, 
-  account_user_information.password, 
-  account_user_information.name, 
-  account_user_information.email, 
-  account_user_information.contact
+  user.username, 
+  user.password, 
+  user.name, 
+  user.email, 
+  user.contact
 FROM 
-  public.account_user_information;";
+  public.user;";
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
 while ($row = pg_fetch_object($result)){
@@ -26,7 +26,6 @@ $contact = $row->contact;
 
 
 }
-
 
 
 if ($username_input == $username && $password_input == $password) {

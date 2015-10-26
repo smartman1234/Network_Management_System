@@ -11,10 +11,10 @@ $new_contact = "'" . $_POST["new_contact"] . "'";
 
 
 
-$dbconn = pg_connect("host=localhost dbname=account4rapidnms user=postgres password=admin")
+$dbconn = pg_connect("host=localhost dbname=vanguardhe user=postgres password=admin")
 or die('Could not connect: ' . pg_last_error());
 
-$query = "UPDATE public.account_user_information
+$query = "UPDATE public.user
   SET username=$new_username, 
   password=$new_password, 
   name=$new_name, 

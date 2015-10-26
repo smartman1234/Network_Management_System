@@ -126,6 +126,7 @@
 
 // 2015-10-25
 * finish node provisioning   --- ok 
+* build new database "vanguardhe" and "user" table by script  --- ok 
 * create database auto check function with user login 
 
 
