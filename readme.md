@@ -134,7 +134,8 @@
 
 // 2015-10-27
 * fix the bug of user account   --- ok
-* put all snmp asset value of 1550 in db  
+* put all snmp asset value of 1550 in db    --- ok 
+* let main entrace auto detect 1550, if multiple 
 * auto detect the headend device   
 * put all snmp asset value of headend in db   
 

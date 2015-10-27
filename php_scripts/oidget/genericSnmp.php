@@ -35,6 +35,7 @@ function removeQuotation($in){
 		# code...
 		$out = ltrim($in, '"');
 		$out = rtrim($out, '"');
+
 	}
 	return $out;
 }
