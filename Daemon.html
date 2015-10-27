@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta http-equiv="refresh" content="180">
+  <meta http-equiv="refresh" content="3200">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="Electroline icon" href="images/icon.ico" />
   <!-- Meta, title, CSS, favicons, etc. -->
@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    Vanguard-HE NMS Login
+    Vanguard-HE Daemon
   </title>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
@@ -47,75 +47,89 @@
               Electroline Vanguard-HE V1.0
             </h1>
             <h1>
-              NMS Login
+              Daemon Toolkit 
             </h1>
+
+            <h1>
+
+              <?php
+
+              require("php_scripts/daemon_main.php");
+              echo "The last scanning time: " . $lastScanTime;
+
+              ?>
+
+
+            </h1>
+
+
             <div>
-              <input type="text" class="form-control" name="username" id="username" required="" />
+
+              <p>1, This daemon thread is to monitor the device status and send alert notice at all time. </p>
+              <p>2, Alarm and notice configuration can be done in Vanguard-HE system.</p>
+              <p>3, To make this daemon thread functional, please do NOT close this page. </p>
+
+
             </div>
-            <div>
-              <input type="password" class="form-control" name="password" id="password" required="" />
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox">
-                Remember me
-              </label>
-            </div>
-            <div>
-              <input class="btn btn-default submit" type="submit" name="Submit" value="Login" />
-              <a class="reset_pass" href="mailto: yu.wang@electroline.com?Subject=Electroline Vanguard-HE NMS Assistance">
-                Contact Administrator
-              </a>
-            </div>
+
+
             <div class="clearfix">
             </div>
+
+
             <div class="separator">
-              <a href=
-              <?php require 'php_scripts/server_checker.php'; echo "'" . $opennms . "'" ; ?>
+
+              <a onclick="reload()"
+
               target="_blank" class="btn btn-primary" role="button">
-              OpenNMS
+              Force to resan again 
             </a>
-            <a href=
-            <?php require 'php_scripts/server_checker.php'; echo "'" . $db . "'" ; ?>
+            <script>
+              function reload() {
+                location.reload();
+              }
+            </script>
+
+            <a onclick="closeWin()"
             target="_blank" class="btn btn-primary" role="button">
-            Database Management
+            Terminate daemon process
           </a>
 
-          <a href= "Daemon.html"
 
-          target="_blank" class="btn btn-primary" role="button">
-          Start Daemon
-        </a>
+          <script>
+            function closeWin() {
+              window.close();
+            }
+          </script>
 
 
-
-        <br>
-        <br>
-        <br>
-        <div>
-          <a href="http://www.electroline.com/" target="_blank">
-            <img src="images/logo.jpg" alt="Electroline Equipment Inc." style="width:14w0px;height:100px;">
-          </a>
-          <h1>
-
-            <i style="font-size: 26px;">
-            </i>
-            Electroline Equipment Inc.
-          </h1>
-          <p>
-            ©2015 Electroline Equipment Inc. All rights reserved.
-          </p>
-          <p>
-            395 Bd Lebeau, Saint-Laurent, QC H4N 1S2
-          </p>
           <br>
+          <br>
+          <br>
+          <div>
+            <a href="http://www.electroline.com/" target="_blank">
+              <img src="images/logo.jpg" alt="Electroline Equipment Inc." style="width:14w0px;height:100px;">
+            </a>
+            <h1>
+
+              <i style="font-size: 26px;">
+              </i>
+              Electroline Equipment Inc.
+            </h1>
+            <p>
+              ©2015 Electroline Equipment Inc. All rights reserved.
+            </p>
+            <p>
+              395 Bd Lebeau, Saint-Laurent, QC H4N 1S2
+            </p>
+            <br>
+          </div>
         </div>
       </div>
-    </div>
-  </form>
-  <!-- form -->
-</section>
-<!-- content -->
+    </form>
+    <!-- form -->
+  </section>
+  <!-- content -->
 </div>
 </div>
 </body>

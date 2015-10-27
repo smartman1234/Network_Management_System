@@ -20,17 +20,9 @@
 8, Change table header color 
 
 13, build a new alarm list table
+15, build a seperated deamon thread for monitoring and refreshing the database 
 
   
-
-
-
-
-
-
-
-
-
 
 FIRST ROUND OF IMPROVEMENT
 FINISHED--------------------------------FINISHED

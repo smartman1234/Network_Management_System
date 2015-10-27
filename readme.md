@@ -130,6 +130,10 @@
 * create database auto check function with user login   --- ok 
 
 // 2015-10-26
+* build the daemon GUI and main entracne skeleton  --- ok 
+
+// 2015-10-27
+
 
 
 
