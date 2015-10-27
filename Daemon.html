@@ -20,16 +20,13 @@
   <link href="css/icheck/flat/green.css" erl="stylesheet">
   <script src="js/jquery.min.js">
   </script>
-  <!--[if lt IE 9]>
-<script src="../assets/js/ie8-responsive-file-warning.js">
-</script>
+    <!--[if lt IE 9]>
+<script src="../assets/js/ie8-responsive-file-warning.js"></script>
 <![endif]-->
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js">
-</script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js">
-</script>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 
@@ -49,38 +46,48 @@
             <h1>
               Daemon Toolkit 
             </h1>
-
+            
             <h1>
-
+              
               <?php
 
               require("php_scripts/daemon_main.php");
+              echo "The system is under protection. 
+              <br>
+              <br>
+              ";
               echo "The last scanning time: " . $lastScanTime;
 
               ?>
-
-
+              
+              
             </h1>
-
-
+            
+            
             <div>
-
-              <p>1, This daemon thread is to monitor the device status and send alert notice at all time. </p>
-              <p>2, Alarm and notice configuration can be done in Vanguard-HE system.</p>
-              <p>3, To make this daemon thread functional, please do NOT close this page. </p>
-
-
+              
+              <p>
+                1, This daemon thread is to monitor the device status and send alert notice at all time. 
+              </p>
+              <p>
+                2, Alarm and notice configuration can be done in Vanguard-HE system.
+              </p>
+              <p>
+                3, To make this daemon thread functional, please do NOT close this page. 
+              </p>
+              
+              
             </div>
-
-
+            
+            
             <div class="clearfix">
             </div>
-
-
+            
+            
             <div class="separator">
-
+              
               <a onclick="reload()"
-
+              
               target="_blank" class="btn btn-primary" role="button">
               Force to resan again 
             </a>
@@ -89,20 +96,20 @@
                 location.reload();
               }
             </script>
-
+            
             <a onclick="closeWin()"
             target="_blank" class="btn btn-primary" role="button">
             Terminate daemon process
           </a>
-
-
+          
+          
           <script>
             function closeWin() {
               window.close();
             }
           </script>
-
-
+          
+          
           <br>
           <br>
           <br>
@@ -111,7 +118,7 @@
               <img src="images/logo.jpg" alt="Electroline Equipment Inc." style="width:14w0px;height:100px;">
             </a>
             <h1>
-
+              
               <i style="font-size: 26px;">
               </i>
               Electroline Equipment Inc.

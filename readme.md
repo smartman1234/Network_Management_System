@@ -133,6 +133,11 @@
 * build the daemon GUI and main entracne skeleton  --- ok 
 
 // 2015-10-27
+* fix the bug of user account   --- ok
+* put all snmp asset value of 1550 in db  
+* auto detect the headend device   
+* put all snmp asset value of headend in db   
+
 
 
 
