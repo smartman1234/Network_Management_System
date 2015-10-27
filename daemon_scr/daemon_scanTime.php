@@ -1,11 +1,11 @@
 <?php
 
 function daemon_scanTime(){
-
 require("daemon_db_init.php");  // to initialize database connection 
+
 // 1, get timestamp 
 $time = date("j F Y h:i:s A");
-$timestamp =  deco(date("j F Y h:i:s A"));
+$timestamp =  deco_time(date("j F Y h:i:s A"));
 
 
 // 2, check if the table "dameontimestamp" in the database "vanguardhe"
@@ -42,14 +42,12 @@ $result_insert = pg_query($query_insert) or die('Query failed: ' . pg_last_error
 pg_free_result($result_exist);
 pg_free_result($result_insert);
 pg_free_result($result_construct);
-pg_close($dbconn);
-
 
 
 }
 
 // helper function for decorating 'xxxx'
-function deco($str){
+function deco_time($str){
 	return "'".$str."'";
 }
 

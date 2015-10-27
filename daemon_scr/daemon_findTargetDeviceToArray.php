@@ -17,7 +17,7 @@ ipinterface.nodeid ASC;";
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
 while ($row = pg_fetch_object($result)){
-
+	$device[] = $row->ipaddr;
 	switch ($row->nodesysoid) {
 		case ".1.3.6.1.4.1.3222.14.2.1.1":
 			# code...
@@ -39,6 +39,7 @@ while ($row = pg_fetch_object($result)){
 
 pg_free_result($result);
 pg_close($dbconn);
+return $device;
 
 
 ?>

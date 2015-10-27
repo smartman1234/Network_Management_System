@@ -10,18 +10,18 @@ require($genericSnmpPath);  // to initialize snmp
 require("daemon_db_init.php");  // to initialize database connection 
 
 // 1, extract all snmp value from 1550 
-$timestamp =  deco(date("j F Y h:i:s A"));
-$recordedIp = deco($ip);
-$sysDescr = deco(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.1.0" ));
-$sysObjectID = deco(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.2.0" ));
-$sysUpTime = deco(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.3.0" ));
-$sysContact = deco(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.4.0" ));
-$sysName = deco(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.5.0" ));
-$sysLocation = deco(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.6.0")) ;
-$sysService = deco(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.7.0" ));
+$timestamp =  deco_1550(date("j F Y h:i:s A"));
+$recordedIp = deco_1550($ip);
+$sysDescr = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.1.0" ));
+$sysObjectID = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.2.0" ));
+$sysUpTime = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.3.0" ));
+$sysContact = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.4.0" ));
+$sysName = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.5.0" ));
+$sysLocation = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.6.0")) ;
+$sysService = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.7.0" ));
 
-$defaultIp = deco(snmpget_smallp ( $ip, ".1.3.6.1.4.1.33826.3.1.1.0" ));
-$defaultMac = deco(snmpget_smallp ( $ip, ".1.3.6.1.4.1.33826.3.1.5.0" ));
+$defaultIp = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.4.1.33826.3.1.1.0" ));
+$defaultMac = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.4.1.33826.3.1.5.0" ));
 
 $value [0] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.1.1" );
 $value [1] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.2.1" );
@@ -46,7 +46,7 @@ $value [19] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.20.1" );
 
 for ($i=0; $i < 20; $i++) { 
 		# code...
-	$value [$i] = deco($value [$i]);
+	$value [$i] = deco_1550($value [$i]);
 }
 
 $lab [0] = "StatusIndex";
@@ -142,7 +142,7 @@ pg_close($dbconn);
 }
 
 // helper function for decorating 'xxxx'
-function deco($str){
+function deco_1550($str){
 	return "'".$str."'";
 }
 
