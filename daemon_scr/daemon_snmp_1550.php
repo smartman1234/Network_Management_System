@@ -132,13 +132,10 @@ $query_insert = "INSERT INTO PUBLIC.dameonsnmp1550value VALUES ($timestamp, $rec
 $result_insert = pg_query($query_insert) or die('Query failed: ' . pg_last_error());
 
 
-
 pg_free_result($result_exist);
 pg_free_result($result_insert);
 pg_free_result($result_construct);
 pg_close($dbconn);
-
-
 
 }
 

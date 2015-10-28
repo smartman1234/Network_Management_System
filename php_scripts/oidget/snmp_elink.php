@@ -1,7 +1,5 @@
 <?php
 
-
-
 function get_elink($ip)
 {
     require("genericSnmp.php");
@@ -109,7 +107,7 @@ function get_elink($ip)
     
     // for transmiter status 
     $t[0]  = snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.2.1.2.8.1");
-    $t[1]  = snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.2.1.2.8.2");
+    $t[1]  = snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.2.1.2.11.1");
     $tl[0] = "RF Input Power 1 (dBm)";
     $tl[1] = "RF Input Power 2 (dBm)";
     
