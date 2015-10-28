@@ -136,6 +136,20 @@
 * fix the bug of user account   --- ok
 * put all snmp asset value of 1550 in db    --- ok 
 * let main entrace auto detect 1550, if multiple     --- ok 
+* debug ok, use "require_once()"   --- ok
+
+
+!!! NOTE 
+<!-- require() includes and evaluates a specific file, while require_once() does that only if it has not been included before (on the same page).
+
+So, require_once() is recommended to use when you want to include a file where you have a lot of functions for example. This way you make sure you don't include the file more times and you will not get the "function re-declared" error. -->
+
+// 2015-10-28
+* add a function that doulbe check this device is there  
+reorganize the status table 
+*
+
+
 * auto detect the headend device   
 * put all snmp asset value of headend in db   
 

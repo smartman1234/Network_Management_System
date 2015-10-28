@@ -15,6 +15,8 @@ WHERE relname = 'dameontimestamp';";
 
 $result_exist = pg_query($query_exist) or die('Query failed: ' . pg_last_error());
 
+$exist = '';
+
 while ($row_exist = pg_fetch_object($result_exist)){
 
 	$exist = $row_exist->relname;

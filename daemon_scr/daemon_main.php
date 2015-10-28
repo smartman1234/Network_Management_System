@@ -6,22 +6,15 @@ require("daemon_findTargetDeviceToArray.php");   // smartly find device and stor
 require("daemon_snmp_1550.php");   // get snmp value and put it into db 
 
 
-
-
 // update the timestamp 
 daemon_scanTime();
-daemon_snmpScanIntoDb_1550("10.100.0.50");
-
-
-
-
-
 
 // 1550 module: get snmp value and put it into database
 for ($i=0; $i < sizeof($device_1550); $i++) { 
 	# code...
-	daemon_snmpScanIntoDb_1550($device_1550[$i]);
+	daemon_snmpScanIntoDb_1550($device_1550[$i]);   // should be problem-free if having multiple 1550 
 }
+
 
 
 

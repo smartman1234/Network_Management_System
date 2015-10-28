@@ -6,7 +6,7 @@ function daemon_snmpScanIntoDb_1550($ip){
 
 // header for initialization
 $genericSnmpPath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/php_scripts/oidget/genericSnmp.php";
-require($genericSnmpPath);  // to initialize snmp 
+require_once($genericSnmpPath);  // to initialize snmp 
 require("daemon_db_init.php");  // to initialize database connection 
 
 // 1, extract all snmp value from 1550 
@@ -77,6 +77,7 @@ WHERE relname = 'dameonsnmp1550value';";
 
 $result_exist = pg_query($query_exist) or die('Query failed: ' . pg_last_error());
 
+$exist = '';
 while ($row_exist = pg_fetch_object($result_exist)){
 
 	$exist = $row_exist->relname;
