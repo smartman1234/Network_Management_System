@@ -329,14 +329,14 @@ function daemon_snmpScanIntoDb_elink($ip){
 			model        TEXT,
 			sn       TEXT,
 			temp         TEXT,
-			input1         TEXT,
-			input2        TEXT,
-			input3        TEXT,
-			input4		TEXT,
-			status1         TEXT,
-			status2        TEXT,
-			status3        TEXT,
-			status4		TEXT
+			rfinputpower         TEXT,
+			agcmode        TEXT,
+			lasertemp        TEXT,
+			laserbiascurrent		TEXT,
+			outputpower         TEXT,
+			thccurrent        TEXT,
+			lasertype        TEXT,
+			wavelength		TEXT
 			);";
 
 		$result_construct_ftx = pg_query($query_construct_ftx) or die('Query failed: ' . pg_last_error());
@@ -346,25 +346,11 @@ function daemon_snmpScanIntoDb_elink($ip){
 	for ($i=0; $i < sizeof($slot_ftx); $i++) {
 
 		// insert data into the table 
-		$query_insert_ftx = "INSERT INTO PUBLIC.daemonSnmpElinkFTX VALUES ($timestamp, $pos_ftx[$i], $ftx_name[$i], $ftx_sn[$i], $ftx_temp[$i], $rrx_input1[$i], $rrx_input2[$i], $rrx_input3[$i], $rrx_input4[$i], $rrx_status1[$i], $rrx_status2[$i], $rrx_status3[$i], $rrx_status4[$i]);";
+		$query_insert_ftx = "INSERT INTO PUBLIC.daemonSnmpElinkFTX VALUES ($timestamp, $pos_ftx[$i], $ftx_name[$i], $ftx_sn[$i], $ftx_temp[$i], $ftx_rfinputpower[$i], $ftx_agcmode[$i], $ftx_lasertemp[$i], $ftx_laserbiascurent[$i], $ftx_outputpower[$i], $ftx_thermoeleccoolercurrent[$i], $ftx_lasertype[$i], $ftx_wavelength[$i]);";
 
 		$result_insert_ftx = pg_query($query_insert_ftx) or die('Query failed: ' . pg_last_error());
 
-
-
-
-
-
-
-
-
-
 	}
-
-
-
-
-
 
 	pg_free_result($result_exist);
 	pg_free_result($result_insert);
@@ -390,12 +376,10 @@ function daemon_snmpScanIntoDb_elink($ip){
 
 }
 
-
 // helper function for decorating 'xxxx'
 function deco_elink($str){
 	return "'".$str."'";
 }
-
 
 
 ?>
