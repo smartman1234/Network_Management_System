@@ -150,17 +150,18 @@ So, require_once() is recommended to use when you want to include a file where y
 
 // 2015-10-28
 * add a function that doulbe check this device is there    --- ok
-* auto detect the subdevice of headend device elink    ---
-* put all snmp asset value of sub headend in db  
-* let main entrace auto detect 1550, if multiple
 * $sysid = snmpget($ip, 'public', '.1.3.6.1.2.1.1.4.0', 300);   --- ok
 
+// 2015-10-29
+* continue almost finish the elink    --- ok
 
 * put all snmp asset value of headend in db   
 * reorganize the status table 
 
 
-
+* auto detect the subdevice of headend device elink    ---
+* put all snmp asset value of sub headend in db  
+* let main entrace auto detect 1550, if multiple
 
 
 

@@ -132,9 +132,39 @@ $query_insert = "INSERT INTO PUBLIC.dameonsnmp1550value VALUES ($timestamp, $rec
 $result_insert = pg_query($query_insert) or die('Query failed: ' . pg_last_error());
 
 
+
+
+// 5, check if the table "dameonSnmp1550Summary" in the database "vanguardhe": this table is for the other maybe info further
+
+$query_exist_sum = "SELECT relname FROM pg_class 
+WHERE relname = 'dameonSnmp1550Summary';";
+
+$result_exist_sum = pg_query($query_exist_sum) or die('Query failed: ' . pg_last_error());
+
+$exist_sum = '';
+while ($row_exist_sum = pg_fetch_object($result_exist_sum)){
+
+	$exist_sum = $row_exist_sum->relname;
+
+}
+
+
+// // 3, if not existed, create it 
+if ($exist_sum != "dameonSnmp1550Summary") {
+# code...
+	$query_construct_sum = "CREATE TABLE PUBLIC.dameonSnmp1550Summary(
+		description	Text,
+		comments           TEXT  		);";
+
+$result_construct_sum = pg_query($query_construct_sum) or die('Query failed: ' . pg_last_error());
+}
+
+
 pg_free_result($result_exist);
 pg_free_result($result_insert);
 pg_free_result($result_construct);
+pg_free_result($result_exist_sum);
+pg_free_result($result_construct_sum);
 pg_close($dbconn);
 
 }
