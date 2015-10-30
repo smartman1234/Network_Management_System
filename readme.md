@@ -155,20 +155,16 @@ So, require_once() is recommended to use when you want to include a file where y
 // 2015-10-29
 * put all snmp asset value of headend in db    --- ok
 * smart detector on elink    --- ok 
+* auto detect the subdevice of headend device elink    --- ok 
 * let main entrace auto detect elink, if multiple     --- ok 
 
-
-
-
-
-
-----------------------------------
-* smart detector on egfa    
-* reorganize the status table 
-* auto detect the subdevice of headend device elink    ---
-* put all snmp asset value of sub headend in db  
-* let main entrace auto detect 1550, if multiple
-
-
-
-
+// 2015-10-30
+* put all snmp asset value of egfa in db    --- ok
+* let main entrace auto detect egfa, if multiple     --- ok 
+* unit test of elink_check    --- ok
+* unit test of device array    --- ok
+* unit test of scan time    --- ok
+* unit test of 1550    --- ok
+* unit test of egfa    --- ok
+* unit test of elink     --- ok
+* ensemble test of main      --- ok

@@ -2,6 +2,24 @@
 
 // todo: check and record the slot positions
 
+
+// unit test --- begin 
+    //var_dump(elinkSlot("10.100.0.80"));
+
+    // $onlineDev = elinkSlot("10.100.0.80");
+  
+    // for ($j=0; $j < sizeof($onlineDev[0]); $j++) { 
+    //     # code...
+    //     $dev[] = $onlineDev[0][$j];
+    //     $devSlot[] = $onlineDev[1][$j];
+    // }
+
+    // var_dump($dev);
+    // var_dump($devSlot);
+
+// unit test --- end    
+
+
 function elinkSlot($ip){
 
 	$genericSnmpPath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/php_scripts/oidget/genericSnmp.php";
@@ -26,46 +44,38 @@ function elinkSlot($ip){
 
 	for ($i=0; $i < 16; $i++) { 
     	# code...
-    	if (substr($slot[$i], 0, 3) != "(no") {
+    	if (substr($slot[$i], 1, 2) != "no") {
     		# code...
-    		switch ($slot[$i]) {
-    			case 'EL-EMS2"':
+    		switch (substr($slot[$i], 0, 4)) {
+    			case 'EL-E':
     				# code...
     				$deviceName[] = 'EL-EMS2';
     				$devicePos[] = $i + 1;
+                    //echo $slot[$i];
     				break;
-    			case 'EL-RRX-44N"':
+    			case 'EL-R':
     				# code...
     				$deviceName[] = 'EL-RRX';
     				$devicePos[] = $i + 1;
+                    //echo $slot[$i];
     				break;
-    			case 'EL-FTX"':
+    			case 'EL-F':
     				# code...
     				$deviceName[] = 'EL-FTX';
     				$devicePos[] = $i + 1;
+                    //echo $slot[$i];
     				break;
-    			case 'EL-FTX-II"':
-    				# code...
-    				$deviceName[] = 'EL-FTX';
-    				$devicePos[] = $i + 1;
-    				break;    				
-     			case 'EL-RRX-42N"':
-    				# code...
-    				$deviceName[] = 'EL-RRX';
-    				$devicePos[] = $i + 1;
-    				break;    			
-     			case 'EL-PS"':
-    				# code...
+    			case 'EL-P':
+    				// # code...
     				$deviceName[] = 'EL-PS';
     				$devicePos[] = $i + 1;
+                    //echo $slot[$i];
     				break; 
     		}
     	}
     }
 
-    return array($deviceName, $deviceName);
-
-    }
+    return array($deviceName, $devicePos);
 
 }
 

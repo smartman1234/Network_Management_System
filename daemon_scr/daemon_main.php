@@ -5,6 +5,7 @@ require("daemon_scanTime.php");   // scan timestamp
 require("daemon_findTargetDeviceToArray.php");   // smartly find device and store into array 1) $device_1550[]: ip address 2) $device_elink[] 3) $device_egfa[]
 require("daemon_snmp_1550.php");   // get snmp value and put it into db 
 require("daemon_snmp_elink.php");
+require("daemon_snmp_egfa.php");
 
 
 // update the timestamp 
@@ -29,11 +30,17 @@ for ($i=0; $i < sizeof($device_elink); $i++) {
 	}
 }
 
+// egfa: get snmp value and put it into database
+for ($i=0; $i < sizeof($device_egfa); $i++) { 
+	# code...
+	if (ifPingable($device_egfa[$i]) != false) {
+		# code...
+		daemon_snmpScanIntoDb_egfa($device_egfa[$i]);   // should be problem-free if having multiple 1550 
+	}
+}
 
 
-
-
-// the function that double chekcs the device is really reachable 
+// the helper function that double chekcs the device is really reachable 
 function ifPingable($host, $timeout = 1) {
 	/* ICMP ping packet with a pre-calculated checksum */
 	$package = "\x08\x00\x7d\x4b\x00\x00\x00\x00PingHost";
@@ -46,7 +53,6 @@ function ifPingable($host, $timeout = 1) {
 		$result = microtime(true) - $ts;
 	else    $result = false;
 	socket_close($socket);
-
 	return $result;
 }
 

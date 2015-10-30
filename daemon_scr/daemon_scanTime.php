@@ -1,5 +1,14 @@
 <?php
 
+// unit test    --- begin 
+// for ($i=0; $i < 200; $i++) { 
+// 	# code...
+// 	daemon_scanTime();
+// }
+
+// unit test    --- end 
+
+
 function daemon_scanTime(){
 require("daemon_db_init.php");  // to initialize database connection 
 
@@ -31,6 +40,7 @@ if ($exist != "dameontimestamp") {
 		time           TEXT );";
 
 $result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
+pg_free_result($result_construct);
 }
 
 
@@ -43,7 +53,7 @@ $result_insert = pg_query($query_insert) or die('Query failed: ' . pg_last_error
 
 pg_free_result($result_exist);
 pg_free_result($result_insert);
-pg_free_result($result_construct);
+
 
 
 }

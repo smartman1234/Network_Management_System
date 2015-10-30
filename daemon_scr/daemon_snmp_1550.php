@@ -1,5 +1,15 @@
 <?php
 
+// unit test   --- begin 
+
+// for ($i=0; $i < 3; $i++) { 
+// 	# code...
+// 	daemon_snmpScanIntoDb_1550("10.100.0.50");
+// }
+
+
+// unit test    --- end 
+
 function daemon_snmpScanIntoDb_1550($ip){
 
 	// TO-DO: 1) extract all snmp value from 1550, 2) check if the table is existed, 3) if not existed, create it, and 4) put it into db. This action should be wrapped in a function. 
@@ -121,6 +131,7 @@ function daemon_snmpScanIntoDb_1550($ip){
 			TxACPowersupplystatus       TEXT			);";
 
 	$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
+	pg_free_result($result_construct);
 	}
 
 
@@ -130,10 +141,11 @@ function daemon_snmpScanIntoDb_1550($ip){
 
 	$result_insert = pg_query($query_insert) or die('Query failed: ' . pg_last_error());
 
+
 	// 5, check if the table "dameonSnmp1550Summary" in the database "vanguardhe": this table is for the other maybe info further
 
 	$query_exist_sum = "SELECT relname FROM pg_class 
-	WHERE relname = 'dameonSnmp1550Summary';";
+	WHERE relname = 'dameonsnmp1550summary';";
 
 	$result_exist_sum = pg_query($query_exist_sum) or die('Query failed: ' . pg_last_error());
 
@@ -145,22 +157,25 @@ function daemon_snmpScanIntoDb_1550($ip){
 	}
 
 
+
+
 	// // 3, if not existed, create it 
-	if ($exist_sum != "dameonSnmp1550Summary") {
+	if ($exist_sum != "dameonsnmp1550summary") {
 	# code...
-		$query_construct_sum = "CREATE TABLE PUBLIC.dameonSnmp1550Summary(
+		$query_construct_sum = "CREATE TABLE PUBLIC.dameonsnmp1550summary(
 			description	Text,
 			comments           TEXT  		);";
 
-	$result_construct_sum = pg_query($query_construct_sum) or die('Query failed: ' . pg_last_error());
+		$result_construct_sum = pg_query($query_construct_sum) or die('Query failed: ' . pg_last_error());
+		pg_free_result($result_construct_sum);
 	}
 
 
 	pg_free_result($result_exist);
 	pg_free_result($result_insert);
-	pg_free_result($result_construct);
+	
 	pg_free_result($result_exist_sum);
-	pg_free_result($result_construct_sum);
+
 	pg_close($dbconn);
 
 }

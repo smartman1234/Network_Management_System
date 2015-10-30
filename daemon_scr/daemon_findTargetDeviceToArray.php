@@ -39,7 +39,11 @@ while ($row = pg_fetch_object($result)){
 
 pg_free_result($result);
 pg_close($dbconn);
-return $device;
 
+// unit test    --- begin 
+// var_dump($device_1550);
+// var_dump($device_elink);
+// var_dump($device_egfa);
+// unit test    --- end  
 
 ?>
