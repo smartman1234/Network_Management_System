@@ -116,7 +116,7 @@ function daemon_snmpScanIntoDb_elink($ip){
  		//echo $slot_ftx[$i];
  		$pos_ftx[] = $slot_ftx[$i];
  		$ftx_name[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.3.1.3.".$slot_ftx[$i]));
-		$ftx_sn[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.3.1.4.1.".$slot_ftx[$i]));
+		$ftx_sn[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.3.1.4.".$slot_ftx[$i]));
 		$ftx_temp[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.2.1.1.1.1.1.1.2.".$slot_ftx[$i].".0"));
  		$ftx_rfinputpower[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.2.1.2.".$slot_rrx[$i].".1"));  // input power dBmV
  		$ftx_agcmode[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.2.1.4.".$slot_rrx[$i].".0"));  // AGC MODE   1 OFF , 2 ON 
