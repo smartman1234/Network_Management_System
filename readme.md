@@ -168,3 +168,13 @@ So, require_once() is recommended to use when you want to include a file where y
 * unit test of egfa    --- ok
 * unit test of elink     --- ok
 * ensemble test of main      --- ok
+
+// 2015-11-03
+* check alarm info function on main     --- ok
+* make the frame of compare 1550, link to main 
+* make the frame of compare elink, link to mainpage
+* make the frame of compare egfa, link to main
+* alarm threshold model functon into db 1550
+* alarm threshold model functon into db elink
+* alarm threshold model functon into db egfa
+* debug the "snmp not found"
