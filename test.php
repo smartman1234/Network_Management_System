@@ -1,17 +1,72 @@
-<?PHP
+<?php
 
 
 
+$query = "SELECT DISTINCT ON (ipinterface.nodeid)
+ipinterface.nodeid, 
+ipinterface.ipaddr,
+alarms.serviceid, 
+alarms.alarmid,
+alarms.alarmtype, 
+alarms.counter, 
+node.nodelabel, 
+alarms.firsteventtime, 
+alarms.lasteventtime, 
+alarms.logmsg, 
+node.nodeid,
+node.nodesysoid, 
+node.nodelabel, 
+alarms.severity
+FROM 
+public.alarms, 
+public.ipinterface, 
+public.node
+WHERE 
+alarms.nodeid = node.nodeid AND node.nodeid = ipinterface.nodeid;";
+$result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
-$ip ="10.100.0.80";
-$good  = snmpget_smallp ( $ip, ".1.3.6.1.4.1.5591.1.11.2.1.1.1.1.1.1.2.1.0" );
-$bad  = snmpget_smallp ( $ip, ".1.3.6.1.4.1.5591.1.11.2.1.1.1.1.1.1.2.3.0" );
-var_dump($good);
-var_dump($bad);
-$sub = substr($bad, 0, 3);
-if (substr($bad, 0, 3) == "(no") {
-	# code...
-	echo "dosnt existed";
+$total_alarm_number = pg_num_rows($result);
+
+echo "<thead>";
+echo "<tr class=headings>";
+echo "<th align=left class=table-sortable:numeric_comma><b>Interface</b><img src=images/sorticon.png width=30 height=20></th>";
+echo "<th align=left class=table-filterable table-sortable:default><b>Label</b></th>";
+echo "<th align=left class=table-filterable table-sortable:default><b>Device Category</b></th>";
+echo "<th align=left class=table-filterable table-sortable:default><b>Severity</b></th>";
+echo "<th align=left class=table-filterable table-sortable:default><b>Service</b></th>";
+echo "<th align=left class=table-filterable table-sortable:default><b>Automatic Resolution</b></th>";
+echo "<th align=left class=table-sortable:numeric><b>Counts</b><img src=images/sorticon.png width=30 height=20></th>";
+echo "<th align=left class=table-sortable:alphanumeric><b>Start</b><img src=images/sorticon.png width=30 height=20></th>";
+echo "<th align=left class=table-sortable:alphanumeric><b>Stop</b><img src=images/sorticon.png width=30 height=20></th>";
+echo "<th align=left class=table-sortable:text><b>Log Message</b><img src=images/sorticon.png width=30 height=20></th>";
+echo "<th align=right><b>Acknowledge</b></th>";
+echo "</tr>";
+echo "</thead>";
+echo "<tbody>";
+
+
+while ($row = pg_fetch_object($result)) {	
+	echo "\t<tr class=even pointer>\n";	
+	echo "\t\t<td align=left><a href=php_scripts/display_status_value.php?nodeid=$row->nodeid target=_blank > $row->ipaddr</a></td>";
+	echo "\t\t<td align=left>$row->nodelabel</td>";
+	$deviceCategory = deviceCat($row->nodesysoid);
+	echo "\t\t<td align=left>$deviceCategory</td>";
+	$seve=visulize_severe($row->severity);
+	echo "\t\t<td align=left>$seve</td>";
+	$service = service_id($row->serviceid);
+	echo "\t\t<td align=left>$service</td>";
+	$alarmtype = alarm_type($row->alarmtype);
+	echo "\t\t<td align=left>$alarmtype</td>";
+	echo "\t\t<td align=left>$row->counter</td>";
+	echo "\t\t<td align=left>$row->firsteventtime</td>";
+	echo "\t\t<td align=left>$row->lasteventtime</td>";
+	echo "\t\t<td align=left>$row->logmsg</td>";
+//	echo "\t\t<td align=center><a href=php_scripts/alarm_acknowledge_dialog.php?alarmid=$row->alarmid target=_blank ><img src=images/2c_go.png width=25 height=25></a></td>";
+
+
+	echo "\t\t<td align=center><a href=php_scripts/curl_acknowlegeAlarm.php?alarmid=$row->alarmid target=_blank ><img src=images/2c_go.png width=25 height=25></a></td>";
+
+	echo "\t</tr>\n";
 }
 
 
@@ -22,46 +77,5 @@ if (substr($bad, 0, 3) == "(no") {
 
 
 
-
-
-
-
-function snmpget_bigP($ip, $oid) {
-	$command = $command = "C:\usr\bin\snmpget -Ov -v 1 -c PUBLIC " . $ip . " " .  $oid . " 2>&1";
-	$result = shell_exec ( $command );
-	$result = ext ( $result );
-	$result = removeQuotation($result);
-	return $result;
-}
-
-function snmpget_smallp($ip, $oid) {
-	$command = $command = "C:\usr\bin\snmpget -Ov -v 1 -c public " . $ip . " " .  $oid . " 2>&1";
-	$result = shell_exec ( $command );
-	$result = ext ( $result );
-	$result = removeQuotation($result);
-	return $result;
-}
-
-
-
-function ext($in) {
-	$out = "";
-	$index = strpos ( $in, ":" );
-	if ($index != FALSE) {
-		$out = substr ( $in, $index + 2 );
-	}
-	return $out;
-}
-
-function removeQuotation($in){
-	$out = $in;
-	if ($in[0] == '"') {
-		# code...
-		$out = ltrim($in, '"');
-		$out = rtrim($out, '"');
-
-	}
-	return $out;
-}
 
 ?>

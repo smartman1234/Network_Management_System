@@ -6,10 +6,10 @@ require("daemon_findTargetDeviceToArray.php");   // smartly find device and stor
 require("daemon_snmp_1550.php");   // get snmp value and put it into db 
 require("daemon_snmp_elink.php");
 require("daemon_snmp_egfa.php");
-require("daemon_compare_1550.php");
-require("daemon_compare_elink.php");
-require("daemon_compare_egfa.php");
-require("checkAlarmInfoDb.php");
+// require("daemon_compare_1550.php");
+// require("daemon_compare_elink.php");
+// require("daemon_compare_egfa.php");
+require("checkAlarmInfoDb.php");   
 
 // update the timestamp 
 daemon_scanTime();
@@ -22,7 +22,7 @@ for ($i=0; $i < sizeof($device_1550); $i++) {
 	if (ifPingable($device_1550[$i]) != false) {
 		# code...
 		daemon_snmpScanIntoDb_1550($device_1550[$i]);   // should be problem-free if having multiple 1550 
-		alarmCompare_1550($device_1550[$i]);
+		//alarmCompare_1550($device_1550[$i]);
 	}
 }
 
@@ -32,7 +32,7 @@ for ($i=0; $i < sizeof($device_elink); $i++) {
 	if (ifPingable($device_elink[$i]) != false) {
 		# code...
 		daemon_snmpScanIntoDb_elink($device_elink[$i]);   // should be problem-free if having multiple 1550
-		alarmCompare_elink($device_elink[$i]); 
+		//alarmCompare_elink($device_elink[$i]); 
 	}
 }
 
@@ -42,7 +42,7 @@ for ($i=0; $i < sizeof($device_egfa); $i++) {
 	if (ifPingable($device_egfa[$i]) != false) {
 		# code...
 		daemon_snmpScanIntoDb_egfa($device_egfa[$i]);   // should be problem-free if having multiple 1550 
-		alarmCompare_egfa($device_egfa[$i]); 
+		//alarmCompare_egfa($device_egfa[$i]); 
 	}
 }
 
