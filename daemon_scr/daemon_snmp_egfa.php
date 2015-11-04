@@ -20,8 +20,9 @@ function daemon_snmpScanIntoDb_egfa($ip){
 	require("daemon_db_init.php");  // to initialize database connection 
 
 	// 1, extract all snmp value from efga 
-	$timestamp =  deco_egfa(date("j F Y h:i:s A"));
+	// $timestamp =  deco_egfa(date("j F Y h:i:s A"));
 	
+	global $timestamp;
 	$sysDescr = deco_egfa(snmpget_bigP ( $ip, ".1.3.6.1.2.1.1.1.0" ));
 	$sysObjectID = deco_egfa(snmpget_bigP ( $ip, ".1.3.6.1.2.1.1.2.0" ));
 	$sysUpTime = deco_egfa(snmpget_bigP ( $ip, ".1.3.6.1.2.1.1.3.0" ));

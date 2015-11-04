@@ -20,7 +20,8 @@ function daemon_snmpScanIntoDb_1550($ip){
 	require("daemon_db_init.php");  // to initialize database connection 
 
 	// 1, extract all snmp value from 1550 
-	$timestamp =  deco_1550(date("j F Y h:i:s A"));
+	// $timestamp =  deco_1550(date("j F Y h:i:s A"));
+	global $timestamp;
 	$recordedIp = deco_1550($ip);
 	$sysDescr = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.1.0" ));
 	$sysObjectID = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.2.0" ));

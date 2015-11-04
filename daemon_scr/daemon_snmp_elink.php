@@ -26,8 +26,9 @@ function daemon_snmpScanIntoDb_elink($ip){
 
 	// get device map 
 	$onlineDev = elinkSlot($ip);
-	$timestamp = deco_elink(date("j F Y h:i:s A"));
+	// $timestamp = deco_elink(date("j F Y h:i:s A"));
 
+	global $timestamp;
 	for ($j=0; $j < sizeof($onlineDev[0]); $j++) { 
 		# code...
 		$dev[] = $onlineDev[0][$j];

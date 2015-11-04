@@ -13,9 +13,9 @@ function daemon_scanTime(){
 require("daemon_db_init.php");  // to initialize database connection 
 
 // 1, get timestamp 
-$time = date("j F Y h:i:s A");
-$timestamp =  deco_time(date("j F Y h:i:s A"));
-
+// $time = date("j F Y h:i:s A");
+// $timestamp =  deco_time(date("j F Y h:i:s A"));
+global $timestamp;
 
 // 2, check if the table "dameontimestamp" in the database "vanguardhe"
 
