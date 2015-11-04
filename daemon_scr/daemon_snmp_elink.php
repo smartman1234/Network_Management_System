@@ -8,7 +8,7 @@
 
 // unit test    --- begin 
 
-daemon_snmpScanIntoDb_elink("10.100.0.80");
+//daemon_snmpScanIntoDb_elink("10.100.0.80");
 // unit test    --- end 
 
 
@@ -98,7 +98,7 @@ function daemon_snmpScanIntoDb_elink($ip){
     	//echo $slot_rrx[$i];
     	$pos_rrx[] = $slot_rrx[$i];
     	$rrx_name[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.3.1.3.".$slot_rrx[$i]));
-		$rrx_sn[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.3.1.4.1.4"));
+		$rrx_sn[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.3.1.4.".$slot_rrx[$i]));
 		$rrx_temp[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.2.1.1.1.1.1.1.2.".$slot_rrx[$i].".0"));
     	$rrx_input1[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.2.1.1.1.1.2.".$slot_rrx[$i].".1"));  // input power dBm
     	$rrx_input2[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.2.1.1.1.1.2.".$slot_rrx[$i].".2"));    	
@@ -118,14 +118,14 @@ function daemon_snmpScanIntoDb_elink($ip){
  		$ftx_name[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.3.1.3.".$slot_ftx[$i]));
 		$ftx_sn[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.3.1.4.".$slot_ftx[$i]));
 		$ftx_temp[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.2.1.1.1.1.1.1.2.".$slot_ftx[$i].".0"));
- 		$ftx_rfinputpower[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.2.1.2.".$slot_rrx[$i].".1"));  // input power dBmV
- 		$ftx_agcmode[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.2.1.4.".$slot_rrx[$i].".0"));  // AGC MODE   1 OFF , 2 ON 
- 		$ftx_lasertemp[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.3.1.2.".$slot_rrx[$i].".0"));  // laser temp, C
- 		$ftx_laserbiascurent[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.3.1.3.".$slot_rrx[$i].".0"));  // laer bias current, mA
- 		$ftx_outputpower[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.3.1.4.".$slot_rrx[$i].".0"));  // laser output power, dBm
- 		$ftx_thermoeleccoolercurrent[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.3.1.5.".$slot_rrx[$i].".0"));  // thermal electroc cooler current, mA
- 		$ftx_lasertype[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.3.1.6.".$slot_rrx[$i].".0"));  // laser type
- 		$ftx_wavelength[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.3.1.7.".$slot_rrx[$i].".0"));  // laser wavelength, nm 
+ 		$ftx_rfinputpower[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.2.1.2.".$slot_ftx[$i].".1"));  // input power dBmV
+ 		$ftx_agcmode[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.2.1.4.".$slot_ftx[$i].".0"));  // AGC MODE   1 OFF , 2 ON 
+ 		$ftx_lasertemp[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.3.1.2.".$slot_ftx[$i].".0"));  // laser temp, C
+ 		$ftx_laserbiascurent[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.3.1.3.".$slot_ftx[$i].".0"));  // laer bias current, mA
+ 		$ftx_outputpower[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.3.1.4.".$slot_ftx[$i].".0"));  // laser output power, dBm
+ 		$ftx_thermoeleccoolercurrent[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.3.1.5.".$slot_ftx[$i].".0"));  // thermal electroc cooler current, mA
+ 		$ftx_lasertype[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.3.1.6.".$slot_ftx[$i].".0"));  // laser type
+ 		$ftx_wavelength[] = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.11.1.1.1.1.3.1.7.".$slot_ftx[$i].".0"));  // laser wavelength, nm 
  	}
 
 

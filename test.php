@@ -1,7 +1,6 @@
 <?php
 
 
-
 $query = "SELECT DISTINCT ON (ipinterface.nodeid)
 ipinterface.nodeid, 
 ipinterface.ipaddr,
