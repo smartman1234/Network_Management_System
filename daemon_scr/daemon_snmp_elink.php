@@ -399,11 +399,4 @@ function daemon_snmpScanIntoDb_elink($ip){
 
 }
 
-
-
-
-
-
-
-
 ?>

@@ -10,6 +10,7 @@ require("daemon_compare_1550.php");
 require("daemon_compare_elink.php");
 require("daemon_compare_egfa.php");
 require("checkAlarmInfoDb.php");   
+require("daemon_alarmActionCheck.php");  
 
 // update the timestamp 
 $timestamp = "'" . date("j F Y h:i:s A") . "'";
@@ -49,10 +50,13 @@ for ($i=0; $i < sizeof($device_egfa); $i++) {
 }
 
 
-// compare with threshold value 
-alarmCompare_1550($device_1550[$i]);
-alarmCompare_elink($device_elink[$i]);
-alarmCompare_egfa($device_egfa[$i]); 
+// compare with threshold value; use the global timestamp to distinguish the online device 
+alarmCompare_1550();
+alarmCompare_elink();
+alarmCompare_egfa(); 
+
+// use timestamp as the key to check if there is any new alarm record inserted. If yes, take action!
+checkAlarmUpdatedIfYesTakeAction($timestamp);
 
 
 // the helper function that double chekcs the device is really reachable 

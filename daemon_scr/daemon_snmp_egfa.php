@@ -8,8 +8,6 @@
 // unit -test --- end
 
 
-
-
 function daemon_snmpScanIntoDb_egfa($ip){
 
 	// TO-DO: 1) extract all snmp value from efga, 2) check if the table is existed, 3) if not existed, create it, and 4) put it into db. This action should be wrapped in a function. 
@@ -145,8 +143,8 @@ function daemon_snmpScanIntoDb_egfa($ip){
 
 	// 4, insert data into the table 
 
-	$query_insert = "INSERT INTO PUBLIC.daemonsnmpegfavalue VALUES ($timestamp, $defaultIp, $defaultMac, $sysDescr, $sysObjectID, $sysUpTime, $sysContact, $sysName, $sysLocation,
-		$sysService, $value[0], $value[1], $value[2], $value[3], $value[4], $value[5], $value[6], $value[7], $value[8], $value[9], $value[10], $value[11], $value[12], $value[13], $value[14], $value[15], $value[16], $value[17], $value[18], $value[19], $value[20], $value[21], $value[22], $value[23]);";
+	$query_insert = "INSERT INTO PUBLIC.daemonsnmpegfavalue VALUES ($timestamp, $sysDescr, $sysObjectID, $sysUpTime, $sysContact, $sysName, $sysLocation, 
+		$sysService, $defaultIp, $defaultMac,  $value[0], $value[1], $value[2], $value[3], $value[4], $value[5], $value[6], $value[7], $value[8], $value[9], $value[10], $value[11], $value[12], $value[13], $value[14], $value[15], $value[16], $value[17], $value[18], $value[19], $value[20], $value[21], $value[22], $value[23]);";
 
 
 	$result_insert = pg_query($query_insert) or die('Query failed: ' . pg_last_error());

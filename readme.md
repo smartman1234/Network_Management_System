@@ -180,22 +180,26 @@ So, require_once() is recommended to use when you want to include a file where y
 * make the frame of compare 1550, link to main   --- ok 
 * make the frame of compare egfa, link to main    --- ok
 
-// 2015--11-06
+// 2015--11-10
+* debug the egfa   --- ok
+* fix alarm database with two step alarm functions    --- ok (new: severity column)
+* change to generic snmp php function (snmpget)    --- ok, but trouble w/ elink, so use previous 
+* change alarm thres egfa with deadbandth    --- ok 
+* change alarm thres elink with deadbandth   --- ok  
+* change alarm thres eg1550 with deadbandth    --- ok  
+* add alarm threshold function of elink    --- ok  
+* make the frame of compare elink, link to mainpage   --- ok 
+* finish checkAlarmUpdatedIfYesTakeAction($time)   
 
 
 
 
-* re-organize the snmp info page of 1550
-* re-organize the snmp info page of elink
-* re-organize the snmp info page of egfa
 
-* debug the egfa 
-* change alarm thres supplementation 
-* add alarm threshold function of elink  
-
-* make the frame of compare elink, link to mainpage
 
 
 * alarm threshold model functon into db 1550
 * alarm threshold model functon into db elink
 * alarm threshold model functon into db egfa
+* re-organize the snmp info page of elink
+* re-organize the snmp info page of egfa
+* re-organize the snmp info page of 1550

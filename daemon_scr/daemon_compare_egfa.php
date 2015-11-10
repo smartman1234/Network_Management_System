@@ -52,7 +52,7 @@ function alarmCompare_egfa(){
 			  dameonsnmpegfavalue.leftminor5v,
 			  dameonsnmpegfavalue.rightminor5v 
 			FROM 
-			  public.dameonsnmpegfavalue
+			  public.daemonsnmpegfavalue
 			WHERE 
 			  dameonsnmpegfavalue.time = $timestamp;";
 
@@ -125,7 +125,33 @@ function alarmCompare_egfa(){
 			  daemonalarmthresegfa.left5v2,
 			  daemonalarmthresegfa.dc33v2, 
 			  daemonalarmthresegfa.leftminor5v2, 
-			  daemonalarmthresegfa.rightminor5v2
+			  daemonalarmthresegfa.rightminor5v2,
+			  daemonalarmthresegfa.outputopticalpower3,
+			  daemonalarmthresegfa.inputopticalpower3, 
+			  daemonalarmthresegfa.pumptemp13, 
+			  daemonalarmthresegfa.pumptemp23, 
+			  daemonalarmthresegfa.pumptemp33, 
+			  daemonalarmthresegfa.dc5v3, 
+			  daemonalarmthresegfa.dcminor5v3, 
+			  daemonalarmthresegfa.right5v3, 
+			  daemonalarmthresegfa.dc12v3, 
+			  daemonalarmthresegfa.left5v3,
+			  daemonalarmthresegfa.dc33v3, 
+			  daemonalarmthresegfa.leftminor5v3, 
+			  daemonalarmthresegfa.rightminor5v3,
+			  daemonalarmthresegfa.outputopticalpower4,
+			  daemonalarmthresegfa.inputopticalpower4, 
+			  daemonalarmthresegfa.pumptemp14, 
+			  daemonalarmthresegfa.pumptemp24, 
+			  daemonalarmthresegfa.pumptemp34, 
+			  daemonalarmthresegfa.dc5v4, 
+			  daemonalarmthresegfa.dcminor5v4, 
+			  daemonalarmthresegfa.right5v4, 
+			  daemonalarmthresegfa.dc12v4, 
+			  daemonalarmthresegfa.left5v4,
+			  daemonalarmthresegfa.dc33v4, 
+			  daemonalarmthresegfa.leftminor5v4, 
+			  daemonalarmthresegfa.rightminor5v4
 			FROM 
 			  public.daemonalarmthresegfa;";
 
@@ -158,117 +184,168 @@ function alarmCompare_egfa(){
 			$right5v_2 = $row->right5v2;
 			$leftminor5v_2 = $row->leftminor5v2;
 			$rightminor5v_2 = $row->rightminor5v2;
+			$outputopticalpower_3 = $row->outputopticalpower3;
+			$inputopticalpower_3 = $row->inputopticalpower3;
+			$pumptemp1_3 = $row->pumptemp13;
+			$pumptemp2_3 = $row->pumptemp23;
+			$pumptemp3_3 = $row->pumptemp33;
+			$dc5v_3 = $row->dc5v3;
+			$dcminor5v_3 = $row->dcminor5v3;
+			$dc33v_3 = $row->dc33v3;
+			$dc12v_3 = $row->dc12v3;
+			$left5v_3 = $row->left5v3;
+			$right5v_3 = $row->right5v3;
+			$leftminor5v_3 = $row->leftminor5v3;
+			$rightminor5v_3 = $row->rightminor5v3;
+			$outputopticalpower_4 = $row->outputopticalpower4;
+			$inputopticalpower_4 = $row->inputopticalpower4;
+			$pumptemp1_4 = $row->pumptemp14;
+			$pumptemp2_4 = $row->pumptemp24;
+			$pumptemp3_4 = $row->pumptemp34;
+			$dc5v_4 = $row->dc5v4;
+			$dcminor5v_4 = $row->dcminor5v4;
+			$dc33v_4 = $row->dc33v4;
+			$dc12v_4 = $row->dc12v4;
+			$left5v_4 = $row->left5v4;
+			$right5v_4 = $row->right5v4;
+			$leftminor5v_4 = $row->leftminor5v4;
+			$rightminor5v_4 = $row->rightminor5v4;
 		}
 
 		// compare, also check if the threshold is undefined
 		for ($i=0; $i < $number; $i++) { 
 			
 			// outputopticalpower
-			if ($outputopticalpower_1 != "" $$ $outputopticalpower_2 != "") {
-				if ($outputopticalpower[$i] <  floatval($outputopticalpower_1) || $outputopticalpower[$i] > floatval($outputopticalpower_2)) {
-					$log = "EGFA: Output Optical Power (" .  $outputopticalpower[$i] . " mA) is out of range!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
-			}
+			// if ($outputopticalpower_1 != "" $$ $outputopticalpower_2 != "") {
+			// 	if ($outputopticalpower[$i] <  floatval($outputopticalpower_1) || $outputopticalpower[$i] > floatval($outputopticalpower_2)) {
+			// 		$log = "EGFA: Output Optical Power (" .  $outputopticalpower[$i] . " mA) is out of range!";
+			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
+			// 	}
+			// }
+			compare_egfa($outputopticalpower_1, $outputopticalpower_2, $outputopticalpower_3, $outputopticalpower_4, $outputopticalpower[$i], $timestamp, $ip[$i], $mac[$i]);
+
 
 			// inputopticalpower
-			if ($inputopticalpower_1 != "" $$ $inputopticalpower_2 != "") {
-				if ($inputopticalpower[$i] <  floatval($inputopticalpower_1) || $inputopticalpower[$i] > floatval($inputopticalpower_2)) {
-					$log = "EGFA: Input Optical Power (" .  $inputopticalpower[$i] . " degreeC) is out of range!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
-			}
+			// if ($inputopticalpower_1 != "" $$ $inputopticalpower_2 != "") {
+			// 	if ($inputopticalpower[$i] <  floatval($inputopticalpower_1) || $inputopticalpower[$i] > floatval($inputopticalpower_2)) {
+			// 		$log = "EGFA: Input Optical Power (" .  $inputopticalpower[$i] . " degreeC) is out of range!";
+			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
+			// 	}
+			// }
+			compare_egfa($inputopticalpower_1, $inputopticalpower_2, $inputopticalpower_3, $inputopticalpower_4, $inputopticalpower[$i], $timestamp, $ip[$i], $mac[$i]);
+	
 
 			// pumptemp1
-			if ($pumptemp1_1 != "" $$ $pumptemp1_2 != "") {
-				if ($pumptemp1[$i] <  floatval($pumptemp1_1) || $pumptemp1[$i] > floatval($pumptemp1_2)) {
-					$log = "EGFA: Pump Temperature 1 (" .  $pumptemp1[$i] . " mA) is out of range!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
-			}
+			// if ($pumptemp1_1 != "" $$ $pumptemp1_2 != "") {
+			// 	if ($pumptemp1[$i] <  floatval($pumptemp1_1) || $pumptemp1[$i] > floatval($pumptemp1_2)) {
+			// 		$log = "EGFA: Pump Temperature 1 (" .  $pumptemp1[$i] . " mA) is out of range!";
+			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
+			// 	}
+			// }
+			compare_egfa($pumptemp1_1, $pumptemp1_2, $pumptemp1_3, $pumptemp1_4, $pumptemp1[$i], $timestamp, $ip[$i], $mac[$i]);
+
 
 			// pumptemp2 
-			if ($pumptemp2_1 != "" $$ $pumptemp2_2 != "") {
-				if ($pumptemp2[$i] <  floatval($pumptemp2_1) || $pumptemp2[$i] > floatval($pumptemp2_2)) {
-					$log = "EGFA: Pump Temperature 2 (" .  $pumptemp2[$i] . " dB) is out of range!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
-			}
+			// if ($pumptemp2_1 != "" $$ $pumptemp2_2 != "") {
+			// 	if ($pumptemp2[$i] <  floatval($pumptemp2_1) || $pumptemp2[$i] > floatval($pumptemp2_2)) {
+			// 		$log = "EGFA: Pump Temperature 2 (" .  $pumptemp2[$i] . " dB) is out of range!";
+			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
+			// 	}
+			// }
+			compare_egfa($pumptemp2_1, $pumptemp2_2, $pumptemp2_3, $pumptemp2_4, $pumptemp2[$i], $timestamp, $ip[$i], $mac[$i]);
+
 
 
 			// pumptemp3
-			if ($pumptemp3_1 != "" $$ $pumptemp3_2 != "") {
-				if ($pumptemp3[$i] <  floatval($pumptemp3_1) || $pumptemp3[$i] > floatval($pumptemp3_2)) {
-					$log = "EGFA: Pump Temperature 3 (" .  $pumptemp3[$i] . " V) is out of range!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
-			}
+			// if ($pumptemp3_1 != "" $$ $pumptemp3_2 != "") {
+			// 	if ($pumptemp3[$i] <  floatval($pumptemp3_1) || $pumptemp3[$i] > floatval($pumptemp3_2)) {
+			// 		$log = "EGFA: Pump Temperature 3 (" .  $pumptemp3[$i] . " V) is out of range!";
+			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
+			// 	}
+			// }
+			compare_egfa($pumptemp3_1, $pumptemp3_2, $pumptemp3_3, $pumptemp3_4, $pumptemp3[$i], $timestamp, $ip[$i], $mac[$i]);
+
 
 
 			// dc5v
-			if ($dc5v_1 != "" $$ $dc5v_2 != "") {
-				if ($dc5v[$i] <  floatval($dc5v_1) || $dc5v[$i] > floatval($dc5v_2)) {
-					$log = "EGFA: DC +5V (" .  $dc5v[$i] . " V) is out of range!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
-			}
+			// if ($dc5v_1 != "" $$ $dc5v_2 != "") {
+			// 	if ($dc5v[$i] <  floatval($dc5v_1) || $dc5v[$i] > floatval($dc5v_2)) {
+			// 		$log = "EGFA: DC +5V (" .  $dc5v[$i] . " V) is out of range!";
+			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
+			// 	}
+			// }
+			compare_egfa($dc5v_1, $dc5v_2, $dc5v_3, $dc5v_4, $dc5v[$i], $timestamp, $ip[$i], $mac[$i]);
+
 
 			// dcminor5v
-			if ($dcminor5v_1 != "" $$ $dcminor5v_2 != "") {
-				if ($dcminor5v[$i] <  floatval($dcminor5v_1) || $dcminor5v[$i] > floatval($dcminor5v_2)) {
-					$log = "EGFA: DC -5V (" .  $dcminor5v[$i] . " V) is out of range!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
-			}
+			// if ($dcminor5v_1 != "" $$ $dcminor5v_2 != "") {
+			// 	if ($dcminor5v[$i] <  floatval($dcminor5v_1) || $dcminor5v[$i] > floatval($dcminor5v_2)) {
+			// 		$log = "EGFA: DC -5V (" .  $dcminor5v[$i] . " V) is out of range!";
+			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
+			// 	}
+			// }
+			compare_egfa($dcminor5v_1, $dcminor5v_2, $dcminor5v_3, $dcminor5v_4, $dcminor5v[$i], $timestamp, $ip[$i], $mac[$i]);
+
 
 			// dc33v
-			if ($dc33v_1 != "" $$ $dc33v_2 != "") {
-				if ($dc33v[$i] <  floatval($dc33v_1) || $dc33v[$i] > floatval($dc33v_2)) {
-					$log = "EGFA: DC +3.3V (" .  $dc33v[$i] . " V) is out of range!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
-			}
+			// if ($dc33v_1 != "" $$ $dc33v_2 != "") {
+			// 	if ($dc33v[$i] <  floatval($dc33v_1) || $dc33v[$i] > floatval($dc33v_2)) {
+			// 		$log = "EGFA: DC +3.3V (" .  $dc33v[$i] . " V) is out of range!";
+			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
+			// 	}
+			// }
+			compare_egfa($dc33v_1, $dc33v_2, $dc33v_3, $dc33v_4, $dc33v[$i], $timestamp, $ip[$i], $mac[$i]);
 
 
 			// dc12v
-			if ($dc12v_1 != "" $$ $dc12v_2 != "") {
-				if ($dc12v[$i] <  floatval($dc12v_1) || $dc12v[$i] > floatval($dc12v_2)) {
-					$log = "EGFA: DC +12V (" .  $dc12v[$i] . " dBm) is out of range!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
-			}
+			// if ($dc12v_1 != "" $$ $dc12v_2 != "") {
+			// 	if ($dc12v[$i] <  floatval($dc12v_1) || $dc12v[$i] > floatval($dc12v_2)) {
+			// 		$log = "EGFA: DC +12V (" .  $dc12v[$i] . " dBm) is out of range!";
+			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
+			// 	}
+			// }		
+			compare_egfa($dc12v_1, $dc12v_2, $dc12v_3, $dc12v_4, $dc12v[$i], $timestamp, $ip[$i], $mac[$i]);
+
 
 			// left5v
-			if ($left5v_1 != "" $$ $left5v_2 != "") {
-				if ($left5v[$i] <  floatval($left5v_1) || $left5v[$i] > floatval($left5v_2)) {
-					$log = "EGFA: Left +5V (" .  $left5v[$i] . " dB) is out of range!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
-			}
+			// if ($left5v_1 != "" $$ $left5v_2 != "") {
+			// 	if ($left5v[$i] <  floatval($left5v_1) || $left5v[$i] > floatval($left5v_2)) {
+			// 		$log = "EGFA: Left +5V (" .  $left5v[$i] . " dB) is out of range!";
+			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
+			// 	}
+			// }
+			compare_egfa($left5v_1, $left5v_2, $left5v_3, $left5v_4, $left5v[$i], $timestamp, $ip[$i], $mac[$i]);
+
 
 			// right5v
-			if ($right5v_1 != "" $$ $right5v_2 != "") {
-				if ($right5v[$i] <  floatval($right5v_1) || $right5v[$i] > floatval($right5v_2)) {
-					$log = "EGFA: Right +5V (" .  $right5v[$i] . " dB) is out of range!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
-			}
+			// if ($right5v_1 != "" $$ $right5v_2 != "") {
+			// 	if ($right5v[$i] <  floatval($right5v_1) || $right5v[$i] > floatval($right5v_2)) {
+			// 		$log = "EGFA: Right +5V (" .  $right5v[$i] . " dB) is out of range!";
+			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
+			// 	}
+			// }
+			compare_egfa($right5v_1, $right5v_2, $right5v_3, $right5v_4, $right5v[$i], $timestamp, $ip[$i], $mac[$i]);
+
 
 			// leftminor5v
-			if ($leftminor5v_1 != "" $$ $leftminor5v_2 != "") {
-				if ($leftminor5v[$i] <  floatval($leftminor5v_1) || $leftminor5v[$i] > floatval($leftminor5v_2)) {
-					$log = "EGFA: Left -5V (" .  $leftminor5v[$i] . " dB) is out of range!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
-			}
+			// if ($leftminor5v_1 != "" $$ $leftminor5v_2 != "") {
+			// 	if ($leftminor5v[$i] <  floatval($leftminor5v_1) || $leftminor5v[$i] > floatval($leftminor5v_2)) {
+			// 		$log = "EGFA: Left -5V (" .  $leftminor5v[$i] . " dB) is out of range!";
+			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
+			// 	}
+			// }
+			compare_egfa($leftminor5v_1, $leftminor5v_2, $leftminor5v_3, $leftminor5v_4, $leftminor5v[$i], $timestamp, $ip[$i], $mac[$i]);
+
 
 			// rightminor5v
-			if ($rightminor5v_1 != "" $$ $rightminor5v_2 != "") {
-				if ($rightminor5v[$i] <  floatval($rightminor5v_1) || $rightminor5v[$i] > floatval($rightminor5v_2)) {
-					$log = "EGFA: Right -5V (" .  $rightminor5v[$i] . " dB) is out of range!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
-			}
+			// if ($rightminor5v_1 != "" $$ $rightminor5v_2 != "") {
+			// 	if ($rightminor5v[$i] <  floatval($rightminor5v_1) || $rightminor5v[$i] > floatval($rightminor5v_2)) {
+			// 		$log = "EGFA: Right -5V (" .  $rightminor5v[$i] . " dB) is out of range!";
+			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
+			// 	}
+			// }
+			compare_egfa($rightminor5v_1, $rightminor5v_2, $rightminor5v_3, $rightminor5v_4, $rightminor5v[$i], $timestamp, $ip[$i], $mac[$i]);
+
 
 		}
 
@@ -281,5 +358,32 @@ function alarmCompare_egfa(){
 
 }
 
+function compare_egfa($t1, $t2, $t3, $t4, $r, $time, $ip, $mac){
+			
+	if ($t1 != "" && $t2 != "" && $t3 != "" && $t4 != "") {
+		if ($t1 <= $t2 && $t2 <= $t3 && $t3 <= $t4) {
+			if ($r > floatval($t4)) {
+				$log = "EGFA has a high-high alarm! (" . $r .")";
+				alarmLogger($time, $ip, $mac, $log, "high-high");
+			}
+
+			if ($r < floatval($t4) && $r > floatval($t3)) {
+				$log = "EGFA has a high alarm! (" . $r .")";
+				alarmLogger($time, $ip, $mac, $log, "high");
+			}
+
+			if ($r < floatval($t2) && $r > floatval($t1)) {
+				$log = "EGFA has a low alarm! (" . $r .")";
+				alarmLogger($time, $ip, $mac, $log, "low");
+			}
+
+			if ($r < floatval($t1)) {
+				$log = "EGFA has a low-low alarm! (" . $r .")";
+				alarmLogger($time, $ip, $mac, $log, "low-low");
+			}
+		}
+
+	}
+}
 
 ?>

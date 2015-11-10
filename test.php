@@ -1,18 +1,8 @@
 <?php
 
-
-$time = "123";
-
-echo "time before: " . $time;
-
-function sc(){
-	global $time;
-	echo "time inside : " . $time;
-}
-
-
-sc();
-
+echo snmpget("10.100.0.50", 'public', '.1.3.6.1.2.1.1.2.0');
+echo snmpget("10.100.0.80", 'public', '.1.3.6.1.2.1.1.2.0');
+echo snmpget("10.100.0.102", 'PUBLIC', '.1.3.6.1.2.1.1.2.0');
 
 
 ?>

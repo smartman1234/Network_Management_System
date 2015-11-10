@@ -1,7 +1,6 @@
 <?php
 
-
-
+get_egfa("10.100.0.102");
 function get_egfa($ip){
 	require("genericSnmp.php");
 

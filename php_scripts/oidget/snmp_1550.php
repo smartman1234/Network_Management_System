@@ -3,7 +3,7 @@
 require("genericSnmp.php");
 
 
-// get_1550("10.100.0.50");
+get_1550("10.100.0.50");
 
 function get_1550($ip){
 	

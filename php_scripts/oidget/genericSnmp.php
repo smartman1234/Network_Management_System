@@ -10,6 +10,22 @@ function snmpget_bigP($ip, $oid) {
 	return $result;
 }
 
+
+
+// function snmpget_smallp($ip, $oid) {
+// 	return snmpget($ip, "public", $oid);
+
+// }
+
+
+// function snmpget_bigP($ip, $oid) {
+// 	return snmpget($ip, "PUBLIC", $oid);
+
+// }
+
+
+
+
 function snmpget_smallp($ip, $oid) {
 	$command = $command = "C:\usr\bin\snmpget -Ov -v 1 -c public " . $ip . " " .  $oid . " 2>&1";
 	$result = shell_exec ( $command );

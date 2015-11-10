@@ -1,0 +1,26 @@
+<?php
+
+function checkAlarmUpdatedIfYesTakeAction($time){
+
+
+
+
+
+
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+?>

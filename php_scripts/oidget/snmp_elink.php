@@ -1,5 +1,7 @@
 <?php
 
+get_elink("10.100.0.50");
+
 function get_elink($ip)
 {
     require("genericSnmp.php");

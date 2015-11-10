@@ -27,6 +27,7 @@ function ifAlarmInfoDbNotExistCreateIt(){
 			ip	Text,
 			description            TEXT  ,
 			mac       TEXT,
+			severity       TEXT,
 			logs         TEXT,
 			Ack		TEXT);";
 
