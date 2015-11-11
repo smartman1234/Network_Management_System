@@ -4,14 +4,14 @@ require "php_scripts/email.php";
 require("php_scripts/device_category_from_OID.php");
 
 
-$dbconn1 = pg_connect("host=localhost dbname=account4rapidnms user=postgres password=admin")
+$dbconn1 = pg_connect("host=localhost dbname=vanguardhe user=postgres password=admin")
 or die('Could not connect: ' . pg_last_error());
 
 $query1 = "SELECT 
-  account_user_information.email, 
-  account_user_information.name
+  user.email, 
+  user.name
 FROM 
-  public.account_user_information;";
+  public.user;";
 $result1 = pg_query($query1) or die('Query failed: ' . pg_last_error());
 
 while ($row1 = pg_fetch_object($result1)){

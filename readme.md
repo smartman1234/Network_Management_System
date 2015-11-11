@@ -189,7 +189,9 @@ So, require_once() is recommended to use when you want to include a file where y
 * change alarm thres eg1550 with deadbandth    --- ok  
 * add alarm threshold function of elink    --- ok  
 * make the frame of compare elink, link to mainpage   --- ok 
-* finish checkAlarmUpdatedIfYesTakeAction($time)   
+
+// 2015--11-11
+* finish checkAlarmUpdatedIfYesTakeAction(use timestamp as the key)   --- ok 
 
 
 
