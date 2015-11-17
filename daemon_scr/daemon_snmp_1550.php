@@ -22,7 +22,7 @@ function daemon_snmpScanIntoDb_1550($ip){
 	// 1, extract all snmp value from 1550 
 	// $timestamp =  deco_1550(date("j F Y h:i:s A"));
 	global $timestamp;
-	$recordedIp = deco_1550($ip);
+	$recordedIp = trim(deco_1550($ip));
 	$sysDescr = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.1.0" ));
 	$sysObjectID = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.2.0" ));
 	$sysUpTime = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.3.0" ));
@@ -31,7 +31,7 @@ function daemon_snmpScanIntoDb_1550($ip){
 	$sysLocation = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.6.0")) ;
 	$sysService = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.7.0" ));
 
-	$defaultIp = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.4.1.33826.3.1.1.0" ));
+	$defaultIp = trim(deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.4.1.33826.3.1.1.0" )));
 	$defaultMac = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.4.1.33826.3.1.5.0" ));
 
 	$value [0] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.1.1" );
@@ -99,8 +99,8 @@ function daemon_snmpScanIntoDb_1550($ip){
 	if ($exist != "dameonsnmp1550value") {
 	# code...
 		$query_construct = "CREATE TABLE PUBLIC.dameonsnmp1550value(
-			time           TEXT    NOT NULL,
-			recordip	Text,
+			time           TEXT    ,
+			recordip	TEXT,
 			description            TEXT  ,
 			oids       TEXT,
 			uptime         TEXT,

@@ -31,9 +31,13 @@
 <?php
 
 require("daemon_db_init.php");
-//$target_ip = "'" + $_GET['ip'] + "%'";
+$target_ip = "'" . $_GET['ip'] . "%'";
+
+
 
 echo "<b>Status Values of Elink Headend.</b><br>";
+
+
 
 echo "EMS:";
 $query = "SELECT 
@@ -59,7 +63,8 @@ $query = "SELECT
 	daemonsnmpelinkems.internaltemp, 
 	daemonsnmpelinkems.craftstatus
 	FROM 
-	public.daemonsnmpelinkems;";
+	public.daemonsnmpelinkems
+	WHERE daemonsnmpelinkems.ip LIKE $target_ip;";
 
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
@@ -385,6 +390,22 @@ pg_close($dbconn);
 
 require("daemon_db_init.php");
 
+$query = "SELECT 
+	dameonsnmp1550value.time
+	FROM 
+	public.dameonsnmp1550value;";
+
+$result = pg_query($query) or die('Query failed: ' . pg_last_error());
+
+while ($row = pg_fetch_object($result)) {
+	$time = $row->time; 
+	
+}
+
+$time = "'" . strval($time) .  "'"; 
+
+
+
 echo "RRX:";
 $query = "SELECT 
   daemonsnmpelinkrrx.slot, 
@@ -400,100 +421,54 @@ $query = "SELECT
   daemonsnmpelinkrrx.status3, 
   daemonsnmpelinkrrx.status4
 FROM 
-  public.daemonsnmpelinkrrx;
+  public.daemonsnmpelinkrrx
+ WHERE daemonsnmpelinkrrx.time = $time;
 ";
 
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
 while ($row = pg_fetch_object($result)) {
-  $slot = $row->slot; 
-  $model = $row->model; 
-  $sn = $row->sn; 
-  $temp = $row->temp; 
-  $input1 = $row->input1; 
-  $input2 = $row->input2; 
-  $input3 = $row->input3; 
-  $input4 = $row->input4; 
-  $status1 = $row->status1; 
-  $status2 = $row->status2; 
-  $status3 = $row->status3; 
-  $status4 = $row->status4;
+  $slot[] = $row->slot; 
+  $model[] = $row->model; 
+  $sn[] = $row->sn; 
+  $temp[] = $row->temp; 
+  $input1[] = $row->input1; 
+  $input2[] = $row->input2; 
+  $input3[] = $row->input3; 
+  $input4[] = $row->input4; 
+  $status1[] = $row->status1; 
+  $status2[] = $row->status2; 
+  $status3[] = $row->status3; 
+  $status4[] = $row->status4;
 }
 
 
 pg_free_result($result);
 pg_close($dbconn);
 
+echo "<table>";
+for ($i=0; $i < sizeof($slot); $i++) { 
+	# code...
+	echo "<tr><td>Slot</td><td>" . $slot[$i] . "</td></tr>";
+	echo "<tr><td>Model</td><td>" . $model[$i] . "</td></tr>";
+	echo "<tr><td>Sn</td><td>" . $sn[$i] . "</td></tr>";
+	echo "<tr><td>Temperature</td><td>" . $temp[$i] . "</td></tr>";
+	echo "<tr><td>Input 1</td><td>" . $input1[$i] . "</td></tr>";
+	echo "<tr><td>Input 2</td><td>" . $input2[$i] . "</td></tr>";
+	echo "<tr><td>Input 3</td><td>" . $input3[$i] . "</td></tr>";
+	echo "<tr><td>Input 4</td><td>" . $input4[$i] . "</td></tr>";
+	echo "<tr><td>Status 1</td><td>" . $status1[$i] . "</td></tr>";
+	echo "<tr><td>Status 2</td><td>" . $status2[$i] . "</td></tr>";
+	echo "<tr><td>Status 3</td><td>" . $status3[$i] . "</td></tr>";
+	echo "<tr><td>Status 4</td><td>" . $status4[$i] . "</td></tr>";
+
+}
+	echo "</table>";
+
+
+
+
 ?>
-
-
-
-<table>
-
-<tr>
-<td>slot </td>
-<td> <?php  echo $slot;         ?></td>	
-</tr>
-
-<tr>
-<td>model </td>
-<td> <?php  echo $model;         ?></td>	
-</tr>
-
-<tr>
-<td>sn </td>
-<td> <?php  echo $sn;         ?></td>	
-</tr>
-
-<tr>
-<td>temp </td>
-<td> <?php  echo $temp;         ?></td>	
-</tr>
-
-<tr>
-<td>input1 </td>
-<td> <?php  echo $input1;         ?></td>	
-</tr>
-
-<tr>
-<td>input2 </td>
-<td> <?php  echo $input2;         ?></td>	
-</tr>
-<tr>
-<td>input3 </td>
-<td> <?php  echo $input3;         ?></td>	
-</tr>
-
-<tr>
-<td>input4 </td>
-<td> <?php  echo $input4;         ?></td>	
-</tr>
-
-<tr>
-<td>status1 </td>
-<td> <?php  echo $status1;         ?></td>	
-</tr>
-
-<tr>
-<td>status2 </td>
-<td> <?php  echo $status2;         ?></td>	
-</tr>
-<tr>
-<td>status3 </td>
-<td> <?php  echo $status3;         ?></td>	
-</tr>
-
-<tr>
-<td>status4 </td>
-<td> <?php  echo $status4;         ?></td>	
-</tr>
-
-
-</table>
-
-
-
-
 
 
 

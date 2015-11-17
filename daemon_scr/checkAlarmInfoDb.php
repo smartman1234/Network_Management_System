@@ -23,7 +23,7 @@ function ifAlarmInfoDbNotExistCreateIt(){
 	if ($exist != "daemonalarm") {
 	# code...
 		$query_construct = "CREATE TABLE PUBLIC.daemonalarm(
-			time           TEXT    NOT NULL,
+			time           TEXT    ,
 			ip	Text,
 			description            TEXT  ,
 			mac       TEXT,

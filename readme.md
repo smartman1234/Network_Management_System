@@ -207,8 +207,7 @@ So, require_once() is recommended to use when you want to include a file where y
 * alarm setup page of elink   --- ok
 * alarm setup page of egfa   --- ok
 * alarm setup page of 1550   --- ok
-
-* change sql column type, to make ip ok for search 
+* change sql column type, to make ip ok for search    --- ok
 
 
 

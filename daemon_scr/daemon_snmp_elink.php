@@ -59,7 +59,7 @@ function daemon_snmpScanIntoDb_elink($ip){
     $sysLocation = deco_elink(snmpget_smallp($ip, ".1.3.6.1.2.1.1.6.0"));
     $sysService  = deco_elink(snmpget_smallp($ip, ".1.3.6.1.2.1.1.7.0"));
     $alarm       = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.2.4.0"));
-    $ipadd       = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.3.1.9.0"));
+    $ipadd       = trim(deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.3.1.9.0")));
 
     $ems = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.3.1.3.1"));
     $ems_sn = deco_elink(snmpget_smallp($ip, ".1.3.6.1.4.1.5591.1.3.1.4.1"));
@@ -172,7 +172,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	if ($exist_ems != "daemonsnmpelinkems") {
 		# code...
 		$query_construct_ems = "CREATE TABLE PUBLIC.daemonsnmpelinkems(
-			time           TEXT    NOT NULL,
+			time           TEXT    ,
 			slot	TEXT,  
 			description            TEXT  ,
 			oids       TEXT,
@@ -222,7 +222,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	if ($exist_ps != "daemonsnmpelinkps") {
 		# code...
 		$query_construct_ps = "CREATE TABLE PUBLIC.daemonsnmpelinkps(
-			time           TEXT    NOT NULL,
+			time           TEXT    ,
 			slot	TEXT,  
 			model        TEXT,
 			sn       TEXT,
@@ -259,7 +259,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	if ($exist_fan != "daemonsnmpelinkfan") {
 		# code...
 		$query_construct_fan = "CREATE TABLE PUBLIC.daemonsnmpelinkfan(
-			time           TEXT    NOT NULL, 
+			time           TEXT   , 
 			fan1        TEXT,
 			fan2       TEXT,
 			fan3         TEXT,
@@ -297,7 +297,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	if ($exist_rrx != "daemonsnmpelinkrrx") {
 		# code...
 		$query_construct_rrx = "CREATE TABLE PUBLIC.daemonsnmpelinkrrx(
-			time           TEXT    NOT NULL, 
+			time           TEXT    , 
 			slot	TEXT,  
 			model        TEXT,
 			sn       TEXT,
@@ -346,7 +346,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	if ($exist_ftx != "daemonsnmpelinkftx") {
 		# code...
 		$query_construct_ftx = "CREATE TABLE PUBLIC.daemonsnmpelinkftx(
-			time           TEXT    NOT NULL, 
+			time           TEXT    , 
 			slot	TEXT,  
 			model        TEXT,
 			sn       TEXT,

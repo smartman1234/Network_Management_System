@@ -31,10 +31,11 @@
 <?php
 
 require("daemon_db_init.php");
-//$target_ip = "'" + $_GET['ip'] + "%'";
+$target_ip = "'" . $_GET['ip'] . "%'";
 
 
 echo "<b>Status Values of EGFA.</b><br>";
+
 
 $query = "SELECT 
 	  daemonsnmpegfavalue.time,
@@ -72,7 +73,8 @@ $query = "SELECT
 	  daemonsnmpegfavalue.internaltemp, 
 	  daemonsnmpegfavalue.craftstatus
 	FROM 
-	  public.daemonsnmpegfavalue;";
+	  public.daemonsnmpegfavalue
+	WHERE daemonsnmpegfavalue.ip LIKE $target_ip;";
 
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 

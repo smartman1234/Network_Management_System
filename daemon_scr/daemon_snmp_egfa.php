@@ -29,7 +29,7 @@ function daemon_snmpScanIntoDb_egfa($ip){
 	$sysLocation = deco_egfa(snmpget_bigP ( $ip, ".1.3.6.1.2.1.1.6.0")) ;
 	$sysService = deco_egfa(snmpget_bigP ( $ip, ".1.3.6.1.2.1.1.7.0" ));
 
-	$defaultIp = deco_egfa(snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.3.1.9.0"  ));
+	$defaultIp = trim(deco_egfa(snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.3.1.9.0"  )));
 	$defaultMac = deco_egfa(snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.3.2.1.1.1.0" ));
 
 	$value [0] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.2.0" );   // "Output Optical Power"
@@ -101,7 +101,7 @@ function daemon_snmpScanIntoDb_egfa($ip){
 	if ($exist != "daemonsnmpegfavalue") {
 	# code...
 		$query_construct = "CREATE TABLE PUBLIC.daemonsnmpegfavalue(
-			time           TEXT    NOT NULL,
+			time           TEXT    ,
 			description            TEXT  ,
 			oids       TEXT,
 			uptime         TEXT,

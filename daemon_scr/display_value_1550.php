@@ -31,9 +31,24 @@
 <?php
 
 require("daemon_db_init.php");
-//$target_ip = "'" + $_GET['ip'] + "%'";
+$target_ip = "'" . $_GET['ip'] . "%'";
+// $target_ip = "'" . "10.100.0.50" . "%'";
 
-echo "<b>Status Values of EG1550.</b><br>";
+// echo "<b>Status Values of EG1550.</b><br>";
+
+// $query = "SELECT 
+// 	dameonsnmp1550value.time
+// 	FROM 
+// 	public.dameonsnmp1550value;";
+
+// $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+
+// while ($row = pg_fetch_object($result)) {
+// 	$time = $row->time; 
+	
+// }
+
+// $time = "'" . strval($time) .  "'"; 
 
 $query = "SELECT 
 	dameonsnmp1550value.time, 
@@ -68,7 +83,8 @@ $query = "SELECT
 	dameonsnmp1550value.presentacpower2status, 
 	dameonsnmp1550value.txacpowersupplystatus
 	FROM 
-	public.dameonsnmp1550value;";
+	public.dameonsnmp1550value
+	WHERE dameonsnmp1550value.ip LIKE $target_ip;";
 
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
