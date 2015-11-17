@@ -153,7 +153,8 @@ function alarmCompare_egfa(){
 			  daemonalarmthresegfa.leftminor5v4, 
 			  daemonalarmthresegfa.rightminor5v4
 			FROM 
-			  public.daemonalarmthresegfa;";
+			  public.daemonalarmthresegfa
+			LIMIT 1;";
 
 		$result_t = pg_query($query_t) or die('Query failed: ' . pg_last_error());
 

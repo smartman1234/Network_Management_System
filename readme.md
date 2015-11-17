@@ -194,9 +194,9 @@ So, require_once() is recommended to use when you want to include a file where y
 * finish checkAlarmUpdatedIfYesTakeAction(use timestamp as the key)   --- ok 
 
 // 2015--11-16
-* alarm threshold model functon into db 1550  build 
-* alarm threshold model functon into db elink build 
-* alarm threshold model functon into db egfa  build 
+* alarm threshold model functon into db 1550  build   --- ok (LIMIT 1 SQL)
+* alarm threshold model functon into db elink build   --- ok (LIMIT 1 SQL)
+* alarm threshold model functon into db egfa  build   --- ok (LIMIT 1 SQL)
 
 * re-organize the snmp info page of elink  build 
 * re-organize the snmp info page of egfa  build 

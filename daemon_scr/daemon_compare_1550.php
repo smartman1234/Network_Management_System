@@ -141,7 +141,8 @@ function alarmCompare_1550(){
 			  daemonalarmthres1550.txopticalpower4, 
 			  daemonalarmthres1550.txrfmodulelevel4
 			FROM 
-			  public.daemonalarmthres1550;";
+			  public.daemonalarmthres1550
+			LIMIT 1;";
 
 		$result_t = pg_query($query_t) or die('Query failed: ' . pg_last_error());
 

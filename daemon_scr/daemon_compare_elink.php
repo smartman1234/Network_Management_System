@@ -121,7 +121,8 @@ function alarmCompare_elink(){
 			  daemonalarmthreselinkps.outputw3,
 			  daemonalarmthreselinkps.outputw4 
 			FROM 
-			  public.daemonalarmthreselinkps;";
+			  public.daemonalarmthreselinkps
+			LIMIT 1;";
 			$result_t_ps = pg_query($query_t_ps) or die('Query failed: ' . pg_last_error());
 			while ($row = pg_fetch_object($result_t_ps)) {
 				$outputv_1 = $row->outputv1;
@@ -185,7 +186,8 @@ function alarmCompare_elink(){
 			  daemonalarmthreselinkrrx.input43,
 			  daemonalarmthreselinkrrx.input44			  
 			FROM 
-			  public.daemonalarmthreselinkrrx;";
+			  public.daemonalarmthreselinkrrx
+			LIMIT 1;";
 			$result_t_rrx = pg_query($query_t_rrx) or die('Query failed: ' . pg_last_error());
 			while ($row = pg_fetch_object($result_t_rrx)) {
 				$input1_1 = $row->input11;
@@ -253,7 +255,8 @@ function alarmCompare_elink(){
 			  daemonalarmthreselinkftx.thccurrent3,
 			  daemonalarmthreselinkftx.thccurrent4			  
 			FROM 
-			  public.daemonalarmthreselinkftx;";
+			  public.daemonalarmthreselinkftx
+			LIMIT 1;";
 			$result_t_ftx = pg_query($query_t_ftx) or die('Query failed: ' . pg_last_error());
 			while ($row = pg_fetch_object($result_t_ftx)) {
 				$lasertemp_1 = $row->lasertemp1;
