@@ -199,6 +199,18 @@ So, require_once() is recommended to use when you want to include a file where y
 * alarm threshold model functon into db egfa  build   --- ok (LIMIT 1 SQL)
 
 // 2015--11-17
-* re-organize the snmp info page of elink  build 
-* re-organize the snmp info page of egfa  build 
-* re-organize the snmp info page of 1550  build 
+* fix the inventory list (status, value, setup)   --- ok
+* filter the unrelated devices out on inventort listview   --- ok
+* re-organize the snmp info page of elink    --- ok 
+* re-organize the snmp info page of egfa    --- ok 
+* re-organize the snmp info page of 1550    --- ok 
+* alarm setup page of elink   --- ok
+* alarm setup page of egfa   --- ok
+* alarm setup page of 1550   --- ok
+
+* change sql column type, to make ip ok for search 
+
+
+
+
+* unit test all 
