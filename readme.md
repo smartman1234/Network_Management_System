@@ -198,6 +198,7 @@ So, require_once() is recommended to use when you want to include a file where y
 * alarm threshold model functon into db elink build   --- ok (LIMIT 1 SQL)
 * alarm threshold model functon into db egfa  build   --- ok (LIMIT 1 SQL)
 
+// 2015--11-17
 * re-organize the snmp info page of elink  build 
 * re-organize the snmp info page of egfa  build 
 * re-organize the snmp info page of 1550  build 
