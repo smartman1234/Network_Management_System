@@ -25,9 +25,9 @@ try {
 	//$mail->AddAttachment($attachment);
 	$mail->Send ();
 	
-	echo '<script language="javascript">';
-	echo 'alert("The alert email with requested information has been sent to the target email address successfully!")';
-	echo '</script>';
+	// echo '<script language="javascript">';
+	// echo 'alert("The alert email with requested information has been sent to the target email address successfully!")';
+	// echo '</script>';
 
 
 } catch ( phpmailerException $e ) {
@@ -36,27 +36,27 @@ try {
 	echo $e->getMessage (); // Boring error messages from anything else!
 }
 
-echo "<h3></h3>";
-echo "<h3></h3>";
-echo "<h3></h3>";
-echo "<h3></h3>";
-echo "<h3></h3>";
-echo "<h3></h3>";
-echo "<a href=alarm_list.html><img src=image/back.png alt=Back style=width:250px;height:170px;></a>";
+// echo "<h3></h3>";
+// echo "<h3></h3>";
+// echo "<h3></h3>";
+// echo "<h3></h3>";
+// echo "<h3></h3>";
+// echo "<h3></h3>";
+// echo "<a href=alarm_list.html><img src=image/back.png alt=Back style=width:250px;height:170px;></a>";
 
 
-$server = $_SERVER['SERVER_ADDR'];
-$serverIp = gethostbyname(gethostname());
-$server_port = $_SERVER['SERVER_PORT'];
+// $server = $_SERVER['SERVER_ADDR'];
+// $serverIp = gethostbyname(gethostname());
+// $server_port = $_SERVER['SERVER_PORT'];
 
-$cl = $_SERVER['REMOTE_ADDR'];
-
-
-$u = "http://" . $serverIp . ":" . $server_port . "/vanguardhe/alarm_list.html";
+// $cl = $_SERVER['REMOTE_ADDR'];
 
 
+// $u = "http://" . $serverIp . ":" . $server_port . "/vanguardhe/alarm_list.html";
 
-header('Location: '.$u);
+
+
+//header('Location: '.$u);
 
 }
 

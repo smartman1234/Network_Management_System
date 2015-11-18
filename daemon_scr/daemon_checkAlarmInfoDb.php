@@ -1,11 +1,16 @@
 <?php
 
+// unit test    --- begin
+// $time = "20151118150000";
+// $time = "'" . $time . "'";
+// checkAlarmUpdatedIfYesTakeAction($time);
+
+// unit test --- end 
+
 function checkAlarmUpdatedIfYesTakeAction($time){
 
-	global $timestamp;
+	$timestamp=$time;
 	require("daemon_db_init.php");
-
-
 	$genericEmailLibPath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/php_scripts/email.php";
 	require_once($genericEmailLibPath);  // to initialize email lib 
 
@@ -26,19 +31,13 @@ function checkAlarmUpdatedIfYesTakeAction($time){
 		  daemonalarm.time = $timestamp;";
 
 	$result = pg_query($query) or die('Query failed: ' . pg_last_error());
-
-	$number = pg_num_rows($result); 
-
-	$numberD = "'" . $number . "'";
-	$query_update = "UPDATE PUBLIC.daemontimestamp SET daemontimestamp.alarmcount=$numberD WHERE daemontimestamp.time=$timestamp;";
-
-	$result_update = pg_query($query_update) or die('Query failed: ' . pg_last_error());
+	$number = pg_num_rows($result);
 
 	// get email address of admin from db 
-	$query_email = "SELECT 
-		  user.email
+	$query_email = 'SELECT 
+		"user".email
 		FROM 
-		  public.user;";
+		public."user";';
 
 	$result_email = pg_query($query_email) or die('Query failed: ' . pg_last_error());
 
@@ -50,8 +49,7 @@ function checkAlarmUpdatedIfYesTakeAction($time){
 
 	if ($number != 0) {
 
-		while ($row = pg_fetch_object($result_value_ems)) {	
-			$time[] = $row->time;
+		while ($row = pg_fetch_object($result)) {				
 			$ip[] = $row->ip;
 			$description[] = $row->description;
 			$mac[] = $row->mac;
@@ -61,22 +59,23 @@ function checkAlarmUpdatedIfYesTakeAction($time){
 		}
 
 		$subject = "Alarm Alert from Electroline VanguardHE   ". date('Y-m-d H:i:s'); 
-		$body = "<p>This email is automatically sent from Electroline NMS system, and please do not reply to this address.</p>";
+		$body = "This email is automatically sent from Electroline NMS system, and please do not reply to this address.<br>";
 
 		for ($i=0; $i < $number; $i++) { 
 			# code...
-			$body = $body . "<p>IP: " . $ip[$i] . "</p>";
-			$body = $body . "<p>MAC: " . $mac[$i] . "</p>"; 
-			$body = $body . "<p>Description: " . $description[$i] . "</p>";
-			$body = $body . "<p>Condition: " . $severity[$i] . "</p>";
-			$body = $body . "<p>Logs: " . $logs[$i] . "</p>";
-			$body = $body . "<p>Acknowlegement: " . $ack[$i] . "</p>";
+			$body = $body . "IP: " . $ip[$i] . "<br>";
+			$body = $body . "MAC: " . $mac[$i] . "<br>"; 
+			$body = $body . "Description: " . $description[$i] . "<br>";
+			$body = $body . "Condition: " . $severity[$i] . "<br>";
+			$body = $body . "Logs: " . $logs[$i] . "<br>";
+			$body = $body . "Acknowlegement: " . $ack[$i] . "<br>";
 			$body = $body . "----------------------------------<br>";
-		}		
+		}	
 
 		sendEmail($toEmailAddress, $subject, $body);
 
 	}	
+
 }
 
 ?>
