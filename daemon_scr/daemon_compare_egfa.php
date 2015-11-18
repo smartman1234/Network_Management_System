@@ -3,17 +3,17 @@
 
 // unit test --- begin
 //alarmCompare_egfa();
+// $t = "'" . "20151117130251" . "'"; 
 
+// alarmCompare_egfa($t);
 // unit test --- end 
 
 // todo:  1) check if the threshold table exsits, if true, go ahead; 2) extract all value, and data treatment from alarm thres table,
 //3) extract all value, and data treatment from snmp table,  4) under the condition, compare the resutl, if abnormal, do an action 
 
-function alarmCompare_egfa(){
+function alarmCompare_egfa($timestamp){
 
 	require_once("alarm_logger.php");
-
-	global $timestamp;
 	// $timestamp = "'4 November 2015 08:29:27 AM'";   for debug purpose 
 
 	require("daemon_db_init.php");
@@ -36,35 +36,34 @@ function alarmCompare_egfa(){
 
 		// extract the real-time value :   raw data 
 		$query_value = "SELECT 
-			  dameonsnmpegfavalue.ip, 
-			  dameonsnmpegfavalue.mac, 
-			  dameonsnmpegfavalue.outputopticalpower, 
-			  dameonsnmpegfavalue.inputopticalpower, 
-			  dameonsnmpegfavalue.pumptemp1, 
-			  dameonsnmpegfavalue.pumptemp2, 
-			  dameonsnmpegfavalue.pumptemp3, 
-			  dameonsnmpegfavalue.dc5v, 
-			  dameonsnmpegfavalue.dcminor5v, 
-			  dameonsnmpegfavalue.dc33v, 
-			  dameonsnmpegfavalue.dc12v, 
-			  dameonsnmpegfavalue.left5v, 
-			  dameonsnmpegfavalue.right5v, 
-			  dameonsnmpegfavalue.leftminor5v,
-			  dameonsnmpegfavalue.rightminor5v 
+			  daemonsnmpegfavalue.ip, 
+			  daemonsnmpegfavalue.mac, 
+			  daemonsnmpegfavalue.outputopticalpower, 
+			  daemonsnmpegfavalue.inputopticalpower, 
+			  daemonsnmpegfavalue.pumptemp1, 
+			  daemonsnmpegfavalue.pumptemp2, 
+			  daemonsnmpegfavalue.pumptemp3, 
+			  daemonsnmpegfavalue.dc5v, 
+			  daemonsnmpegfavalue.dcminor5v, 
+			  daemonsnmpegfavalue.dc33v, 
+			  daemonsnmpegfavalue.dc12v, 
+			  daemonsnmpegfavalue.left5v, 
+			  daemonsnmpegfavalue.right5v, 
+			  daemonsnmpegfavalue.leftminor5v,
+			  daemonsnmpegfavalue.rightminor5v 
 			FROM 
 			  public.daemonsnmpegfavalue
 			WHERE 
-			  dameonsnmpegfavalue.time = $timestamp;";
+			  daemonsnmpegfavalue.time = $timestamp;";
 
 		$result_value = pg_query($query_value) or die('Query failed: ' . pg_last_error());
 
 		$number = pg_num_rows($result_value);
-		
 
 		while ($row = pg_fetch_object($result_value)) {	
 			$ip[] = $row->ip;
 			$mac[] = $row->mac;
-			$outputopticalpower[] = floatval($row->outputopticalpower);
+			$loutputopticalpower[] = floatval($row->outputopticalpower);
 			$inputopticalpower[] = floatval($row->inputopticalpower);
 			$pumptemp1[] = floatval($row->pumptemp1);
 			$pumptemp2[] = floatval($row->pumptemp2);
@@ -100,7 +99,7 @@ function alarmCompare_egfa(){
 
 		// getting alarm info from threshold, upper and lower bound. 1 is uppder, and 2 is lower  
 		$query_t = "SELECT 
-			  daemonalarmthresegfa.outputopticalpower1, 
+			  daemonalarmthresegfa.loutputopticalpower1, 
 			  daemonalarmthresegfa.inputopticalpower1, 
 			  daemonalarmthresegfa.pumptemp11, 
 			  daemonalarmthresegfa.pumptemp21, 
@@ -113,7 +112,7 @@ function alarmCompare_egfa(){
 			  daemonalarmthresegfa.right5v1, 
 			  daemonalarmthresegfa.leftminor5v1, 
 			  daemonalarmthresegfa.rightminor5v1, 
-			  daemonalarmthresegfa.outputopticalpower2,
+			  daemonalarmthresegfa.loutputopticalpower2,
 			  daemonalarmthresegfa.inputopticalpower2, 
 			  daemonalarmthresegfa.pumptemp12, 
 			  daemonalarmthresegfa.pumptemp22, 
@@ -126,7 +125,7 @@ function alarmCompare_egfa(){
 			  daemonalarmthresegfa.dc33v2, 
 			  daemonalarmthresegfa.leftminor5v2, 
 			  daemonalarmthresegfa.rightminor5v2,
-			  daemonalarmthresegfa.outputopticalpower3,
+			  daemonalarmthresegfa.loutputopticalpower3,
 			  daemonalarmthresegfa.inputopticalpower3, 
 			  daemonalarmthresegfa.pumptemp13, 
 			  daemonalarmthresegfa.pumptemp23, 
@@ -139,7 +138,7 @@ function alarmCompare_egfa(){
 			  daemonalarmthresegfa.dc33v3, 
 			  daemonalarmthresegfa.leftminor5v3, 
 			  daemonalarmthresegfa.rightminor5v3,
-			  daemonalarmthresegfa.outputopticalpower4,
+			  daemonalarmthresegfa.loutputopticalpower4,
 			  daemonalarmthresegfa.inputopticalpower4, 
 			  daemonalarmthresegfa.pumptemp14, 
 			  daemonalarmthresegfa.pumptemp24, 
@@ -153,13 +152,12 @@ function alarmCompare_egfa(){
 			  daemonalarmthresegfa.leftminor5v4, 
 			  daemonalarmthresegfa.rightminor5v4
 			FROM 
-			  public.daemonalarmthresegfa
-			LIMIT 1;";
+			  public.daemonalarmthresegfa;";
 
 		$result_t = pg_query($query_t) or die('Query failed: ' . pg_last_error());
 
 		while ($row = pg_fetch_object($result_t)) {
-			$outputopticalpower_1 = $row->outputopticalpower1;
+			$loutputopticalpower_1 = $row->loutputopticalpower1;
 			$inputopticalpower_1 = $row->inputopticalpower1;
 			$pumptemp1_1 = $row->pumptemp11;
 			$pumptemp2_1 = $row->pumptemp21;
@@ -172,7 +170,7 @@ function alarmCompare_egfa(){
 			$right5v_1 = $row->right5v1;
 			$leftminor5v_1 = $row->leftminor5v1;
 			$rightminor5v_1 = $row->rightminor5v1;
-			$outputopticalpower_2 = $row->outputopticalpower2;
+			$loutputopticalpower_2 = $row->loutputopticalpower2;
 			$inputopticalpower_2 = $row->inputopticalpower2;
 			$pumptemp1_2 = $row->pumptemp12;
 			$pumptemp2_2 = $row->pumptemp22;
@@ -185,7 +183,7 @@ function alarmCompare_egfa(){
 			$right5v_2 = $row->right5v2;
 			$leftminor5v_2 = $row->leftminor5v2;
 			$rightminor5v_2 = $row->rightminor5v2;
-			$outputopticalpower_3 = $row->outputopticalpower3;
+			$loutputopticalpower_3 = $row->loutputopticalpower3;
 			$inputopticalpower_3 = $row->inputopticalpower3;
 			$pumptemp1_3 = $row->pumptemp13;
 			$pumptemp2_3 = $row->pumptemp23;
@@ -198,7 +196,7 @@ function alarmCompare_egfa(){
 			$right5v_3 = $row->right5v3;
 			$leftminor5v_3 = $row->leftminor5v3;
 			$rightminor5v_3 = $row->rightminor5v3;
-			$outputopticalpower_4 = $row->outputopticalpower4;
+			$loutputopticalpower_4 = $row->loutputopticalpower4;
 			$inputopticalpower_4 = $row->inputopticalpower4;
 			$pumptemp1_4 = $row->pumptemp14;
 			$pumptemp2_4 = $row->pumptemp24;
@@ -216,14 +214,14 @@ function alarmCompare_egfa(){
 		// compare, also check if the threshold is undefined
 		for ($i=0; $i < $number; $i++) { 
 			
-			// outputopticalpower
-			// if ($outputopticalpower_1 != "" $$ $outputopticalpower_2 != "") {
-			// 	if ($outputopticalpower[$i] <  floatval($outputopticalpower_1) || $outputopticalpower[$i] > floatval($outputopticalpower_2)) {
-			// 		$log = "EGFA: Output Optical Power (" .  $outputopticalpower[$i] . " mA) is out of range!";
+			// loutputopticalpower
+			// if ($loutputopticalpower_1 != "" $$ $loutputopticalpower_2 != "") {
+			// 	if ($loutputopticalpower[$i] <  floatval($loutputopticalpower_1) || $loutputopticalpower[$i] > floatval($loutputopticalpower_2)) {
+			// 		$log = "EGFA: Output Optical Power (" .  $loutputopticalpower[$i] . " mA) is out of range!";
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_egfa($outputopticalpower_1, $outputopticalpower_2, $outputopticalpower_3, $outputopticalpower_4, $outputopticalpower[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_egfa($loutputopticalpower_1, $loutputopticalpower_2, $loutputopticalpower_3, $loutputopticalpower_4, $loutputopticalpower[$i], $timestamp, $ip[$i], $mac[$i]);
 
 
 			// inputopticalpower
@@ -355,7 +353,7 @@ function alarmCompare_egfa(){
 
 	pg_free_result($result_value);
 	pg_free_result($result_t);
-	pg_close($dbconn);
+	//pg_close($dbconn);
 
 }
 

@@ -2,9 +2,9 @@
 // will use the public variable 
 
 // unit test --- begin
-$t = "'" . "20151117130251" . "'"; 
+// $t = "'" . "20151117130251" . "'"; 
 
-alarmCompare_1550($t);
+// alarmCompare_1550($t);
 
 // unit test --- end 
 
@@ -315,7 +315,7 @@ function alarmCompare_1550($timestamp){
 
 	pg_free_result($result_value);
 	pg_free_result($result_t);
-	pg_close($dbconn);
+	//pg_close($dbconn);
 
 }
 

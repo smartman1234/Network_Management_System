@@ -1,20 +1,21 @@
 <?php
 
+$t = "'" . "20151117130251" . "'"; 
+alarmCompare_elink($t);
 
 // todo:  1) check if the threshold table exsits, if true, go ahead; 2) extract all value, and data treatment from alarm thres table, 3) extract all value, and data treatment from snmp table,  4) under the condition, compare the resutl, if abnormal, do an action 
 
-function alarmCompare_elink(){
+function alarmCompare_elink($timestamp){
 
 	require_once("alarm_logger.php");
 
-	global $timestamp;
 	// $timestamp = "'4 November 2015 08:29:27 AM'";   for debug purpose 
 
 	require("daemon_db_init.php");
 
 	// 1) check if the alarm thres 1550 table exist, if yes, go down the following codes	
 	$query_exist = "SELECT relname FROM pg_class 
-	WHERE relname = 'daemonalarmthreselink';";
+	WHERE relname = 'daemonalarmthreselinkps';";
 
 	$result_exist = pg_query($query_exist) or die('Query failed: ' . pg_last_error());
 
@@ -26,19 +27,20 @@ function alarmCompare_elink(){
 	}
 
 	// only if existed, following function will perform  
-	if ($exist == "daemonalarmthreselink") {
+	if ($exist == "daemonalarmthreselinkps") {
 
 		$query_value_ems = "SELECT 
-			  dameonsnmpelinkems.ip			 
+			  daemonsnmpelinkems.ip			 
 			FROM 
-			  public.dameonsnmpelinkems
+			  public.daemonsnmpelinkems
 			WHERE 
-			  dameonsnmpelinkems.time = $timestamp;";
+			  daemonsnmpelinkems.time = $timestamp;";
 
 		$result_value_ems = pg_query($query_value_ems) or die('Query failed: ' . pg_last_error());
 
 		$number_ems = pg_num_rows($result_value_ems);    // the number of total device eg1550
-		
+
+
 		while ($row = pg_fetch_object($result_value_ems)) {	
 			$ip[] = $row->ip;
 		}
@@ -48,32 +50,32 @@ function alarmCompare_elink(){
 			// compare: fan 
 			// extract the alarm thres raw data 
 			$query_value_fan = "SELECT 
-				  dameonsnmpelinkfan.fan1, 
-				  dameonsnmpelinkfan.fan2, 
-				  dameonsnmpelinkfan.fan3, 
-				  dameonsnmpelinkfan.fan4, 
-				  dameonsnmpelinkfan.fan5, 
-				  dameonsnmpelinkfan.fan6, 
-				  dameonsnmpelinkfan.fan7, 
-				  dameonsnmpelinkfan.fan8 
+				  daemonsnmpelinkfan.fan1, 
+				  daemonsnmpelinkfan.fan2, 
+				  daemonsnmpelinkfan.fan3, 
+				  daemonsnmpelinkfan.fan4, 
+				  daemonsnmpelinkfan.fan5, 
+				  daemonsnmpelinkfan.fan6, 
+				  daemonsnmpelinkfan.fan7, 
+				  daemonsnmpelinkfan.fan8 
 				FROM 
-				  public.dameonsnmpelinkfan
+				  public.daemonsnmpelinkfan
 				WHERE 
-				  dameonsnmpelinkfan.time = $timestamp;";
+				  daemonsnmpelinkfan.time = $timestamp;";
 
 			$result_value_fan = pg_query($query_value_fan) or die('Query failed: ' . pg_last_error());
 
 			$number_fan = pg_num_rows($result_value_fan);    // the number of total device fan
 			
 			while ($row = pg_fetch_object($result_value_fan)) {	
-				$fan1[] = int($row->fan1);
-				$fan2[] = int($row->fan2);
-				$fan3[] = int($row->fan3);    // 1
-				$fan4[] = int($row->fan4);    // 2
-				$fan5[] = int($row->fan5);    // 3
-				$fan6[] = int($row->fan6);    // 4
-				$fan7[] = int($row->fan7);    // 5
-				$fan8[] = int($row->fan8);    // 6
+				$fan1[] = intval($row->fan1);
+				$fan2[] = intval($row->fan2);
+				$fan3[] = intval($row->fan3);    // 1
+				$fan4[] = intval($row->fan4);    // 2
+				$fan5[] = intval($row->fan5);    // 3
+				$fan6[] = intval($row->fan6);    // 4
+				$fan7[] = intval($row->fan7);    // 5
+				$fan8[] = intval($row->fan8);    // 6
 			}
 
 			for ($j=0; $j < $number_fan; $j++) { 
@@ -89,22 +91,22 @@ function alarmCompare_elink(){
 
 			// check power supply 
 			$query_value_ps = "SELECT 
-				  dameonsnmpelinkps.outputv, 
-				  dameonsnmpelinkps.outputma, 
-				  dameonsnmpelinkps.outputw
+				  daemonsnmpelinkps.outputv, 
+				  daemonsnmpelinkps.outputma, 
+				  daemonsnmpelinkps.outputw
 				FROM 
-				  public.dameonsnmpelinkps
+				  public.daemonsnmpelinkps
 				WHERE 
-				  dameonsnmpelinkps.time = $timestamp;";
+				  daemonsnmpelinkps.time = $timestamp;";
 
 			$result_value_ps = pg_query($query_value_ps) or die('Query failed: ' . pg_last_error());
 
 			$number_ps = pg_num_rows($result_value_ps);    // the number of total device fan
 			
 			while ($row = pg_fetch_object($result_value_ps)) {	
-				$outputv[] = int($row->outputv);
-				$outputma[] = int($row->outputma);
-				$outputw[] = int($row->outputw); 
+				$outputv[] = intval($row->outputv);
+				$outputma[] = intval($row->outputma);
+				$outputw[] = intval($row->outputw); 
 			}
 
 			$query_t_ps = "SELECT 
@@ -148,24 +150,24 @@ function alarmCompare_elink(){
 
 			// check rrx 
 			$query_value_rrx = "SELECT 
-				  dameonsnmpelinkrrx.input1, 
-				  dameonsnmpelinkrrx.input2, 
-				  dameonsnmpelinkrrx.input3, 
-				  dameonsnmpelinkrrx.input4
+				  daemonsnmpelinkrrx.input1, 
+				  daemonsnmpelinkrrx.input2, 
+				  daemonsnmpelinkrrx.input3, 
+				  daemonsnmpelinkrrx.input4
 				FROM 
-				  public.dameonsnmpelinkrrx
+				  public.daemonsnmpelinkrrx
 				WHERE 
-				  dameonsnmpelinkrrx.time = $timestamp;";
+				  daemonsnmpelinkrrx.time = $timestamp;";
 
 			$result_value_rrx = pg_query($query_value_rrx) or die('Query failed: ' . pg_last_error());
 
 			$number_rrx = pg_num_rows($result_value_rrx);    // the number of total device fan
 			
 			while ($row = pg_fetch_object($result_value_rrx)) {	
-				$input1[] = int($row->input1);
-				$input2[] = int($row->input2);
-				$input3[] = int($row->input3); 
-				$input4[] = int($row->input4);
+				$input1[] = intval($row->input1);
+				$input2[] = intval($row->input2);
+				$input3[] = intval($row->input3); 
+				$input4[] = intval($row->input4);
 			}
 
 			$query_t_rrx = "SELECT 
@@ -216,25 +218,25 @@ function alarmCompare_elink(){
 			}
 
 			// check ftx 
-			$query_value_rrx = "SELECT 
-				  dameonsnmpelinkftx.lasertemp, 
-				  dameonsnmpelinkftx.laserbiascurrent, 
-				  dameonsnmpelinkftx.outputpower, 
-				  dameonsnmpelinkftx.thccurrent
+			$query_value_ftx = "SELECT 
+				  daemonsnmpelinkftx.lasertemp, 
+				  daemonsnmpelinkftx.laserbiascurrent, 
+				  daemonsnmpelinkftx.outputpower, 
+				  daemonsnmpelinkftx.thccurrent
 				FROM 
-				  public.dameonsnmpelinkftx
+				  public.daemonsnmpelinkftx
 				WHERE 
-				  dameonsnmpelinkftx.time = $timestamp;";
+				  daemonsnmpelinkftx.time = $timestamp;";
 
 			$result_value_ftx = pg_query($query_value_ftx) or die('Query failed: ' . pg_last_error());
 
 			$number_ftx = pg_num_rows($result_value_ftx);    // the number of total device fan
 			
 			while ($row = pg_fetch_object($result_value_ftx)) {	
-				$lasertemp[] = int($row->lasertemp);
-				$laserbiascurrent[] = int($row->laserbiascurrent);
-				$outputpower[] = int($row->outputpower); 
-				$thccurrent[] = int($row->thccurrent);
+				$lasertemp[] = intval($row->lasertemp);
+				$laserbiascurrent[] = intval($row->laserbiascurrent);
+				$outputpower[] = intval($row->outputpower); 
+				$thccurrent[] = intval($row->thccurrent);
 			}
 
 			$query_t_ftx = "SELECT 
@@ -284,12 +286,7 @@ function alarmCompare_elink(){
 				compare_elink($thccurrent_1, $thccurrent_2, $thccurrent_3, $thccurrent_4, $thccurrent[$m], $timestamp, $ip[$i]);
 			}
 
-		}	
-
-	}
-
-	pg_free_result($result_exist);
-	pg_free_result($result_value_ems);
+pg_free_result($result_value_ems);
 	pg_free_result($result_value_fan);
 	pg_free_result($result_value_ps);
 	pg_free_result($result_value_rrx);
@@ -297,6 +294,13 @@ function alarmCompare_elink(){
 	pg_free_result($result_t_ps);
 	pg_free_result($result_t_rrx);
 	pg_free_result($result_t_ftx);
+
+		}	
+
+	}
+
+	pg_free_result($result_exist);
+	
 	pg_close($dbconn);
 
 }
