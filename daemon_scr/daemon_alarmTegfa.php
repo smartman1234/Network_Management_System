@@ -103,71 +103,71 @@ while ($row_exist = pg_fetch_object($result_exist)){
 if ($exist != "daemonalarmthresegfa") {
 # code...
 	$query_construct = "CREATE TABLE PUBLIC.daemonalarmthresegfa(
-		loutputopticalpower1, 	TEXT,
-		inputopticalpower1, 	TEXT,
-		pumptemp11, 	TEXT,
-		pumptemp21, 	TEXT,
-		pumptemp31, 	TEXT,
-		dc5v1, 	TEXT,
-		dcminor5v1, 	TEXT,
-		dc33v1, 	TEXT,
-		dc12v1, 	TEXT,
-		left5v1, 	TEXT,
-		right5v1, 	TEXT,
-		leftminor5v1, 	TEXT,
-		rightminor5v1, 	TEXT,
-		loutputopticalpower2, 	TEXT,
-		inputopticalpower2, 	TEXT,
-		pumptemp12, 	TEXT,
-		pumptemp22, 	TEXT,
-		pumptemp32, 	TEXT,
-		dc5v2, 	TEXT,
-		dcminor5v2, 	TEXT,
-		dc33v2, 	TEXT,
-		dc12v2, 	TEXT,
-		left5v2, 	TEXT,
-		right5v2, 	TEXT,
-		leftminor5v2, 	TEXT,
-		rightminor5v2, 	TEXT,
-		loutputopticalpower3, 	TEXT,
-		inputopticalpower3, 	TEXT,
-		pumptemp13, 	TEXT,
-		pumptemp23, 	TEXT,
-		pumptemp33, 	TEXT,
-		dc5v3, 	TEXT,
-		dcminor5v3, 	TEXT,
-		dc33v3, 	TEXT,
-		dc12v3, 	TEXT,
-		left5v3, 	TEXT,
-		right5v3, 	TEXT,
-		leftminor5v3, 	TEXT,
-		rightminor5v3, 	TEXT,
-		loutputopticalpower4, 	TEXT,
-		inputopticalpower4, 	TEXT,
-		pumptemp14, 	TEXT,
-		pumptemp24, 	TEXT,
-		pumptemp34, 	TEXT,
-		dc5v4, 	TEXT,
-		dcminor5v4, 	TEXT,
-		dc33v4, 	TEXT,
-		dc12v4, 	TEXT,
-		left5v4, 	TEXT,
-		right5v4, 	TEXT,
-		leftminor5v4, 	TEXT,
-		rightminor5v4, 	TEXT,
-		loutputopticalpower5, 	TEXT,
-		inputopticalpower5, 	TEXT,
-		pumptemp15, 	TEXT,
-		pumptemp25, 	TEXT,
-		pumptemp35, 	TEXT,
-		dc5v5, 	TEXT,
-		dcminor5v5, 	TEXT,
-		dc33v5, 	TEXT,
-		dc12v5, 	TEXT,
-		left5v5, 	TEXT,
-		right5v5, 	TEXT,
-		leftminor5v5, 	TEXT,
-		rightminor5v5, 	TEXT   );";
+		loutputopticalpower1 TEXT,
+		inputopticalpower1 TEXT,
+		pumptemp11 TEXT,
+		pumptemp21 TEXT,
+		pumptemp31 TEXT,
+		dc5v1 TEXT,
+		dcminor5v1 TEXT,
+		dc33v1 TEXT,
+		dc12v1 TEXT,
+		left5v1 TEXT,
+		right5v1 TEXT,
+		leftminor5v1 TEXT,
+		rightminor5v1 TEXT,
+		loutputopticalpower2 TEXT,
+		inputopticalpower2 TEXT,
+		pumptemp12 TEXT,
+		pumptemp22 TEXT,
+		pumptemp32 TEXT,
+		dc5v2 TEXT,
+		dcminor5v2 TEXT,
+		dc33v2 TEXT,
+		dc12v2 TEXT,
+		left5v2 TEXT,
+		right5v2 TEXT,
+		leftminor5v2 TEXT,
+		rightminor5v2 TEXT,
+		loutputopticalpower3 TEXT,
+		inputopticalpower3 TEXT,
+		pumptemp13 TEXT,
+		pumptemp23 TEXT,
+		pumptemp33 TEXT,
+		dc5v3 TEXT,
+		dcminor5v3 TEXT,
+		dc33v3 TEXT,
+		dc12v3 TEXT,
+		left5v3 TEXT,
+		right5v3 TEXT,
+		leftminor5v3 TEXT,
+		rightminor5v3 TEXT,
+		loutputopticalpower4 TEXT,
+		inputopticalpower4 TEXT,
+		pumptemp14 TEXT,
+		pumptemp24 TEXT,
+		pumptemp34 TEXT,
+		dc5v4 TEXT,
+		dcminor5v4 TEXT,
+		dc33v4 TEXT,
+		dc12v4 TEXT,
+		left5v4 TEXT,
+		right5v4 TEXT,
+		leftminor5v4 TEXT,
+		rightminor5v4 TEXT,
+		loutputopticalpower5 TEXT,
+		inputopticalpower5 TEXT,
+		pumptemp15 TEXT,
+		pumptemp25 TEXT,
+		pumptemp35 TEXT,
+		dc5v5 TEXT,
+		dcminor5v5 TEXT,
+		dc33v5 TEXT,
+		dc12v5 TEXT,
+		left5v5 TEXT,
+		right5v5 TEXT,
+		leftminor5v5 TEXT,
+		rightminor5v5 TEXT   );";
 
 	$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
 	pg_free_result($result_construct);
@@ -180,7 +180,7 @@ if ($exist != "daemonalarmthresegfa") {
 /////////////
 
 
-$query_insert = "INSERT INTO PUBLIC.dameonsnmp1550value VALUES (
+$query_insert = "INSERT INTO PUBLIC.daemonalarmthresegfa VALUES (
 	$loutputopticalpower[0],
 	$inputopticalpower[0],
 	$pumptemp1[0],
@@ -277,6 +277,22 @@ function valegfa($a, $b, $c, $d, $e){
 	return $re;
 
 }
+
+echo "<br>";
+
+echo "<br>";
+	echo "<h2>The alarm configuration has been setup.</h2>";
+echo "<br>";
+echo "<br>";
+
+
+echo "<button onclick=closeWin()>Close</button>";
+echo
+"<script>
+function closeWin() {
+	window.close();
+}
+</script>";
 
 
 ?>

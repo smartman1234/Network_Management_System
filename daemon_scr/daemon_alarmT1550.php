@@ -85,58 +85,56 @@ while ($row_exist = pg_fetch_object($result_exist)){
 if ($exist != "daemonalarmthres1550") {
 # code...
 	$query_construct = "CREATE TABLE PUBLIC.daemonalarmthres1550(
-		laserim1, 	TEXT, 
-		lasertemperature1, 	TEXT, 
-		laserbias1, 	TEXT, 
-		rfmodulationlevel1, 	TEXT, 
-		dc24vvoltage1, 	TEXT, 
-		dc12vvoltage1, 	TEXT, 
-		dc5vvoltage1, 	TEXT, 
-		minor5vdcvoltage1, 	TEXT, 
-		txopticalpower1, 	TEXT, 
-		txrfmodulelevel1, 	TEXT, 
-		presentacpower1status, 	TEXT, 
-		presentacpower2status, 	TEXT,
-		laserim2, 	TEXT,
-		lasertemperature2, 	TEXT, 
-		laserbias2, 	TEXT, 
-		rfmodulationlevel2, 	TEXT, 
-		dc24vvoltage2, 	TEXT, 
-		dc12vvoltage2, 	TEXT, 
-		dc5vvoltage2, 	TEXT, 
-		minor5vdcvoltage2, 	TEXT, 
-		txopticalpower2, 	TEXT, 
-		txrfmodulelevel2，
-		laserim3, 	TEXT, 
-		lasertemperature3, 	TEXT, 
-		laserbias3, 	TEXT, 
-		rfmodulationlevel3, 	TEXT, 
-		dc24vvoltage3, 	TEXT, 
-		dc12vvoltage3, 	TEXT, 
-		dc5vvoltage3, 	TEXT, 
-		minor5vdcvoltage3, 	TEXT, 
-		txopticalpower3, 	TEXT, 
-		txrfmodulelevel3, 	TEXT, 
-		laserim4, 	TEXT, 
-		lasertemperature4, 	TEXT, 
-		laserbias4, 	TEXT, 
-		rfmodulationlevel4, 	TEXT, 
-		dc24vvoltage4, 	TEXT, 
-		dc12vvoltage4, 	TEXT, 
-		dc5vvoltage4, 	TEXT, 
-		minor5vdcvoltage4, 	TEXT, 
-		txopticalpower4, 	TEXT, 
-		txrfmodulelevel4, 	TEXT,
-		laserim5, 	TEXT, 
-		lasertemperature5, 	TEXT, 
-		laserbias5, 	TEXT, 
-		rfmodulationlevel5, 	TEXT, 
-		dc24vvoltage5, 	TEXT, 
-		dc12vvoltage5, 	TEXT, 
-		dc5vvoltage5, 	TEXT, 
-		minor5vdcvoltage5, 	TEXT, 
-		txopticalpower5, 	TEXT, 
-		txrfmodulelevel5	TEXT,		);";
+	laserim1 TEXT, 
+	lasertemperature1 TEXT, 
+	laserbias1 TEXT, 
+	rfmodulationlevel1 TEXT, 
+	dc24vvoltage1 TEXT, 
+	dc12vvoltage1 TEXT, 
+	dc5vvoltage1 TEXT, 
+	minor5vdcvoltage1 TEXT, 
+	txopticalpower1 TEXT, 
+	txrfmodulelevel1 TEXT,
+	laserim2 TEXT,
+	lasertemperature2 TEXT, 
+	laserbias2 TEXT, 
+	rfmodulationlevel2 TEXT, 
+	dc24vvoltage2 TEXT, 
+	dc12vvoltage2 TEXT, 
+	dc5vvoltage2 TEXT, 
+	minor5vdcvoltage2 TEXT, 
+	txopticalpower2 TEXT, 
+	txrfmodulelevel2 TEXT,
+	laserim3 TEXT, 
+	lasertemperature3 TEXT, 
+	laserbias3 TEXT, 
+	rfmodulationlevel3 TEXT, 
+	dc24vvoltage3 TEXT, 
+	dc12vvoltage3 TEXT, 
+	dc5vvoltage3 TEXT, 
+	minor5vdcvoltage3 TEXT, 
+	txopticalpower3 TEXT, 
+	txrfmodulelevel3 TEXT, 
+	laserim4 TEXT, 
+	lasertemperature4 TEXT, 
+	laserbias4 TEXT, 
+	rfmodulationlevel4 TEXT, 
+	dc24vvoltage4 TEXT, 
+	dc12vvoltage4 TEXT, 
+	dc5vvoltage4 TEXT, 
+	minor5vdcvoltage4 TEXT, 
+	txopticalpower4 TEXT, 
+	txrfmodulelevel4 TEXT,
+	laserim5 TEXT, 
+	lasertemperature5 TEXT, 
+	laserbias5 TEXT, 
+	rfmodulationlevel5 TEXT, 
+	dc24vvoltage5 TEXT, 
+	dc12vvoltage5 TEXT, 
+	dc5vvoltage5 TEXT, 
+	minor5vdcvoltage5 TEXT, 
+	txopticalpower5 TEXT, 
+	txrfmodulelevel5 TEXT);";
 
 	$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
 	pg_free_result($result_construct);
@@ -148,7 +146,7 @@ if ($exist != "daemonalarmthres1550") {
 // create done 
 /////////////
 
-$query_insert = "INSERT INTO PUBLIC.dameonsnmp1550value VALUES (
+$query_insert = "INSERT INTO PUBLIC.daemonalarmthres1550 VALUES (
 	$laserim[0], 
 	$lasertemperature[0],
 	$laserbias[0],
@@ -159,8 +157,6 @@ $query_insert = "INSERT INTO PUBLIC.dameonsnmp1550value VALUES (
 	$minor5vdcvoltage[0],
 	$txopticalpower[0],
 	$txrfmodulelevel[0],
-	'0',
-	'0',
 	$laserim[1], 
 	$lasertemperature[1],
 	$laserbias[1],
@@ -206,6 +202,8 @@ $query_insert = "INSERT INTO PUBLIC.dameonsnmp1550value VALUES (
 $result_insert = pg_query($query_insert) or die('Query failed: ' . pg_last_error());
 pg_free_result($result_insert);
 
+
+
 function val1550($a, $b, $c, $d, $e){
 	$a=floatval($a);
 	$b=floatval($b);
@@ -231,5 +229,25 @@ function val1550($a, $b, $c, $d, $e){
 	return $re;
 
 }
+
+
+
+
+echo "<br>";
+
+echo "<br>";
+	echo "<h2>The alarm configuration has been setup.</h2>";
+echo "<br>";
+echo "<br>";
+
+
+echo "<button onclick=closeWin()>Close</button>";
+echo
+"<script>
+function closeWin() {
+	window.close();
+}
+</script>";
+
 
 ?>

@@ -24,7 +24,7 @@ function ifAlarmInfoDbNotExistCreateIt(){
 	# code...
 		$query_construct = "CREATE TABLE PUBLIC.daemonalarm(
 			time           TEXT    ,
-			ip	Text,
+			ip		TEXT,
 			description            TEXT  ,
 			mac       TEXT,
 			severity       TEXT,

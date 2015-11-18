@@ -209,10 +209,30 @@ So, require_once() is recommended to use when you want to include a file where y
 * alarm setup page of 1550   --- ok
 * change sql column type, to make ip ok for search    --- ok
 
-// 2015--11-18
-* debug elink status page 
+// 2015--11-18 
+* unit-test: checkAlarmInfoDb.php   --- ok
+* unit-test: daemon_alarmT1550.php  --- ok
+* unit-test: daemon_alarmTegfa.php   --- ok
+* unit-test: daemon_alarmTelink.php --- ok
+* unit-test: daemon_checkElink.php   --- ok
+* unit-test: daemon_db_init.php    --- ok
+* unit-test: daemon_findTargetDeviceToArray.php   --- ok
+* unit-test: daemon_scanTime.php   --- ok
+* unit-test: daemon_snmp_1550.php   --- ok
+* unit-test: daemon_snmp_egfa.php   --- ok
+* unit-test: daemon_snmp_elink.php   --- ok
+* unit-test: display_value_1550.php    --- ok
+* unit-test: display_value_egfa.php   --- ok
+* unit-test: display_value_elink.php  --- ok
+* unit-test: setup_alarmT_1550.php   --- ok
+* unit-test: setup_alarmT_egfa.php   --- ok
+* unit-test: setup_alarmT_elink.php  --- ok
 
 
 
-
-* unit test all 
+* unit-test: alarm_logger.php    --- ok
+* unit-test: daemon_checkAlarmInfoDb.php
+* unit-test: daemon_compare_1550.php   
+* unit-test: daemon_compare_egfa.php
+* unit-test: daemon_compare_elink.php
+ * unit-test: daemon_main.php

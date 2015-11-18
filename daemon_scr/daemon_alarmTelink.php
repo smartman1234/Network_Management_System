@@ -94,18 +94,21 @@ while ($row_exist = pg_fetch_object($result_exist)){
 if ($exist != "daemonalarmthreselinkps") {
 # code...
 	$query_construct = "CREATE TABLE PUBLIC.daemonalarmthreselinkps(
-		outputv1, 	TEXT, 
-		outputv2, 	TEXT, 
-		outputv3, 	TEXT, 
-		outputv4, 	TEXT, 
-		outputma1, 	TEXT, 
-		outputma2, 	TEXT, 
-		outputma3, 	TEXT, 
-		outputma4, 	TEXT, 
-		outputw1, 	TEXT, 
-		outputw2, 	TEXT,
-		outputw3, 	TEXT,
-		outputw4, 	TEXT  );";
+		outputv1 TEXT, 
+		outputv2 TEXT, 
+		outputv3 TEXT, 
+		outputv4 TEXT, 
+		outputv5 TEXT, 
+		outputma1 TEXT, 
+		outputma2 TEXT, 
+		outputma3 TEXT, 
+		outputma4 TEXT, 
+		outputma5 TEXT, 
+		outputw1 TEXT, 
+		outputw2 TEXT,
+		outputw3 TEXT,
+		outputw4 TEXT,
+		outputw5 TEXT);";
 
 	$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
 	pg_free_result($result_construct);
@@ -133,22 +136,26 @@ while ($row_exist = pg_fetch_object($result_exist)){
 if ($exist != "daemonalarmthreselinkrrx") {
 # code...
 	$query_construct = "CREATE TABLE PUBLIC.daemonalarmthreselinkrrx(
-		input11, 	TEXT, 
-		input12, 	TEXT, 
-		input13, 	TEXT, 
-		input14, 	TEXT, 
-		input21, 	TEXT, 
-		input22, 	TEXT, 
-		input23, 	TEXT, 
-		input24, 	TEXT, 
-		input31, 	TEXT, 
-		input32, 	TEXT,
-		input33, 	TEXT,
-		input34, 	TEXT,
-		input41, 	TEXT, 
-		input42, 	TEXT,
-		input43, 	TEXT,
-		input44, 	TEXT   );";
+		input11 TEXT, 
+		input12 TEXT, 
+		input13 TEXT, 
+		input14 TEXT, 
+		input15 TEXT, 
+		input21 TEXT, 
+		input22 TEXT, 
+		input23 TEXT, 
+		input24 TEXT, 
+		input25 TEXT,
+		input31 TEXT, 
+		input32 TEXT,
+		input33 TEXT,
+		input34 TEXT,
+		input35 TEXT,
+		input41 TEXT, 
+		input42 TEXT,
+		input43 TEXT,
+		input44 TEXT,
+		input45 TEXT   );";
 
 	$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
 	pg_free_result($result_construct);
@@ -176,22 +183,26 @@ while ($row_exist = pg_fetch_object($result_exist)){
 if ($exist != "daemonalarmthreselinkftx") {
 # code...
 	$query_construct = "CREATE TABLE PUBLIC.daemonalarmthreselinkftx(
-		lasertemp1, 	TEXT, 
-		lasertemp2, 	TEXT, 
-		lasertemp3, 	TEXT, 
-		lasertemp4, 	TEXT, 
-		laserbiascurrent1, 	TEXT, 
-		laserbiascurrent2, 	TEXT, 
-		laserbiascurrent3, 	TEXT, 
-		laserbiascurrent4, 	TEXT, 
-		outputpower1, 	TEXT, 
-		outputpower2, 	TEXT,
-		outputpower3, 	TEXT,
-		outputpower4, 	TEXT,
-		thccurrent1, 	TEXT, 
-		thccurrent2, 	TEXT,
-		thccurrent3, 	TEXT,
-		thccurrent4, 	TEXT	);";
+		lasertemp1 TEXT, 
+		lasertemp2 TEXT, 
+		lasertemp3 TEXT, 
+		lasertemp4 TEXT, 
+		lasertemp5 TEXT,
+		laserbiascurrent1 TEXT, 
+		laserbiascurrent2 TEXT, 
+		laserbiascurrent3 TEXT, 
+		laserbiascurrent4 TEXT, 
+		laserbiascurrent5 TEXT, 
+		outputpower1 TEXT, 
+		outputpower2 TEXT,
+		outputpower3 TEXT,
+		outputpower4 TEXT,
+		outputpower5 TEXT,
+		thccurrent1 TEXT, 
+		thccurrent2 TEXT,
+		thccurrent3 TEXT,
+		thccurrent4 TEXT,
+		thccurrent5 TEXT	);";
 
 	$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
 	pg_free_result($result_construct);
@@ -218,9 +229,7 @@ $query_insert = "INSERT INTO PUBLIC.daemonalarmthreselinkps VALUES (
 	$outputw[3],
 	$outputv[4],
 	$outputma[4],
-	$outputw[4]    );";
-
-
+	$outputw[4]);";
 $result_insert = pg_query($query_insert) or die('Query failed: ' . pg_last_error());
 pg_free_result($result_insert);
 /////////////
@@ -308,6 +317,22 @@ function valelink($a, $b, $c, $d, $e){
 	return $re;
 
 }
+
+echo "<br>";
+
+echo "<br>";
+	echo "<h2>The alarm configuration has been setup.</h2>";
+echo "<br>";
+echo "<br>";
+
+
+echo "<button onclick=closeWin()>Close</button>";
+echo
+"<script>
+function closeWin() {
+	window.close();
+}
+</script>";
 
 
 ?>
