@@ -232,7 +232,7 @@ So, require_once() is recommended to use when you want to include a file where y
 
 * unit-test: alarm_logger.php    --- ok
 * unit-test: daemon_checkAlarmInfoDb.php  --- ok
-* unit-test: daemon_compare_1550.php   
+* unit-test: daemon_compare_1550.php   --- ok 
 * unit-test: daemon_compare_egfa.php
 * unit-test: daemon_compare_elink.php
  * unit-test: daemon_main.php

@@ -2,18 +2,19 @@
 // will use the public variable 
 
 // unit test --- begin
-//alarmCompare_1550();
+$t = "'" . "20151117130251" . "'"; 
+
+alarmCompare_1550($t);
 
 // unit test --- end 
 
 // todo:  1) check if the threshold table exsits, if true, go ahead; 2) extract all value, and data treatment from alarm thres table,
 //3) extract all value, and data treatment from snmp table,  4) under the condition, compare the resutl, if abnormal, do an action 
 
-function alarmCompare_1550(){
+function alarmCompare_1550($timestamp){
 
 	require_once("alarm_logger.php");
 
-	global $timestamp;
 	// $timestamp = "'4 November 2015 08:29:27 AM'";   for debug purpose 
 
 	require("daemon_db_init.php");
@@ -59,6 +60,7 @@ function alarmCompare_1550(){
 
 		$number = pg_num_rows($result_value);    // the number of total device eg1550
 		
+
 
 		while ($row = pg_fetch_object($result_value)) {	
 			$ip[] = $row->ip;
@@ -108,8 +110,6 @@ function alarmCompare_1550(){
 			  daemonalarmthres1550.minor5vdcvoltage1, 
 			  daemonalarmthres1550.txopticalpower1, 
 			  daemonalarmthres1550.txrfmodulelevel1, 
-			  daemonalarmthres1550.presentacpower1status, 
-			  daemonalarmthres1550.presentacpower2status,
 			  daemonalarmthres1550.laserim2,
 			  daemonalarmthres1550.lasertemperature2, 
 			  daemonalarmthres1550.laserbias2, 
@@ -119,7 +119,7 @@ function alarmCompare_1550(){
 			  daemonalarmthres1550.dc5vvoltage2, 
 			  daemonalarmthres1550.minor5vdcvoltage2, 
 			  daemonalarmthres1550.txopticalpower2, 
-			  daemonalarmthres1550.txrfmodulelevel2，
+			  daemonalarmthres1550.txrfmodulelevel2,
 			  daemonalarmthres1550.laserim3, 
 			  daemonalarmthres1550.lasertemperature3, 
 			  daemonalarmthres1550.laserbias3, 
@@ -141,8 +141,7 @@ function alarmCompare_1550(){
 			  daemonalarmthres1550.txopticalpower4, 
 			  daemonalarmthres1550.txrfmodulelevel4
 			FROM 
-			  public.daemonalarmthres1550
-			LIMIT 1;";
+			  public.daemonalarmthres1550;";
 
 		$result_t = pg_query($query_t) or die('Query failed: ' . pg_last_error());
 
@@ -157,8 +156,6 @@ function alarmCompare_1550(){
 			$minor5vdcvoltage_1 = $row->minor5vdcvoltage1;
 			$txopticalpower_1 = $row->txopticalpower1;
 			$txrfmodulelevel_1 = $row->txrfmodulelevel1;
-			$presentacpower1status_t = $row->presentacpower1status;     // for ps1, only 1 
-			$presentacpower2status_t = $row->presentacpower2status;   // for ps2, only 1 
 			$laserim_2 = $row->laserim2;
 			$lasertemperature_2 = $row->lasertemperature2;
 			$laserbias_2 = $row->laserbias2;
@@ -296,20 +293,20 @@ function alarmCompare_1550(){
 
 
 			// presentacpower1status
-			if ($presentacpower1status_t != "") {
-				if ($presentacpower1status[$i] != $presentacpower1status_t) {
-					$log = "EG1550: Power Supply 1 (" .  $presentacpower1status[$i] . " is changed!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
+			
+			if ($presentacpower1status[$i] != 'NORMAL"') {
+				$log = "EG1550: Power Supply 1 (" .  $presentacpower1status[$i] . " is changed!";
+				alarmLogger($timestamp, $ip[$i], $mac[$i], $log, "Power Failure");
 			}
+		
 
 			// presentacpower2status
-			if ($presentacpower2status_t != "") {
-				if ($presentacpower2status[$i] != $presentacpower2status_t) {
-					$log = "EG1550: Power Supply 2 (" .  $presentacpower2status[$i] . " is changed!";
-					alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
-				}
+
+			if ($presentacpower2status[$i] != 'NORMAL"') {
+				$log = "EG1550: Power Supply 2 (" .  $presentacpower2status[$i] . " is changed!";
+				alarmLogger($timestamp, $ip[$i], $mac[$i], $log, "Power Failure");
 			}
+
 
 		}
 

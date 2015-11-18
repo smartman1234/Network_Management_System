@@ -51,9 +51,9 @@ for ($i=0; $i < sizeof($device_egfa); $i++) {
 
 
 // compare with threshold value; use the global timestamp to distinguish the online device 
-alarmCompare_1550();
-alarmCompare_elink();
-alarmCompare_egfa(); 
+alarmCompare_1550($timestamp);
+alarmCompare_elink($timestamp);
+alarmCompare_egfa($timestamp); 
 
 // use timestamp as the key to check if there is any new alarm record inserted. If yes, take action!
 checkAlarmUpdatedIfYesTakeAction($timestamp);
