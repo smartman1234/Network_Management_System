@@ -391,9 +391,9 @@ pg_close($dbconn);
 require("daemon_db_init.php");
 
 $query = "SELECT 
-	dameonsnmp1550value.time
+	daemonsnmpelinkrrx.time
 	FROM 
-	public.dameonsnmp1550value;";
+	public.daemonsnmpelinkrrx;";
 
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
@@ -404,10 +404,9 @@ while ($row = pg_fetch_object($result)) {
 
 $time = "'" . strval($time) .  "'"; 
 
-
-
 echo "RRX:";
-$query = "SELECT 
+
+$query_rrx = "SELECT 
   daemonsnmpelinkrrx.slot, 
   daemonsnmpelinkrrx.model, 
   daemonsnmpelinkrrx.sn, 
@@ -422,51 +421,49 @@ $query = "SELECT
   daemonsnmpelinkrrx.status4
 FROM 
   public.daemonsnmpelinkrrx
- WHERE daemonsnmpelinkrrx.time = $time;
-";
+WHERE daemonsnmpelinkrrx.time = $time;";
 
-$result = pg_query($query) or die('Query failed: ' . pg_last_error());
+$result_rrx = pg_query($query_rrx) or die('Query failed: ' . pg_last_error());
 
-while ($row = pg_fetch_object($result)) {
-  $slot[] = $row->slot; 
-  $model[] = $row->model; 
-  $sn[] = $row->sn; 
-  $temp[] = $row->temp; 
-  $input1[] = $row->input1; 
-  $input2[] = $row->input2; 
-  $input3[] = $row->input3; 
-  $input4[] = $row->input4; 
-  $status1[] = $row->status1; 
-  $status2[] = $row->status2; 
-  $status3[] = $row->status3; 
-  $status4[] = $row->status4;
+while ($row_rrx = pg_fetch_object($result_rrx)) {
+  $slot_rrx[] = $row_rrx->slot; 
+  $model_rrx[] = $row_rrx->model; 
+  $sn_rrx[] = $row_rrx->sn; 
+  $temp_rrx[] = $row_rrx->temp; 
+  $input1_rrx[] = $row_rrx->input1; 
+  $input2_rrx[] = $row_rrx->input2; 
+  $input3_rrx[] = $row_rrx->input3; 
+  $input4_rrx[] = $row_rrx->input4; 
+  $status1_rrx[] = $row_rrx->status1; 
+  $status2_rrx[] = $row_rrx->status2; 
+  $status3_rrx[] = $row_rrx->status3; 
+  $status4_rrx[] = $row_rrx->status4;
 }
 
 
-pg_free_result($result);
+pg_free_result($result_rrx);
 pg_close($dbconn);
 
-echo "<table>";
-for ($i=0; $i < sizeof($slot); $i++) { 
+
+for ($i=0; $i < sizeof($slot_rrx); $i++) { 
 	# code...
-	echo "<tr><td>Slot</td><td>" . $slot[$i] . "</td></tr>";
-	echo "<tr><td>Model</td><td>" . $model[$i] . "</td></tr>";
-	echo "<tr><td>Sn</td><td>" . $sn[$i] . "</td></tr>";
-	echo "<tr><td>Temperature</td><td>" . $temp[$i] . "</td></tr>";
-	echo "<tr><td>Input 1</td><td>" . $input1[$i] . "</td></tr>";
-	echo "<tr><td>Input 2</td><td>" . $input2[$i] . "</td></tr>";
-	echo "<tr><td>Input 3</td><td>" . $input3[$i] . "</td></tr>";
-	echo "<tr><td>Input 4</td><td>" . $input4[$i] . "</td></tr>";
-	echo "<tr><td>Status 1</td><td>" . $status1[$i] . "</td></tr>";
-	echo "<tr><td>Status 2</td><td>" . $status2[$i] . "</td></tr>";
-	echo "<tr><td>Status 3</td><td>" . $status3[$i] . "</td></tr>";
-	echo "<tr><td>Status 4</td><td>" . $status4[$i] . "</td></tr>";
-
-}
+	echo "<table>";
+	echo "<tr><td>Slot</td><td>" . $slot_rrx[$i] . "</td></tr>";
+	echo "<tr><td>Model</td><td>" . $model_rrx[$i] . "</td></tr>";
+	echo "<tr><td>Sn</td><td>" . $sn_rrx[$i] . "</td></tr>";
+	echo "<tr><td>Temperature</td><td>" . $temp_rrx[$i] . "</td></tr>";
+	echo "<tr><td>Input 1</td><td>" . $input1_rrx[$i] . "</td></tr>";
+	echo "<tr><td>Input 2</td><td>" . $input2_rrx[$i] . "</td></tr>";
+	echo "<tr><td>Input 3</td><td>" . $input3_rrx[$i] . "</td></tr>";
+	echo "<tr><td>Input 4</td><td>" . $input4_rrx[$i] . "</td></tr>";
+	echo "<tr><td>Status 1</td><td>" . $status1_rrx[$i] . "</td></tr>";
+	echo "<tr><td>Status 2</td><td>" . $status2_rrx[$i] . "</td></tr>";
+	echo "<tr><td>Status 3</td><td>" . $status3_rrx[$i] . "</td></tr>";
+	echo "<tr><td>Status 4</td><td>" . $status4_rrx[$i] . "</td></tr>";
 	echo "</table>";
-
-
-
+	echo "<br>";
+}
+	
 
 ?>
 
@@ -477,8 +474,22 @@ for ($i=0; $i < sizeof($slot); $i++) {
 
 require("daemon_db_init.php");
 
-echo "FTX:";
 $query = "SELECT 
+	daemonsnmpelinkftx.time
+	FROM 
+	public.daemonsnmpelinkftx;";
+
+$result = pg_query($query) or die('Query failed: ' . pg_last_error());
+
+while ($row = pg_fetch_object($result)) {
+	$time = $row->time; 
+	
+}
+
+$time = "'" . strval($time) .  "'"; 
+
+echo "FTX:";
+$query_ftx = "SELECT 
   daemonsnmpelinkftx.slot, 
   daemonsnmpelinkftx.model, 
   daemonsnmpelinkftx.sn, 
@@ -492,99 +503,53 @@ $query = "SELECT
   daemonsnmpelinkftx.wavelength, 
   daemonsnmpelinkftx.thccurrent
 FROM 
-  public.daemonsnmpelinkftx;";
+  public.daemonsnmpelinkftx
+WHERE daemonsnmpelinkftx.time = $time;";
 
-$result = pg_query($query) or die('Query failed: ' . pg_last_error());
+$result_ftx = pg_query($query_ftx) or die('Query failed: ' . pg_last_error());
 
-while ($row = pg_fetch_object($result)) {
-	$slot = $row->slot; 
-	$model = $row->model; 
-	$sn = $row->sn; 
-	$temp = $row->temp; 
-	$rfinputpower = $row->rfinputpower; 
-	$agcmode = $row->agcmode; 
-	$lasertemp = $row->lasertemp; 
-	$laserbiascurrent = $row->laserbiascurrent; 
-	$outputpower = $row->outputpower; 
-	$lasertype = $row->lasertype; 
-	$wavelength = $row->wavelength; 
-	$thccurrent = $row->thccurrent;
+while ($row_ftx = pg_fetch_object($result_ftx)) {
+	$slot_ftx[] = $row_ftx->slot; 
+	$model_ftx[] = $row_ftx->model; 
+	$sn_ftx[] = $row_ftx->sn; 
+	$temp_ftx[] = $row_ftx->temp; 
+	$rfinputpower_ftx[] = $row_ftx->rfinputpower; 
+	$agcmode_ftx[] = $row_ftx->agcmode; 
+	$lasertemp_ftx[] = $row_ftx->lasertemp; 
+	$laserbiascurrent_ftx[] = $row_ftx->laserbiascurrent; 
+	$outputpower_ftx[] = $row_ftx->outputpower; 
+	$lasertype_ftx[] = $row_ftx->lasertype; 
+	$wavelength_ftx[] = $row_ftx->wavelength; 
+	$thccurrent_ftx[] = $row_ftx->thccurrent;
 }
 
 
 pg_free_result($result);
 pg_close($dbconn);
 
+
+
+for ($i=0; $i < sizeof($slot_ftx); $i++) { 
+	# code...
+	echo "<table>";
+	echo "<tr><td>Slot</td><td>" . $slot_ftx[$i] . "</td></tr>";
+	echo "<tr><td>Model</td><td>" . $model_ftx[$i] . "</td></tr>";
+	echo "<tr><td>Sn</td><td>" . $sn_ftx[$i] . "</td></tr>";
+	echo "<tr><td>Temperature</td><td>" . $temp_ftx[$i] . "</td></tr>";
+	echo "<tr><td>RF Input Power</td><td>" . $rfinputpower_ftx[$i] . "</td></tr>";
+	echo "<tr><td>AGC Mode</td><td>" . $agcmode_ftx[$i] . "</td></tr>";
+	echo "<tr><td>Laser Temperature</td><td>" . $lasertemp_ftx[$i] . "</td></tr>";
+	echo "<tr><td>Laser Bias Current</td><td>" . $laserbiascurrent_ftx[$i] . "</td></tr>";
+	echo "<tr><td>Output Power</td><td>" . $outputpower_ftx[$i] . "</td></tr>";
+	echo "<tr><td>Laser Type</td><td>" . $lasertype_ftx[$i] . "</td></tr>";
+	echo "<tr><td>Wave Length</td><td>" . $wavelength_ftx[$i] . "</td></tr>";
+	echo "<tr><td>THC Current</td><td>" . $thccurrent_ftx[$i] . "</td></tr>";
+	echo "</table>";
+	echo "<br>";
+}
+	
+
 ?>
-
-
-
-<table>
-
-<tr>
-<td>slot </td>
-<td> <?php  echo $slot;         ?></td>	
-</tr>
-
-<tr>
-<td>model </td>
-<td> <?php  echo $model;         ?></td>	
-</tr>
-
-<tr>
-<td>sn </td>
-<td> <?php  echo $sn;         ?></td>	
-</tr>
-
-<tr>
-<td>temp </td>
-<td> <?php  echo $temp;         ?></td>	
-</tr>
-
-<tr>
-<td>rfinputpower </td>
-<td> <?php  echo $rfinputpower;         ?></td>	
-</tr>
-
-<tr>
-<td>agcmode </td>
-<td> <?php  echo $agcmode;         ?></td>	
-</tr>
-<tr>
-<td>lasertemp </td>
-<td> <?php  echo $lasertemp;         ?></td>	
-</tr>
-
-<tr>
-<td>laserbiascurrent </td>
-<td> <?php  echo $laserbiascurrent;         ?></td>	
-</tr>
-
-<tr>
-<td>outputpower </td>
-<td> <?php  echo $outputpower;         ?></td>	
-</tr>
-
-<tr>
-<td>lasertype </td>
-<td> <?php  echo $lasertype;         ?></td>	
-</tr>
-<tr>
-<td>wavelength </td>
-<td> <?php  echo $wavelength;         ?></td>	
-</tr>
-
-<tr>
-<td>thccurrent </td>
-<td> <?php  echo $thccurrent;         ?></td>	
-</tr>
-
-
-</table>
-
-
-
-
 
 
 
