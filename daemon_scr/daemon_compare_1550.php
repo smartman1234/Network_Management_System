@@ -2,7 +2,7 @@
 // will use the public variable 
 
 // unit test --- begin
-// $t = "'" . "20151117130251" . "'"; 
+// $t = "'" . "20151119131151" . "'"; 
 
 // alarmCompare_1550($t);
 
@@ -60,7 +60,7 @@ function alarmCompare_1550($timestamp){
 
 		$number = pg_num_rows($result_value);    // the number of total device eg1550
 		
-
+echo $number;
 
 		while ($row = pg_fetch_object($result_value)) {	
 			$ip[] = $row->ip;

@@ -1,7 +1,7 @@
 <?php
 
-$t = "'" . "20151117130251" . "'"; 
-alarmCompare_elink($t);
+// $t = "'" . "20151117130251" . "'"; 
+// alarmCompare_elink($t);
 
 // todo:  1) check if the threshold table exsits, if true, go ahead; 2) extract all value, and data treatment from alarm thres table, 3) extract all value, and data treatment from snmp table,  4) under the condition, compare the resutl, if abnormal, do an action 
 
@@ -80,6 +80,7 @@ function alarmCompare_elink($timestamp){
 
 			for ($j=0; $j < $number_fan; $j++) { 
 				checkFanStatus($fan1[$j], $timestamp, $ip[$i]);
+
 				checkFanStatus($fan2[$j], $timestamp, $ip[$i]);
 				checkFanStatus($fan3[$j], $timestamp, $ip[$i]);
 				checkFanStatus($fan4[$j], $timestamp, $ip[$i]);
@@ -105,7 +106,9 @@ function alarmCompare_elink($timestamp){
 			
 			while ($row = pg_fetch_object($result_value_ps)) {	
 				$outputv[] = intval($row->outputv);
+			//	echo intval($row->outputv);
 				$outputma[] = intval($row->outputma);
+			//	echo intval($row->outputma);
 				$outputw[] = intval($row->outputw); 
 			}
 
@@ -123,8 +126,8 @@ function alarmCompare_elink($timestamp){
 			  daemonalarmthreselinkps.outputw3,
 			  daemonalarmthreselinkps.outputw4 
 			FROM 
-			  public.daemonalarmthreselinkps
-			LIMIT 1;";
+			  public.daemonalarmthreselinkps";
+
 			$result_t_ps = pg_query($query_t_ps) or die('Query failed: ' . pg_last_error());
 			while ($row = pg_fetch_object($result_t_ps)) {
 				$outputv_1 = $row->outputv1;
@@ -147,8 +150,9 @@ function alarmCompare_elink($timestamp){
 				compare_elink($outputw_1, $outputw_2, $outputw_3, $outputw_4, $outputw[$k], $timestamp, $ip[$i]);
 			}
 
-
-			// check rrx 
+			
+			// check rrx
+			require("daemon_db_init.php"); 
 			$query_value_rrx = "SELECT 
 				  daemonsnmpelinkrrx.input1, 
 				  daemonsnmpelinkrrx.input2, 
@@ -162,7 +166,8 @@ function alarmCompare_elink($timestamp){
 			$result_value_rrx = pg_query($query_value_rrx) or die('Query failed: ' . pg_last_error());
 
 			$number_rrx = pg_num_rows($result_value_rrx);    // the number of total device fan
-			
+
+					
 			while ($row = pg_fetch_object($result_value_rrx)) {	
 				$input1[] = intval($row->input1);
 				$input2[] = intval($row->input2);
@@ -188,8 +193,7 @@ function alarmCompare_elink($timestamp){
 			  daemonalarmthreselinkrrx.input43,
 			  daemonalarmthreselinkrrx.input44			  
 			FROM 
-			  public.daemonalarmthreselinkrrx
-			LIMIT 1;";
+			  public.daemonalarmthreselinkrrx";
 			$result_t_rrx = pg_query($query_t_rrx) or die('Query failed: ' . pg_last_error());
 			while ($row = pg_fetch_object($result_t_rrx)) {
 				$input1_1 = $row->input11;
@@ -218,6 +222,7 @@ function alarmCompare_elink($timestamp){
 			}
 
 			// check ftx 
+			require("daemon_db_init.php");
 			$query_value_ftx = "SELECT 
 				  daemonsnmpelinkftx.lasertemp, 
 				  daemonsnmpelinkftx.laserbiascurrent, 
@@ -234,6 +239,7 @@ function alarmCompare_elink($timestamp){
 			
 			while ($row = pg_fetch_object($result_value_ftx)) {	
 				$lasertemp[] = intval($row->lasertemp);
+
 				$laserbiascurrent[] = intval($row->laserbiascurrent);
 				$outputpower[] = intval($row->outputpower); 
 				$thccurrent[] = intval($row->thccurrent);
@@ -257,8 +263,7 @@ function alarmCompare_elink($timestamp){
 			  daemonalarmthreselinkftx.thccurrent3,
 			  daemonalarmthreselinkftx.thccurrent4			  
 			FROM 
-			  public.daemonalarmthreselinkftx
-			LIMIT 1;";
+			  public.daemonalarmthreselinkftx";
 			$result_t_ftx = pg_query($query_t_ftx) or die('Query failed: ' . pg_last_error());
 			while ($row = pg_fetch_object($result_t_ftx)) {
 				$lasertemp_1 = $row->lasertemp1;
@@ -286,14 +291,14 @@ function alarmCompare_elink($timestamp){
 				compare_elink($thccurrent_1, $thccurrent_2, $thccurrent_3, $thccurrent_4, $thccurrent[$m], $timestamp, $ip[$i]);
 			}
 
-pg_free_result($result_value_ems);
-	pg_free_result($result_value_fan);
-	pg_free_result($result_value_ps);
-	pg_free_result($result_value_rrx);
-	pg_free_result($result_value_ftx);
-	pg_free_result($result_t_ps);
-	pg_free_result($result_t_rrx);
-	pg_free_result($result_t_ftx);
+		pg_free_result($result_value_ems);
+		pg_free_result($result_value_fan);
+		pg_free_result($result_value_ps);
+		pg_free_result($result_value_rrx);
+		pg_free_result($result_value_ftx);
+		pg_free_result($result_t_ps);
+		pg_free_result($result_t_rrx);
+		pg_free_result($result_t_ftx);
 
 		}	
 
@@ -301,9 +306,11 @@ pg_free_result($result_value_ems);
 
 	pg_free_result($result_exist);
 	
-	pg_close($dbconn);
+	
 
 }
+
+// pg_close($dbconn);
 
 function compare_elink($t1, $t2, $t3, $t4, $r, $time, $ip){
     $mac = "";   // cuz mac is not available from here 		
@@ -334,7 +341,8 @@ function compare_elink($t1, $t2, $t3, $t4, $r, $time, $ip){
 }
 
 function checkFanStatus($fan, $time, $ip){
-	$mac = "";   // cuz mac is not available from here 		
+	$mac = "";   // cuz mac is not available from here 
+
 	if ($fan != 1) {
 		$log = "ELink HeadEnd has malfunctional fan.";
 		alarmLogger($time, $ip, $mac, $log, "fan out");

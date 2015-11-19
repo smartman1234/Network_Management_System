@@ -227,12 +227,11 @@ So, require_once() is recommended to use when you want to include a file where y
 * unit-test: setup_alarmT_1550.php   --- ok
 * unit-test: setup_alarmT_egfa.php   --- ok
 * unit-test: setup_alarmT_elink.php  --- ok
-
-
-
 * unit-test: alarm_logger.php    --- ok
 * unit-test: daemon_checkAlarmInfoDb.php  --- ok
 * unit-test: daemon_compare_1550.php   --- ok 
-* unit-test: daemon_compare_egfa.php
-* unit-test: daemon_compare_elink.php
- * unit-test: daemon_main.php
+* unit-test: daemon_compare_egfa.php  --- ok 
+
+// 2015--11-19
+* unit-test: daemon_compare_elink.php   --- ok 
+* unit-test: daemon_main.php    --- ok

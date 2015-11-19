@@ -2,7 +2,7 @@
 // the main entrance of daemon thread
 
 require("daemon_scanTime.php");   // scan timestamp 
-require("daemon_findTargetDeviceToArray.php");   // smartly find device and store into array 1) $device_1550[]: ip address 2) $device_elink[] 3) $device_egfa[]
+//require("daemon_findTargetDeviceToArray.php");   // smartly find device and store into array 1) $device_1550[]: ip address 2) $device_elink[] 3) $device_egfa[]
 require("daemon_snmp_1550.php");   // get snmp value and put it into db 
 require("daemon_snmp_elink.php");
 require("daemon_snmp_egfa.php");
@@ -10,7 +10,14 @@ require("daemon_compare_1550.php");
 require("daemon_compare_elink.php");
 require("daemon_compare_egfa.php");
 require("checkAlarmInfoDb.php");   
-require("daemon_alarmActionCheck.php");  
+require("daemon_checkAlarmInfoDb.php");  
+
+
+$device_1550[] = "69.70.200.246";
+$device_elink[] = "69.70.200.249";
+
+$device_egfa[] = "69.70.200.232";
+
 
 // update the timestamp 
 $timestamp = "'" . date('YmdGis') . "'";
@@ -19,7 +26,7 @@ daemon_scanTime();
 ifAlarmInfoDbNotExistCreateIt();
 
 //daemon_snmpScanIntoDb_1550("10.100.0.51");
-// 1550 module: get snmp value and put it into database
+//1550 module: get snmp value and put it into database
 for ($i=0; $i < sizeof($device_1550); $i++) { 
 	# code...
 	if (ifPingable($device_1550[$i]) != false) {
@@ -57,6 +64,8 @@ alarmCompare_egfa($timestamp);
 
 // use timestamp as the key to check if there is any new alarm record inserted. If yes, take action!
 checkAlarmUpdatedIfYesTakeAction($timestamp);
+
+//
 
 
 // the helper function that double chekcs the device is really reachable 
