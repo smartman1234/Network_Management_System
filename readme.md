@@ -235,3 +235,8 @@ So, require_once() is recommended to use when you want to include a file where y
 // 2015--11-19
 * unit-test: daemon_compare_elink.php   --- ok 
 * unit-test: daemon_main.php    --- ok
+
+// 2015--11-20
+* snmpget funciton proves good  --- ok
+* build auto discovery funciton  --- ok 
+

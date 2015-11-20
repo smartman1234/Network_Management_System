@@ -1,5 +1,51 @@
 <?php
  
+
+
+
+// $genericSnmpPath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/php_scripts/oidget/genericSnmp.php";
+// require_once($genericSnmpPath);  // to initialize snmp 
+// $ip = "69.70.200.232";
+
+// 	$value [0] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.2.0" );   // "Output Optical Power"
+// 	$value [1] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.3.0" );    // "Input Optical Power";
+// 	$value [2] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.4.1.4.1" );  // "Pump Temperature 1";
+// 	$value [3] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.4.1.4.2" );  //"Pump Temperature 2";
+// 	$value [4] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.4.1.4.3" );  // "Pump Temperature 3";
+// 	$value [5] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.5.0" );  //"Number of DC Power Supply";
+// 	$value [6] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.6.0" );   //"DC Power Supply Mode";
+// 	$value [7] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.7.1.2.1" );   // "DC +5V"
+// 	$value [8] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.7.1.2.2" );  // "DC -5V";
+// 	$value [9] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.7.1.2.3" );  // "DC +3.3V"
+// 	$value [10] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.7.1.2.4" );   //  "DC +12V";
+// 	$value [11] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.7.1.2.5" );   // "Left +5V"
+// 	$value [12] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.7.1.2.6" );  // "Right +5V";
+// 	$value [13] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.7.1.2.7" );  // "Left -5V";
+// 	$value [14] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.11.7.1.2.8" );  //  "Right -5V";
+// 	$value [15] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.3.3.2.2.1.18.1"  );  // "Device Manufactoring Date";
+// 	$value [16] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.3.3.2.2.1.19.1"  );  // Firmware Version";
+// 	$value [17] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.3.1.3.0" );  //   Model";
+// 	$value [18] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.3.1.4.0");  // Serial Number";
+// 	$value [19] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.3.1.5.0" );  // "Vendor";
+// 	$value [20] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.3.1.10.0" );  // Check Code";
+// 	$value [21] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.3.1.12.0" );  // "Tamper Status";
+// 	$value [22] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.3.1.13.0" );  // Internal Temperature";
+// 	$value [23] = snmpget_bigP ( $ip, ".1.3.6.1.4.1.17409.1.3.1.17.0");  // "Craft Status";
+
+// for ($i=0; $i < 24; $i++) { 
+// 	# code...
+// 	echo $value [$i] . "<br>";
+// }
+
+
+
+
+
+
+
+
+
+
  // unit test  --- begin 
 
 	//daemon_snmpScanIntoDb_egfa("10.100.0.50");

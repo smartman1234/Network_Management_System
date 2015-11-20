@@ -13,17 +13,20 @@ function snmpget_bigP($ip, $oid) {
 
 
 // function snmpget_smallp($ip, $oid) {
-// 	return snmpget($ip, "public", $oid);
+// 	return removeQuotation(ext(snmpget($ip, "public", $oid)));
 
 // }
 
 
 // function snmpget_bigP($ip, $oid) {
-// 	return snmpget($ip, "PUBLIC", $oid);
+// 	return removeQuotation(ext(snmpget($ip, "PUBLIC", $oid)));
 
 // }
 
+// function snmpget_smallp1($ip, $oid) {
+// 	return removeQuotation1(ext(snmpget($ip, "public", $oid)));
 
+// }
 
 
 function snmpget_smallp($ip, $oid) {
@@ -54,6 +57,11 @@ function removeQuotation($in){
 
 	}
 	return $out;
+}
+
+
+function removeQuotation1($in){
+	return rtrim(substr($in, 1), "'"); 
 }
 
 

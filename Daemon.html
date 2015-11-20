@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta http-equiv="refresh" content="300">
+  <meta http-equiv="refresh" content="86400">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="Electroline icon" href="images/icon.ico" />
   <!-- Meta, title, CSS, favicons, etc. -->
@@ -51,12 +51,23 @@
               
               <?php
 
-              require("daemon_scr/daemon_main.php");
+             require("daemon_scr/daemon_main.php");
               echo "The system is under protection. 
               <br>
               <br>
               ";
-              echo "The last scanning time: " . $timestamp;
+              echo "The last scanning time: " . date('Y-m-d G:i:s');
+
+
+              
+
+
+
+
+
+
+
+
 
               ?>
               

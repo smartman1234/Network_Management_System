@@ -1,5 +1,32 @@
 <?php
 
+
+
+
+
+
+
+
+
+
+
+// $genericSnmpPath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/php_scripts/oidget/genericSnmp.php";
+// require_once($genericSnmpPath);  // to initialize snmp 
+// $ip = "69.70.200.249";
+
+// $ps[0] = deco_elink(snmpget_smallp1($ip, ".1.3.6.1.4.1.5591.1.11.2.2.1.1.1.1.3.16.0")); // input v
+//     $ps[1] = deco_elink(snmpget_smallp1($ip, ".1.3.6.1.4.1.5591.1.11.2.2.1.1.2.1.2.16.0")); // output v
+//     $ps[2] = deco_elink(snmpget_smallp1($ip, ".1.3.6.1.4.1.5591.1.11.2.2.1.1.2.1.3.16.0")); // output ma
+//     $ps[3] = deco_elink(snmpget_smallp1($ip, ".1.3.6.1.4.1.5591.1.11.2.2.1.1.2.1.4.16.0")); // output W
+
+// for ($i=0; $i < 4; $i++) { 
+// 	# code...
+// echo $ps[$i] . "<br>";
+// }
+
+
+
+
 // 1, check and record the slot positions
 // 2, get all required snmp value 
 // 3, check if the db is existed 

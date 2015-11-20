@@ -1,5 +1,39 @@
 <?php
 
+// $genericSnmpPath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/php_scripts/oidget/genericSnmp.php";
+// require_once($genericSnmpPath);  // to initialize snmp 
+// $ip = "69.70.200.246";
+
+// $value [0] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.1.1" );
+// $value [1] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.2.1" );
+// $value [2] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.3.1" );
+// $value [3] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.4.1" );
+// $value [4] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.5.1" );
+// $value [5] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.6.1" );
+// $value [6] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.7.1" );
+// $value [7] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.8.1" );
+// $value [8] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.9.1" );
+// $value [9] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.10.1" );
+// $value [10] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.11.1" );
+// $value [11] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.12.1" );
+// $value [12] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.13.1" );
+// $value [13] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.14.1" );
+// $value [14] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.15.1" );
+// $value [15] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.16.1" );
+// $value [16] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.17.1" );
+// $value [17] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.18.1" );
+// $value [18] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.19.1" );
+// $value [19] = snmpget_smallp ( $ip, ".1.3.6.1.4.1.3222.4.6.1.1.20.1" );
+
+// for ($i=0; $i < 20; $i++) { 
+// 	# code...
+// 	echo $value [$i] . "<br>";
+// }
+
+
+// w
+
+
 // unit test   --- begin 
 
 // for ($i=0; $i < 3; $i++) { 

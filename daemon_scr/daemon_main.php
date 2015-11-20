@@ -11,6 +11,7 @@ require("daemon_compare_elink.php");
 require("daemon_compare_egfa.php");
 require("checkAlarmInfoDb.php");   
 require("daemon_checkAlarmInfoDb.php");  
+require("daemon_discovery.php");
 
 
 $device_1550[] = "69.70.200.246";
