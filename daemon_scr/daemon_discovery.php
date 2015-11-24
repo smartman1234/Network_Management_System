@@ -43,6 +43,26 @@ for ($i=0; $i < sizeof($ipaddr); $i++) {
 
 
 function getIpPool($l, $u){
+	$lp=strripos($l, ".")+1;
+	$up=strripos($u, ".")+1;
+	$lnum=intval(substr($l, $lp));
+	$unum=intval(substr($u, $up));
+	$lrem=substr($l, 0, $lp);
+	
+	for ($i=$lnum; $i <= $unum; $i++) { 
+		# code...
+		$ipPool[] = $lrem . strval($i);
+	}
+
+	for ($i=0; $i < sizeof($ipPool); $i++) { 
+		# code...
+		echo $ipPool[$i] . "<br>";
+	}
+
+
+
+
+
 
 
 
