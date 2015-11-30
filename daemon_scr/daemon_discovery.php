@@ -10,7 +10,7 @@
 
 
 
-//autoDiscovery("69.70.200.230", "69.70.200.250");
+autoDiscovery("69.70.200.230", "69.70.200.250");
  // writeToDatabase("69.70.200.246", "public");
  // writeToDatabase("69.70.200.249", "public");
  // writeToDatabase("69.70.200.232", "PUBLIC");
@@ -25,8 +25,8 @@ function autoDiscovery($lower, $upper){
     // 2) iterator over the ip list, and check the pingable.
     //3) in the pingable list, use public/PUBLIC, if has something, restore to the datasa
 
-   	$reachableIpList = getAllOnlineDevice(getAllIp($lower, $upper));
-    //$reachableIpList = getAllIp($lower, $upper);
+   	//$reachableIpList = getAllOnlineDevice(getAllIp($lower, $upper));
+    $reachableIpList = getAllIp($lower, $upper);
 
     for ($i=0; $i < sizeof($reachableIpList); $i++) { 
     	# code...
@@ -41,7 +41,8 @@ function autoDiscovery($lower, $upper){
     	if (substr($o, 0, 2)!="No") {
     		# code...
     		writeToDatabase($reachableIpList[$i], $comm);
-    		// echo $reachableIpList[$i]. " : " . $comm . "<br>";
+    		echo $reachableIpList[$i]. " : " . $comm . " has been added into the database.<br>";
+
 
     	}
 
@@ -152,7 +153,9 @@ function writeToDatabase($ip, $s){
 			contact       TEXT,
 			name         TEXT,
 			location		TEXT,
-			service   TEXT);";
+			service   TEXT,
+			latitude NUMERIC,
+			longtitude NUMERIC);";
 
 	$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
 	pg_free_result($result_construct);

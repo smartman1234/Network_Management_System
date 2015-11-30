@@ -18,6 +18,8 @@ $ipend[2] = $_POST["ipend3"];
 $retries[2] = $_POST["retries3"];
 $timeout[2] = $_POST["timeout3"];
 
+deleteExistedContent();
+
 
 for ($i=0; $i < 3; $i++) { 
 	# code...
@@ -48,6 +50,20 @@ function closeWin() {
 </script>";
 
 
+function deleteExistedContent(){
+	$genericSnmpPath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/daemon_scr/daemon_db_init.php";
+	require_once($genericSnmpPath);  // to initialize db 
+	$query_del = "DELETE FROM PUBLIC.daemondiscoveryrange;";
+	$result_del = pg_query($query_del) or die('Query failed: ' . pg_last_error());
+	pg_free_result($result_del);
+
+
+
+
+
+}
+
+
 function addEntry($begin, $end){
 
 	$genericSnmpPath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/daemon_scr/daemon_db_init.php";
@@ -75,10 +91,6 @@ function addEntry($begin, $end){
 
 	$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
 	pg_free_result($result_construct);
-
-
-
-
 
 	}
 
