@@ -10,7 +10,7 @@
 
 
 
-autoDiscovery("69.70.200.230", "69.70.200.250");
+// autoDiscovery("69.70.200.230", "69.70.200.250");
  // writeToDatabase("69.70.200.246", "public");
  // writeToDatabase("69.70.200.249", "public");
  // writeToDatabase("69.70.200.232", "PUBLIC");
@@ -25,10 +25,11 @@ function autoDiscovery($lower, $upper){
     // 2) iterator over the ip list, and check the pingable.
     //3) in the pingable list, use public/PUBLIC, if has something, restore to the datasa
 
-   	//$reachableIpList = getAllOnlineDevice(getAllIp($lower, $upper));
-    $reachableIpList = getAllIp($lower, $upper);
+   	$reachableIpList = getAllOnlineDevice(getAllIp($lower, $upper));
+    //$reachableIpList = getAllIp($lower, $upper);
 
     for ($i=0; $i < sizeof($reachableIpList); $i++) { 
+
     	# code...
     	$o = snmpget_smallp($reachableIpList[$i], ".1.3.6.1.2.1.1.2.0");   // oid 
     	$comm = "public";
@@ -155,7 +156,9 @@ function writeToDatabase($ip, $s){
 			location		TEXT,
 			service   TEXT,
 			latitude NUMERIC,
-			longtitude NUMERIC);";
+			longtitude NUMERIC,
+			MAC macaddr,
+			sn TEXT);";
 
 	$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
 	pg_free_result($result_construct);

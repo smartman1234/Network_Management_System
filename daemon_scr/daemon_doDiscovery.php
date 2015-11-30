@@ -22,16 +22,16 @@ while ($row = pg_fetch_object($result)){
 
 }
 
+pg_free_result($result);
+pg_close($dbconn);
+
 for ($i=0; $i < sizeof($ipbegin); $i++) { 
 	# cod..
 	if ($ipbegin[$i]!="" && $ipend[$i]!=""  ) {
 		# code...
-		echo $ipbegin[$i] . " : " . $ipend[$i] ; 
-		//autoDiscovery($ipbegin[$i], $ipend[$i]);
+		
+		autoDiscovery($ipbegin[$i], $ipend[$i]);
 	}
-
-
-	
 }
 
 echo "<br>";
@@ -51,21 +51,5 @@ function closeWin() {
 </script>";
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-pg_free_result($result);
-pg_close($dbconn);
 
 ?>
