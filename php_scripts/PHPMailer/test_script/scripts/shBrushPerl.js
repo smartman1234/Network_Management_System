@@ -68,7 +68,7 @@ SyntaxHighlighter.brushes.Perl = function()
 	    ];
 
 	this.forHtmlScript(SyntaxHighlighter.regexLib.phpScriptTags);
-}
+};
 
 SyntaxHighlighter.brushes.Perl.prototype	= new SyntaxHighlighter.Highlighter();
 SyntaxHighlighter.brushes.Perl.aliases		= ['perl', 'Perl', 'pl'];

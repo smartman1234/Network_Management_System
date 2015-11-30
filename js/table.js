@@ -126,15 +126,15 @@ var Table = (function(){
 	/**
 	 * Determine if a reference is defined
 	 */
-	function def(o) {return (typeof o!="undefined");};
-
+	function def(o) {
+		return (typeof o != "undefined");
+	}
 	/**
 	 * Determine if an object or class string contains a given class.
 	 */
 	function hasClass(o,name) {
 		return new RegExp("(^|\\s)"+name+"(\\s|$)").test(o.className);
-	};
-
+	}
 	/**
 	 * Add a class to an object
 	 */
@@ -143,16 +143,14 @@ var Table = (function(){
 		if (def(c) && !hasClass(o,name)) {
 			o.className += (c?" ":"") + name;
 		}
-	};
-
+	}
 	/**
 	 * Remove a class from an object
 	 */
 	function removeClass(o,name) {
 		var c = o.className || "";
 		o.className = c.replace(new RegExp("(^|\\s)"+name+"(\\s|$)"),"$1");
-	};
-
+	}
 	/**
 	 * For classes that match a given substring, return the rest
 	 */
@@ -162,8 +160,7 @@ var Table = (function(){
 			return RegExp.$2;
 		}
 		return null;
-	};
-
+	}
 	/**
 	 * Return true if an object is hidden.
 	 * This uses the "russian doll" technique to unwrap itself to the most efficient
@@ -185,8 +182,7 @@ var Table = (function(){
 		return (isHidden = function(o) {
 			return 'none'==o.style['display'];
 		})(o);
-	};
-
+	}
 	/**
 	 * Get a parent element by tag name, or the original element if it is of the tag type
 	 */
@@ -202,8 +198,7 @@ var Table = (function(){
 			}
 		}
 		return null;
-	};
-
+	}
 	/**
 	 * Utility function to copy properties from one object to another
 	 */

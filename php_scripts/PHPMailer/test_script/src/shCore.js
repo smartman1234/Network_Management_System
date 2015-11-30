@@ -316,8 +316,7 @@ var sh = {
 							result += "<param name='" + name + "' value='" + list[name] + "'/>";
 							
 						return result;
-					};
-					
+					}
 					function attributes(list)
 					{
 						var result = '';
@@ -326,8 +325,7 @@ var sh = {
 							result += " " + name + "='" + list[name] + "'";
 							
 						return result;
-					};
-					
+					}
 					var args1 = {
 							width				: config.toolbarItemWidth,
 							height				: config.toolbarItemHeight,
@@ -448,7 +446,7 @@ var sh = {
 						for(var i = 0; i < links.length; i++)
 							if(links[i].rel.toLowerCase() == 'stylesheet' && /shCore\.css$/.test(links[i].href))
 								destDoc.write('<link type="text/css" rel="stylesheet" href="' + links[i].href + '"></link>');
-					};
+					}
 				};
 			},
 
@@ -560,7 +558,7 @@ var sh = {
 				obj[type + func] = function()
 				{
 					obj['e' + type + func](window.event);
-				}
+				};
 				obj.attachEvent('on' + type, obj[type + func]);
 			}
 			else 
@@ -888,8 +886,7 @@ var sh = {
 					+ spaces.substr(0, count)
 					+ line.substr(pos + 1, line.length) // pos + 1 will get rid of the tab
 					;
-			};
-	
+			}
 			// Go through all the lines and do the 'smart tabs' magic.
 			code = sh.utils.eachLine(code, function(line)
 			{
@@ -937,7 +934,7 @@ var sh = {
 		unindent: function(str)
 		{
 			var lines = sh.utils.fixForBlogger(str).split('\n'),
-				indents = new Array(),
+				indents = [],
 				regex = /^\s*/,
 				min = 1000
 				;
@@ -1008,8 +1005,7 @@ var sh = {
 			function defaultAdd(match, regexInfo)
 			{
 				return [new sh.Match(match[0], match.index, regexInfo.css)];
-			};
-			
+			}
 			var index = 0,
 				match = null,
 				result = [],
@@ -1052,9 +1048,8 @@ var sh = {
 				result.push(source[i]);
 				
 			return result;
-		};
-		
-		var elements = element ? [element] : toArray(document.getElementsByTagName(sh.config.tagName)), 
+		}
+		var elements = element ? [element] : toArray(document.getElementsByTagName(sh.config.tagName)),
 			propertyName = 'innerHTML', 
 			highlighter = null
 			;
@@ -1208,7 +1203,7 @@ sh.HtmlScript.prototype.highlight = function(code, params)
 {
 	this.xmlBrush.highlight(code, params);
 	this.div = this.xmlBrush.div;
-}
+};
 
 /**
  * Main Highlither class.

@@ -74,7 +74,7 @@
         }
 
         function getAxeMinMaxValues(series,AxeIdx){
-            var minMaxValues = new Array();
+            var minMaxValues = [];
             for(var i = 0; i < series.length; i++){
                 minMaxValues[0] = series[i].data[0][AxeIdx];
                 minMaxValues[1] = series[i].data[series[i].data.length - 1][AxeIdx];
@@ -88,7 +88,7 @@
         }
 
         function findOthersBarsToReOrders(series){
-            var retSeries = new Array();
+            var retSeries = [];
 
             for(var i = 0; i < series.length; i++){
                 if(series[i].bars.order != null && series[i].bars.show){
@@ -117,7 +117,7 @@
         }
 
         function findPosition(serie){
-            var pos = 0
+            var pos = 0;
             for (var i = 0; i < orderedBarSeries.length; ++i) {
                 if (serie == orderedBarSeries[i]){
                     pos = i;
@@ -183,5 +183,5 @@
         version: "0.2"
     });
 
-})(jQuery)
+})(jQuery);
 

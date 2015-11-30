@@ -240,10 +240,15 @@ So, require_once() is recommended to use when you want to include a file where y
 * snmpget funciton proves good  --- ok
 * build auto discovery funciton  --- ok 
 
-// 2015--11-27
-* test why raw snmpget function is troublesome 
+// 2015--11-29
+* change the database to localhost:5432 
+
+
+
+* test why raw snmpget function is troublesome    --- ok, can still use shell_exeu to call snmpget on linux 
 * build auto discoverty range input handler 
-* build auto discovery range functiion 
+* build auto discovery range functiion   --- ok 
 * build ip single add handler
 * build ip single spot functions 
+* change the daemon_main ip feeder   --- ok 
 * test the back process 

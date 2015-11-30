@@ -52,7 +52,7 @@ SyntaxHighlighter.brushes.Bash = function()
 		{ regex: new RegExp(this.getKeywords(keywords), 'gm'),			css: 'keyword' },		// keywords
 		{ regex: new RegExp(this.getKeywords(commands), 'gm'),			css: 'functions' }		// commands
 		];
-}
+};
 
 SyntaxHighlighter.brushes.Bash.prototype	= new SyntaxHighlighter.Highlighter();
 SyntaxHighlighter.brushes.Bash.aliases		= ['bash', 'shell'];

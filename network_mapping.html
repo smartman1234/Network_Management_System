@@ -60,8 +60,8 @@
             // example 05:00 not 04:59
             start = Date.now() + 1000;
         }
-    };
-    // we don't want to wait a full second before the timer starts
+        }
+        // we don't want to wait a full second before the timer starts
     timer();
     setInterval(timer, 1000);
 }
@@ -279,8 +279,14 @@ window.onload = function() {
 
                     //     ];
 
-                    var locations = <?php require "php_scripts/gps_data_extractor.php"; echo $json; ?>;
-
+                    var locations =;
+                    <
+                    ? php require;
+                    "php_scripts/gps_data_extractor.php";
+                    echo;
+                    $json;
+                    ?
+                    >
                     var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 2,
                         center: new google.maps.LatLng(locations[0][1], locations[0][1]),
@@ -367,7 +373,7 @@ window.onload = function() {
     //generate random number for charts
     randNum = function() {
         return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
-    }
+    };
 
     $(function() {
         var d1 = [];
@@ -532,7 +538,7 @@ window.onload = function() {
         });
     });
 
-    var asInitVals = new Array();
+    var asInitVals = [];
     $(document).ready(function() {
         var oTable = $('#example').dataTable({
             "oLanguage": {

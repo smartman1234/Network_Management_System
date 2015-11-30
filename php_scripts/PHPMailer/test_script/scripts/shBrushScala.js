@@ -47,7 +47,7 @@ SyntaxHighlighter.brushes.Scala = function()
 		{ regex: new RegExp(this.getKeywords(keywords), 'gm'),				css: 'keyword' },	// keywords
 		{ regex: new RegExp(keyops, 'gm'),									css: 'keyword' }	// scala keyword
 		];
-}
+};
 
 SyntaxHighlighter.brushes.Scala.prototype	= new SyntaxHighlighter.Highlighter();
 SyntaxHighlighter.brushes.Scala.aliases		= ['scala'];

@@ -124,7 +124,7 @@ function _fnLog( oSettings, iLevel, sMesg )
 		{
 			throw new Error(sAlert);
 		}
-		return;
+
 	}
 	else if ( window.console && console.log )
 	{

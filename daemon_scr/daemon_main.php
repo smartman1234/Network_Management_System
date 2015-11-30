@@ -2,7 +2,7 @@
 // the main entrance of daemon thread
 
 require("daemon_scanTime.php");   // scan timestamp 
-//require("daemon_findTargetDeviceToArray.php");   // smartly find device and store into array 1) $device_1550[]: ip address 2) $device_elink[] 3) $device_egfa[]
+require("daemon_findTargetDeviceToArray.php");   // smartly find device and store into array 1) $device_1550[]: ip address 2) $device_elink[] 3) $device_egfa[]
 require("daemon_snmp_1550.php");   // get snmp value and put it into db 
 require("daemon_snmp_elink.php");
 require("daemon_snmp_egfa.php");
@@ -11,13 +11,11 @@ require("daemon_compare_elink.php");
 require("daemon_compare_egfa.php");
 require("checkAlarmInfoDb.php");   
 require("daemon_checkAlarmInfoDb.php");  
-require("daemon_discovery.php");
 
+// $device_1550[] = "69.70.200.246";
+// $device_elink[] = "69.70.200.249";
 
-$device_1550[] = "69.70.200.246";
-$device_elink[] = "69.70.200.249";
-
-$device_egfa[] = "69.70.200.232";
+// $device_egfa[] = "69.70.200.232";
 
 
 // update the timestamp 

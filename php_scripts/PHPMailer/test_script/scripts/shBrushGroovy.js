@@ -63,7 +63,7 @@ SyntaxHighlighter.brushes.Groovy = function()
 		];
 
 	this.forHtmlScript(SyntaxHighlighter.regexLib.aspScriptTags);
-}
+};
 
 SyntaxHighlighter.brushes.Groovy.prototype	= new SyntaxHighlighter.Highlighter();
 SyntaxHighlighter.brushes.Groovy.aliases	= ['groovy'];

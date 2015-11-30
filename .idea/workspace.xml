@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fc088ec1-7f87-4b61-b6b1-9d930faf4c32" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account_management.html" afterPath="$PROJECT_DIR$/account_management.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/add_device.html" afterPath="$PROJECT_DIR$/add_device.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/alarm_list.html" afterPath="$PROJECT_DIR$/alarm_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/change_account.php" afterPath="$PROJECT_DIR$/change_account.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/daemon_scr/daemon_db_init.php" afterPath="$PROJECT_DIR$/daemon_scr/daemon_db_init.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/daemon_scr/daemon_discovery.php" afterPath="$PROJECT_DIR$/daemon_scr/daemon_discovery.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/device_history.html" afterPath="$PROJECT_DIR$/device_history.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/discovery_config.html" afterPath="$PROJECT_DIR$/discovery_config.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inventory.html" afterPath="$PROJECT_DIR$/inventory.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/custom.js" afterPath="$PROJECT_DIR$/js/custom.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/src/core/core.support.js" afterPath="$PROJECT_DIR$/js/datatables/src/core/core.support.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/1_dom/5396-fnUpdate-arrays-mData.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/1_dom/5396-fnUpdate-arrays-mData.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/1_dom/5396-fnUpdate-arrays.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/1_dom/5396-fnUpdate-arrays.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/1_dom/aoColumns.bSortable.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/1_dom/aoColumns.bSortable.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/1_dom/aoColumns.bVisible.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/1_dom/aoColumns.bVisible.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/1_dom/fnSetColumnVis.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/1_dom/fnSetColumnVis.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/1_dom/sDom.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/1_dom/sDom.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/2_js/aoColumns.bSortable.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/2_js/aoColumns.bSortable.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/2_js/aoColumns.bVisible.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/2_js/aoColumns.bVisible.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/2_js/sDom.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/2_js/sDom.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/3_ajax/aoColumns.bSortable.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/3_ajax/aoColumns.bSortable.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/3_ajax/aoColumns.bVisible.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/3_ajax/aoColumns.bVisible.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/3_ajax/sDom.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/3_ajax/sDom.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/4_server-side/aoColumns.bSortable.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/4_server-side/aoColumns.bSortable.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/4_server-side/aoColumns.bVisible.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/4_server-side/aoColumns.bVisible.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/4_server-side/sDom.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/4_server-side/sDom.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/5_ajax_objects/aoColumns.bSortable.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/5_ajax_objects/aoColumns.bSortable.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/5_ajax_objects/aoColumns.bVisible.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/5_ajax_objects/aoColumns.bVisible.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/5_ajax_objects/sDom.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/5_ajax_objects/sDom.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/6_delayed_rendering/aoColumns.bSortable.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/6_delayed_rendering/aoColumns.bSortable.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/6_delayed_rendering/aoColumns.bVisible.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/6_delayed_rendering/aoColumns.bVisible.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/6_delayed_rendering/sDom.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/tests_onhold/6_delayed_rendering/sDom.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/datatables/unit_testing/unit_test.js" afterPath="$PROJECT_DIR$/js/datatables/unit_testing/unit_test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/dist/jstree.js" afterPath="$PROJECT_DIR$/js/dist/jstree.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/echart/green.js" afterPath="$PROJECT_DIR$/js/echart/green.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/flot/curvedLines.js" afterPath="$PROJECT_DIR$/js/flot/curvedLines.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/flot/jquery.flot.orderBars.js" afterPath="$PROJECT_DIR$/js/flot/jquery.flot.orderBars.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/flot/jquery.flot.pie.js" afterPath="$PROJECT_DIR$/js/flot/jquery.flot.pie.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/flot/jquery.flot.spline.js" afterPath="$PROJECT_DIR$/js/flot/jquery.flot.spline.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/nprogress.js" afterPath="$PROJECT_DIR$/js/nprogress.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/table.js" afterPath="$PROJECT_DIR$/js/table.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/validator/validator.js" afterPath="$PROJECT_DIR$/js/validator/validator.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/wizard/jquery.smartWizard.js" afterPath="$PROJECT_DIR$/js/wizard/jquery.smartWizard.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js_tree.html" afterPath="$PROJECT_DIR$/js_tree.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.html" afterPath="$PROJECT_DIR$/main.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map_testing.html" afterPath="$PROJECT_DIR$/map_testing.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/network_mapping.html" afterPath="$PROJECT_DIR$/network_mapping.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notification_ack.html" afterPath="$PROJECT_DIR$/notification_ack.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notification_outstanding.html" afterPath="$PROJECT_DIR$/notification_outstanding.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outage_list.html" afterPath="$PROJECT_DIR$/outage_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php_scripts/PHPMailer/aboutus.html" afterPath="$PROJECT_DIR$/php_scripts/PHPMailer/aboutus.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php_scripts/PHPMailer/test_script/scripts/shBrushBash.js" afterPath="$PROJECT_DIR$/php_scripts/PHPMailer/test_script/scripts/shBrushBash.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php_scripts/PHPMailer/test_script/scripts/shBrushCss.js" afterPath="$PROJECT_DIR$/php_scripts/PHPMailer/test_script/scripts/shBrushCss.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php_scripts/PHPMailer/test_script/scripts/shBrushGroovy.js" afterPath="$PROJECT_DIR$/php_scripts/PHPMailer/test_script/scripts/shBrushGroovy.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php_scripts/PHPMailer/test_script/scripts/shBrushPerl.js" afterPath="$PROJECT_DIR$/php_scripts/PHPMailer/test_script/scripts/shBrushPerl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php_scripts/PHPMailer/test_script/scripts/shBrushScala.js" afterPath="$PROJECT_DIR$/php_scripts/PHPMailer/test_script/scripts/shBrushScala.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php_scripts/PHPMailer/test_script/src/shCore.js" afterPath="$PROJECT_DIR$/php_scripts/PHPMailer/test_script/src/shCore.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php_scripts/PHPMailer/test_script/src/shLegacy.js" afterPath="$PROJECT_DIR$/php_scripts/PHPMailer/test_script/src/shLegacy.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php_scripts/alarm_acknowledge_dialog.php" afterPath="$PROJECT_DIR$/php_scripts/alarm_acknowledge_dialog.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php_scripts/notice_acknowledge_dialog.php" afterPath="$PROJECT_DIR$/php_scripts/notice_acknowledge_dialog.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/polling_config.html" afterPath="$PROJECT_DIR$/polling_config.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.php" afterPath="$PROJECT_DIR$/test.php" />
+    </list>
+    <ignored path="rapidnms.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="rapidnms" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="daemon_discovery.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/daemon_scr/daemon_discovery.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4868914">
+              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/change_account.php" />
+        <option value="$PROJECT_DIR$/daemon_scr/daemon_discovery.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsBuildToolPackageJson" detection-done="true" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rapidnms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rapidnms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vanguardhe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rapidnms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vanguardhe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="daemon_scr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="FullScreen" value="true" />
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.change_account.php">
+    <configuration default="false" name="change_account.php" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/rapidnms/change_account.php">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <envs />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.change_account.php" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.change_account.php" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fc088ec1-7f87-4b61-b6b1-9d930faf4c32" name="Default" comment="" />
+      <created>1448465656187</created>
+      <option name="number" value="Default" />
+      <updated>1448465656187</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15972222" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/change_account.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1448846593000" expanded="true" signature="306:433" placeholder="UPDATE publi..." />
+            <marker date="1448846593000" expanded="true" signature="581:647" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/change_account.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49603173">
+          <caret line="25" column="2" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="2" />
+          <folding>
+            <marker date="1448846593000" expanded="true" signature="306:433" placeholder="UPDATE publi..." />
+            <marker date="1448846593000" expanded="true" signature="581:647" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/daemon_scr/daemon_discovery.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4868914">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

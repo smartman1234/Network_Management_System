@@ -67,7 +67,7 @@
                 // example 05:00 not 04:59
                 start = Date.now() + 1000;
             }
-        };
+        }
         // we don't want to wait a full second before the timer starts
         timer();
         setInterval(timer, 1000);
@@ -325,16 +325,16 @@
 														<br>
 														Current time:
 														<script type="text/javascript">
-															var currentDate = new Date()
-															var day = currentDate.getDate()
-															var month = currentDate.getMonth() + 1
-															var year = currentDate.getFullYear()
-															var currentTime = new Date()
-															var hours = currentTime.getHours()
-															var minutes = currentTime.getMinutes()
+															var currentDate = new Date();
+															var day = currentDate.getDate();
+															var month = currentDate.getMonth() + 1;
+															var year = currentDate.getFullYear();
+															var currentTime = new Date();
+															var hours = currentTime.getHours();
+															var minutes = currentTime.getMinutes();
 
 															if (minutes < 10)
-																minutes = "0" + minutes
+																minutes = "0" + minutes;
 
 															var suffix = "AM";
 															if (hours >= 12) {
@@ -344,8 +344,8 @@
 															if (hours == 0) {
 																hours = 12;
 															}
-															document.write("<b>" + day + "/" + month + "/" + year + "</b>")
-															document.write("<b></b>")
+															document.write("<b>" + day + "/" + month + "/" + year + "</b>");
+															document.write("<b></b>");
 															document.write("<b>" + hours + ":" + minutes + " " + suffix + "</b>")
 														</script>
 													</h2>
@@ -485,7 +485,7 @@
         //generate random number for charts
         randNum = function() {
             return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
-        }
+        };
 
         $(function() {
             var d1 = [];
@@ -651,7 +651,7 @@
             });
         });
 
-        var asInitVals = new Array();
+        var asInitVals = [];
         $(document).ready(function() {
             var oTable = $('#example').dataTable({
                 "oLanguage": {

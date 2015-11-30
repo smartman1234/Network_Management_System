@@ -56,7 +56,7 @@
                 // example 05:00 not 04:59
                 start = Date.now() + 1000;
             }
-        };
+        }
         // we don't want to wait a full second before the timer starts
         timer();
         setInterval(timer, 1000);
@@ -82,16 +82,16 @@
                     <h3>
                         <script type="text/javascript">
                             <!--
-                            var currentDate = new Date()
-                            var day = currentDate.getDatnth() + 1
-                            var year = currentDate.getFullYear()
-                            var currentTime = newe()
-                            var month = currentDate.getMo Date()
-                            var hours = currentTime.getHours()
-                            var minutes = currentTime.getMinutes()
+                            var currentDate = new Date();
+                            var day = currentDate.getDatnth() + 1;
+                            var year = currentDate.getFullYear();
+                            var currentTime = newe();
+                            var month = currentDate.getMo; Date();
+                            var hours = currentTime.getHours();
+                            var minutes = currentTime.getMinutes();
 
                             if (minutes < 10)
-                              minutes = "0" + minutes
+                              minutes = "0" + minutes;
 
                           var suffix = "AM";
                           if (hours >= 12) {
@@ -101,9 +101,9 @@
                           if (hours == 0) {
                               hours = 12;
                           }
-                          document.write("<b>" + day + "/" + month + "/" + year + "</b>")
-                          document.write("<b></b>")
-                  document.write("<b>" + hours + ":" + minutes + " " + suffix + "</b>")    //-->
+                          document.write("<b>" + day + "/" + month + "/" + year + "</b>");
+                          document.write("<b></b>");
+                  document.write("<b>" + hours + ":" + minutes + " " + suffix + "</b>");    //-->
               </script>
           </h3>
                     <div class="clearfix"></div>
@@ -418,7 +418,7 @@
         //generate random number for charts
         randNum = function() {
             return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
-        }
+        };
 
         $(function() {
             var d1 = [];
@@ -580,7 +580,7 @@
                 console.log(start.toISOString(), end.toISOString(), label);
                 $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
                 //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
-            }
+            };
 
             var optionSet1 = {
                 startDate: moment().subtract(29, 'days'),

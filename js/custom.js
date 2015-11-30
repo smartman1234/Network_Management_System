@@ -66,7 +66,7 @@ $(function () {
 /** ******  tooltip  *********************** **/
 $(function () {
         $('[data-toggle="tooltip"]').tooltip()
-    })
+    });
     /** ******  /tooltip  *********************** **/
     /** ******  progressbar  *********************** **/
 if ($(".progress .progress-bar")[0]) {

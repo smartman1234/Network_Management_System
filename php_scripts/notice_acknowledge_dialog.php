@@ -60,7 +60,7 @@ xmlhttp.onreadystatechange=function()
 		document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
 
 	}
-}
+};
 xmlhttp.open("GET","acknowledge_notice_function.php?q=" + noticeID, true);
 xmlhttp.send();
 }

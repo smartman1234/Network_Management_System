@@ -62,8 +62,8 @@
             // example 05:00 not 04:59
             start = Date.now() + 1000;
         }
-    };
-    // we don't want to wait a full second before the timer starts
+        }
+        // we don't want to wait a full second before the timer starts
     timer();
     setInterval(timer, 1000);
 }
@@ -274,11 +274,18 @@ window.onload = function() {
     </div>
     <script>
         $(function() {
-            var availableTags = <?php require "php_scripts/ip_address_json.php"; echo $json; ?>;
+            var availableTags =;
+            <
+            ? php require;
+            "php_scripts/ip_address_json.php";
+            echo;
+            $json;
+            ?
+            >
             $("#ipaddress").autocomplete({
                 source: availableTags
             });
-        });
+        });;
     </script>
     <!-- the ajax function for IP hint -->
                         <!-- 										<script>
@@ -308,14 +315,14 @@ window.onload = function() {
                                             if (str.length == 0) {
                                                 document.getElementById("txtHint").innerHTML = "";
                                                 document.getElementById("txtHint").style.border = "0px";
-                                                return;
+
                                             } else {
                                                 var xmlhttp = new XMLHttpRequest();
                                                 xmlhttp.onreadystatechange = function() {
                                                     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                                                         document.getElementById("searchresult").innerHTML = xmlhttp.responseText;
                                                     }
-                                                }
+                                                };
                                                 xmlhttp.open("get", "php_scripts/searched_events.php?q=" + str, true);
                                                 xmlhttp.send();
                                             }
@@ -392,7 +399,7 @@ window.onload = function() {
     //generate random number for charts
     randNum = function() {
         return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
-    }
+    };
 
     $(function() {
         var d1 = [];
@@ -557,7 +564,7 @@ window.onload = function() {
         });
     });
 
-    var asInitVals = new Array();
+    var asInitVals = [];
     $(document).ready(function() {
         var oTable = $('#example').dataTable({
             "oLanguage": {

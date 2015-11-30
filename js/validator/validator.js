@@ -33,7 +33,7 @@ var validator = (function($){
 	
 	if(!window.console){
 		console={};
-		console.log=console.warn=function(){ return; }
+		console.log=console.warn=function(){  }
 	}
 
 	// defaults

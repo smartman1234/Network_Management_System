@@ -1,6 +1,6 @@
 <?php
 
-$path = 'C:\Program Files\OpenNMS\etc\discovery-configuration.xml';
+//$path = 'C:\Program Files\OpenNMS\etc\discovery-configuration.xml';
 
 
 $ipbegin[0] = $_POST["ipbegin1"];
@@ -25,18 +25,11 @@ for ($i=0; $i < 3; $i++) {
 		# code...
 		echo "The IP range from " . $ipbegin[$i] , " to " . $ipend[$i]. " has been supplemented into XML configuration file.";
 		echo "<br>";
-		addEntry($path, $ipbegin[$i], $ipend[$i]);
+		addEntry($ipbegin[$i], $ipend[$i]);
 	}
 
 	
 }
-
-
-
-
-displayEntry($path);
-
-
 
 echo "<br>";
 
@@ -55,33 +48,44 @@ function closeWin() {
 </script>";
 
 
-
-
-
 function addEntry($file, $begin, $end){
 
-	$xml=simplexml_load_file($file) or die("Error: Cannot create object");
-	if (!isset($xml->children()->$begin) && !isset($xml->children()->$end)) {
-		$ir = $xml->addChild('include-range ');
-		$ir->addChild("begin", $begin);
-		$ir->addChild("end", $end);
-		file_put_contents($file, $xml->asXML());
+	$genericSnmpPath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/daemon_scr/daemon_db_init.php";
+	require_once($genericSnmpPath);  // to initialize db 
+	
+	$query_exist = "SELECT relname FROM pg_class 
+	WHERE relname = 'daemondevice';";
+
+	$result_exist = pg_query($query_exist) or die('Query failed: ' . pg_last_error());
+
+	$exist = '';
+	while ($row_exist = pg_fetch_object($result_exist)){
+
+		$exist = $row_exist->relname;
+
+	}
+
+	// // 3, if not existed, create it 
+	if ($exist != "daemondevice") {
+	# code...
+		$query_construct = "CREATE TABLE PUBLIC.daemondevice(
+			id SERIAL PRIMARY KEY,
+			time           TEXT    ,
+			ip		inet,
+			status   		TEXT,
+			description            TEXT  ,
+			mib    TEXT,
+			uptime       TEXT,
+			contact       TEXT,
+			name         TEXT,
+			location		TEXT,
+			service   TEXT);";
+
+	$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
+	pg_free_result($result_construct);
+
 	}
 	
-
-}
-
-
-function displayEntry($file){
-	echo "<br> Current valid auto-discovery ranges are: <br>";
-	echo "------------<br>";
-	$xml=simplexml_load_file($file) or die("Error: Cannot create object");
-	foreach ($xml->children() as $item) {
-	# code...
-		echo "IP Begin: " . $item->begin . "<br>";
-		echo "IP End: " . $item->end. "<br>";
-		echo "------------<br>";
-	}
 
 
 

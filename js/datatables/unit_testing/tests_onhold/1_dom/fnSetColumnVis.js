@@ -96,7 +96,7 @@ $(document).ready( function () {
 			var jqNodes = $('#example thead tr:eq(0) th');
 			var bReturn = 
 				jqNodes[0].innerHTML == "Rendering engine" &&
-				jqNodes[1].innerHTML == "Engine version"
+				jqNodes[1].innerHTML == "Engine version";
 			return bReturn;
 		}
 	);
@@ -110,7 +110,7 @@ $(document).ready( function () {
 			var jqNodes = $('#example tbody tr:eq(0) td');
 			var bReturn = 
 				jqNodes[0].innerHTML == "Gecko" &&
-				jqNodes[1].innerHTML == "1"
+				jqNodes[1].innerHTML == "1";
 			return bReturn;
 		}
 	);

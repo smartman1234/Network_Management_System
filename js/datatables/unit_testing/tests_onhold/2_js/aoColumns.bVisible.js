@@ -100,7 +100,7 @@ $(document).ready( function () {
 			var jqNodes = $('#example tbody tr:eq(0) td');
 			var bReturn = 
 				jqNodes[0].innerHTML == "Gecko" &&
-				jqNodes[1].innerHTML == "1"
+				jqNodes[1].innerHTML == "1";
 			return bReturn;
 		}
 	);

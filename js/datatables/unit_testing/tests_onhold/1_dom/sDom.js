@@ -97,7 +97,7 @@ $(document).ready( function () {
 		function () {
 			var jqNodes = $('#demo div, #demo table');
 			var nNodes = [];
-			var nCustomWrappers = []
+			var nCustomWrappers = [];
 			
 			/* Strip the paging nodes */
 			for ( var i=0, iLen=jqNodes.length ; i<iLen ; i++ )

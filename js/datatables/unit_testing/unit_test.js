@@ -370,7 +370,7 @@ var oDispacher = {
 				return 'custom';
 		}
 	}
-}
+};
 
 
 var oSession = {
@@ -400,7 +400,7 @@ var oSession = {
 		}
 		this.fnCache();
 	}
-}
+};
 
 $(document).ready( function () {
 	oSession.fnCache();

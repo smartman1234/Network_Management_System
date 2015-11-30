@@ -31,9 +31,15 @@
 
  //     ];
 
-    var locations = <?php require "php_scripts/gps_data_extractor.php"; echo $json; ?>;
-
-    var map = new google.maps.Map(document.getElementById('map'), {
+ var locations =;
+ <
+ ? php require;
+ "php_scripts/gps_data_extractor.php";
+ echo;
+ $json;
+ ?
+ >
+ var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 10,
       center: new google.maps.LatLng(45.526692, -73.660471),
       mapTypeId: google.maps.MapTypeId.ROADMAP

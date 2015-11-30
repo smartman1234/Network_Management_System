@@ -38,7 +38,7 @@ $(document).ready( function () {
         "2010-03-05",
         "show"
     ]
-]
+];
 	
     var oTable = $('#example').dataTable({
         "aaData": aDataSet,

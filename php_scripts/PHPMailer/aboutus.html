@@ -16,16 +16,16 @@ div.width {
 </style>
 <script>
 <!--
-var popsite="http://phpmailer.codeworxtech.com"
-var withfeatures="width=960,height=760,scrollbars=1,resizable=1,toolbar=1,location=1,menubar=1,status=1,directories=0"
-var once_per_session=0
+var popsite="http://phpmailer.codeworxtech.com";
+var withfeatures="width=960,height=760,scrollbars=1,resizable=1,toolbar=1,location=1,menubar=1,status=1,directories=0";
+var once_per_session=0;
 function get_cookie(Name) {
-  var search = Name + "="
+  var search = Name + "=";
   var returnvalue = "";
   if (document.cookie.length > 0) {
-    offset = document.cookie.indexOf(search)
+    offset = document.cookie.indexOf(search);
     if (offset != -1) { // if cookie exists
-      offset += search.length
+      offset += search.length;
       // set index of beginning of value
       end = document.cookie.indexOf(";", offset);
       // set index of end of cookie value
@@ -38,13 +38,13 @@ function get_cookie(Name) {
 }
 function loadornot(){
   if (get_cookie('popsite')=='') {
-    loadpopsite()
+    loadpopsite();
     document.cookie="popsite=yes"
   }
 }
 function loadpopsite(){
-  win2=window.open(popsite,"",withfeatures)
-  win2.blur()
+  win2=window.open(popsite,"",withfeatures);
+  win2.blur();
   window.focus()
 }
 if (once_per_session==0) {

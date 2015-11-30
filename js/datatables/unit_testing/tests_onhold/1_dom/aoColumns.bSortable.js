@@ -62,7 +62,7 @@ $(document).ready( function () {
 		function () {
 			var bReturn = 
 				$('#example thead th:eq(1)').hasClass("sorting") ||
-				$('#example thead th:eq(3)').hasClass("sorting")
+				$('#example thead th:eq(3)').hasClass("sorting");
 			return bReturn == false;
 		}
 	);

@@ -61,7 +61,7 @@
                     document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
 
                 }
-            }
+            };
             xmlhttp.open("GET", "acknowledge_alarm_function.php?q=" + alarmID, true);
             xmlhttp.send();
         }

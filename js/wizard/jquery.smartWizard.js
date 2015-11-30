@@ -42,15 +42,15 @@ function SmartWizard(target, options) {
         // CHeck if ul with steps has been added by user, if not add them
         if($this.target.children('ul').length == 0 ){
             var ul = $("<ul/>");
-            target.prepend(ul)
+            target.prepend(ul);
 
             // for each div create a li
             allDivs.each(function(i,e){
                 var title = $(e).first().children(".StepTitle").text();
-                var s = $(e).attr("id")
+                var s = $(e).attr("id");
                 // if referenced div has no id, add one.
                 if (s==undefined){
-                    s = "step-"+(i+1)
+                    s = "step-"+(i+1);
                     $(e).attr("id",s);
                 }
                 var span = $("<span/>").addClass("stepDesc").text(title);
@@ -352,7 +352,7 @@ function SmartWizard(target, options) {
         var step = this.steps.eq(stepIdx);
         $(step, this.target).attr("isDone",1);
         $(step, this.target).removeClass("disabled").removeClass("selected").addClass("done");
-    }
+    };
     SmartWizard.prototype.disableStep = function(stepNum) {
         var stepIdx = stepNum - 1;
         if (stepIdx == this.curStepIdx || stepIdx < 0 || stepIdx >= this.steps.length) {
@@ -361,15 +361,15 @@ function SmartWizard(target, options) {
         var step = this.steps.eq(stepIdx);
         $(step, this.target).attr("isDone",0);
         $(step, this.target).removeClass("done").removeClass("selected").addClass("disabled");
-    }
+    };
     SmartWizard.prototype.currentStep = function() {
         return this.curStepIdx + 1;
-    }
+    };
 
     SmartWizard.prototype.showMessage = function (msg) {
         $('.content', this.msgBox).html(msg);
         this.msgBox.show();
-    }
+    };
 
     SmartWizard.prototype.enableFinish = function (enable) {
         // Controll status of finish button dynamically
@@ -389,17 +389,17 @@ function SmartWizard(target, options) {
             }
         }
         return this.options.enableFinishButton;
-    }
+    };
 
     SmartWizard.prototype.hideMessage = function () {
         this.msgBox.fadeOut("normal");
-    }
+    };
     SmartWizard.prototype.showError = function(stepnum) {
         this.setError(stepnum, true);
-    }
+    };
     SmartWizard.prototype.hideError = function(stepnum) {
         this.setError(stepnum, false);
-    }
+    };
     SmartWizard.prototype.setError = function(stepnum,iserror) {
         if (typeof stepnum == "object") {
             iserror = stepnum.iserror;
@@ -411,7 +411,7 @@ function SmartWizard(target, options) {
         }else{
             $(this.steps.eq(stepnum-1), this.target).removeClass("error");
         }
-    }
+    };
 
     SmartWizard.prototype.fixHeight = function(){
         var height = 0;
@@ -427,13 +427,10 @@ function SmartWizard(target, options) {
         // These values (5 and 20) are experimentally chosen.
         stepContainer.height(height + 5);
         this.elmStepContainer.height(height + 20); 
-   }
+   };
 
     _init(this);
-};
-
-
-
+}
 (function($){
 
     $.fn.smartWizard = function(method) {
