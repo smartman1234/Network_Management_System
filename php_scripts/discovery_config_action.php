@@ -48,13 +48,13 @@ function closeWin() {
 </script>";
 
 
-function addEntry($file, $begin, $end){
+function addEntry($begin, $end){
 
 	$genericSnmpPath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/daemon_scr/daemon_db_init.php";
 	require_once($genericSnmpPath);  // to initialize db 
-	
+
 	$query_exist = "SELECT relname FROM pg_class 
-	WHERE relname = 'daemondevice';";
+	WHERE relname = 'daemondiscoveryrange';";
 
 	$result_exist = pg_query($query_exist) or die('Query failed: ' . pg_last_error());
 
@@ -66,28 +66,60 @@ function addEntry($file, $begin, $end){
 	}
 
 	// // 3, if not existed, create it 
-	if ($exist != "daemondevice") {
+	if ($exist != "daemondiscoveryrange") {
 	# code...
-		$query_construct = "CREATE TABLE PUBLIC.daemondevice(
+		$query_construct = "CREATE TABLE PUBLIC.daemondiscoveryrange(
 			id SERIAL PRIMARY KEY,
-			time           TEXT    ,
-			ip		inet,
-			status   		TEXT,
-			description            TEXT  ,
-			mib    TEXT,
-			uptime       TEXT,
-			contact       TEXT,
-			name         TEXT,
-			location		TEXT,
-			service   TEXT);";
+			ipbegin           inet,
+			ipend		inet);";
 
 	$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
 	pg_free_result($result_construct);
 
+
+
+
+
 	}
-	
+
+	$query_value = "SELECT 
+	  daemondiscoveryrange.ipbegin, 
+	  daemondiscoveryrange.ipend
+	FROM 
+	  public.daemondiscoveryrange;";
+
+	$result_value = pg_query($query_value) or die('Query failed: ' . pg_last_error());
+	$ipbl=[];
+	$ipel=[];
+	while ($row = pg_fetch_object($result_value)) {	
+		$ipbl[]=$row->ipbegin;
+		$ipel[]=$row->ipend;
+
+	}
+
+	$isAdd = true;
+	for ($i=0; $i < sizeof($ipbl); $i++) { 
+		# code...
+		if ($ipbl[$i]==$begin && $ipel[$i]==$end) {
+			# code...
+			$isAdd=false;
+
+		}
+	}
 
 
+
+
+if ($isAdd) {
+	# code...
+
+	$begin = "'" . $begin . "'";
+	$end = "'" . $end . "'";
+	$query_insert = "INSERT INTO PUBLIC.daemondiscoveryrange (ipbegin, ipend) VALUES ($begin, $end);";
+
+	$result_insert = pg_query($query_insert) or die('Query failed: ' . pg_last_error());
+	pg_free_result($result_insert);
+}
 
 
 }
