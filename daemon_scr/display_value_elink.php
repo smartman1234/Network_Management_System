@@ -31,7 +31,8 @@
 <?php
 
 require("daemon_db_init.php");
-$target_ip = "'" . $_GET['ip'] . "%'";
+require("daemon_getDeviceIdPerIp.php");
+$deviceid = getDeviceIdPerIp($_GET['ip']);
 
 
 
@@ -64,7 +65,7 @@ $query = "SELECT
 	daemonsnmpelinkems.craftstatus
 	FROM 
 	public.daemonsnmpelinkems
-	WHERE daemonsnmpelinkems.ip LIKE $target_ip;";
+	WHERE daemonsnmpelinkems.deviceid=$deviceid;";
 
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 

@@ -49,6 +49,7 @@ echo "<th align=left class=table-filterable table-sortable:default><b>ICMP </b><
 echo "<th align=left class=table-sortable:alphanumeric><b>Discovered Time</b><img src=images/sorticon.png width=30 height=20></th>";
 echo "<th align=left><b>SNMP Status</b></th>";
 echo "<th align=left><b>Alarm Setup</b></th>";
+echo "<th align=left><b>Delete</b></th>";
 echo "</tr>";
 echo "</thead>";
 echo "<tbody>";
@@ -86,42 +87,56 @@ if ($criteria == ".1.3.6.1.4.1.3222.14.2.1.1" || $criteria == ".1.3.6.1.4.1.5591
 			# code...
 			echo "\t\t<td align=center><a href=daemon_scr/display_value_1550.php?ip=$trimedIp target=_blank ><img src=images/search-icon-md.png style=width:20px;height:20px;>  </a></td>";
 			echo "\t\t<td align=center><a href=daemon_scr/setup_alarmT_1550.php target=_blank ><img src=images/17-512.png style=width:20px;height:20px;></a></td>";
+			echo "\t\t<td align=center><a href=daemon_scr/daemon_doDeleteDeive.php?ip=$trimedIp target=_blank ><img src=images/editing-delete-icon.png style=width:20px;height:20px;></a></td>";
+
 			echo "\t</tr>\n";
 			break;
 		case ".1.3.6.1.4.1.5591.29317.1.11.1.3.1.1":
 			# code...
 			echo "\t\t<td align=center><a href=daemon_scr/display_value_elink.php?ip=$trimedIp target=_blank ><img src=images/search-icon-md.png style=width:20px;height:20px;>  </a></td>";
 			echo "\t\t<td align=center><a href=daemon_scr/setup_alarmT_elink.php target=_blank ><img src=images/17-512.png style=width:20px;height:20px;></a></td>";
+			echo "\t\t<td align=center><a href=daemon_scr/daemon_doDeleteDeive.php?ip=$trimedIp target=_blank ><img src=images/editing-delete-icon.png style=width:20px;height:20px;></a></td>";
+
 			echo "\t</tr>\n";
 			break;
 		case ".1.3.6.1.4.1.17409.1.11":
 			# code...
 			echo "\t\t<td align=center><a href=daemon_scr/display_value_egfa.php?ip=$trimedIp target=_blank ><img src=images/search-icon-md.png style=width:20px;height:20px;>  </a></td>";
 			echo "\t\t<td align=center><a href=daemon_scr/setup_alarmT_egfa.php target=_blank ><img src=images/17-512.png style=width:20px;height:20px;></a></td>";
+			echo "\t\t<td align=center><a href=daemon_scr/daemon_doDeleteDeive.php?ip=$trimedIp target=_blank ><img src=images/editing-delete-icon.png style=width:20px;height:20px;></a></td>";
+
 			echo "\t</tr>\n";
 			break;
 		case "SNMPv2-SMI::enterprises.3222.14.2.1.1":
 			# code...
 			echo "\t\t<td align=center><a href=daemon_scr/display_value_1550.php?ip=$trimedIp target=_blank ><img src=images/search-icon-md.png style=width:20px;height:20px;>  </a></td>";
 			echo "\t\t<td align=center><a href=daemon_scr/setup_alarmT_1550.php target=_blank ><img src=images/17-512.png style=width:20px;height:20px;></a></td>";
+			echo "\t\t<td align=center><a href=daemon_scr/daemon_doDeleteDeive.php?ip=$trimedIp target=_blank ><img src=images/editing-delete-icon.png style=width:20px;height:20px;></a></td>";
+
 			echo "\t</tr>\n";
 			break;
 		case "SNMPv2-SMI::enterprises.5591.29317.1.11.1.3.1.1":
 			# code...
 			echo "\t\t<td align=center><a href=daemon_scr/display_value_elink.php?ip=$trimedIp target=_blank ><img src=images/search-icon-md.png style=width:20px;height:20px;>  </a></td>";
 			echo "\t\t<td align=center><a href=daemon_scr/setup_alarmT_elink.php target=_blank ><img src=images/17-512.png style=width:20px;height:20px;></a></td>";
+			echo "\t\t<td align=center><a href=daemon_scr/daemon_doDeleteDeive.php?ip=$trimedIp target=_blank ><img src=images/editing-delete-icon.png style=width:20px;height:20px;></a></td>";
+
 			echo "\t</tr>\n";
 			break;
 		case "SNMPv2-SMI::enterprises.17409.1.11":
 			# code...
 			echo "\t\t<td align=center><a href=daemon_scr/display_value_egfa.php?ip=$trimedIp target=_blank ><img src=images/search-icon-md.png style=width:20px;height:20px;>  </a></td>";
 			echo "\t\t<td align=center><a href=daemon_scr/setup_alarmT_egfa.php target=_blank ><img src=images/17-512.png style=width:20px;height:20px;></a></td>";
+			echo "\t\t<td align=center><a href=daemon_scr/daemon_doDeleteDeive.php?ip=$trimedIp target=_blank ><img src=images/editing-delete-icon.png style=width:20px;height:20px;></a></td>";
+
 			echo "\t</tr>\n";
 			break;
 		default:
 			# code...
 			echo "\t\t<td align=center><img src=images/search-icon-md.png style=width:20px;height:20px;> </td>";
 			echo "\t\t<td align=center><img src=images/17-512.png style=width:20px;height:20px;></td>";
+			echo "\t\t<td align=center><a href=daemon_scr/daemon_doDeleteDeive.php?ip=$trimedIp target=_blank ><img src=images/editing-delete-icon.png style=width:20px;height:20px;></a></td>";
+
 			echo "\t</tr>\n";
 			break;
 

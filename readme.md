@@ -260,9 +260,10 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 * test add device   -- ok
 * need provision method   -- ok
 * fix the back process with auto-cremental id    -- ok
-* inventory table ALL 
-* fix complicated system 
+* inventory table ALL     -- ok
 
+* alarm table 
+* delete other unused page 
 
 
 
@@ -270,6 +271,7 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 
 
 * js tree stucture 
+* fix alarm esp of elink
 
 
 

@@ -31,7 +31,8 @@
 <?php
 
 require("daemon_db_init.php");
-$target_ip = "'" . $_GET['ip'] . "%'";
+require("daemon_getDeviceIdPerIp.php");
+$deviceid = getDeviceIdPerIp($_GET['ip']);
 // $target_ip = "'" . "10.100.0.50" . "%'";
 
 // echo "<b>Status Values of EG1550.</b><br>";
@@ -84,7 +85,7 @@ $query = "SELECT
 	dameonsnmp1550value.txacpowersupplystatus
 	FROM 
 	public.dameonsnmp1550value
-	WHERE dameonsnmp1550value.ip LIKE $target_ip;";
+	WHERE dameonsnmp1550value.deviceid=$deviceid;";
 
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
