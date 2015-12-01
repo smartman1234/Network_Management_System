@@ -1,11 +1,17 @@
 <?php
-require "db_initialize.php";
+
+
+$dbpath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/daemon_scr/daemon_db_init.php";
+require_once($dbpath);  // to initialize snmp 
+
+
 $query = "SELECT 
-node.nodelabel
+  daemondevice.ip
 FROM 
-public.node
-ORDER BY
-node.nodeid;";
+  public.daemondevice;";
+
+
+
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
 $arr = pg_fetch_all($result);

@@ -1,27 +1,32 @@
 <?php
 
-require "db_initialize.php";
+$dbpath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/daemon_scr/daemon_db_init.php";
+require_once($dbpath);  // to initialize snmp 
 
-$query = "SELECT DISTINCT ON (ipinterface.nodeid)
-  assets.nodeid, 
-  assets.longitude,
-  assets.latitude,
-  ipinterface.ipaddr
+
+$query = "SELECT 
+  daemondevice.ip, 
+  daemondevice.longtitude, 
+  daemondevice.latitude, 
+  daemondevice.mac
 FROM 
-  public.assets, 
-  public.ipinterface
-WHERE 
-  assets.nodeid = ipinterface.nodeid;";
+  public.daemondevice;";
 
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
 $total = pg_num_rows($result);
 
+$lo = [];
+$la = [];
+$ip = [];
+$mac = [];
+
 while ($row = pg_fetch_object($result)) {	
 
-	$lo[] = doubleval($row->longitude);
+	$lo[] = doubleval($row->longtitude);
 	$la[] = doubleval($row->latitude);
-	$ip[] = $row->ipaddr;
+	$ip[] = $row->ip;
+  $mac[] = $row->mac;
 
 
 }
@@ -29,11 +34,12 @@ while ($row = pg_fetch_object($result)) {
 $j = 0;
 for ($i=0; $i < $total; $i++) { 
 	# code...
-if ($lo[$i] > -100 && $la[$i] > -100 && $lo[$i] != 0 && $la[$i] != 0) {
-  # code...
-  $data[$j] = [$ip[$i], $lo[$i], $la[$i], 0.0];
-  $j = $j + 1;
-}
+  if ($lo[$i] > -100 && $la[$i] > -100 && $lo[$i] != 0 && $la[$i] != 0) {
+    # code...
+    $comment = $ip[$i] . " : " . $mac[$i];
+    $data[$j] = [$comment, $lo[$i], $la[$i], 0.0];
+    $j = $j + 1;
+  }
 	
 }
 

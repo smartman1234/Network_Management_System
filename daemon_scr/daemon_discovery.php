@@ -158,7 +158,8 @@ function writeToDatabase($ip, $s){
 			latitude NUMERIC,
 			longtitude NUMERIC,
 			MAC macaddr,
-			sn TEXT);";
+			sn TEXT,
+			provision TEXT);";
 
 	$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
 	pg_free_result($result_construct);
@@ -175,10 +176,11 @@ function writeToDatabase($ip, $s){
 	$result_value = pg_query($query_value) or die('Query failed: ' . pg_last_error());
 
 	$number = pg_num_rows($result_value);    // the number of total device eg1550
+	$method  = "'" . "discover" . "'";
 
 	if ($number==0) {
 		# code...
-		$query_insert = "INSERT INTO PUBLIC.daemondevice (time, ip, status, description, mib, uptime, contact, name, location, service) VALUES ($timestamp, $deco_ip, $status, $sysDescr, $sysObjectID, $sysUpTime, $sysContact, $sysName, $sysLocation, $sysService);";
+		$query_insert = "INSERT INTO PUBLIC.daemondevice (time, ip, status, description, mib, uptime, contact, name, location, service, provision) VALUES ($timestamp, $deco_ip, $status, $sysDescr, $sysObjectID, $sysUpTime, $sysContact, $sysName, $sysLocation, $sysService, $method);";
 
 		$result_insert = pg_query($query_insert) or die('Query failed: ' . pg_last_error());
 		pg_free_result($result_insert);

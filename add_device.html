@@ -57,17 +57,17 @@
             // example 05:00 not 04:59
             start = Date.now() + 1000;
         }
-        }
+    }
         // we don't want to wait a full second before the timer starts
-    timer();
-    setInterval(timer, 1000);
-}
+        timer();
+        setInterval(timer, 1000);
+    }
 
-window.onload = function() {
-    var fiveMinutes = 60 * 1,
-    display = document.querySelector('#time');
-    startTimer(fiveMinutes, display);
-};
+    window.onload = function() {
+        var fiveMinutes = 60 * 1,
+        display = document.querySelector('#time');
+        startTimer(fiveMinutes, display);
+    };
 </script>
 
 <body class="nav-md">
@@ -157,7 +157,7 @@ window.onload = function() {
                                     </li>
                                     
                                     <li>
-                                       <a href=<?php require 'php_scripts/server_checker.php'; echo "'" . $db . "'" ; ?> target="_blank">
+                                     <a href=<?php require 'php_scripts/server_checker.php'; echo "'" . $db . "'" ; ?> target="_blank">
                                         <i class="fa fa-database"></i> Database Maintenance
                                     </a>
                                 </li>
@@ -254,6 +254,12 @@ window.onload = function() {
                                     <input type="text" name="lb1" value="node1">
                                     <b>MAC 1 </b>
                                     <input type="text" name="mac1" value="aa:bb">
+                                    <b>Serial Number 1 </b>
+                                    <input type="text" name="sn1" value="0001">
+                                    <b>Latitude 1</b>
+                                    <input type="text" name="lati1" value="0.0">
+                                    <b>Longtitude 1 </b>
+                                    <input type="text" name="long1" value="0.0">
                                     <hr>
                                     <b>IP Address 2:</b>
                                     <input type="text" name="ip2" value="10.10.20.20">
@@ -261,6 +267,12 @@ window.onload = function() {
                                     <input type="text" name="lb2" value="node2">
                                     <b>MAC 2 </b>
                                     <input type="text" name="mac2" value="aa:bb">
+                                    <b>Serial Number 2 </b>
+                                    <input type="text" name="sn2" value="0002">
+                                    <b>Latitude 2</b>
+                                    <input type="text" name="lati2" value="10.0">
+                                    <b>Longtitude 2</b>
+                                    <input type="text" name="long2" value="10.0">
                                     <hr>
                                     <b>IP Address 3:</b>
                                     <input type="text" name="ip3" value="10.10.30.30">
@@ -268,6 +280,12 @@ window.onload = function() {
                                     <input type="text" name="lb3" value="node3">
                                     <b>MAC 3 </b>
                                     <input type="text" name="mac3" value="aa:bb">
+                                    <b>Serial Number 3 </b>
+                                    <input type="text" name="sn3" value="0003">
+                                    <b>Latitude 3 </b>
+                                    <input type="text" name="lati3" value="30.0">
+                                    <b>Longtitude 3</b>
+                                    <input type="text" name="long3" value="30.0">
                                     <hr>
                                     <br>
                                     <input type="submit" value="Set">

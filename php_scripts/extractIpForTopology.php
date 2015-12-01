@@ -1,23 +1,16 @@
 <?php
 // Array with names
-
-
-
-require "db_initialize.php";
-require "device_category_from_OID.php";
-
 $query = "SELECT DISTINCT ON (ipinterface.nodeid)
-ipinterface.ipaddr, 
-node.nodeid,
-node.nodesysoid
-FROM 
-public.ipinterface, 
-public.node
-WHERE 
-ipinterface.nodeid = node.nodeid
-ORDER BY 
-ipinterface.nodeid;
-";
+	ipinterface.ipaddr, 
+	node.nodeid,
+	node.nodesysoid
+	FROM 
+	public.ipinterface, 
+	public.node
+	WHERE 
+	ipinterface.nodeid = node.nodeid
+	ORDER BY 
+	ipinterface.nodeid;";
 
 
 

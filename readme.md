@@ -249,14 +249,19 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 // 2015-11-30
 * change the daemon_main ip feeder   --- ok 
 * build auto discoverty range input handler  --- ok 
+* build ip single add handler   -- ok 
+* build ip single spot functions    -- ok 
+* map info feeder    -- ok 
+* alarm status    -- ok 
+
+
+
+* inventory table 
+* js tree stucture 
+* fix complicated system 
+* need provision method 
 
 
 
 
-
-
-
-
-* build ip single add handler
-* build ip single spot functions 
 * fix the back process with auto-cremental id 
