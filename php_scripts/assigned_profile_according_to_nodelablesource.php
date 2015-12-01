@@ -3,18 +3,13 @@
 
 function assigned_profile($labelsource){
 	switch ($labelsource) {
-		case "A":
-		return "Set by IP";
+		case "discover":
+		return "Auto Discovery";
 		break;
-		case "H":
-		return "Set by hostname";
+		case "add":
+		return "Add by User";
 		break;
-		case "S":
-		return "Set by SNMP";
-		break;
-		default:
-		return "User Defined";
-		break;
+
 
 	}
 }

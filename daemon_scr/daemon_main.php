@@ -30,6 +30,7 @@ for ($i=0; $i < sizeof($device_1550); $i++) {
 	# code...
 	if (ifPingable($device_1550[$i]) != false) {
 		# code...
+	
 		daemon_snmpScanIntoDb_1550($device_1550[$i]);   // should be problem-free if having multiple 1550 
 
 	}

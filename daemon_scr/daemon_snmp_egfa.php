@@ -48,7 +48,7 @@
 
  // unit test  --- begin 
 
-	//daemon_snmpScanIntoDb_egfa("10.100.0.50");
+	// daemon_snmpScanIntoDb_egfa("69.70.200.232");
 
 
 // unit -test --- end
@@ -62,11 +62,16 @@ function daemon_snmpScanIntoDb_egfa($ip){
 	$genericSnmpPath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/php_scripts/oidget/genericSnmp.php";
 	require_once($genericSnmpPath);  // to initialize snmp 
 	require("daemon_db_init.php");  // to initialize database connection 
+	require_once("daemon_getDeviceIdPerIp.php");  // to initialize database connection 
 
 	// 1, extract all snmp value from efga 
-	// $timestamp =  deco_egfa(date("j F Y h:i:s A"));
+
+	//$timestamp = "'" . date('YmdGis') . "'";
+
+	$deviceid=getDeviceIdPerIp($ip);
 	
 	global $timestamp;
+	
 	$sysDescr = deco_egfa(snmpget_bigP ( $ip, ".1.3.6.1.2.1.1.1.0" ));
 	$sysObjectID = deco_egfa(snmpget_bigP ( $ip, ".1.3.6.1.2.1.1.2.0" ));
 	$sysUpTime = deco_egfa(snmpget_bigP ( $ip, ".1.3.6.1.2.1.1.3.0" ));
@@ -147,6 +152,7 @@ function daemon_snmpScanIntoDb_egfa($ip){
 	if ($exist != "daemonsnmpegfavalue") {
 	# code...
 		$query_construct = "CREATE TABLE PUBLIC.daemonsnmpegfavalue(
+			deviceid	int,
 			time           TEXT    ,
 			description            TEXT  ,
 			oids       TEXT,
@@ -189,7 +195,7 @@ function daemon_snmpScanIntoDb_egfa($ip){
 
 	// 4, insert data into the table 
 
-	$query_insert = "INSERT INTO PUBLIC.daemonsnmpegfavalue VALUES ($timestamp, $sysDescr, $sysObjectID, $sysUpTime, $sysContact, $sysName, $sysLocation, 
+	$query_insert = "INSERT INTO PUBLIC.daemonsnmpegfavalue VALUES ($deviceid, $timestamp, $sysDescr, $sysObjectID, $sysUpTime, $sysContact, $sysName, $sysLocation, 
 		$sysService, $defaultIp, $defaultMac,  $value[0], $value[1], $value[2], $value[3], $value[4], $value[5], $value[6], $value[7], $value[8], $value[9], $value[10], $value[11], $value[12], $value[13], $value[14], $value[15], $value[16], $value[17], $value[18], $value[19], $value[20], $value[21], $value[22], $value[23]);";
 
 

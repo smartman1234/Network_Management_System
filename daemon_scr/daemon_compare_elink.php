@@ -145,9 +145,9 @@ function alarmCompare_elink($timestamp){
 			}
 
 			for ($k=0; $k < $number_ps; $k++) { 
-				compare_elink($outputv_1, $outputv_2, $outputv_3, $outputv_4, $outputv[$k], $timestamp, $ip[$i]);
-				compare_elink($outputma_1, $outputma_2, $outputma_3, $outputma_4, $outputma[$k], $timestamp, $ip[$i]);
-				compare_elink($outputw_1, $outputw_2, $outputw_3, $outputw_4, $outputw[$k], $timestamp, $ip[$i]);
+				compare_elink($outputv_1, $outputv_2, $outputv_3, $outputv_4, $outputv[$k], $timestamp, $ip[$i], "Power Supply Output V");
+				compare_elink($outputma_1, $outputma_2, $outputma_3, $outputma_4, $outputma[$k], $timestamp, $ip[$i], "Power Supply Output mA");
+				compare_elink($outputw_1, $outputw_2, $outputw_3, $outputw_4, $outputw[$k], $timestamp, $ip[$i], "Power Supply Output W");
 			}
 
 			
@@ -215,10 +215,10 @@ function alarmCompare_elink($timestamp){
 			}
 
 			for ($l=0; $l < $number_rrx; $l++) { 
-				compare_elink($input1_1, $input1_2, $input1_3, $input1_4, $input1[$l], $timestamp, $ip[$i]);
-				compare_elink($input2_1, $input2_2, $input2_3, $input2_4, $input2[$l], $timestamp, $ip[$i]);
-				compare_elink($input3_1, $input3_2, $input3_3, $input3_4, $input3[$l], $timestamp, $ip[$i]);
-				compare_elink($input4_1, $input4_2, $input4_3, $input4_4, $input4[$l], $timestamp, $ip[$i]);
+				compare_elink($input1_1, $input1_2, $input1_3, $input1_4, $input1[$l], $timestamp, $ip[$i], "RRX Input");
+				compare_elink($input2_1, $input2_2, $input2_3, $input2_4, $input2[$l], $timestamp, $ip[$i], "RRX Input");
+				compare_elink($input3_1, $input3_2, $input3_3, $input3_4, $input3[$l], $timestamp, $ip[$i], "RRX Input");
+				compare_elink($input4_1, $input4_2, $input4_3, $input4_4, $input4[$l], $timestamp, $ip[$i], "RRX Input");
 			}
 
 			// check ftx 
@@ -285,10 +285,10 @@ function alarmCompare_elink($timestamp){
 			}
 
 			for ($m=0; $m < $number_ftx; $m++) { 
-				compare_elink($lasertemp_1, $lasertemp_2, $lasertemp_3, $lasertemp_4, $lasertemp[$m], $timestamp, $ip[$i]);
-				compare_elink($laserbiascurrent_1, $laserbiascurrent_2, $laserbiascurrent_3, $laserbiascurrent_4, $laserbiascurrent[$m], $timestamp, $ip[$i]);
-				compare_elink($outputpower_1, $outputpower_2, $outputpower_3, $outputpower_4, $outputpower[$m], $timestamp, $ip[$i]);
-				compare_elink($thccurrent_1, $thccurrent_2, $thccurrent_3, $thccurrent_4, $thccurrent[$m], $timestamp, $ip[$i]);
+				compare_elink($lasertemp_1, $lasertemp_2, $lasertemp_3, $lasertemp_4, $lasertemp[$m], $timestamp, $ip[$i], "FTX Laser Temperature");
+				compare_elink($laserbiascurrent_1, $laserbiascurrent_2, $laserbiascurrent_3, $laserbiascurrent_4, $laserbiascurrent[$m], $timestamp, $ip[$i], "FTX Laser Bias Current");
+				compare_elink($outputpower_1, $outputpower_2, $outputpower_3, $outputpower_4, $outputpower[$m], $timestamp, $ip[$i], "FTX Laser Output Power");
+				compare_elink($thccurrent_1, $thccurrent_2, $thccurrent_3, $thccurrent_4, $thccurrent[$m], $timestamp, $ip[$i], "FTX Laser THC Current");
 			}
 
 		pg_free_result($result_value_ems);
@@ -312,27 +312,27 @@ function alarmCompare_elink($timestamp){
 
 // pg_close($dbconn);
 
-function compare_elink($t1, $t2, $t3, $t4, $r, $time, $ip){
+function compare_elink($t1, $t2, $t3, $t4, $r, $time, $ip, $comments){
     $mac = "";   // cuz mac is not available from here 		
 	if ($t1 != "" && $t2 != "" && $t3 != "" && $t4 != "") {
 		if ($t1 <= $t2 && $t2 <= $t3 && $t3 <= $t4) {
 			if ($r > floatval($t4)) {
-				$log = "ELink HeadEnd has a high-high alarm! (" . $r .")";
+				$log = "ELink HeadEnd has a high-high alarm! (" . $comments . " : " .  $r .")";
 				alarmLogger($time, $ip, $mac, $log, "high-high");
 			}
 
 			if ($r < floatval($t4) && $r > floatval($t3)) {
-				$log = "ELink HeadEnd has a high alarm! (" . $r .")";
+				$log = "ELink HeadEnd has a high alarm! (" . $comments . " : " .  $r .")";
 				alarmLogger($time, $ip, $mac, $log, "high");
 			}
 
 			if ($r < floatval($t2) && $r > floatval($t1)) {
-				$log = "ELink HeadEnd has a low alarm! (" . $r .")";
+				$log = "ELink HeadEnd has a low alarm! (" . $comments . " : " .  $r .")";
 				alarmLogger($time, $ip, $mac, $log, "low");
 			}
 
 			if ($r < floatval($t1)) {
-				$log = "ELink HeadEnd has a low-low alarm! (" . $r .")";
+				$log = "ELink HeadEnd has a low-low alarm! (" . $comments . " : " .  $r .")";
 				alarmLogger($time, $ip, $mac, $log, "low-low");
 			}
 		}

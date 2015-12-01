@@ -35,7 +35,7 @@
 
 // unit test    --- begin 
 
-//daemon_snmpScanIntoDb_elink("10.100.0.80");
+//daemon_snmpScanIntoDb_elink("69.70.200.249");
 // unit test    --- end 
 
 
@@ -50,6 +50,13 @@ function daemon_snmpScanIntoDb_elink($ip){
 	require_once("daemon_checkElink.php");
 	require_once($genericSnmpPath);  // to initialize snmp 
 	require("daemon_db_init.php");  // to initialize database connection 
+
+	require_once("daemon_getDeviceIdPerIp.php");  // to initialize database connection 
+
+	// 1, extract all snmp value from 1550 
+	//$timestamp = "'" . date('YmdGis') . "'";
+
+	$deviceid=getDeviceIdPerIp($ip);
 
 	// get device map 
 	$onlineDev = elinkSlot($ip);
@@ -199,6 +206,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	if ($exist_ems != "daemonsnmpelinkems") {
 		# code...
 		$query_construct_ems = "CREATE TABLE PUBLIC.daemonsnmpelinkems(
+			deviceid int,
 			time           TEXT    ,
 			slot	TEXT,  
 			description            TEXT  ,
@@ -227,7 +235,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	}
 
 	// insert data into the table 
-	$query_insert_ems = "INSERT INTO PUBLIC.daemonsnmpelinkems VALUES ($timestamp, $pos_ems, $sysDescr, $sysObjectID, $sysUpTime, $sysContact, $sysName, $sysLocation, $sysService, $ipadd, $alarm, $ems, $ems_sn, $ems_temp, $nms[0], $nms[1], $nms[2], $nms[3], $nms[4], $nms[5], $nms[6]);";
+	$query_insert_ems = "INSERT INTO PUBLIC.daemonsnmpelinkems VALUES ($deviceid, $timestamp, $pos_ems, $sysDescr, $sysObjectID, $sysUpTime, $sysContact, $sysName, $sysLocation, $sysService, $ipadd, $alarm, $ems, $ems_sn, $ems_temp, $nms[0], $nms[1], $nms[2], $nms[3], $nms[4], $nms[5], $nms[6]);";
 
 	$result_insert_ems = pg_query($query_insert_ems) or die('Query failed: ' . pg_last_error());
 
@@ -249,6 +257,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	if ($exist_ps != "daemonsnmpelinkps") {
 		# code...
 		$query_construct_ps = "CREATE TABLE PUBLIC.daemonsnmpelinkps(
+			deviceid 	INT,
 			time           TEXT    ,
 			slot	TEXT,  
 			model        TEXT,
@@ -265,7 +274,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	}
 
 	// insert data into the table 
-	$query_insert_ps = "INSERT INTO PUBLIC.daemonsnmpelinkps VALUES ($timestamp, $pos_ps, $psu, $psu_sn, $psu_temp, $ps[0], $ps[1], $ps[2], $ps[3]);";
+	$query_insert_ps = "INSERT INTO PUBLIC.daemonsnmpelinkps VALUES ($deviceid, $timestamp, $pos_ps, $psu, $psu_sn, $psu_temp, $ps[0], $ps[1], $ps[2], $ps[3]);";
 
 	$result_insert_ps = pg_query($query_insert_ps) or die('Query failed: ' . pg_last_error());
 
@@ -286,6 +295,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	if ($exist_fan != "daemonsnmpelinkfan") {
 		# code...
 		$query_construct_fan = "CREATE TABLE PUBLIC.daemonsnmpelinkfan(
+			deivceid 	INT,
 			time           TEXT   , 
 			fan1        TEXT,
 			fan2       TEXT,
@@ -302,7 +312,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	}
 
 	// insert data into the table 
-	$query_insert_fan = "INSERT INTO PUBLIC.daemonsnmpelinkfan VALUES ($timestamp, $fan[0], $fan[1], $fan[2], $fan[3], $fan[4], $fan[5], $fan[6], $fan[7]);";
+	$query_insert_fan = "INSERT INTO PUBLIC.daemonsnmpelinkfan VALUES ($deviceid, $timestamp, $fan[0], $fan[1], $fan[2], $fan[3], $fan[4], $fan[5], $fan[6], $fan[7]);";
 
 	$result_insert_fan = pg_query($query_insert_fan) or die('Query failed: ' . pg_last_error());
 
@@ -324,6 +334,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	if ($exist_rrx != "daemonsnmpelinkrrx") {
 		# code...
 		$query_construct_rrx = "CREATE TABLE PUBLIC.daemonsnmpelinkrrx(
+			deviceid 	INT,
 			time           TEXT    , 
 			slot	TEXT,  
 			model        TEXT,
@@ -347,7 +358,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	for ($i=0; $i < sizeof($slot_rrx); $i++) {
 
 		// insert data into the table 
-		$query_insert_rrx = "INSERT INTO PUBLIC.daemonsnmpelinkrrx VALUES ($timestamp, $pos_rrx[$i], $rrx_name[$i], $rrx_sn[$i], $rrx_temp[$i], $rrx_input1[$i], $rrx_input2[$i], $rrx_input3[$i], $rrx_input4[$i], $rrx_status1[$i], $rrx_status2[$i], $rrx_status3[$i], $rrx_status4[$i]);";
+		$query_insert_rrx = "INSERT INTO PUBLIC.daemonsnmpelinkrrx VALUES ($deviceid, $timestamp, $pos_rrx[$i], $rrx_name[$i], $rrx_sn[$i], $rrx_temp[$i], $rrx_input1[$i], $rrx_input2[$i], $rrx_input3[$i], $rrx_input4[$i], $rrx_status1[$i], $rrx_status2[$i], $rrx_status3[$i], $rrx_status4[$i]);";
 
 		$result_insert_rrx = pg_query($query_insert_rrx) or die('Query failed: ' . pg_last_error());
 	}
@@ -373,6 +384,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	if ($exist_ftx != "daemonsnmpelinkftx") {
 		# code...
 		$query_construct_ftx = "CREATE TABLE PUBLIC.daemonsnmpelinkftx(
+			deviceid 	INT,
 			time           TEXT    , 
 			slot	TEXT,  
 			model        TEXT,
@@ -396,7 +408,7 @@ function daemon_snmpScanIntoDb_elink($ip){
 	for ($i=0; $i < sizeof($slot_ftx); $i++) {
 
 		// insert data into the table 
-		$query_insert_ftx = "INSERT INTO PUBLIC.daemonsnmpelinkftx VALUES ($timestamp, $pos_ftx[$i], $ftx_name[$i], $ftx_sn[$i], $ftx_temp[$i], $ftx_rfinputpower[$i], $ftx_agcmode[$i], $ftx_lasertemp[$i], $ftx_laserbiascurent[$i], $ftx_outputpower[$i], $ftx_thermoeleccoolercurrent[$i], $ftx_lasertype[$i], $ftx_wavelength[$i]);";
+		$query_insert_ftx = "INSERT INTO PUBLIC.daemonsnmpelinkftx VALUES ($deviceid, $timestamp, $pos_ftx[$i], $ftx_name[$i], $ftx_sn[$i], $ftx_temp[$i], $ftx_rfinputpower[$i], $ftx_agcmode[$i], $ftx_lasertemp[$i], $ftx_laserbiascurent[$i], $ftx_outputpower[$i], $ftx_thermoeleccoolercurrent[$i], $ftx_lasertype[$i], $ftx_wavelength[$i]);";
 
 		$result_insert_ftx = pg_query($query_insert_ftx) or die('Query failed: ' . pg_last_error());
 

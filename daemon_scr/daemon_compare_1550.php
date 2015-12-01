@@ -199,7 +199,7 @@ function alarmCompare_1550($timestamp){
 			// 	}
 			// }
 
-			compare_1550($laserim_1, $laserim_2, $laserim_3, $laserim_4, $laserim[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_1550($laserim_1, $laserim_2, $laserim_3, $laserim_4, $laserim[$i], $timestamp, $ip[$i], $mac[$i], "Laser IM");
 
 			// lasertemperature
 			// if ($lasertemperature_1 != "" $$ $lasertemperature_2 != "") {
@@ -208,7 +208,7 @@ function alarmCompare_1550($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_1550($lasertemperature_1, $lasertemperature_2, $lasertemperature_3, $lasertemperature_4, $lasertemperature[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_1550($lasertemperature_1, $lasertemperature_2, $lasertemperature_3, $lasertemperature_4, $lasertemperature[$i], $timestamp, $ip[$i], $mac[$i], "Laser Temperature");
 
 			// laserbias
 			// if ($laserbias_1 != "" $$ $laserbias_2 != "") {
@@ -217,7 +217,7 @@ function alarmCompare_1550($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_1550($laserbias_1, $laserbias_2, $laserbias_3, $laserbias_4, $laserbias[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_1550($laserbias_1, $laserbias_2, $laserbias_3, $laserbias_4, $laserbias[$i], $timestamp, $ip[$i], $mac[$i], "Laser Bias");
 
 
 			// rfmodulationlevel 
@@ -227,7 +227,7 @@ function alarmCompare_1550($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_1550($rfmodulationlevel_1, $rfmodulationlevel_2, $rfmodulationlevel_3, $rfmodulationlevel_4, $rfmodulationlevel[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_1550($rfmodulationlevel_1, $rfmodulationlevel_2, $rfmodulationlevel_3, $rfmodulationlevel_4, $rfmodulationlevel[$i], $timestamp, $ip[$i], $mac[$i], "RF Modulation Level");
 
 
 
@@ -238,7 +238,7 @@ function alarmCompare_1550($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_1550($dc24vvoltage_1, $dc24vvoltage_2, $dc24vvoltage_3, $dc24vvoltage_4, $dc24vvoltage[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_1550($dc24vvoltage_1, $dc24vvoltage_2, $dc24vvoltage_3, $dc24vvoltage_4, $dc24vvoltage[$i], $timestamp, $ip[$i], $mac[$i], "DC 24V");
 
 
 			// dc12vvoltage
@@ -248,7 +248,7 @@ function alarmCompare_1550($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_1550($dc12vvoltage_1, $dc12vvoltage_2, $dc12vvoltage_3, $dc12vvoltage_4, $dc12vvoltage[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_1550($dc12vvoltage_1, $dc12vvoltage_2, $dc12vvoltage_3, $dc12vvoltage_4, $dc12vvoltage[$i], $timestamp, $ip[$i], $mac[$i], "DC 12V");
 
 
 			// dc5vvoltage
@@ -258,7 +258,7 @@ function alarmCompare_1550($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_1550($dc5vvoltage_1, $dc5vvoltage_2, $dc5vvoltage_3, $dc5vvoltage_4, $dc5vvoltage[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_1550($dc5vvoltage_1, $dc5vvoltage_2, $dc5vvoltage_3, $dc5vvoltage_4, $dc5vvoltage[$i], $timestamp, $ip[$i], $mac[$i], "DC 5V");
 
 
 			// minor5vdcvoltage
@@ -268,7 +268,7 @@ function alarmCompare_1550($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_1550($minor5vdcvoltage_1, $minor5vdcvoltage_2, $minor5vdcvoltage_3, $minor5vdcvoltage_4, $minor5vdcvoltage[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_1550($minor5vdcvoltage_1, $minor5vdcvoltage_2, $minor5vdcvoltage_3, $minor5vdcvoltage_4, $minor5vdcvoltage[$i], $timestamp, $ip[$i], $mac[$i], "DC -5V");
 
 
 
@@ -279,7 +279,7 @@ function alarmCompare_1550($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_1550($txopticalpower_1, $txopticalpower_2, $txopticalpower_3, $txopticalpower_4, $txopticalpower[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_1550($txopticalpower_1, $txopticalpower_2, $txopticalpower_3, $txopticalpower_4, $txopticalpower[$i], $timestamp, $ip[$i], $mac[$i], "TX Optical Power");
 
 
 			// txrfmodulelevel
@@ -289,13 +289,13 @@ function alarmCompare_1550($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_1550($txrfmodulelevel_1, $txrfmodulelevel_2, $txrfmodulelevel_3, $txrfmodulelevel_4, $txrfmodulelevel[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_1550($txrfmodulelevel_1, $txrfmodulelevel_2, $txrfmodulelevel_3, $txrfmodulelevel_4, $txrfmodulelevel[$i], $timestamp, $ip[$i], $mac[$i], "TX RF Module Level");
 
 
 			// presentacpower1status
 			
 			if ($presentacpower1status[$i] != 'NORMAL"') {
-				$log = "EG1550: Power Supply 1 (" .  $presentacpower1status[$i] . " is changed!";
+				$log = "EG1550: Power Supply 1 (" .  $presentacpower1status[$i] . " has changed!";
 				alarmLogger($timestamp, $ip[$i], $mac[$i], $log, "Power Failure");
 			}
 		
@@ -303,7 +303,7 @@ function alarmCompare_1550($timestamp){
 			// presentacpower2status
 
 			if ($presentacpower2status[$i] != 'NORMAL"') {
-				$log = "EG1550: Power Supply 2 (" .  $presentacpower2status[$i] . " is changed!";
+				$log = "EG1550: Power Supply 2 (" .  $presentacpower2status[$i] . " has changed!";
 				alarmLogger($timestamp, $ip[$i], $mac[$i], $log, "Power Failure");
 			}
 
@@ -322,27 +322,27 @@ function alarmCompare_1550($timestamp){
 
 
 
-function compare_1550($t1, $t2, $t3, $t4, $r, $time, $ip, $mac){
+function compare_1550($t1, $t2, $t3, $t4, $r, $time, $ip, $mac, $comments){
 			
 	if ($t1 != "" && $t2 != "" && $t3 != "" && $t4 != "") {
 		if ($t1 <= $t2 && $t2 <= $t3 && $t3 <= $t4) {
 			if ($r > floatval($t4)) {
-				$log = "EG1550 has a high-high alarm! (" . $r .")";
+				$log = "EG1550 has a high-high alarm! (" . $comments . " : " .  $r .")";
 				alarmLogger($time, $ip, $mac, $log, "high-high");
 			}
 
 			if ($r < floatval($t4) && $r > floatval($t3)) {
-				$log = "EG1550 has a high alarm! (" . $r .")";
+				$log = "EG1550 has a high alarm! (" . $comments . " : " .  $r .")";
 				alarmLogger($time, $ip, $mac, $log, "high");
 			}
 
 			if ($r < floatval($t2) && $r > floatval($t1)) {
-				$log = "EG1550 has a low alarm! (" . $r .")";
+				$log = "EG1550 has a low alarm! (" . $comments . " : " .  $r .")";
 				alarmLogger($time, $ip, $mac, $log, "low");
 			}
 
 			if ($r < floatval($t1)) {
-				$log = "EG1550 has a low-low alarm! (" . $r .")";
+				$log = "EG1550 has a low-low alarm! (" . $comments . " : " .  $r .")";
 				alarmLogger($time, $ip, $mac, $log, "low-low");
 			}
 		}

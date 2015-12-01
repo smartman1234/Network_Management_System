@@ -9,7 +9,7 @@
 
 // }
 
-//alarmLogger("20151118150000", "10.100.0.1000", "00 B9 A0 12 05 D3", "Havr problem", "High-High");
+//alarmLogger("20151118150000", "69.70.200.232", "00 B9 A0 12 05 D3", "Havr problem", "High-High");
 
 // unit test   --- end
 
@@ -18,6 +18,8 @@
 function alarmLogger($timestamp, $ip, $mac, $log, $sev){
 
 	require("daemon_db_init.php");
+	require_once("daemon_getDeviceIdPerIp.php"); 
+	$deviceid=getDeviceIdPerIp($ip);
 
 	$ip = "'" . $ip . "'";
 	$des = "'" . "" . "'";
@@ -26,7 +28,8 @@ function alarmLogger($timestamp, $ip, $mac, $log, $sev){
 	$ack = "'" . "no" . "'";
 	$sev = "'" . $sev . "'";
 
-	$query = "INSERT INTO PUBLIC.daemonalarm VALUES (
+	$query = "INSERT INTO PUBLIC.daemonalarm (deviceid, time, ip, description, mac, severity, logs, ack) VALUES (
+		$deviceid,
 		$timestamp,
 		$ip,
 		$des,
@@ -44,3 +47,5 @@ function alarmLogger($timestamp, $ip, $mac, $log, $sev){
 }
 
 ?>
+
+	

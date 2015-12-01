@@ -254,14 +254,25 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 * map info feeder    -- ok 
 * alarm status    -- ok 
 
-
-
-* inventory table 
-* js tree stucture 
+// 2015-12-01
+* test discoverty   -- ok (max_execution_time = 500 in php.ini)
+& test integration with alarm thread   --- ok 
+* test add device   -- ok
+* need provision method   -- ok
+* fix the back process with auto-cremental id    -- ok
+* inventory table ALL 
 * fix complicated system 
-* need provision method 
 
 
 
 
-* fix the back process with auto-cremental id 
+
+
+
+* js tree stucture 
+
+
+
+
+
+

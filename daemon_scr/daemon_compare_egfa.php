@@ -221,7 +221,7 @@ function alarmCompare_egfa($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_egfa($loutputopticalpower_1, $loutputopticalpower_2, $loutputopticalpower_3, $loutputopticalpower_4, $loutputopticalpower[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_egfa($loutputopticalpower_1, $loutputopticalpower_2, $loutputopticalpower_3, $loutputopticalpower_4, $loutputopticalpower[$i], $timestamp, $ip[$i], $mac[$i], "Output Optical Power");
 
 
 			// inputopticalpower
@@ -231,7 +231,7 @@ function alarmCompare_egfa($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_egfa($inputopticalpower_1, $inputopticalpower_2, $inputopticalpower_3, $inputopticalpower_4, $inputopticalpower[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_egfa($inputopticalpower_1, $inputopticalpower_2, $inputopticalpower_3, $inputopticalpower_4, $inputopticalpower[$i], $timestamp, $ip[$i], $mac[$i], "Input Optical Power");
 	
 
 			// pumptemp1
@@ -241,7 +241,7 @@ function alarmCompare_egfa($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_egfa($pumptemp1_1, $pumptemp1_2, $pumptemp1_3, $pumptemp1_4, $pumptemp1[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_egfa($pumptemp1_1, $pumptemp1_2, $pumptemp1_3, $pumptemp1_4, $pumptemp1[$i], $timestamp, $ip[$i], $mac[$i], "Pump Temperature 1");
 
 
 			// pumptemp2 
@@ -251,7 +251,7 @@ function alarmCompare_egfa($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_egfa($pumptemp2_1, $pumptemp2_2, $pumptemp2_3, $pumptemp2_4, $pumptemp2[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_egfa($pumptemp2_1, $pumptemp2_2, $pumptemp2_3, $pumptemp2_4, $pumptemp2[$i], $timestamp, $ip[$i], $mac[$i], "Pump Temperature 2");
 
 
 
@@ -262,7 +262,7 @@ function alarmCompare_egfa($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_egfa($pumptemp3_1, $pumptemp3_2, $pumptemp3_3, $pumptemp3_4, $pumptemp3[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_egfa($pumptemp3_1, $pumptemp3_2, $pumptemp3_3, $pumptemp3_4, $pumptemp3[$i], $timestamp, $ip[$i], $mac[$i], "Pump Temperature 3");
 
 
 
@@ -273,7 +273,7 @@ function alarmCompare_egfa($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_egfa($dc5v_1, $dc5v_2, $dc5v_3, $dc5v_4, $dc5v[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_egfa($dc5v_1, $dc5v_2, $dc5v_3, $dc5v_4, $dc5v[$i], $timestamp, $ip[$i], $mac[$i], "DC 5V");
 
 
 			// dcminor5v
@@ -283,7 +283,7 @@ function alarmCompare_egfa($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_egfa($dcminor5v_1, $dcminor5v_2, $dcminor5v_3, $dcminor5v_4, $dcminor5v[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_egfa($dcminor5v_1, $dcminor5v_2, $dcminor5v_3, $dcminor5v_4, $dcminor5v[$i], $timestamp, $ip[$i], $mac[$i], "DC -5V");
 
 
 			// dc33v
@@ -293,7 +293,7 @@ function alarmCompare_egfa($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_egfa($dc33v_1, $dc33v_2, $dc33v_3, $dc33v_4, $dc33v[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_egfa($dc33v_1, $dc33v_2, $dc33v_3, $dc33v_4, $dc33v[$i], $timestamp, $ip[$i], $mac[$i], "DC 33V");
 
 
 			// dc12v
@@ -303,7 +303,7 @@ function alarmCompare_egfa($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }		
-			compare_egfa($dc12v_1, $dc12v_2, $dc12v_3, $dc12v_4, $dc12v[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_egfa($dc12v_1, $dc12v_2, $dc12v_3, $dc12v_4, $dc12v[$i], $timestamp, $ip[$i], $mac[$i], "DC 12V");
 
 
 			// left5v
@@ -313,7 +313,7 @@ function alarmCompare_egfa($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_egfa($left5v_1, $left5v_2, $left5v_3, $left5v_4, $left5v[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_egfa($left5v_1, $left5v_2, $left5v_3, $left5v_4, $left5v[$i], $timestamp, $ip[$i], $mac[$i], "Left 5V");
 
 
 			// right5v
@@ -323,7 +323,7 @@ function alarmCompare_egfa($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_egfa($right5v_1, $right5v_2, $right5v_3, $right5v_4, $right5v[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_egfa($right5v_1, $right5v_2, $right5v_3, $right5v_4, $right5v[$i], $timestamp, $ip[$i], $mac[$i], "Right 5V");
 
 
 			// leftminor5v
@@ -333,7 +333,7 @@ function alarmCompare_egfa($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_egfa($leftminor5v_1, $leftminor5v_2, $leftminor5v_3, $leftminor5v_4, $leftminor5v[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_egfa($leftminor5v_1, $leftminor5v_2, $leftminor5v_3, $leftminor5v_4, $leftminor5v[$i], $timestamp, $ip[$i], $mac[$i], "Left -5V");
 
 
 			// rightminor5v
@@ -343,7 +343,7 @@ function alarmCompare_egfa($timestamp){
 			// 		alarmLogger($timestamp, $ip[$i], $mac[$i], $log);
 			// 	}
 			// }
-			compare_egfa($rightminor5v_1, $rightminor5v_2, $rightminor5v_3, $rightminor5v_4, $rightminor5v[$i], $timestamp, $ip[$i], $mac[$i]);
+			compare_egfa($rightminor5v_1, $rightminor5v_2, $rightminor5v_3, $rightminor5v_4, $rightminor5v[$i], $timestamp, $ip[$i], $mac[$i], "Right -5V");
 
 
 		}
@@ -357,27 +357,27 @@ function alarmCompare_egfa($timestamp){
 
 }
 
-function compare_egfa($t1, $t2, $t3, $t4, $r, $time, $ip, $mac){
+function compare_egfa($t1, $t2, $t3, $t4, $r, $time, $ip, $mac, $comments){
 			
 	if ($t1 != "" && $t2 != "" && $t3 != "" && $t4 != "") {
 		if ($t1 <= $t2 && $t2 <= $t3 && $t3 <= $t4) {
 			if ($r > floatval($t4)) {
-				$log = "EGFA has a high-high alarm! (" . $r .")";
+				$log = "EGFA has a high-high alarm! (" . $comments . " : " .  $r .")";
 				alarmLogger($time, $ip, $mac, $log, "high-high");
 			}
 
 			if ($r < floatval($t4) && $r > floatval($t3)) {
-				$log = "EGFA has a high alarm! (" . $r .")";
+				$log = "EGFA has a high alarm! (" . $comments . " : " .  $r .")";
 				alarmLogger($time, $ip, $mac, $log, "high");
 			}
 
 			if ($r < floatval($t2) && $r > floatval($t1)) {
-				$log = "EGFA has a low alarm! (" . $r .")";
+				$log = "EGFA has a low alarm! (" . $comments . " : " .  $r .")";
 				alarmLogger($time, $ip, $mac, $log, "low");
 			}
 
 			if ($r < floatval($t1)) {
-				$log = "EGFA has a low-low alarm! (" . $r .")";
+				$log = "EGFA has a low-low alarm! (" . $comments . " : " .  $r .")";
 				alarmLogger($time, $ip, $mac, $log, "low-low");
 			}
 		}

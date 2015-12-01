@@ -53,14 +53,40 @@ function closeWin() {
 function deleteExistedContent(){
 	$genericSnmpPath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/daemon_scr/daemon_db_init.php";
 	require_once($genericSnmpPath);  // to initialize db 
-	$query_del = "DELETE FROM PUBLIC.daemondiscoveryrange;";
-	$result_del = pg_query($query_del) or die('Query failed: ' . pg_last_error());
-	pg_free_result($result_del);
+
+	$query_exist = "SELECT relname FROM pg_class 
+	WHERE relname = 'daemondiscoveryrange';";
+
+	$result_exist = pg_query($query_exist) or die('Query failed: ' . pg_last_error());
+
+	$exist = '';
+	while ($row_exist = pg_fetch_object($result_exist)){
+
+		$exist = $row_exist->relname;
+
+	}
+
+	// // 3, if not existed, create it 
+	if ($exist != "daemondiscoveryrange") {
+	# code...
+		$query_construct = "CREATE TABLE PUBLIC.daemondiscoveryrange(
+			id SERIAL PRIMARY KEY,
+			ipbegin           inet,
+			ipend		inet);";
+
+	$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
+	pg_free_result($result_construct);
+
+	}
+
+	if ($exist == "daemondiscoveryrange") {
 
 
+		$query_del = "DELETE FROM PUBLIC.daemondiscoveryrange;";
+		$result_del = pg_query($query_del) or die('Query failed: ' . pg_last_error());
+		pg_free_result($result_del);
 
-
-
+	}
 }
 
 
@@ -89,35 +115,35 @@ function addEntry($begin, $end){
 			ipbegin           inet,
 			ipend		inet);";
 
-	$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
-	pg_free_result($result_construct);
+$result_construct = pg_query($query_construct) or die('Query failed: ' . pg_last_error());
+pg_free_result($result_construct);
 
-	}
+}
 
-	$query_value = "SELECT 
-	  daemondiscoveryrange.ipbegin, 
-	  daemondiscoveryrange.ipend
-	FROM 
-	  public.daemondiscoveryrange;";
+$query_value = "SELECT 
+daemondiscoveryrange.ipbegin, 
+daemondiscoveryrange.ipend
+FROM 
+public.daemondiscoveryrange;";
 
-	$result_value = pg_query($query_value) or die('Query failed: ' . pg_last_error());
-	$ipbl=[];
-	$ipel=[];
-	while ($row = pg_fetch_object($result_value)) {	
-		$ipbl[]=$row->ipbegin;
-		$ipel[]=$row->ipend;
+$result_value = pg_query($query_value) or die('Query failed: ' . pg_last_error());
+$ipbl=[];
+$ipel=[];
+while ($row = pg_fetch_object($result_value)) {	
+	$ipbl[]=$row->ipbegin;
+	$ipel[]=$row->ipend;
 
-	}
+}
 
-	$isAdd = true;
-	for ($i=0; $i < sizeof($ipbl); $i++) { 
+$isAdd = true;
+for ($i=0; $i < sizeof($ipbl); $i++) { 
 		# code...
-		if ($ipbl[$i]==$begin && $ipel[$i]==$end) {
+	if ($ipbl[$i]==$begin && $ipel[$i]==$end) {
 			# code...
-			$isAdd=false;
+		$isAdd=false;
 
-		}
 	}
+}
 
 
 

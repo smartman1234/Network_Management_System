@@ -36,9 +36,9 @@
 
 // unit test   --- begin 
 
-// for ($i=0; $i < 3; $i++) { 
+// for ($i=0; $i < 1; $i++) { 
 // 	# code...
-// 	daemon_snmpScanIntoDb_1550("10.100.0.50");
+// 	daemon_snmpScanIntoDb_1550("69.70.200.246");
 // }
 
 
@@ -52,9 +52,14 @@ function daemon_snmpScanIntoDb_1550($ip){
 	$genericSnmpPath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/php_scripts/oidget/genericSnmp.php";
 	require_once($genericSnmpPath);  // to initialize snmp 
 	require("daemon_db_init.php");  // to initialize database connection 
+	require_once("daemon_getDeviceIdPerIp.php");  // to initialize database connection 
 
 	// 1, extract all snmp value from 1550 
-	// $timestamp =  deco_1550(date("j F Y h:i:s A"));
+	//$timestamp = "'" . date('YmdGis') . "'";
+
+	$deviceid=getDeviceIdPerIp($ip);
+
+	//echo $deivceid;
 	global $timestamp;
 	$recordedIp = trim(deco_1550($ip));
 	$sysDescr = deco_1550(snmpget_smallp ( $ip, ".1.3.6.1.2.1.1.1.0" ));
@@ -133,6 +138,7 @@ function daemon_snmpScanIntoDb_1550($ip){
 	if ($exist != "dameonsnmp1550value") {
 	# code...
 		$query_construct = "CREATE TABLE PUBLIC.dameonsnmp1550value(
+			deviceid int,
 			time           TEXT    ,
 			recordip	TEXT,
 			description            TEXT  ,
@@ -143,7 +149,7 @@ function daemon_snmpScanIntoDb_1550($ip){
 			location         TEXT,
 			service        TEXT,
 			ip         TEXT,
-			mac         TEXT,
+			mac         MACADDR,
 			statusindex            TEXT  ,
 			idcode       TEXT,
 			subID         TEXT,
@@ -172,7 +178,7 @@ function daemon_snmpScanIntoDb_1550($ip){
 
 	// 4, insert data into the table 
 
-	$query_insert = "INSERT INTO PUBLIC.dameonsnmp1550value VALUES ($timestamp, $recordedIp, $sysDescr, $sysObjectID, $sysUpTime, $sysContact, $sysName, $sysLocation, $sysService, $defaultIp, $defaultMac, $value[0], $value[1], $value[2], $value[3], $value[4], $value[5], $value[6], $value[7], $value[8], $value[9], $value[10], $value[11], $value[12], $value[13], $value[14], $value[15], $value[16], $value[17], $value[18], $value[19]);";
+	$query_insert = "INSERT INTO PUBLIC.dameonsnmp1550value VALUES ($deviceid, $timestamp, $recordedIp, $sysDescr, $sysObjectID, $sysUpTime, $sysContact, $sysName, $sysLocation, $sysService, $defaultIp, $defaultMac, $value[0], $value[1], $value[2], $value[3], $value[4], $value[5], $value[6], $value[7], $value[8], $value[9], $value[10], $value[11], $value[12], $value[13], $value[14], $value[15], $value[16], $value[17], $value[18], $value[19]);";
 
 	$result_insert = pg_query($query_insert) or die('Query failed: ' . pg_last_error());
 

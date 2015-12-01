@@ -3,7 +3,15 @@
 // C:\usr\bin\
 
 function snmpget_bigP($ip, $oid) {
-	$command = $command = "C:\usr\bin\snmpget -Ov -v 1 -c PUBLIC " . $ip . " " .  $oid . " 2>&1";
+	$command = "C:\usr\bin\snmpget -Ov -v 1 -c PUBLIC " . $ip . " " .  $oid . " 2>&1";
+	$result = shell_exec ( $command );
+	$result = ext ( $result );
+	$result = removeQuotation($result);
+	return $result;
+}
+
+function snmpget_generic($ip, $comm, $oid) {
+	$command = "C:\usr\bin\snmpget -Ov -v 1 -c " . $comm . " " . $ip . " " .  $oid . " 2>&1";
 	$result = shell_exec ( $command );
 	$result = ext ( $result );
 	$result = removeQuotation($result);
@@ -30,7 +38,7 @@ function snmpget_bigP($ip, $oid) {
 
 
 function snmpget_smallp($ip, $oid) {
-	$command = $command = "C:\usr\bin\snmpget -Ov -v 1 -c public " . $ip . " " .  $oid . " 2>&1";
+	$command = "C:\usr\bin\snmpget -Ov -v 1 -c public " . $ip . " " .  $oid . " 2>&1";
 	$result = shell_exec ( $command );
 	$result = ext ( $result );
 	$result = removeQuotation($result);

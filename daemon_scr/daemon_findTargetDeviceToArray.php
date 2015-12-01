@@ -60,9 +60,9 @@ pg_free_result($result);
 pg_close($dbconn);
 
 //unit test    --- begin 
-// var_dump($device_1550);
-// var_dump($device_elink);
-// var_dump($device_egfa);
+//var_dump($device_1550);
+//var_dump($device_elink);
+//var_dump($device_egfa);
 //unit test    --- end  
 
 ?>

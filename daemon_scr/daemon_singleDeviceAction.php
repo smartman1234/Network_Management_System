@@ -3,11 +3,14 @@
 
 function addDevice($ip, $comm, $mac, $sn, $lati, $long){
 
+	$genericSnmpPath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/php_scripts/oidget/genericSnmp.php";
+	require_once($genericSnmpPath);  // to initialize snmp 	
+
 	$deco_ip= "'" . $ip . "'";
 
 	if ($mac=="") {
 		# code...
-		$mac = "NA";
+		$mac = "00:00:00:00:00:00";
 	}
 
 	if ($sn=="") {
@@ -53,7 +56,18 @@ function addDevice($ip, $comm, $mac, $sn, $lati, $long){
 		$sysService = "'" . snmpget_bigP ( $ip, ".1.3.6.1.2.1.1.7.0" ). "'";
 	}
 
-	require_once("daemon_db_init.phpdaemon_db_init.php");
+	if ($comm!="PUBLIC" && $comm!="public") {
+		# code...
+		$sysDescr = "'" . snmpget_generic ( $ip, $comm, ".1.3.6.1.2.1.1.1.0" ). "'";
+		$sysObjectID = "'" . snmpget_generic ( $ip, $comm, ".1.3.6.1.2.1.1.2.0" ). "'";
+		$sysUpTime = "'" . snmpget_generic ( $ip, $comm, ".1.3.6.1.2.1.1.3.0" ). "'";
+		$sysContact = "'" . snmpget_generic ( $ip, $comm, ".1.3.6.1.2.1.1.4.0" ). "'";
+		$sysName = "'" . snmpget_generic ( $ip, $comm, ".1.3.6.1.2.1.1.5.0" ). "'";
+		$sysLocation = "'" . snmpget_generic ( $ip, $comm, ".1.3.6.1.2.1.1.6.0"). "'";
+		$sysService = "'" . snmpget_generic ( $ip, $comm, ".1.3.6.1.2.1.1.7.0" ). "'";
+	}
+
+	require_once("daemon_db_init.php");
 
 	$query_exist = "SELECT relname FROM pg_class 
 	WHERE relname = 'daemondevice';";
@@ -121,7 +135,7 @@ function addDevice($ip, $comm, $mac, $sn, $lati, $long){
 		$query_update = "UPDATE PUBLIC.daemondevice SET 
 			time= $timestamp, 
 			ip= $deco_ip, 
-			status = $statis.
+			status = $status,
 			description = $sysDescr,
 			mib= $sysObjectID,
 			uptime = $sysUpTime,
@@ -145,7 +159,7 @@ function addDevice($ip, $comm, $mac, $sn, $lati, $long){
 	pg_free_result($result_exist);
 	pg_free_result($result_value);
 	
-	pg_close($dbconn);
+	//pg_close($dbconn);
 
 }
 

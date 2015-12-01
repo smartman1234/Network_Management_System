@@ -1,5 +1,14 @@
 <?php
 
+// unit test --- begin 
+
+// ifAlarmInfoDbNotExistCreateIt();
+
+
+// unit test --- end 
+
+
+
 
 function ifAlarmInfoDbNotExistCreateIt(){
 
@@ -23,7 +32,9 @@ function ifAlarmInfoDbNotExistCreateIt(){
 	if ($exist != "daemonalarm") {
 	# code...
 		$query_construct = "CREATE TABLE PUBLIC.daemonalarm(
+			alarmid SERIAL PRIMARY KEY,
 			time           TEXT    ,
+			deviceId INT,
 			ip		TEXT,
 			description            TEXT  ,
 			mac       TEXT,

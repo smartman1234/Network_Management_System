@@ -3,7 +3,7 @@
 // unit test    --- begin 
 // for ($i=0; $i < 200; $i++) { 
 // 	# code...
-// 	daemon_scanTime();
+//daemon_scanTime();
 // }
 
 // unit test    --- end 
@@ -14,7 +14,7 @@ function daemon_scanTime(){
 
 	// 1, get timestamp 
 	// $time = date("j F Y h:i:s A");
-	// $timestamp =  deco_time(date("j F Y h:i:s A"));
+	 // $timestamp = "'" . date('YmdGis') . "'";
 	global $timestamp;
 
 	// 2, check if the table "dameontimestamp" in the database "vanguardhe"
@@ -37,6 +37,7 @@ function daemon_scanTime(){
 	if ($exist != "dameontimestamp") {
 	# code...
 		$query_construct = "CREATE TABLE PUBLIC.dameontimestamp(
+			scanid SERIAL PRIMARY KEY,
 			time           TEXT,
 			alarmcount           TEXT );";
 
@@ -47,7 +48,7 @@ function daemon_scanTime(){
 
 	// 4, insert data into the table 
 
-	$query_insert = "INSERT INTO PUBLIC.dameontimestamp VALUES ($timestamp);";
+	$query_insert = "INSERT INTO PUBLIC.dameontimestamp (time) VALUES ($timestamp);";
 
 	$result_insert = pg_query($query_insert) or die('Query failed: ' . pg_last_error());
 

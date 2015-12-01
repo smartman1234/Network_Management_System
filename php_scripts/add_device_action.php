@@ -37,6 +37,7 @@ for ($i=0; $i < 3; $i++) {
 		# code...
 		if (ifPingable($ip[$i])!=false) {
 			# code...
+			echo $ip[$i] . " : " . $comm[$i];
 			 addDevice($ip[$i], $comm[$i], $mac[$i], $sn[$i], $lati[$i], $long[$i]);
 		}
 

@@ -16,14 +16,14 @@ function getAlarmStatus($ip){
 
 	if ($number==0) {
 		# code...
-		return 0;
+		return "Normal";
 
 	}
 
 
 	if ($number>0) {
 		# code...
-		return 1;
+		return "Alarmed";
 
 	}
 

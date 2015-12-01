@@ -10,7 +10,7 @@
 
 
 
-// autoDiscovery("69.70.200.230", "69.70.200.250");
+//autoDiscovery("69.70.200.230", "69.70.200.250");
  // writeToDatabase("69.70.200.246", "public");
  // writeToDatabase("69.70.200.249", "public");
  // writeToDatabase("69.70.200.232", "PUBLIC");
@@ -193,4 +193,30 @@ function writeToDatabase($ip, $s){
 	pg_close($dbconn);
 
 }
+
+
+
+// get ip list 
+function test($l, $u)
+{
+    $lp = strripos($l, ".") + 1;
+    $up = strripos($u, ".") + 1;
+    $lnum = intval(substr($l, $lp));
+    $unum = intval(substr($u, $up));
+    $lrem = substr($l, 0, $lp);
+
+    for ($i = $lnum; $i <= $unum; $i++) {
+        # code...
+        $ipPool[] = $lrem . strval($i);
+    }
+
+    for ($i=0; $i < sizeof($ipPool) ; $i++) { 
+    	# code...
+    	
+    }
+
+}
+
+
+
 ?>
