@@ -20,12 +20,12 @@ function addDevice($ip, $comm, $mac, $sn, $lati, $long){
 
 	if ($lati=="") {
 		# code...
-		$lati = "0.0";
+		$lati = "-73.6602109";
 	}
 
 	if ($long=="") {
 		# code...
-		$long = "0.0";
+		$long = "45.5263402";
 	}
 
 	$deco_mac= "'" . $mac . "'";

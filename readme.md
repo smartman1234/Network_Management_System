@@ -262,19 +262,13 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 * fix the back process with auto-cremental id    -- ok
 * inventory table ALL     -- ok
 
+// 2015-12-02 
+* fix mapping table       --- ok 
 * alarm table 
 * delete other unused page 
-
-
-
-
-
-
+* organize all pages 
+* check alarm info background
+* fix the mainpage 
 * js tree stucture 
 * fix alarm esp of elink
-
-
-
-
-
 
