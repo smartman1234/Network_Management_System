@@ -264,11 +264,14 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 
 // 2015-12-02 
 * fix mapping table       --- ok 
-* alarm table 
-* delete other unused page 
+* alarm table      --- ok 
+* alarm history    --- ok 
+* check alarm info background   --- could be neglected at this moment 
+* fix alarm esp of elink   --- ok 
+
+
+* delete other unused page    
 * organize all pages 
-* check alarm info background
+
 * fix the mainpage 
 * js tree stucture 
-* fix alarm esp of elink
-

@@ -1,14 +1,102 @@
-alarmid,nodeid,ipaddr,alarmtype,counter,severity,lasteventtime,firsteventtime,description,logmsg,dpname,nodetype,nodesysoid,nodesysname,nodesysdescription,nodesyslocation,nodesyscontact,nodelabel
-15,7,,3,16,6,2015-09-29 13:31:18.561-04,2015-09-22 13:23:31.369-04,"A provisioning adapter failed for host: .<p>
-      <p>Message: Dynamic DNS provisioning failed: java.net.PortUnreachableException </p>",<p> ::Dynamic DNS provisioning failed: java.net.PortUnreachableException </p>,localhost,A,.1.3.6.1.4.1.17409.1.11,  ,blapp-HfcAgentE-OA3,  ,   ,10.100.0.102
-14,5,,3,55,6,2015-09-29 16:35:21.582-04,2015-09-22 13:23:31.206-04,"A provisioning adapter failed for host: .<p>
-      <p>Message: Dynamic DNS provisioning failed: org.xbill.DNS.TextParseException: '': empty name </p>",<p> ::Dynamic DNS provisioning failed: org.xbill.DNS.TextParseException: '': empty name </p>,localhost,A,.1.3.6.1.4.1.5591.29317.1.11.1.3.1.1,"ELink,Optical headend platform",Electroline Equipment Inc,"395 Lebeau Blvd, Saint-Laurent, Quebec",flavio.marcon@electroline.com,"ELink,Optical headend platform"
-212,11,,1,1,6,2015-09-28 22:00:17.42-04,2015-09-28 22:00:17.42-04,"<p>All interfaces on node PCAELBAHRI are
-      down.</p> <p>This event is generated when node
-      outage processing determines that all interfaces on the node
-      are down.</p> <p>New outage records have been
-      created and service level availability calculations will be
-      impacted until this outage is resolved.</p>",Node PCAELBAHRI is down. ,localhost,A,,,,,,PCAELBAHRI
-System time: 2015-12-02 06:32:40
+alarmid,time,deviceid,description,mac,severity,logs,ip,ack
+2,2015120265752,0,"",00:0f:32:dc:40:5b,low,EG1550 has a low alarm! (Laser Temperature : 17),"10.100.0.50
+",no
+5,2015120265752,0,"",00:0f:32:dc:40:5b,low,EG1550 has a low alarm! (DC 24V : 23.4),"10.100.0.50
+",no
+7,2015120265752,0,"",00:0f:32:dc:40:5b,low,EG1550 has a low alarm! (DC 5V : 5.1),"10.100.0.50
+",no
+8,2015120265752,0,"",00:0f:32:dc:40:5b,low,EG1550 has a low alarm! (DC -5V : -5),"10.100.0.50
+",no
+9,2015120265752,0,"",00:0f:32:dc:40:5b,low,EG1550 has a low alarm! (TX Optical Power : 8.6),"10.100.0.50
+",no
+10,2015120265752,0,"",00:0f:32:dc:40:5b,low-low,EG1550 has a low-low alarm! (TX RF Module Level : -7.9),"10.100.0.50
+",no
+11,2015120265752,0,"",00:0f:32:dc:40:5b,Power Failure,"EG1550: Power Supply 1 (NORMAL""
+ has changed!","10.100.0.50
+",no
+12,2015120265752,0,"",00:0f:32:dc:40:5b,Power Failure,"EG1550: Power Supply 2 (FAILURE 2""
+ has changed!","10.100.0.50
+",no
+13,2015120265752,0,"","",high-high,ELink HeadEnd has a high-high alarm! (Power Supply Output V : 242),"10.100.0.80
+",no
+14,2015120265752,0,"","",high-high,ELink HeadEnd has a high-high alarm! (Power Supply Output mA : 1942),"10.100.0.80
+",no
+15,2015120265752,0,"","",low-low,ELink HeadEnd has a low-low alarm! (RRX Input : -250),"10.100.0.80
+",no
+16,2015120265752,0,"","",low-low,ELink HeadEnd has a low-low alarm! (RRX Input : -250),"10.100.0.80
+",no
+17,2015120265752,0,"","",low-low,ELink HeadEnd has a low-low alarm! (RRX Input : -250),"10.100.0.80
+",no
+18,2015120265752,0,"","",low-low,ELink HeadEnd has a low-low alarm! (RRX Input : -250),"10.100.0.80
+",no
+19,2015120265752,0,"","",low-low,ELink HeadEnd has a low-low alarm! (RRX Input : -71),"10.100.0.80
+",no
+20,2015120265752,0,"","",low-low,ELink HeadEnd has a low-low alarm! (RRX Input : -250),"10.100.0.80
+",no
+21,2015120265752,0,"","",low-low,ELink HeadEnd has a low-low alarm! (RRX Input : -250),"10.100.0.80
+",no
+22,2015120265752,0,"","",low-low,ELink HeadEnd has a low-low alarm! (RRX Input : -250),"10.100.0.80
+",no
+23,2015120265752,0,"","",low-low,ELink HeadEnd has a low-low alarm! (RRX Input : -250),"10.100.0.80
+",no
+24,2015120265752,0,"","",high-high,ELink HeadEnd has a high-high alarm! (FTX Laser Temperature : 274),"10.100.0.80
+",no
+25,2015120265752,0,"","",high,ELink HeadEnd has a high alarm! (FTX Laser Bias Current : 71),"10.100.0.80
+",no
+26,2015120265752,0,"","",high-high,ELink HeadEnd has a high-high alarm! (FTX Laser Temperature : 250),"10.100.0.80
+",no
+27,2015120265752,0,"","",high,ELink HeadEnd has a high alarm! (FTX Laser Bias Current : 47),"10.100.0.80
+",no
+28,2015120265752,0,"","00 B9 A0 12 05 D3 
+",low-low,EGFA has a low-low alarm! (Output Optical Power : -600),"10.100.0.102
+",no
+29,2015120265752,0,"","00 B9 A0 12 05 D3 
+",low-low,EGFA has a low-low alarm! (Input Optical Power : -600),"10.100.0.102
+",no
+30,2015120265752,0,"","00 B9 A0 12 05 D3 
+",high,EGFA has a high alarm! (Pump Temperature 1 : 260),"10.100.0.102
+",no
+31,2015120265752,0,"","00 B9 A0 12 05 D3 
+",low,EGFA has a low alarm! (Pump Temperature 2 : 0),"10.100.0.102
+",no
+32,2015120265752,0,"","00 B9 A0 12 05 D3 
+",low,EGFA has a low alarm! (Pump Temperature 3 : 0),"10.100.0.102
+",no
+33,2015120265752,0,"","00 B9 A0 12 05 D3 
+",low,EGFA has a low alarm! (DC 5V : 49),"10.100.0.102
+",no
+34,2015120265752,0,"","00 B9 A0 12 05 D3 
+",low-low,EGFA has a low-low alarm! (DC -5V : -49),"10.100.0.102
+",no
+35,2015120265752,0,"","00 B9 A0 12 05 D3 
+",low,EGFA has a low alarm! (DC 33V : 32),"10.100.0.102
+",no
+36,2015120265752,0,"","00 B9 A0 12 05 D3 
+",high,EGFA has a high alarm! (DC 12V : 135),"10.100.0.102
+",no
+37,2015120265752,0,"","00 B9 A0 12 05 D3 
+",low,EGFA has a low alarm! (Left 5V : 0),"10.100.0.102
+",no
+38,2015120265752,0,"","00 B9 A0 12 05 D3 
+",low,"EGFA has a low alarm! (Right 5V : 47
+)","10.100.0.102
+",no
+39,2015120265752,0,"","00 B9 A0 12 05 D3 
+",low,"EGFA has a low alarm! (Left -5V : 0
+)","10.100.0.102
+",no
+40,2015120265752,0,"","00 B9 A0 12 05 D3 
+",low-low,"EGFA has a low-low alarm! (Right -5V : -46
+)","10.100.0.102
+",no
+1,2015120265752,0,"",00:0f:32:dc:40:5b,low,EG1550 has a low alarm! (Laser IM : 0.4),"10.100.0.50
+",yes
+3,2015120265752,0,"",00:0f:32:dc:40:5b,high,EG1550 has a high alarm! (Laser Bias : 253.4),"10.100.0.50
+",yes
+4,2015120265752,0,"",00:0f:32:dc:40:5b,low-low,EG1550 has a low-low alarm! (RF Modulation Level : -7.9),"10.100.0.50
+",yes
+6,2015120265752,0,"",00:0f:32:dc:40:5b,low,EG1550 has a low alarm! (DC 12V : 11.3),"10.100.0.50
+",yes
+System time: 2015-12-02 11:30:46
 These data are generated by Electroline Vanguard-HE NMS Portal
 2015 Electroline Equipment Inc. All rights reserved.

@@ -3,31 +3,27 @@
 
 
 
-require "db_initialize.php";
+$dbpath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/daemon_scr/daemon_db_init.php";
+require($dbpath);  // to initialize snmp 
 
-$query = "SELECT DISTINCT ON (ipinterface.nodeid)
-ipinterface.nodeid, 
-ipinterface.ipaddr
+$query = "SELECT DISTINCT ON (daemonalarm.ip)
+  daemonalarm.ip
 FROM 
-public.ipinterface
-ORDER BY
-ipinterface.nodeid;";
+  public.daemonalarm;";
+
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
 $total_alarm_number = pg_num_rows($result);
 
-
+$a=[];
 while ($row = pg_fetch_object($result)) {	
-	$a[] = $row->
-	ipaddr;
+	$a[] = trim($row->ip);
 }
 
 pg_free_result($result);
 pg_close($dbconn);
 
 $json = json_encode($a);
-
-
 
 
 

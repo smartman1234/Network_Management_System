@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Device History</title>
+    <title>Alarm History</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/table.css" rel="stylesheet">
@@ -82,7 +82,7 @@ window.onload = function() {
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
                         <a href="device_history.html" class="site_title"> <i class="fa fa-bar-chart"></i>
-                            <span>Device History</span>
+                            <span>Alarm History</span>
                         </a>
                     </div>
                     <div class="clearfix"></div>
@@ -137,7 +137,7 @@ window.onload = function() {
                                     </li>
                                     <li>
                                         <a href="device_history.html">
-                                            <i class="fa fa-history"></i> Device History
+                                            <i class="fa fa-history"></i> Alarm History
                                         </a>
                                     </li>
                                     <li>
@@ -236,7 +236,7 @@ window.onload = function() {
                     <div class="page-title">
                         <div class="title_left">
                             <h3 id="mouseCur">
-                                <a onclick="POPUP_Fcuntion()">Device History Advanced Search</a>
+                                <a onclick="POPUP_Fcuntion()">Alarm History Records</a>
                             </h3>
                             <br>
                         </div>
@@ -271,17 +271,14 @@ window.onload = function() {
                 <br>
             </div>
         </form>
+
+
     </div>
     <script>
         $(function() {
-            var availableTags =;
-            <
-            ? php require;
-            "php_scripts/ip_address_json.php";
-            echo;
-            $json;
-            ?
-            >
+            var availableTags =<?php require("php_scripts/ip_address_json.php");
+            echo $json;    ?>
+            document.write(availableTags);
             $("#ipaddress").autocomplete({
                 source: availableTags
             });

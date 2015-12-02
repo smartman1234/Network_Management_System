@@ -69,7 +69,7 @@ checkAlarmUpdatedIfYesTakeAction($timestamp);
 
 
 // the helper function that double chekcs the device is really reachable 
-function ifPingable($host, $timeout = 1) {
+function ifPingable($host, $timeout = 5) {
 	/* ICMP ping packet with a pre-calculated checksum */
 	$package = "\x08\x00\x7d\x4b\x00\x00\x00\x00PingHost";
 	$socket  = socket_create(AF_INET, SOCK_RAW, 1);

@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Outstanding Alarms</title>
+    <title>Alarms History</title>
 
     <!-- Bootstrap core CSS -->
 
@@ -267,7 +267,7 @@
                     <div class="page-title">
                         <div class="title_left">
                             <h3 id="mouseCur">
-								<a onclick="POPUP_Fcuntion()">Outstanding Alarms</a>
+								<a onclick="POPUP_Fcuntion()">Alarms History Records</a>
 							</h3>
                             <br>
                         </div>
@@ -285,8 +285,8 @@
                     <div class="clearfix"></div>
                     <div class="row">
                         <button type="button" class="btn btn-primary" onclick="reload()">Refresh List</button>
-                        <button type="button" class="btn btn-primary" onclick="location.href='device_history.html';">All Alarm History</button>
-                        <button type="button" class="btn btn-primary" onclick="location.href='php_scripts/export_alarmlist.php';">Export Data</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='alarm_list.html';">Outstanding Alarms</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='php_scripts/export_alarmhistory.php';">Export Data</button>
 
                         <script>
                             function reload() {
@@ -317,9 +317,9 @@
 														)
 														<br><br>
 
-														Current outstanding alarm number: <b><?php
+														Total alarm records number: <b><?php
 														require "php_scripts/real_time_alarm_total_number.php";
-														echo $total_alarm_number;
+														echo $alarm_records_number;
 														?></b>
 														<br>
 														<br>
@@ -363,7 +363,7 @@
                                             }
                                         </style>
 
-                                        <?php require "php_scripts/alarm_listview.php"; ?>
+                                        <?php require "php_scripts/alarm_history.php"; ?>
                                         </tbody>
 
                                         <tfoot>
