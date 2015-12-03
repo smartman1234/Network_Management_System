@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Vanguard-HE</title>
+    <title>VanguardHE Dashboard</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -129,7 +129,7 @@
                     </li>
                     <li>
                         <a href="inventory.html">
-                            <i class="fa fa-file-text-o"></i> Inventory
+                            <i class="fa fa-file-text-o"></i> Device Inventory
                         </a>
                     </li>
                     <li>
@@ -139,13 +139,13 @@
                     </li>
 
                     <li>
-                        <a href="device_history.html">
+                        <a href="alarm_history.html">
                             <i class="fa fa-history"></i> Alarm History 
                         </a>
                     </li>
                     <li>
                         <a href="network_mapping.html">
-                            <i class="fa fa-globe"></i> Network Mapping
+                            <i class="fa fa-globe"></i> Mapping Visualization
                         </a>
                     </li>
 
@@ -174,8 +174,8 @@
                     </li>
 
                     <li>
-                        <a href="network_mapping.html">
-                            <i class="fa fa-globe"></i> Open Monitoring Process
+                        <a href="Daemon.html" target="_blank">
+                            <i class="fa fa-globe"></i> Trigger Monitoring Process
                         </a>
                     </li>
                 </ul>
@@ -247,6 +247,7 @@
     <br />
     <div class="">
         <div class="row top_tiles">
+
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                     <div class="icon">
@@ -254,64 +255,53 @@
                     </div>
                     <div class="count">
                         <a href="inventory.html">
-                            <?php require "php_scripts/total_devices_network_number.php"; echo $total_device_number;?>
+                            <?php require_once "php_scripts/total_devices_network_number.php"; echo $total_device_number;?>
                         </a>
                     </div>
                     <h3>Total Devices in Network</h3>
                     <p>
-                        Online Devices:
-                        <?php require "php_scripts/nodeidInElementToArray.php"; echo $total_online_number;?>
-                    </p>
-                </div>
-            </div>
-            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <a href="inventory.html">Online Devices:
+                           <?php require "php_scripts/total_devices_network_number.php"; echo $total_device_number;?></a>
+                       </p>
+                   </div>
+               </div>
+
+
+
+               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                     <div class="icon">
                         <i class="fa fa-bell"></i>
                     </div>
                     <div class="count">
                         <a href="alarm_list.html">
-                            <?php require "php_scripts/real_time_alarm_total_number.php"; echo $total_alarm_number; ?>
+                            <?php require "php_scripts/real_time_alarm_total_number.php"; echo $alarm_records_number; ?>
                         </a>
                     </div>
-                    <h3>Real-time Alarms</h3>
+                    <h3>Outstanding Alarms</h3>
                     <p>
-                        <a href="alarm_list.html">Search alarm details</a>
+                        <a href="alarm_list.html">Go to Acknowledge</a>
                     </p>
                 </div>
             </div>
-            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats">
-                    <div class="icon">
-                        <i class="fa fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="count">
-                        <a href="outage_list.html">
-                            <?php require "php_scripts/unsolved_outage_number.php"; echo $total_unsolved_outage_number;?>
-                        </a>
-                    </div>
-                    <h3>Unsolved Outages</h3>
-                    <p>
-                        <a href="outage_list.html">Investigate unsolved and solved outages</a>
-                    </p>
-                </div>
-            </div>
+
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                     <div class="icon">
                         <i class="fa fa-comment-o"></i>
                     </div>
                     <div class="count">
-                        <a href="notification_outstanding.html">
-                            <?php require "php_scripts/pending_notification_number.php"; echo $total_pending_notification_number; ?>
+                        <a href="Daemon.html" target="_BLANK">
+                            <?php echo "Running"; ?>
                         </a>
                     </div>
-                    <h3>Pending notifications</h3>
+                    <h3>Monitoring Status</h3>
                     <p>
-                        <a href="notification_outstanding.html">Discover all notifications</a>
+                        <a href="Daemon.html" target="_BLANK">Trigger the Monitoring Process</a>
                     </p>
                 </div>
             </div>
+
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -334,6 +324,7 @@
                                     <div class="clearfix"></div>
                                     <div class="clearfix"></div>
                                 </div>
+
                                 <div class="x_content">
                                     <div class="col-md-9 col-sm-12 col-xs-12">
                                         <div class="demo-container">
@@ -348,6 +339,7 @@
                                     </div>
 
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -507,73 +499,73 @@
                 }
             }], options);
         });
-    </script>
-    <!-- /flot -->
-    <!--  -->
-    <script>
-        $('document').ready(function() {
-            $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
-                type: 'bar',
-                height: '125',
-                barWidth: 13,
-                colorMap: {
-                    '7': '#a1a1a1'
-                },
-                barSpacing: 2,
-                barColor: '#26B99A'
-            });
-
-            $(".sparkline11").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3], {
-                type: 'bar',
-                height: '40',
-                barWidth: 8,
-                colorMap: {
-                    '7': '#a1a1a1'
-                },
-                barSpacing: 2,
-                barColor: '#26B99A'
-            });
-
-            $(".sparkline22").sparkline([2, 4, 3, 4, 7, 5, 4, 3, 5, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6], {
-                type: 'line',
-                height: '40',
-                width: '200',
-                lineColor: '#26B99A',
-                fillColor: '#ffffff',
-                lineWidth: 3,
-                spotColor: '#34495E',
-                minSpotColor: '#34495E'
-            });
-
-            var doughnutData = [{
-                value: 30,
-                color: "#455C73"
-            }, {
-                value: 30,
-                color: "#9B59B6"
-            }, {
-                value: 60,
-                color: "#BDC3C7"
-            }, {
-                value: 100,
-                color: "#26B99A"
-            }, {
-                value: 120,
-                color: "#3498DB"
-            }];
-            var myDoughnut = new Chart(document.getElementById("canvas1i").getContext("2d")).Doughnut(doughnutData);
-            var myDoughnut = new Chart(document.getElementById("canvas1i2").getContext("2d")).Doughnut(doughnutData);
-            var myDoughnut = new Chart(document.getElementById("canvas1i3").getContext("2d")).Doughnut(doughnutData);
+</script>
+<!-- /flot -->
+<!--  -->
+<script>
+    $('document').ready(function() {
+        $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
+            type: 'bar',
+            height: '125',
+            barWidth: 13,
+            colorMap: {
+                '7': '#a1a1a1'
+            },
+            barSpacing: 2,
+            barColor: '#26B99A'
         });
-    </script>
-    <!-- -->
-    <!-- datepicker -->
-    <script type="text/javascript">
-        $(document).ready(function() {
 
-            var cb = function(start, end, label) {
-                console.log(start.toISOString(), end.toISOString(), label);
-                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        $(".sparkline11").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3], {
+            type: 'bar',
+            height: '40',
+            barWidth: 8,
+            colorMap: {
+                '7': '#a1a1a1'
+            },
+            barSpacing: 2,
+            barColor: '#26B99A'
+        });
+
+        $(".sparkline22").sparkline([2, 4, 3, 4, 7, 5, 4, 3, 5, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6], {
+            type: 'line',
+            height: '40',
+            width: '200',
+            lineColor: '#26B99A',
+            fillColor: '#ffffff',
+            lineWidth: 3,
+            spotColor: '#34495E',
+            minSpotColor: '#34495E'
+        });
+
+        var doughnutData = [{
+            value: 30,
+            color: "#455C73"
+        }, {
+            value: 30,
+            color: "#9B59B6"
+        }, {
+            value: 60,
+            color: "#BDC3C7"
+        }, {
+            value: 100,
+            color: "#26B99A"
+        }, {
+            value: 120,
+            color: "#3498DB"
+        }];
+        var myDoughnut = new Chart(document.getElementById("canvas1i").getContext("2d")).Doughnut(doughnutData);
+        var myDoughnut = new Chart(document.getElementById("canvas1i2").getContext("2d")).Doughnut(doughnutData);
+        var myDoughnut = new Chart(document.getElementById("canvas1i3").getContext("2d")).Doughnut(doughnutData);
+    });
+</script>
+<!-- -->
+<!-- datepicker -->
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        var cb = function(start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
                 //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
             };
 
@@ -639,8 +631,8 @@
                 $('#reportrange').data('daterangepicker').remove();
             });
         });
-    </script>
-    <!-- /datepicker -->
+</script>
+<!-- /datepicker -->
 </body>
 
 </html>

@@ -268,10 +268,21 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 * alarm history    --- ok 
 * check alarm info background   --- could be neglected at this moment 
 * fix alarm esp of elink   --- ok 
+* delete other unused page    --- ok   
+* organize all pages    --- ok 
+* fix the mainpage   --- ok 
 
 
-* delete other unused page    
-* organize all pages 
-
-* fix the mainpage 
 * js tree stucture 
+* table header color 
+* plot chart 
+* organize the snmp value page 
+
+
+
+
+
+
+
+
+

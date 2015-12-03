@@ -9,10 +9,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Discovered Inventory</title>
+    <title>Device Inventory</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/table.css" rel="stylesheet">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
@@ -21,7 +20,6 @@
     <link rel="stylesheet" type="text/css" href="css/maps/jquery-jvectormap-2.0.1.css" />
     <link href="css/icheck/flat/green.css" rel="stylesheet">
     <link href="css/floatexamples.css" rel="stylesheet" />
-    <script src="js/table.js"></script>
     <script src="js/jquery.min.js"></script>
     <!--[if lt IE 9]>
     <script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -40,35 +38,35 @@
         seconds;
 
         function timer() {
-        // get the number of seconds that have elapsed since 
-        // startTimer() was called
-        diff = duration - (((Date.now() - start) / 1000) | 0);
+            // get the number of seconds that have elapsed since 
+            // startTimer() was called
+            diff = duration - (((Date.now() - start) / 1000) | 0);
 
-        // does the same job as parseInt truncates the float
-        minutes = (diff / 60) | 0;
-        seconds = (diff % 60) | 0;
+            // does the same job as parseInt truncates the float
+            minutes = (diff / 60) | 0;
+            seconds = (diff % 60) | 0;
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.textContent = minutes + ":" + seconds;
+            display.textContent = minutes + ":" + seconds;
 
-        if (diff <= 0) {
-            // add one second so that the count down starts at the full duration
-            // example 05:00 not 04:59
-            start = Date.now() + 1000;
-        }
+            if (diff <= 0) {
+                // add one second so that the count down starts at the full duration
+                // example 05:00 not 04:59
+                start = Date.now() + 1000;
+            }
         }
         // we don't want to wait a full second before the timer starts
-    timer();
-    setInterval(timer, 1000);
-}
+        timer();
+        setInterval(timer, 1000);
+    }
 
-window.onload = function() {
-    var fiveMinutes = 60 * 1,
-    display = document.querySelector('#time');
-    startTimer(fiveMinutes, display);
-};
+    window.onload = function() {
+        var fiveMinutes = 60 * 1,
+        display = document.querySelector('#time');
+        startTimer(fiveMinutes, display);
+    };
 </script>
 
 <body class="nav-md">
@@ -77,8 +75,8 @@ window.onload = function() {
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="inventory.html" class="site_title"> <i class="fa fa-bar-chart"></i>
-                            <span>Inventory</span>
+                        <a href="main.html" class="site_title"> <i class="fa fa-bar-chart"></i>
+                            <span>Dashboard</span>
                         </a>
                     </div>
                     <h3>
@@ -105,113 +103,105 @@ window.onload = function() {
                           }
                           document.write("<b>" + day + "/" + month + "/" + year + "</b>");
                           document.write("<b></b>");
-                              document.write("<b>" + hours + ":" + minutes + " " + suffix + "</b>");    //-->
-                          </script>
-                      </h3>
-                      <div class="clearfix"></div>
-                      <!-- menu prile quick info -->
-                      <div class="profile">
-                        <div class="profile_pic">
-                            <img src="images/Administrator-icon.png" alt="..." class="img-circle profile_img"></div>
-                            <div class="profile_info">
-                                <span>Welcome,</span>
-                                <h2>NMS Administrator</h2>
-                            </div>
-                        </div>
-                        <!-- /menu prile quick info -->
-                        <br />
-                        <!-- sidebar menu -->
-                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                            <div class="menu_section">
-                                <ul class="nav side-menu">
-                                    <li>
-                                        <a href="main.html"> <i class="fa fa-home"></i> Main Dashboard
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="inventory.html">
-                                            <i class="fa fa-file-text-o"></i> Discovered Inventory
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="alarm_list.html">
-                                            <i class="fa fa-bell"></i> Alarms
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="outage_list.html">
-                                            <i class="fa fa-exclamation-triangle"></i> Outages
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-comment-o"></i> System Notices
-                                            <span class="fa fa-chevron-down"></span>
-                                        </a>
-                                        <ul class="nav child_menu" style="display: none">
-                                            <li>
-                                                <a href="notification_outstanding.html">Outstanding Notices</a>
-                                            </li>
-                                            <li>
-                                                <a href="notification_ack.html">All Acknowledged Notices</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="device_history.html">
-                                            <i class="fa fa-history"></i> Device History
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="network_mapping.html">
-                                            <i class="fa fa-globe"></i> Network Mapping
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="menu_section">
-                                <h3>Advanced Configuration</h3>
-                                <ul class="nav side-menu">
-                                    <li>
-                                        <a href="add_device.html">
-                                            <i class="fa fa-plus-square"></i> Adding New Devices
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="discovery_config.html">
-                                            <i class="fa fa-search"></i> Discovery Configuration
-                                        </a>
-                                    </li>
-                                    
-                                    <li>
-                                     <a href=<?php require 'php_scripts/server_checker.php'; echo "'" . $db . "'" ; ?> target="_blank">
-                                        <i class="fa fa-database"></i> Database Maintenance
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div>
-                        <img src="images/media.gif" alt="Mountain View" style="width: 90%; height: 90%"> <b>Electroline Vanguard-HE Platfom V1.0</b>
-                    </div>
-                    <!-- /sidebar menu -->
-                    <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="ScreenShot">
-                            <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+                  document.write("<b>" + hours + ":" + minutes + " " + suffix + "</b>");    //-->
+              </script>
+          </h3>
+          <div class="clearfix"></div>
+          <!-- menu prile quick info -->
+          <div class="profile">
+            <div class="profile_pic">
+                <img src="images/Administrator-icon.png" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+                <span>Welcome,</span>
+                <h2>NMS Administrator</h2>
+            </div>
+        </div>
+        <!-- /menu prile quick info -->
+        <br />
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+                <ul class="nav side-menu">
+                    <li>
+                        <a href="main.html"> <i class="fa fa-home"></i> Main Dashboard
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                    </li>
+                    <li>
+                        <a href="inventory.html">
+                            <i class="fa fa-file-text-o"></i> Device Inventory
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                    </li>
+                    <li>
+                        <a href="alarm_list.html">
+                            <i class="fa fa-bell"></i>Outstanding Alarms 
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    </li>
+
+                    <li>
+                        <a href="alarm_history.html">
+                            <i class="fa fa-history"></i> Alarm History 
                         </a>
-                    </div>
+                    </li>
+                    <li>
+                        <a href="network_mapping.html">
+                            <i class="fa fa-globe"></i> Mapping Visualization
+                        </a>
+                    </li>
+
+
+                </ul>
+            </div>
+            <div class="menu_section">
+                <h3>Advanced Configuration</h3>
+                <ul class="nav side-menu">
+                    <li>
+                        <a href="add_device.html">
+                            <i class="fa fa-plus-square"></i> Adding New Devices
+                        </a>
+                    </li>
+                    <li>
+                        <a href="discovery_config.html">
+                            <i class="fa fa-search"></i> Discovery Configuration
+                        </a>
+                    </li>
+                    <li>
+                        <a href=<?php require 'php_scripts/server_checker.php'; echo "'" . $db . "'" ; ?>
+                            target="_blank">
+                            <i class="fa fa-database"></i>
+                            Database Maintenance
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="Daemon.html" target="_blank">
+                            <i class="fa fa-globe"></i> Trigger Monitoring Process
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div>
+            <img src="images/media.gif" alt="Mountain View" style="width: 90%; height: 90%"> <b>Electroline Vanguard-HE V1.0</b>
+        </div>
+        <!-- /sidebar menu -->
+        <!-- /menu footer buttons -->
+        <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="ScreenShot">
+                <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Logout" href="index.html">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
+        </div>
                     <!-- /menu footer buttons -->
                 </div>
             </div>
