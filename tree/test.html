@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+
+
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/themes/default/style.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/jstree.min.js"></script> -->
+<link rel="stylesheet" href="dist/themes/default/style.min.css" />
+
+<script src="dist/jquery-1.11.3.min.js"></script>
+<script src="dist/jstree.min.js"></script>
+
+</head>
+<body>
+
+<form id="s">
+  <input type="search" id="q" />
+  <button type="submit">Search</button>
+</form>
+
+ <div id="jstree">
+    <!-- in this example the tree is populated from inline HTML -->
+    <ul>
+      <li data-jstree='{"opened":true, "type":"demo"}'>Root node 1
+        <ul>
+        <li><a href="www.google.com">Child node 1</a></li>
+          <li>Child node 2</li>
+        </ul>
+      </li>
+       <li data-jstree='{"opened":true, "type":"demo"}'>Root node 2</li>
+    </ul>
+  </div>
+
+
+
+<script>
+$('#jstree').jstree({
+  "core" : {
+  	"multiple" : true,
+    "check_callback" : function (operation, node, parent, position, more) {
+      if(operation === "copy_node" || operation === "move_node") {
+        if(parent.id === "#") {
+          return false; // prevent moving a child above or below the root
+        }
+      }
+      return true; // allow everything else
+    }
+  },
+    "types" : {
+    "default" : {
+      "icon" : "glyphicon glyphicon-flash"
+    },
+    "demo" : {
+      "icon" : "glyphicon glyphicon-ok"
+    }
+  },
+  "state" : { "key" : "state_demo" },
+  "plugins" : ["dnd","contextmenu","search","sort","state"]
+});
+
+$("#s").submit(function(e) {
+  e.preventDefault();
+  $("#jstree").jstree(true).search($("#q").val());
+});
+
+
+
+
+$('#jstree')
+  // listen for event
+  .on('changed.jstree', function (e, data) {
+    var i, j, r = [];
+    for(i = 0, j = data.selected.length; i < j; i++) {
+      r.push(data.instance.get_node(data.selected[i]).text);
+    }
+    $('#event_result').html('Selected: ' + r.join(', '));
+  })
+  // create the instance
+  .jstree();
+
+  </script>
+
+
+  <h1 id="event_result"></h1>
+
+</body>
+</html>

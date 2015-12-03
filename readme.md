@@ -272,11 +272,13 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 * organize all pages    --- ok 
 * fix the mainpage   --- ok 
 
+// 2015-12-03
 
 * js tree stucture 
 * table header color 
 * plot chart 
 * organize the snmp value page 
+
 
 
 
