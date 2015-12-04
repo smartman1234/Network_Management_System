@@ -21,6 +21,14 @@
     <link href="css/icheck/flat/green.css" rel="stylesheet">
     <link href="css/floatexamples.css" rel="stylesheet" />
     <script src="js/jquery.min.js"></script>
+
+
+    <link rel="stylesheet" href="tree/dist/themes/default/style.min.css" />
+
+    <script src="tree/dist/jquery-1.11.3.min.js"></script>
+    <script src="tree/dist/jstree.min.js"></script>
+
+
     <!--[if lt IE 9]>
     <script src="../assets/js/ie8-responsive-file-warning.js"></script>
     <![endif]-->
@@ -261,14 +269,14 @@
                     <h3>Total Devices in Network</h3>
                     <p>
                         <a href="inventory.html">Online Devices:
-                           <?php require "php_scripts/total_devices_network_number.php"; echo $total_device_number;?></a>
-                       </p>
-                   </div>
-               </div>
+                         <?php require "php_scripts/total_devices_network_number.php"; echo $total_device_number;?></a>
+                     </p>
+                 </div>
+             </div>
 
 
 
-               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                     <div class="icon">
                         <i class="fa fa-bell"></i>
@@ -326,23 +334,225 @@
                                 </div>
 
                                 <div class="x_content">
-                                    <div class="col-md-9 col-sm-12 col-xs-12">
-                                        <div class="demo-container">
-                                            <script src="js/dist/jquery.js"></script>
-                                            <script>
-                                                $(function() {
-                                                    $("#includedContent").load("js_tree.html");
-                                                });
-                                            </script>
-                                            <div id="includedContent"></div>
-                                        </div>
-                                    </div>
+                                   
+                                    <div>
+                                      <form id="s">
+                                        <input type="search" id="q" />
+                                        <button type="submit">Search</button>
+                                    </form>
 
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
+                                    <div id="jstree">
+
+<!--     <ul>
+    <li data-jstree='{"opened":true, "type":"demo"}'>EGFA
+      <li data-jstree='{"opened":true, "type":"demo"}'>SNMP AGENT 
+       <li data-jstree='{"opened":true, "type":"demo"}'>EG1550
+        <ul>
+          <li>RRX</li>
+          <li>POWER SUPPLY</li>
+          <li>EMS</li>
+        </ul>
+      </li>
+    </ul>
+-->
+
+
+
+
+
+<?php
+// echo "<ul>";
+// echo "<li data-jstree='{'opened':true, 'type':'demo'}'>EGFA";
+// echo "<li data-jstree='{'opened':true, 'type':'demo'}'>EGFA";
+// echo "<li data-jstree='{'opened':true, 'type':'demo'}'>EGFA";
+// echo " <ul>
+//           <li>RRX</li>
+//           <li>POWER SUPPLY</li>
+//           <li>EMS</li>
+//         </ul>
+//       </li>
+//     </ul>";
+
+
+$dbpath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/daemon_scr/daemon_db_init.php";
+require($dbpath);  // to initialize snmp 
+$alarmStatus = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/daemon_scr/daemon_checkAlarmStatus.php";
+require_once($alarmStatus);  // to initialize snmp 
+$devicevategory = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/php_scripts/device_category_from_OID.php";
+require_once($devicevategory);  // to initialize snmp 
+$ping = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/php_scripts/status_snmp_inventory.php";
+require_once($ping);  // to initialize snmp 
+
+$query = "SELECT 
+daemondevice.ip,
+daemondevice.mib
+FROM 
+public.daemondevice;";
+
+$result = pg_query($query) or die('Query failed: ' . pg_last_error());
+
+echo "<ul>";
+echo "<li data-jstree='{'opened':true, 'type':'demo'}'>SNMP Server " . gethostbyname(gethostname());;
+while ($row = pg_fetch_object($result)) {
+  $criteria = trim($row->mib);
+  if ($criteria == ".1.3.6.1.4.1.3222.14.2.1.1" || $criteria == ".1.3.6.1.4.1.17409.1.11" || $criteria == "SNMPv2-SMI::enterprises.3222.14.2.1.1" || $criteria == "SNMPv2-SMI::enterprises.17409.1.11" || $criteria == "SNMPv2-SMI::enterprises.5802.1.3.1.2" || $criteria == ".1.3.6.1.4.1.5802.1.3.1.2") {
+
+    $deviceCategory = deviceCat(trim($row->mib));
+    $ip=trim($row->ip);
+    $alarmStatus = getAlarmStatus($row->ip);
+    if ($alarmStatus=="Normal") {
+      # code..
+      $alarmStatus="No Alarm";
+
+  }
+
+  if ($alarmStatus=="Alarmed") {
+      # code..
+      $alarmStatus="Alarmed";
+
+  }
+
+  $onlineStatus = is_online_for_inventory($row->ip);
+
+  echo "<li data-jstree='{'opened':true, 'type':'demo'}'>" . $deviceCategory . " " . $ip . ": " . $alarmStatus . "/" . $onlineStatus;
+}
+
+
+if ($criteria == ".1.3.6.1.4.1.5591.29317.1.11.1.3.1.1" || $criteria == "SNMPv2-SMI::enterprises.5591.29317.1.11.1.3.1.1") {
+
+    $deviceCategory = deviceCat(trim($row->mib));
+    $ip=trim($row->ip);
+    $alarmStatus = getAlarmStatus($row->ip);
+    if ($alarmStatus=="Normal") {
+      # code..
+      $alarmStatus="No Alarm";
+
+  }
+
+  if ($alarmStatus=="Alarmed") {
+      # code..
+      $alarmStatus="Alarmed";
+
+  }
+  $onlineStatus = is_online_for_inventory($row->ip);
+
+  echo "<li data-jstree='{'opened':true, 'type':'demo'}'>" . $deviceCategory . " " . $ip . ": " . $alarmStatus . "/" . $onlineStatus;
+
+  echo " <ul>
+  <li>RRX (slot 4)</li>
+  <li>RRX (slot 6)</li>
+  <li>RRX (slot 14)</li>
+  <li>POWER SUPPLY (slot 16)</li>
+  <li>FTX (slot 8)</li>
+  <li>FTX (slot 11)</li>
+  <li>EL-EMS2 (slot 1)</li></ul>";
+
+}
+
+} 
+
+echo "</ul></li></ul>";
+
+pg_free_result($result);
+pg_close($dbconn);
+
+?>
+</div>
+
+
+<script>
+  $('#jstree').jstree({
+    "core" : {
+       "multiple" : true,
+       "check_callback" : function (operation, node, parent, position, more) {
+          if(operation === "copy_node" || operation === "move_node") {
+            if(parent.id === "#") {
+          return false; // prevent moving a child above or below the root
+      }
+  }
+      return true; // allow everything else
+  }
+},
+"types" : {
+    "default" : {
+      "icon" : "glyphicon glyphicon-flash"
+  },
+  "demo" : {
+      "icon" : "glyphicon glyphicon-ok"
+  }
+},
+"state" : { "key" : "state_demo" },
+"plugins" : ["dnd","contextmenu","search","sort","state"]
+});
+
+  $("#s").submit(function(e) {
+    e.preventDefault();
+    $("#jstree").jstree(true).search($("#q").val());
+});
+
+  $('#jstree')
+  // listen for event
+  .on('changed.jstree', function (e, data) {
+    var i, j, r = [];
+    for(i = 0, j = data.selected.length; i < j; i++) {
+      r.push(data.instance.get_node(data.selected[i]).text);
+  }
+  $('#event_result').html('Selected: ' + r.join(', '));
+})
+  // create the instance
+  .jstree();
+
+</script>
+
+ <!--  <p id="event_result"></p>
+
+
+ <p id="RightSide"></p> -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+</div>
                     <!--            <div class="row"></div>
                 -->
             </div>
@@ -499,73 +709,73 @@
                 }
             }], options);
         });
-</script>
-<!-- /flot -->
-<!--  -->
-<script>
-    $('document').ready(function() {
-        $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
-            type: 'bar',
-            height: '125',
-            barWidth: 13,
-            colorMap: {
-                '7': '#a1a1a1'
-            },
-            barSpacing: 2,
-            barColor: '#26B99A'
+    </script>
+    <!-- /flot -->
+    <!--  -->
+    <script>
+        $('document').ready(function() {
+            $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
+                type: 'bar',
+                height: '125',
+                barWidth: 13,
+                colorMap: {
+                    '7': '#a1a1a1'
+                },
+                barSpacing: 2,
+                barColor: '#26B99A'
+            });
+
+            $(".sparkline11").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3], {
+                type: 'bar',
+                height: '40',
+                barWidth: 8,
+                colorMap: {
+                    '7': '#a1a1a1'
+                },
+                barSpacing: 2,
+                barColor: '#26B99A'
+            });
+
+            $(".sparkline22").sparkline([2, 4, 3, 4, 7, 5, 4, 3, 5, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6], {
+                type: 'line',
+                height: '40',
+                width: '200',
+                lineColor: '#26B99A',
+                fillColor: '#ffffff',
+                lineWidth: 3,
+                spotColor: '#34495E',
+                minSpotColor: '#34495E'
+            });
+
+            var doughnutData = [{
+                value: 30,
+                color: "#455C73"
+            }, {
+                value: 30,
+                color: "#9B59B6"
+            }, {
+                value: 60,
+                color: "#BDC3C7"
+            }, {
+                value: 100,
+                color: "#26B99A"
+            }, {
+                value: 120,
+                color: "#3498DB"
+            }];
+            var myDoughnut = new Chart(document.getElementById("canvas1i").getContext("2d")).Doughnut(doughnutData);
+            var myDoughnut = new Chart(document.getElementById("canvas1i2").getContext("2d")).Doughnut(doughnutData);
+            var myDoughnut = new Chart(document.getElementById("canvas1i3").getContext("2d")).Doughnut(doughnutData);
         });
+    </script>
+    <!-- -->
+    <!-- datepicker -->
+    <script type="text/javascript">
+        $(document).ready(function() {
 
-        $(".sparkline11").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3], {
-            type: 'bar',
-            height: '40',
-            barWidth: 8,
-            colorMap: {
-                '7': '#a1a1a1'
-            },
-            barSpacing: 2,
-            barColor: '#26B99A'
-        });
-
-        $(".sparkline22").sparkline([2, 4, 3, 4, 7, 5, 4, 3, 5, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6], {
-            type: 'line',
-            height: '40',
-            width: '200',
-            lineColor: '#26B99A',
-            fillColor: '#ffffff',
-            lineWidth: 3,
-            spotColor: '#34495E',
-            minSpotColor: '#34495E'
-        });
-
-        var doughnutData = [{
-            value: 30,
-            color: "#455C73"
-        }, {
-            value: 30,
-            color: "#9B59B6"
-        }, {
-            value: 60,
-            color: "#BDC3C7"
-        }, {
-            value: 100,
-            color: "#26B99A"
-        }, {
-            value: 120,
-            color: "#3498DB"
-        }];
-        var myDoughnut = new Chart(document.getElementById("canvas1i").getContext("2d")).Doughnut(doughnutData);
-        var myDoughnut = new Chart(document.getElementById("canvas1i2").getContext("2d")).Doughnut(doughnutData);
-        var myDoughnut = new Chart(document.getElementById("canvas1i3").getContext("2d")).Doughnut(doughnutData);
-    });
-</script>
-<!-- -->
-<!-- datepicker -->
-<script type="text/javascript">
-    $(document).ready(function() {
-
-        var cb = function(start, end, label) {
-            console.log(start.toISOString(), end.toISOString(), label);
-            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            var cb = function(start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
                 //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
             };
 
@@ -631,8 +841,8 @@
                 $('#reportrange').data('daterangepicker').remove();
             });
         });
-</script>
-<!-- /datepicker -->
+    </script>
+    <!-- /datepicker -->
 </body>
 
 </html>

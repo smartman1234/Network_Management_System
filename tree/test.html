@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
+  <title>Page Title</title>
 
 
 <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/themes/default/style.min.css" />
@@ -15,31 +15,136 @@
 </head>
 <body>
 
-<form id="s">
-  <input type="search" id="q" />
-  <button type="submit">Search</button>
-</form>
+<div>
+  <form id="s">
+    <input type="search" id="q" />
+    <button type="submit">Search</button>
+  </form>
 
- <div id="jstree">
-    <!-- in this example the tree is populated from inline HTML -->
-    <ul>
-      <li data-jstree='{"opened":true, "type":"demo"}'>Root node 1
+  <div id="jstree">
+
+<!--     <ul>
+    <li data-jstree='{"opened":true, "type":"demo"}'>EGFA
+      <li data-jstree='{"opened":true, "type":"demo"}'>SNMP AGENT 
+       <li data-jstree='{"opened":true, "type":"demo"}'>EG1550
         <ul>
-        <li><a href="www.google.com">Child node 1</a></li>
-          <li>Child node 2</li>
+          <li>RRX</li>
+          <li>POWER SUPPLY</li>
+          <li>EMS</li>
         </ul>
       </li>
-       <li data-jstree='{"opened":true, "type":"demo"}'>Root node 2</li>
     </ul>
-  </div>
+  -->
 
+
+
+
+
+  <?php
+// echo "<ul>";
+// echo "<li data-jstree='{'opened':true, 'type':'demo'}'>EGFA";
+// echo "<li data-jstree='{'opened':true, 'type':'demo'}'>EGFA";
+// echo "<li data-jstree='{'opened':true, 'type':'demo'}'>EGFA";
+// echo " <ul>
+//           <li>RRX</li>
+//           <li>POWER SUPPLY</li>
+//           <li>EMS</li>
+//         </ul>
+//       </li>
+//     </ul>";
+
+
+$dbpath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/daemon_scr/daemon_db_init.php";
+require($dbpath);  // to initialize snmp 
+$alarmStatus = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/daemon_scr/daemon_checkAlarmStatus.php";
+require_once($alarmStatus);  // to initialize snmp 
+$devicevategory = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/php_scripts/device_category_from_OID.php";
+require_once($devicevategory);  // to initialize snmp 
+$ping = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/php_scripts/status_snmp_inventory.php";
+require_once($ping);  // to initialize snmp 
+
+$query = "SELECT 
+daemondevice.ip,
+daemondevice.mib
+FROM 
+public.daemondevice;";
+
+$result = pg_query($query) or die('Query failed: ' . pg_last_error());
+
+echo "<ul>";
+echo "<li data-jstree='{'opened':true, 'type':'demo'}'>SNMP Server " . gethostbyname(gethostname());;
+while ($row = pg_fetch_object($result)) {
+  $criteria = trim($row->mib);
+  if ($criteria == ".1.3.6.1.4.1.3222.14.2.1.1" || $criteria == ".1.3.6.1.4.1.17409.1.11" || $criteria == "SNMPv2-SMI::enterprises.3222.14.2.1.1" || $criteria == "SNMPv2-SMI::enterprises.17409.1.11" || $criteria == "SNMPv2-SMI::enterprises.5802.1.3.1.2" || $criteria == ".1.3.6.1.4.1.5802.1.3.1.2") {
+
+    $deviceCategory = deviceCat(trim($row->mib));
+    $ip=trim($row->ip);
+    $alarmStatus = getAlarmStatus($row->ip);
+    if ($alarmStatus=="Normal") {
+      # code..
+      $alarmStatus="No Alarm";
+
+    }
+
+    if ($alarmStatus=="Alarmed") {
+      # code..
+      $alarmStatus="Alarmed";
+
+    }
+
+    $onlineStatus = is_online_for_inventory($row->ip);
+
+    echo "<li data-jstree='{'opened':true, 'type':'demo'}'>" . $deviceCategory . " " . $ip . ": " . $alarmStatus . "/" . $onlineStatus;
+  }
+
+
+  if ($criteria == ".1.3.6.1.4.1.5591.29317.1.11.1.3.1.1" || $criteria == "SNMPv2-SMI::enterprises.5591.29317.1.11.1.3.1.1") {
+
+    $deviceCategory = deviceCat(trim($row->mib));
+    $ip=trim($row->ip);
+        $alarmStatus = getAlarmStatus($row->ip);
+    if ($alarmStatus=="Normal") {
+      # code..
+      $alarmStatus="No Alarm";
+
+    }
+
+       if ($alarmStatus=="Alarmed") {
+      # code..
+      $alarmStatus="Alarmed";
+
+    }
+    $onlineStatus = is_online_for_inventory($row->ip);
+
+    echo "<li data-jstree='{'opened':true, 'type':'demo'}'>" . $deviceCategory . " " . $ip . ": " . $alarmStatus . "/" . $onlineStatus;
+
+    echo " <ul>
+    <li>RRX (slot 4)</li>
+    <li>RRX (slot 6)</li>
+    <li>RRX (slot 14)</li>
+    <li>POWER SUPPLY (slot 16)</li>
+    <li>FTX (slot 8)</li>
+    <li>FTX (slot 11)</li>
+    <li>EL-EMS2 (slot 1)</li></ul>";
+
+  }
+
+} 
+
+echo "</ul></li></ul>";
+
+pg_free_result($result);
+pg_close($dbconn);
+
+?>
+</div>
 
 
 <script>
-$('#jstree').jstree({
-  "core" : {
-  	"multiple" : true,
-    "check_callback" : function (operation, node, parent, position, more) {
+  $('#jstree').jstree({
+    "core" : {
+     "multiple" : true,
+     "check_callback" : function (operation, node, parent, position, more) {
       if(operation === "copy_node" || operation === "move_node") {
         if(parent.id === "#") {
           return false; // prevent moving a child above or below the root
@@ -48,7 +153,7 @@ $('#jstree').jstree({
       return true; // allow everything else
     }
   },
-    "types" : {
+  "types" : {
     "default" : {
       "icon" : "glyphicon glyphicon-flash"
     },
@@ -60,15 +165,12 @@ $('#jstree').jstree({
   "plugins" : ["dnd","contextmenu","search","sort","state"]
 });
 
-$("#s").submit(function(e) {
-  e.preventDefault();
-  $("#jstree").jstree(true).search($("#q").val());
-});
+  $("#s").submit(function(e) {
+    e.preventDefault();
+    $("#jstree").jstree(true).search($("#q").val());
+  });
 
-
-
-
-$('#jstree')
+  $('#jstree')
   // listen for event
   .on('changed.jstree', function (e, data) {
     var i, j, r = [];
@@ -80,10 +182,13 @@ $('#jstree')
   // create the instance
   .jstree();
 
-  </script>
+</script>
+
+ <!--  <p id="event_result"></p>
 
 
-  <h1 id="event_result"></h1>
+ <p id="RightSide"></p> -->
+ </div>
 
 </body>
 </html>
