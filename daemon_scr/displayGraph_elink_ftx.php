@@ -35,13 +35,15 @@ require("daemon_db_init.php");
 
 $item = $_GET['item'];
 $id = $_SESSION['deviceid'];
+$slot = "'" . $_GET['slot'] . "'";
 
 $query = "SELECT 
-daemonsnmpelinkps.time,
-daemonsnmpelinkps.$item
+daemonsnmpelinkftx.time,
+daemonsnmpelinkftx.$item
 FROM 
-public.daemonsnmpelinkps
-WHERE daemonsnmpelinkps.deviceid=$id;";
+public.daemonsnmpelinkftx
+WHERE daemonsnmpelinkftx.deviceid=$id
+AND daemonsnmpelinkftx.slot=$slot;";
 
 $time=[];
 $abc=[];

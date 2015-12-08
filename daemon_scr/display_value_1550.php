@@ -11,7 +11,7 @@
 <body>
 
 	<br><br>
-	<style>
+<!-- 	<style>
 		table, td, th {
 			border: 1px solid #000000;
 		}
@@ -26,7 +26,7 @@
 			height: 40px;
 			padding: 10px;
 		}
-	</style>
+	</style> -->
 
 	<?php
 	session_start();
@@ -186,34 +186,34 @@
 
 
 
-	<table width="90%">
+	<table width="80%" class="table table-striped table-bordered table-condensed">
 
 		<tr>
-			<td>Last Scaned Time </td>
+			<td><b>Last Scaned Time </td>
 			<td> <?php  echo displayTime($time);         ?></td>	
 			<td>    </td>
 		</tr>
 
 		<tr>
-			<td>Public IP </td>
+			<td><b>Public IP </td>
 			<td> <?php  echo $recordip;         ?></td>	
 			<td>    </td>
 		</tr>
 
 		<tr>
-			<td>Interal IP </td>
+			<td><b>Interal IP </td>
 			<td> <?php  echo $ip;         ?></td>	
 			<td>    </td>
 		</tr>
 
 		<tr>
-			<td>MAC Address </td>
+			<td><b>MAC Address </td>
 			<td> <?php  echo $mac;         ?></td>	
 			<td>    </td>
 		</tr>
 
 		<tr>
-			<td>Uptime  </td>
+			<td><b>Uptime  </td>
 			<td> <?php  echo $uptime;         ?></td>	
 			<td>    </td>
 		</tr>
@@ -221,7 +221,7 @@
 
 
 		<tr>
-			<td>Working Status </td>
+			<td><b>Working Status </td>
 			<td> <?php  echo VisStatusIndex($statusindex);         ?></td>	
 			<td>    </td>
 		</tr>
@@ -229,7 +229,7 @@
 
 
 		<tr>
-			<td>Serial Number </td>
+			<td><b>Serial Number </td>
 			<td> <?php  echo $idcode;         ?></td>	
 			<td>    </td>
 		</tr>
@@ -237,70 +237,70 @@
 
 
 		<tr>
-			<td>Firmware Version </td>
+			<td><b>Firmware Version </td>
 			<td> <?php  echo $firmwareversion;         ?></td>	
 			<td>    </td>
 		</tr>
 
-		<tr>
-			<td>Laser IM (mA)</td>
+		<tr class="success">
+			<td><b>Laser IM (mA)</td>
 			<td> <?php  echo floatval($laserim);         ?></td>	
 			<td> <a href="displayGraph_1550.php?item=laserim" onclick="window.open(this.href, 'mywin',
 				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
 			</tr>
 
-			<tr>
-				<td>Laser Temperature (C) </td>
+			<tr class="success">
+				<td><b>Laser Temperature (C) </td>
 				<td> <?php  echo floatval($lasertemperature);         ?></td>	
 				<td> <a href="displayGraph_1550.php?item=lasertemperature" onclick="window.open(this.href, 'mywin',
 				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
 			</tr>
 
-			<tr>
-				<td>Laser Bias (mA)</td>
+			<tr class="success">
+				<td><b>Laser Bias (mA)</td>
 				<td> <?php  echo floatval($laserbias);         ?></td>	
 				<td> <a href="displayGraph_1550.php?item=laserbias" onclick="window.open(this.href, 'mywin',
 				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
 			</tr>
 
-			<tr>
-				<td>RF Modulation Level (dB)</td>
+			<tr class="success">
+				<td><b>RF Modulation Level (dB)</td>
 				<td> <?php  echo floatval($rfmodulationlevel);         ?></td>	
 				<td> <a href="displayGraph_1550.php?item=rfmodulationlevel" onclick="window.open(this.href, 'mywin',
 				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
 			</tr>
 
-			<tr>
-				<td>DC24V Voltage (V)</td>
+			<tr class="success">
+				<td><b>DC24V Voltage (V)</td>
 				<td> <?php  echo floatval($dc24vvoltage);         ?></td>	
 				<td> <a href="displayGraph_1550.php?item=dc24vvoltage" onclick="window.open(this.href, 'mywin',
 				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
 			</tr>
 
-			<tr>
-				<td>DC12V Vvoltage (V)</td>
+			<tr class="success">
+				<td><b>DC12V Vvoltage (V)</td>
 				<td> <?php  echo floatval($dc12vvoltage);         ?></td>	
 				<td> <a href="displayGraph_1550.php?item=dc12vvoltage" onclick="window.open(this.href, 'mywin',
 				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
 			</tr>
 
-			<tr>
-				<td>DC5V Voltage (V)</td>
+			<tr class="success">
+				<td><b>DC5V Voltage (V)</td>
 				<td> <?php  echo floatval($dc5vvoltage);         ?></td>	
 				<td> <a href="displayGraph_1550.php?item=dc5vvoltage" onclick="window.open(this.href, 'mywin',
 				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
 			</tr>
 
-			<tr>
-				<td>DC -5V Voltage (V)</td>
+			<tr class="success">
+				<td><b>DC -5V Voltage (V)</td>
 				<td> <?php  echo floatval($minor5vdcvoltage);         ?></td>	
 				<td> <a href="displayGraph_1550.php?item=minor5vdcvoltage" onclick="window.open(this.href, 'mywin',
 				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
 			</tr>
 
 
-			<tr>
-				<td>TX Optical Power (dBm)</td>
+			<tr class="success">
+				<td><b>TX Optical Power (dBm)</td>
 				<td> <?php  echo floatval($txopticalpower);         ?></td>	
 				<td> <a href="displayGraph_1550.php?item=txopticalpower" onclick="window.open(this.href, 'mywin',
 				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
@@ -309,26 +309,26 @@
 
 
 			<tr>
-				<td>Gain Control  </td>
+				<td><b>Gain Control  </td>
 				<td> <?php  echo $gaincontrolsetting;         ?></td>	
 				<td> </td>
 			</tr>
 
-			<tr>
-				<td>SBS Control  (dBm)</td>
+			<tr class="success">
+				<td><b>SBS Control  (dBm)</td>
 				<td> <?php  echo floatval($sbscontrolsetting);         ?></td>	
 				<td><a href="displayGraph_1550.php?item=sbscontrolsetting" onclick="window.open(this.href, 'mywin',
 				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a> </td>
 			</tr>
 
 			<tr>
-				<td>CTB Ccontrol  </td>
+				<td><b>CTB Ccontrol  </td>
 				<td> <?php  echo $ctbcontrolsetting;         ?></td>	
 				<td> </td>
 			</tr>
 
-			<tr>
-				<td>TX RF Module Level (dB)</td>
+			<tr class="success">
+				<td><b>TX RF Module Level (dB)</td>
 				<td> <?php  echo floatval($txrfmodulelevel);         ?></td>	
 				<td><a href="displayGraph_1550.php?item=txrfmodulelevel" onclick="window.open(this.href, 'mywin',
 				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a> </td>
@@ -336,19 +336,19 @@
 
 
 			<tr>
-				<td>Present AC Power 1 Status </td>
+				<td><b>Present AC Power 1 Status </td>
 				<td> <?php  echo $presentacpower1status;         ?></td>	
 				<td> </td>
 			</tr>
 
 			<tr>
-				<td>Present AC Power 1 Status </td>
+				<td><b>Present AC Power 1 Status </td>
 				<td> <?php  echo $presentacpower2status;         ?></td>	
 				<td> </td>
 			</tr>
 
 			<tr>
-				<td>TX AC Power Supply Status </td>
+				<td><b>TX AC Power Supply Status </td>
 				<td> <?php  echo $txacpowersupplystatus;         ?></td>	
 				<td> </td>
 			</tr>

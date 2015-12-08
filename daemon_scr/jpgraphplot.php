@@ -1,7 +1,7 @@
 <?php  
 
 
-function plotGraph($lab, $xdata, $ydata){
+function plotGraph($lab, $xdata, $ydata, $f){
 	/*
 	Include JpGraph in your script. Note that jpgraph.php should reside in a directory that's present in your PHP INCLUDE_PATH, otherwise specify the full path yourself.
 	*/ 
@@ -22,10 +22,11 @@ function plotGraph($lab, $xdata, $ydata){
 	/*
 	Let's create a Graph instance and set some variables (width, height, cache filename, cache timeout). If the last argument "inline" is true the image is streamed back to the browser, otherwise it's only created in the cache.
 	*/ 
-	$graph = new Graph(800, 600, 'auto', 10, true); 
+	$graph = new Graph(800, 800, 'auto', 10, true); 
 
 	// Setting what axises to use
-	$graph->SetScale('intlin'); 
+	$graph->SetScale('textint'); 
+	//$graph->img->SetMargin(50,50,60,40);    
 	$graph->xaxis->SetTickLabels($xdata);
 
 	/*
@@ -34,13 +35,14 @@ function plotGraph($lab, $xdata, $ydata){
 	$lineplot = new LinePlot($ydata); 
 
 	// Setting the LinePlot color
-	$lineplot->SetColor('forestgreen'); 
+	$lineplot->SetColor('black'); 
 
 	// Adding LinePlot to graphic 
 	$graph->Add($lineplot); 
 
 	// Giving graphic a name
 	$graph->title->Set('Time-series Status Graph'); 
+	$graph->title->SetColor("white");
 
 	/*
 	If the graph is going to have labels with international characters, make sure to use a TrueType font that includes the required characters, e.g. Arial.
@@ -50,12 +52,16 @@ function plotGraph($lab, $xdata, $ydata){
 	//$graph->yaxis->title->SetFont(FF_TIMES, FS_BOLD); 
 
 	// Naming axises 
-	$graph->xaxis->title->Set('Time'); 
+	//$graph->xaxis->title->Set('Time'); 
 	$graph->yaxis->title->Set($lab); 
+	//$graph->xaxis->title->SetColor("white");
+	$graph->yaxis->title->SetColor("white");
+
 
 	// Coloring axises
-	$graph->xaxis->SetColor('#СС0000'); 
-	$graph->yaxis->SetColor('#СС0000'); 
+	$graph->xaxis->SetColor("white"); 
+	$graph->xaxis->SetLabelAngle(50);
+	$graph->yaxis->SetColor("white"); 
 
 	// Setting the LinePlot width 
 	$lineplot->SetWeight(3); 
@@ -67,7 +73,7 @@ function plotGraph($lab, $xdata, $ydata){
 	$lineplot->value->Show(); 
 
 	// Filling background with a gradient
-	$graph->SetBackgroundGradient('ivory', 'blue'); 
+	$graph->SetBackgroundGradient('blue', 'blue'); 
 
 	// Adding a shadow
 	$graph->SetShadow(4); 
@@ -76,7 +82,8 @@ function plotGraph($lab, $xdata, $ydata){
 	Showing image in browser. If, when creating an graph object, the last parameter is false, the image would be saved in cache and not showed in browser.
 	*/  
 	  
-	$graph->Stroke("sample.jpg"); 
+
+	$graph->Stroke($f); 
 
 }
 

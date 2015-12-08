@@ -67,8 +67,10 @@ if ($number>=20) {
 	$abc=array_slice($abc, sizeof($abc)-20);
 }
 
+$file = "graphPool/smaple" . date('YmdGis') . ".jpg";
+plotGraph($item, $time, $abc, $file);
 
-plotGraph($item, $time, $abc);
+
 
 ?>
 
@@ -84,7 +86,7 @@ plotGraph($item, $time, $abc);
 </head>
 <body>
 
-	<img src="sample.jpg">
+	<img src="<?php  echo $file;  ?>">
 
 
 </body>
