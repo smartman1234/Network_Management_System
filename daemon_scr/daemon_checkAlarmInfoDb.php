@@ -60,15 +60,15 @@ function checkAlarmUpdatedIfYesTakeAction($time){
 
 		$subject = "Alarm Alert from Electroline VanguardHE   ". date('Y-m-d H:i:s'); 
 		$body = "This email is automatically sent from Electroline NMS system, and please do not reply to this address.<br>";
-
+		
+$body = $body . "----------------------------------<br>";
 		for ($i=0; $i < $number; $i++) { 
 			# code...
 			$body = $body . "IP: " . $ip[$i] . "<br>";
 			$body = $body . "MAC: " . $mac[$i] . "<br>"; 
-			$body = $body . "Description: " . $description[$i] . "<br>";
-			$body = $body . "Condition: " . $severity[$i] . "<br>";
+						$body = $body . "Condition: " . $severity[$i] . "<br>";
 			$body = $body . "Logs: " . $logs[$i] . "<br>";
-			$body = $body . "Acknowlegement: " . $ack[$i] . "<br>";
+			
 			$body = $body . "----------------------------------<br>";
 		}	
 

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta http-equiv="refresh" content="86400">
+  <meta http-equiv="refresh" content="14400">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="Electroline icon" href="images/icon.ico" />
   <!-- Meta, title, CSS, favicons, etc. -->
@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    Vanguard-HE Daemon
+    VanguardHE Monitoring Daemon
   </title>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
@@ -41,7 +41,7 @@
         <section class="login_content">
           <form name="form1" method="post" action="user_account.php">
             <h1>
-              Electroline Vanguard-HE V1.0
+              Electroline VanguardHE V1.0
             </h1>
             <h1>
               Daemon Toolkit 
@@ -52,23 +52,14 @@
               <?php
 
              require("daemon_scr/daemon_main.php");
-              echo "The system is under protection. 
+              echo "The system is under protection and monitoring. 
               <br>
               <br>
               ";
-              echo "The last scanning time: " . date('Y-m-d G:i:s');
+              echo "The last scanning time: <br>" . date('Y-m-d G:i:s');
 
 
-              
-
-
-
-
-
-
-
-
-
+        
               ?>
               
               
@@ -78,13 +69,13 @@
             <div>
               
               <p>
-                1, This daemon thread is to monitor the device status and send alert notice at all time. 
+                1, This daemon toolkit is to monitor the network and trigger alert notice during the protection. 
               </p>
               <p>
-                2, Alarm and notice configuration can be done in Vanguard-HE system.
+                2, Alarm threshold and notice configuration can be done in VanguardHE system dashboard.
               </p>
               <p>
-                3, To make this daemon thread functional, please do NOT close this page. 
+                3, To ensure this daemon thread functional, please leave this page open. 
               </p>
               
               
@@ -135,7 +126,7 @@
               Electroline Equipment Inc.
             </h1>
             <p>
-              ©2015 Electroline Equipment Inc. All rights reserved.
+              ©2016 Electroline Equipment Inc. All rights reserved.
             </p>
             <p>
               395 Bd Lebeau, Saint-Laurent, QC H4N 1S2

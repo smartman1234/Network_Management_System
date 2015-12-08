@@ -185,12 +185,13 @@
         </div>
         <br>
         <br>
-        <div>
-            <img src="images/media.gif" alt="Mountain View" style="width: 90%; height: 90%"> <b>Electroline Vanguard-HE V1.0</b>
-        </div>
+
         <!-- /sidebar menu -->
         <!-- /menu footer buttons -->
         <div class="sidebar-footer hidden-small">
+                <div>
+            <img src="images/media.gif" alt="Mountain View" style="width: 90%; height: 90%"> <b>Electroline Vanguard-HE V1.0</b>
+        </div>
             <a data-toggle="tooltip" data-placement="top" title="ScreenShot">
                 <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
             </a>
@@ -258,7 +259,7 @@
 
                         function POPUP_Fcuntion() {
 
-                            alert("This system provides a means for you to easily track and share important information about capital assets in your organization. This data, when coupled with the information about your network that the OpenNMS system obtains during network discovery, can be a powerful tool not only for solving problems, but in tracking the current state of equipment repairs as well as network or system-related moves, additions, or changes. There are two ways to add or modify the asset data stored in the OpenNMS system: 1) import the data from another source (Importing asset data is described on the Admin page; or 2) Enter the data by hand.");
+                            alert("This system provides a means for you to easily track and share important information about capital assets in your organization. This data, when coupled with the information about your network that the VanguardHE system obtains during network discovery, can be a powerful tool not only for solving problems, but in tracking the current state of equipment repairs as well as network or system-related moves, additions, or changes. There are two ways to add or modify the asset data stored in the VanguardHE system: 1) to configure the auto discovery range, or 2) to register new deivce manually.");
                         }
                     </script>
                     <div class="clearfix"></div>
@@ -335,7 +336,7 @@
                                                     <style type="text/css">
                                                         th {
                                                             color: #000000;
-                                                            background-color: #2A3F54
+                                                            background-color: #1479B8
                                                         }
                                                     </style>
                                                     <?php
@@ -347,27 +348,22 @@
                                                         <td></td>
                                                         <td class="table-page:previous" style="cursor:pointer;">&lt; &lt; Previous</td>
                                                         <td></td>
-                                                        <td></td>
+                                                        <td></td>   <td></td>
                                                         <td style="text-align:center;">
-                                                            Page
-                                                            <span id="t1page"></span> &nbsp;of
-                                                            <span id="t1pages"></td>
-                                                            </span>
+                                                            Page<span id="t1page"></span> &nbsp;of<span id="t1pages"></td> </span>
                                                             <td></td>
-                                                            <td></td>
+                                                            <td></td> <td></td> <td></td>
                                                             <td class="table-page:next" style="cursor:pointer;">Next &gt; &gt;</td>
                                                             <td></td>
                                                         </tr>
                                                         <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td colspan="8.5">
+                                                       <td></td> <td></td> <td></td> <td></td>
+                                                        <td colspan="8.5">                                                        
                                                             <span id="t1filtercount"></span> &nbsp;of
                                                             <span id="t1allcount"></span> &nbsp;rows match filter(s)
                                                         </td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        
+                                                        
                                                     </tfoot>
                                                 </table>
                                             </div>
@@ -385,7 +381,7 @@
                 <footer>
                     <div class="">
                         <p class="pull-right">
-                            Electroline Vanguard-HE Dashboard is an extension Web-UI of the OpenNMS system. |
+                            Electroline VanguardHE system is professional network management system customized for Electroline HeadEnd devices. 
                             <span class="lead">
                                 <i class="fa fa-desktop"></i>
                                 Electroline Equipment Inc.

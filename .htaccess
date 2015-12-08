@@ -1,3 +1,12 @@
 AddType application/x-httpd-php .html .htm
 AddType application/octet-stream csv
 php_flag display_errors 1
+
+ErrorDocument 400 /errors.php
+ErrorDocument 403 /errors.php
+ErrorDocument 404 /errors.php
+ErrorDocument 405 /errors.php
+ErrorDocument 408 /errors.php
+ErrorDocument 500 /errors.php
+ErrorDocument 502 /errors.php
+ErrorDocument 504 /errors.php

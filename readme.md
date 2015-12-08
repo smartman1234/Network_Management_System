@@ -285,15 +285,12 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 * graph egfa data    --- ok 
 * reorganize elink value     --- ok 
  
-
 // 2015-12-08
 * change the graphe name and path to avoid permission issue     --- ok 
 * graph elink data     --- ok 
 * beautify table    --- ok 
-* beautify graph    --- ok  
+* beautify graph    --- ok 
+* polish details   --- ok  
+* format email   --- ok  
+* table header color     --- ok  
 
-
-
-* table header color 
-* format email 
-* polish details 

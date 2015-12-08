@@ -12,11 +12,12 @@ $mail->IsSMTP (); // telling the class to use SMTP
 try {
 	$mail->Host = "mail2k7.electroline.local"; // SMTP server
 	$mail->SMTPDebug = 1; // enables SMTP debug information (for testing)
+
 	
 	$mail->Port = 25; // set the SMTP port for the GMAIL server
 	$mail->Username = "electroline_nms_no_reply@electroline.com"; // SMTP account username
 	// $mail->Password = "Eline123"; // SMTP account password
-
+$mail->IsHTML(true);	
 	$mail->AddAddress ( $to_address, 'Electroline NMS Admin' );
 	$mail->SetFrom ( 'electroline_nms_no_reply@electroline.com', 'Electroline NMS' );
 	
