@@ -278,10 +278,21 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 // 2015-12-04
 * plot chart along the time (google chart raw code proved)   -----ok 
 
+// 2015-12-07
+* reorganize 1550 value  --- ok 
+* graph 1550 data    --- ok 
+* reorganize egfa value  --- ok 
+* graph egfa data    --- ok 
+* reorganize elink value   
+* graph elink data   
 
 
-* organize the snmp value page 
+
+
+* beautify table 
+* beautify graph 
 * table header color 
+* format email 
 
 
 

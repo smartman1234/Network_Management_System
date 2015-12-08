@@ -28,14 +28,20 @@
 		}
 	</style>
 
-<?php
+	<?php
+	session_start();
 
-require("daemon_db_init.php");
-require("daemon_getDeviceIdPerIp.php");
-$deviceid = getDeviceIdPerIp($_GET['ip']);
+	require("daemon_db_init.php");
+	require("daemon_getDeviceIdPerIp.php");
+	$deviceid = getDeviceIdPerIp($_GET['ip']);
 // $target_ip = "'" . "10.100.0.50" . "%'";
 
-// echo "<b>Status Values of EG1550.</b><br>";
+
+	$_SESSION['deviceid'] = $deviceid;
+
+	//echo $_SESSION['deviceid'];
+
+	echo "<b>Status Values of EG1550.</b><br>";
 
 // $query = "SELECT 
 // 	dameonsnmp1550value.time
@@ -51,7 +57,7 @@ $deviceid = getDeviceIdPerIp($_GET['ip']);
 
 // $time = "'" . strval($time) .  "'"; 
 
-$query = "SELECT 
+	$query = "SELECT 
 	dameonsnmp1550value.time, 
 	dameonsnmp1550value.recordip, 
 	dameonsnmp1550value.description, 
@@ -87,225 +93,273 @@ $query = "SELECT
 	public.dameonsnmp1550value
 	WHERE dameonsnmp1550value.deviceid=$deviceid;";
 
-$result = pg_query($query) or die('Query failed: ' . pg_last_error());
+	$result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
-while ($row = pg_fetch_object($result)) {
-	$time = $row->time; 
-	$recordip = $row->recordip; 
-	$description = $row->description; 
-	$oids = $row->oids; 
-	$uptime = $row->uptime; 
-	$contact = $row->contact; 
-	$location = $row->location; 
-	$service = $row->service; 
-	$ip = $row->ip; 
-	$name = $row->name; 
-	$statusindex = $row->statusindex; 
-	$mac = $row->mac; 
-	$idcode = $row->idcode; 
-	$subid = $row->subid; 
-	$firmwareversion = $row->firmwareversion; 
-	$laserim = $row->laserim; 
-	$lasertemperature = $row->lasertemperature; 
-	$laserbias = $row->laserbias; 
-	$rfmodulationlevel = $row->rfmodulationlevel; 
-	$dc24vvoltage = $row->dc24vvoltage; 
-	$dc12vvoltage = $row->dc12vvoltage; 
-	$dc5vvoltage = $row->dc5vvoltage; 
-	$minor5vdcvoltage = $row->minor5vdcvoltage; 
-	$txopticalpower = $row->txopticalpower; 
-	$gaincontrolsetting = $row->gaincontrolsetting; 
-	$sbscontrolsetting = $row->sbscontrolsetting; 
-	$ctbcontrolsetting = $row->ctbcontrolsetting; 
-	$txrfmodulelevel = $row->txrfmodulelevel; 
-	$presentacpower1status = $row->presentacpower1status; 
-	$presentacpower2status = $row->presentacpower2status; 
-	$txacpowersupplystatus = $row->txacpowersupplystatus;
+	while ($row = pg_fetch_object($result)) {
+		$time = $row->time; 
+		$recordip = $row->recordip; 
+		$description = $row->description; 
+		$oids = $row->oids; 
+		$uptime = $row->uptime; 
+		$contact = $row->contact; 
+		$location = $row->location; 
+		$service = $row->service; 
+		$ip = $row->ip; 
+		$name = $row->name; 
+		$statusindex = $row->statusindex; 
+		$mac = $row->mac; 
+		$idcode = $row->idcode; 
+		$subid = $row->subid; 
+		$firmwareversion = $row->firmwareversion; 
+		$laserim = $row->laserim; 
+		$lasertemperature = $row->lasertemperature; 
+		$laserbias = $row->laserbias; 
+		$rfmodulationlevel = $row->rfmodulationlevel; 
+		$dc24vvoltage = $row->dc24vvoltage; 
+		$dc12vvoltage = $row->dc12vvoltage; 
+		$dc5vvoltage = $row->dc5vvoltage; 
+		$minor5vdcvoltage = $row->minor5vdcvoltage; 
+		$txopticalpower = $row->txopticalpower; 
+		$gaincontrolsetting = $row->gaincontrolsetting; 
+		$sbscontrolsetting = $row->sbscontrolsetting; 
+		$ctbcontrolsetting = $row->ctbcontrolsetting; 
+		$txrfmodulelevel = $row->txrfmodulelevel; 
+		$presentacpower1status = $row->presentacpower1status; 
+		$presentacpower2status = $row->presentacpower2status; 
+		$txacpowersupplystatus = $row->txacpowersupplystatus;
 
-}
-
-
-pg_free_result($result);
-pg_close($dbconn);
-
-?>
+	}
 
 
+	pg_free_result($result);
+	pg_close($dbconn);
 
-<table>
+	function displayTime($t){
 
-<tr>
-<td>Time </td>
-<td> <?php  echo $time;         ?></td>	
-</tr>
+		if (strlen($t)==13) {
+		# code...
+			$year = substr($t, 0, 4);
+			$month = substr($t, 4, 2);
+			$day = substr($t, 6, 2);
+			$hour = "0" . substr($t, 8, 1);
+			$min = substr($t, 9, 2);
+			$sec = substr($t, 11, 2);
+		}
 
-<tr>
-<td>recordip </td>
-<td> <?php  echo $recordip;         ?></td>	
-</tr>
+		if (strlen($t)==14) {
+		# code...
+			$year = substr($t, 0, 4);
+			$month = substr($t, 4, 2);
+			$day = substr($t, 6, 2);
+			$hour = substr($t, 8, 1);
+			$min = substr($t, 10, 2);
+			$sec = substr($t, 12, 2);
+		}
 
+		return $year . "-" . $month . "-" . $day . "-" . $hour . "-" . $min . "-" . $sec;
 
-<tr>
-<td>description </td>
-<td> <?php  echo $description;         ?></td>	
-</tr>
+	}
 
-<tr>
-<td>oids </td>
-<td> <?php  echo $oids;         ?></td>	
-</tr>
+	function VisStatusIndex($s){
+		switch ($s) {
+			case 1:
+			# code...
+			return "Normal";
+			break;
+			case 0:
+			# code...
+			return "Need Check";
+			break;
 
-<tr>
-<td>uptime </td>
-<td> <?php  echo $uptime;         ?></td>	
-</tr>
-
-<tr>
-<td>contact </td>
-<td> <?php  echo $contact;         ?></td>	
-</tr>
-
-<tr>
-<td>name </td>
-<td> <?php  echo $name;         ?></td>	
-</tr>
-
-<tr>
-<td>location </td>
-<td> <?php  echo $location;         ?></td>	
-</tr>
-
-<tr>
-<td>service </td>
-<td> <?php  echo $service;         ?></td>	
-</tr>
-
-<tr>
-<td>ip </td>
-<td> <?php  echo $ip;         ?></td>	
-</tr>
-
-<tr>
-<td>name </td>
-<td> <?php  echo $name;         ?></td>	
-</tr>
-
-<tr>
-<td>statusindex </td>
-<td> <?php  echo $statusindex;         ?></td>	
-</tr>
-
-<tr>
-<td>mac </td>
-<td> <?php  echo $mac;         ?></td>	
-</tr>
-
-<tr>
-<td>idcode </td>
-<td> <?php  echo $idcode;         ?></td>	
-</tr>
-
-<tr>
-<td>subid </td>
-<td> <?php  echo $subid;         ?></td>	
-</tr>
-
-<tr>
-<td>firmwareversion </td>
-<td> <?php  echo $firmwareversion;         ?></td>	
-</tr>
-
-<tr>
-<td>laserim </td>
-<td> <?php  echo $laserim;         ?></td>	
-</tr>
-
-<tr>
-<td>lasertemperature </td>
-<td> <?php  echo $lasertemperature;         ?></td>	
-</tr>
-
-<tr>
-<td>laserbias </td>
-<td> <?php  echo $laserbias;         ?></td>	
-</tr>
-
-<tr>
-<td>rfmodulationlevel </td>
-<td> <?php  echo $rfmodulationlevel;         ?></td>	
-</tr>
-
-<tr>
-<td>dc24vvoltage </td>
-<td> <?php  echo $dc24vvoltage;         ?></td>	
-</tr>
-
-<tr>
-<td>dc12vvoltage </td>
-<td> <?php  echo $dc12vvoltage;         ?></td>	
-</tr>
-
-<tr>
-<td>dc5vvoltage </td>
-<td> <?php  echo $dc5vvoltage;         ?></td>	
-</tr>
-
-<tr>
-<td>minor5vdcvoltage </td>
-<td> <?php  echo $minor5vdcvoltage;         ?></td>	
-</tr>
+			default:
+			# code...
+			return $s;
+			break;
+		}
 
 
-<tr>
-<td>txopticalpower </td>
-<td> <?php  echo $txopticalpower;         ?></td>	
-</tr>
+	}
 
 
 
-<tr>
-<td>gaincontrolsetting </td>
-<td> <?php  echo $gaincontrolsetting;         ?></td>	
-</tr>
-
-<tr>
-<td>sbscontrolsetting </td>
-<td> <?php  echo $sbscontrolsetting;         ?></td>	
-</tr>
-
-<tr>
-<td>ctbcontrolsetting </td>
-<td> <?php  echo $ctbcontrolsetting;         ?></td>	
-</tr>
-
-<tr>
-<td>txrfmodulelevel </td>
-<td> <?php  echo $txrfmodulelevel;         ?></td>	
-</tr>
-
-
-<tr>
-<td>presentacpower1status </td>
-<td> <?php  echo $presentacpower1status;         ?></td>	
-</tr>
-
-<tr>
-<td>presentacpower2status </td>
-<td> <?php  echo $presentacpower2status;         ?></td>	
-</tr>
-
-<tr>
-<td>txacpowersupplystatus </td>
-<td> <?php  echo $txacpowersupplystatus;         ?></td>	
-</tr>
+	?>
 
 
 
+	<table width="90%">
+
+		<tr>
+			<td>Last Scaned Time </td>
+			<td> <?php  echo displayTime($time);         ?></td>	
+			<td>    </td>
+		</tr>
+
+		<tr>
+			<td>Public IP </td>
+			<td> <?php  echo $recordip;         ?></td>	
+			<td>    </td>
+		</tr>
+
+		<tr>
+			<td>Interal IP </td>
+			<td> <?php  echo $ip;         ?></td>	
+			<td>    </td>
+		</tr>
+
+		<tr>
+			<td>MAC Address </td>
+			<td> <?php  echo $mac;         ?></td>	
+			<td>    </td>
+		</tr>
+
+		<tr>
+			<td>Uptime  </td>
+			<td> <?php  echo $uptime;         ?></td>	
+			<td>    </td>
+		</tr>
 
 
-</table>
+
+		<tr>
+			<td>Working Status </td>
+			<td> <?php  echo VisStatusIndex($statusindex);         ?></td>	
+			<td>    </td>
+		</tr>
 
 
-</body>
-</html>
+
+		<tr>
+			<td>Serial Number </td>
+			<td> <?php  echo $idcode;         ?></td>	
+			<td>    </td>
+		</tr>
+
+
+
+		<tr>
+			<td>Firmware Version </td>
+			<td> <?php  echo $firmwareversion;         ?></td>	
+			<td>    </td>
+		</tr>
+
+		<tr>
+			<td>Laser IM (mA)</td>
+			<td> <?php  echo floatval($laserim);         ?></td>	
+			<td> <a href="displayGraph_1550.php?item=laserim" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+			</tr>
+
+			<tr>
+				<td>Laser Temperature (C) </td>
+				<td> <?php  echo floatval($lasertemperature);         ?></td>	
+				<td> <a href="displayGraph_1550.php?item=lasertemperature" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+			</tr>
+
+			<tr>
+				<td>Laser Bias (mA)</td>
+				<td> <?php  echo floatval($laserbias);         ?></td>	
+				<td> <a href="displayGraph_1550.php?item=laserbias" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+			</tr>
+
+			<tr>
+				<td>RF Modulation Level (dB)</td>
+				<td> <?php  echo floatval($rfmodulationlevel);         ?></td>	
+				<td> <a href="displayGraph_1550.php?item=rfmodulationlevel" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+			</tr>
+
+			<tr>
+				<td>DC24V Voltage (V)</td>
+				<td> <?php  echo floatval($dc24vvoltage);         ?></td>	
+				<td> <a href="displayGraph_1550.php?item=dc24vvoltage" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+			</tr>
+
+			<tr>
+				<td>DC12V Vvoltage (V)</td>
+				<td> <?php  echo floatval($dc12vvoltage);         ?></td>	
+				<td> <a href="displayGraph_1550.php?item=dc12vvoltage" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+			</tr>
+
+			<tr>
+				<td>DC5V Voltage (V)</td>
+				<td> <?php  echo floatval($dc5vvoltage);         ?></td>	
+				<td> <a href="displayGraph_1550.php?item=dc5vvoltage" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+			</tr>
+
+			<tr>
+				<td>DC -5V Voltage (V)</td>
+				<td> <?php  echo floatval($minor5vdcvoltage);         ?></td>	
+				<td> <a href="displayGraph_1550.php?item=minor5vdcvoltage" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+			</tr>
+
+
+			<tr>
+				<td>TX Optical Power (dBm)</td>
+				<td> <?php  echo floatval($txopticalpower);         ?></td>	
+				<td> <a href="displayGraph_1550.php?item=txopticalpower" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+			</tr>
+
+
+
+			<tr>
+				<td>Gain Control  </td>
+				<td> <?php  echo $gaincontrolsetting;         ?></td>	
+				<td> </td>
+			</tr>
+
+			<tr>
+				<td>SBS Control  (dBm)</td>
+				<td> <?php  echo floatval($sbscontrolsetting);         ?></td>	
+				<td><a href="displayGraph_1550.php?item=sbscontrolsetting" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a> </td>
+			</tr>
+
+			<tr>
+				<td>CTB Ccontrol  </td>
+				<td> <?php  echo $ctbcontrolsetting;         ?></td>	
+				<td> </td>
+			</tr>
+
+			<tr>
+				<td>TX RF Module Level (dB)</td>
+				<td> <?php  echo floatval($txrfmodulelevel);         ?></td>	
+				<td><a href="displayGraph_1550.php?item=txrfmodulelevel" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a> </td>
+			</tr>
+
+
+			<tr>
+				<td>Present AC Power 1 Status </td>
+				<td> <?php  echo $presentacpower1status;         ?></td>	
+				<td> </td>
+			</tr>
+
+			<tr>
+				<td>Present AC Power 1 Status </td>
+				<td> <?php  echo $presentacpower2status;         ?></td>	
+				<td> </td>
+			</tr>
+
+			<tr>
+				<td>TX AC Power Supply Status </td>
+				<td> <?php  echo $txacpowersupplystatus;         ?></td>	
+				<td> </td>
+			</tr>
+
+
+
+
+
+		</table>
+
+
+	</body>
+	</html>
 

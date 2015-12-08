@@ -28,280 +28,325 @@
 		}
 	</style>
 
-<?php
+	<?php
 
-require("daemon_db_init.php");
-require("daemon_getDeviceIdPerIp.php");
-$deviceid = getDeviceIdPerIp($_GET['ip']);
+	session_start();
+
+	require("daemon_db_init.php");
+	require("daemon_getDeviceIdPerIp.php");
+	$deviceid = getDeviceIdPerIp($_GET['ip']);
 
 
-echo "<b>Status Values of EGFA.</b><br>";
+	echo "<b>Status Values of EGFA.</b><br>";
+	$_SESSION['deviceid'] = $deviceid;
 
 
-$query = "SELECT 
-	  daemonsnmpegfavalue.time,
-	  daemonsnmpegfavalue.description, 
-	  daemonsnmpegfavalue.oids, 
-	  daemonsnmpegfavalue.uptime, 
-	  daemonsnmpegfavalue.contact, 
-	  daemonsnmpegfavalue.name, 
-	  daemonsnmpegfavalue.location, 
-	  daemonsnmpegfavalue.service, 
-	  daemonsnmpegfavalue.ip, 
-	  daemonsnmpegfavalue.outputopticalpower, 
-	  daemonsnmpegfavalue.inputopticalpower, 
-	  daemonsnmpegfavalue.mac, 
-	  daemonsnmpegfavalue.pumptemp1, 
-	  daemonsnmpegfavalue.pumptemp2, 
-	  daemonsnmpegfavalue.dcpsnumber, 
-	  daemonsnmpegfavalue.pumptemp3, 
-	  daemonsnmpegfavalue.dcpsmode, 
-	  daemonsnmpegfavalue.dc5v, 
-	  daemonsnmpegfavalue.dcminor5v, 
-	  daemonsnmpegfavalue.dc12v, 
-	  daemonsnmpegfavalue.dc33v, 
-	  daemonsnmpegfavalue.left5v, 
-	  daemonsnmpegfavalue.right5v, 
-	  daemonsnmpegfavalue.leftminor5v, 
-	  daemonsnmpegfavalue.rightminor5v, 
-	  daemonsnmpegfavalue.manudate, 
-	  daemonsnmpegfavalue.firmware, 
-	  daemonsnmpegfavalue.model, 
-	  daemonsnmpegfavalue.sn, 
-	  daemonsnmpegfavalue.vendor, 
-	  daemonsnmpegfavalue.checkcode, 
-	  daemonsnmpegfavalue.tamperstatus, 
-	  daemonsnmpegfavalue.internaltemp, 
-	  daemonsnmpegfavalue.craftstatus
+	$query = "SELECT 
+	daemonsnmpegfavalue.time,
+	daemonsnmpegfavalue.description, 
+	daemonsnmpegfavalue.oids, 
+	daemonsnmpegfavalue.uptime, 
+	daemonsnmpegfavalue.contact, 
+	daemonsnmpegfavalue.name, 
+	daemonsnmpegfavalue.location, 
+	daemonsnmpegfavalue.service, 
+	daemonsnmpegfavalue.ip, 
+	daemonsnmpegfavalue.outputopticalpower, 
+	daemonsnmpegfavalue.inputopticalpower, 
+	daemonsnmpegfavalue.mac, 
+	daemonsnmpegfavalue.pumptemp1, 
+	daemonsnmpegfavalue.pumptemp2, 
+	daemonsnmpegfavalue.dcpsnumber, 
+	daemonsnmpegfavalue.pumptemp3, 
+	daemonsnmpegfavalue.dcpsmode, 
+	daemonsnmpegfavalue.dc5v, 
+	daemonsnmpegfavalue.dcminor5v, 
+	daemonsnmpegfavalue.dc12v, 
+	daemonsnmpegfavalue.dc33v, 
+	daemonsnmpegfavalue.left5v, 
+	daemonsnmpegfavalue.right5v, 
+	daemonsnmpegfavalue.leftminor5v, 
+	daemonsnmpegfavalue.rightminor5v, 
+	daemonsnmpegfavalue.manudate, 
+	daemonsnmpegfavalue.firmware, 
+	daemonsnmpegfavalue.model, 
+	daemonsnmpegfavalue.sn, 
+	daemonsnmpegfavalue.vendor, 
+	daemonsnmpegfavalue.checkcode, 
+	daemonsnmpegfavalue.tamperstatus, 
+	daemonsnmpegfavalue.internaltemp, 
+	daemonsnmpegfavalue.craftstatus
 	FROM 
-	  public.daemonsnmpegfavalue
+	public.daemonsnmpegfavalue
 	WHERE daemonsnmpegfavalue.deviceid=$deviceid;";
 
-$result = pg_query($query) or die('Query failed: ' . pg_last_error());
+	$result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
-while ($row = pg_fetch_object($result)) {
-	$time = $row->time;
-	$description = $row->description; 
-	$oids = $row->oids; 
-	$uptime = $row->uptime; 
-	$contact = $row->contact; 
-	$name = $row->name; 
-	$location = $row->location; 
-	$service = $row->service; 
-	$ip = $row->ip; 
-	$outputopticalpower = $row->outputopticalpower; 
-	$inputopticalpower = $row->inputopticalpower; 
-	$mac = $row->mac; 
-	$pumptemp1 = $row->pumptemp1; 
-	$pumptemp2 = $row->pumptemp2; 
-	$dcpsnumber = $row->dcpsnumber; 
-	$pumptemp3 = $row->pumptemp3; 
-	$dcpsmode = $row->dcpsmode; 
-	$dc5v = $row->dc5v; 
-	$dcminor5v = $row->dcminor5v; 
-	$dc12v = $row->dc12v; 
-	$dc33v = $row->dc33v; 
-	$left5v = $row->left5v; 
-	$right5v = $row->right5v; 
-	$leftminor5v = $row->leftminor5v; 
-	$rightminor5v = $row->rightminor5v; 
-	$manudate = $row->manudate; 
-	$firmware = $row->firmware; 
-	$model = $row->model; 
-	$sn = $row->sn; 
-	$vendor = $row->vendor; 
-	$checkcode = $row->checkcode; 
-	$tamperstatus = $row->tamperstatus; 
-	$internaltemp = $row->internaltemp; 
-	$craftstatus = $row->craftstatus;
-}
-
-
-pg_free_result($result);
-pg_close($dbconn);
-
-?>
+	while ($row = pg_fetch_object($result)) {
+		$time = $row->time;
+		$description = $row->description; 
+		$oids = $row->oids; 
+		$uptime = $row->uptime; 
+		$contact = $row->contact; 
+		$name = $row->name; 
+		$location = $row->location; 
+		$service = $row->service; 
+		$ip = $row->ip; 
+		$outputopticalpower = $row->outputopticalpower; 
+		$inputopticalpower = $row->inputopticalpower; 
+		$mac = $row->mac; 
+		$pumptemp1 = $row->pumptemp1; 
+		$pumptemp2 = $row->pumptemp2; 
+		$dcpsnumber = $row->dcpsnumber; 
+		$pumptemp3 = $row->pumptemp3; 
+		$dcpsmode = $row->dcpsmode; 
+		$dc5v = $row->dc5v; 
+		$dcminor5v = $row->dcminor5v; 
+		$dc12v = $row->dc12v; 
+		$dc33v = $row->dc33v; 
+		$left5v = $row->left5v; 
+		$right5v = $row->right5v; 
+		$leftminor5v = $row->leftminor5v; 
+		$rightminor5v = $row->rightminor5v; 
+		$manudate = $row->manudate; 
+		$firmware = $row->firmware; 
+		$model = $row->model; 
+		$sn = $row->sn; 
+		$vendor = $row->vendor; 
+		$checkcode = $row->checkcode; 
+		$tamperstatus = $row->tamperstatus; 
+		$internaltemp = $row->internaltemp; 
+		$craftstatus = $row->craftstatus;
+	}
 
 
+	pg_free_result($result);
+	pg_close($dbconn);
 
-<table>
+	function displayTime($t){
 
-<tr>
-<td>Time </td>
-<td> <?php  echo $time;         ?></td>	
-</tr>
+		if (strlen($t)==13) {
+		# code...
+			$year = substr($t, 0, 4);
+			$month = substr($t, 4, 2);
+			$day = substr($t, 6, 2);
+			$hour = "0" . substr($t, 8, 1);
+			$min = substr($t, 9, 2);
+			$sec = substr($t, 11, 2);
+		}
 
-<tr>
-<td>description </td>
-<td> <?php  echo $description;         ?></td>	
-</tr>
+		if (strlen($t)==14) {
+		# code...
+			$year = substr($t, 0, 4);
+			$month = substr($t, 4, 2);
+			$day = substr($t, 6, 2);
+			$hour = substr($t, 8, 1);
+			$min = substr($t, 10, 2);
+			$sec = substr($t, 12, 2);
+		}
 
-<tr>
-<td>oids </td>
-<td> <?php  echo $oids;         ?></td>	
-</tr>
+		return $year . "-" . $month . "-" . $day . "-" . $hour . "-" . $min . "-" . $sec;
 
-<tr>
-<td>uptime </td>
-<td> <?php  echo $uptime;         ?></td>	
-</tr>
+	}
 
-<tr>
-<td>contact </td>
-<td> <?php  echo $contact;         ?></td>	
-</tr>
+	function VisStatusIndex($s){
+		switch ($s) {
+			case 1:
+			# code...
+			return "Normal";
+			break;
+			case 0:
+			# code...
+			return "Need Check";
+			break;
 
-<tr>
-<td>name </td>
-<td> <?php  echo $name;         ?></td>	
-</tr>
-
-<tr>
-<td>location </td>
-<td> <?php  echo $location;         ?></td>	
-</tr>
-
-<tr>
-<td>service </td>
-<td> <?php  echo $service;         ?></td>	
-</tr>
-
-<tr>
-<td>ip </td>
-<td> <?php  echo $ip;         ?></td>	
-</tr>
-
-<tr>
-<td>outputopticalpower </td>
-<td> <?php  echo $outputopticalpower;         ?></td>	
-</tr>
-
-<tr>
-<td>inputopticalpower </td>
-<td> <?php  echo $inputopticalpower;         ?></td>	
-</tr>
-
-<tr>
-<td>mac </td>
-<td> <?php  echo $mac;         ?></td>	
-</tr>
-
-<tr>
-<td>pumptemp1 </td>
-<td> <?php  echo $pumptemp1;         ?></td>	
-</tr>
-
-<tr>
-<td>pumptemp2 </td>
-<td> <?php  echo $pumptemp2;         ?></td>	
-</tr>
-
-<tr>
-<td>dcpsnumber </td>
-<td> <?php  echo $dcpsnumber;         ?></td>	
-</tr>
-
-<tr>
-<td>pumptemp3 </td>
-<td> <?php  echo $pumptemp3;         ?></td>	
-</tr>
-
-<tr>
-<td>dcpsmode </td>
-<td> <?php  echo $dcpsmode;         ?></td>	
-</tr>
-
-<tr>
-<td>dc5v </td>
-<td> <?php  echo $dc5v;         ?></td>	
-</tr>
-
-<tr>
-<td>dcminor5v </td>
-<td> <?php  echo $dcminor5v;         ?></td>	
-</tr>
-
-<tr>
-<td>dc12v </td>
-<td> <?php  echo $dc12v;         ?></td>	
-</tr>
-
-<tr>
-<td>dc33v </td>
-<td> <?php  echo $dc33v;         ?></td>	
-</tr>
-
-<tr>
-<td>left5v </td>
-<td> <?php  echo $left5v;         ?></td>	
-</tr>
-
-<tr>
-<td>right5v </td>
-<td> <?php  echo $right5v;         ?></td>	
-</tr>
+			default:
+			# code...
+			return $s;
+			break;
+		}
 
 
-<tr>
-<td>leftminor5v </td>
-<td> <?php  echo $leftminor5v;         ?></td>	
-</tr>
+	}
 
-<tr>
-<td>rightminor5v </td>
-<td> <?php  echo $rightminor5v;         ?></td>	
-</tr>
-
-<tr>
-<td>manudate </td>
-<td> <?php  echo $manudate;         ?></td>	
-</tr>
-
-<tr>
-<td>firmware </td>
-<td> <?php  echo $firmware;         ?></td>	
-</tr>
-
-<tr>
-<td>model </td>
-<td> <?php  echo $model;         ?></td>	
-</tr>
-
-<tr>
-<td>sn </td>
-<td> <?php  echo $sn;         ?></td>	
-</tr>
-
-
-<tr>
-<td>vendor </td>
-<td> <?php  echo $vendor;         ?></td>	
-</tr>
-
-<tr>
-<td>checkcode </td>
-<td> <?php  echo $checkcode;         ?></td>	
-</tr>
-
-<tr>
-<td>tamperstatus </td>
-<td> <?php  echo $tamperstatus;         ?></td>	
-</tr>
-
-<tr>
-<td>internaltemp </td>
-<td> <?php  echo $internaltemp;         ?></td>	
-</tr>
-
-<tr>
-<td>craftstatus </td>
-<td> <?php  echo $craftstatus;         ?></td>	
-</tr>
+	?>
 
 
 
+	<table width="90%">
 
-</table>
+		<tr>
+			<td>Last Scaned Time </td>
+			<td> <?php  echo displayTime($time);         ?></td>	
+			<td></td>	
+		</tr>
+
+
+
+		<tr>
+			<td>Uptime </td>
+			<td> <?php  echo $uptime;         ?></td>	
+			<td></td>	
+		</tr>
+
+
+		<tr>
+			<td>Device IP </td>
+			<td> <?php  echo $ip;         ?></td>	
+			<td></td>	
+		</tr>
+
+		<tr>
+			<td>MAC Address </td>
+			<td> <?php  echo $mac;         ?></td>	
+			<td></td>	
+		</tr>
+
+		<tr>
+			<td>Manufacturing Date </td>
+			<td> <?php  echo $manudate;         ?></td>	
+			<td></td>	
+		</tr>
+
+		<tr>
+			<td>Firmware </td>
+			<td> <?php  echo $firmware;         ?></td>	
+			<td></td>	
+		</tr>
+
+		<tr>
+			<td>Model </td>
+			<td> <?php  echo $model;         ?></td>	
+			<td></td>	
+		</tr>
+
+		<tr>
+			<td>Serial Number </td>
+			<td> <?php  echo $sn;         ?></td>	
+			<td></td>	
+		</tr>
+
+
+
+		<tr>
+			<td>Internal Tempearture (C) </td>
+			<td> <?php  echo floatval($internaltemp);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=internaltemp" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+		<tr>
+			<td>Output Optical Power (dBm)</td>
+			<td> <?php  echo floatval($outputopticalpower);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=outputopticalpower" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+		<tr>
+			<td>Input Optical Power (dBm)</td>
+			<td> <?php  echo floatval($inputopticalpower);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=inputopticalpower" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+
+
+		<tr>
+			<td>Pump Temeperature 1 (C)</td>
+			<td> <?php  echo floatval($pumptemp1);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=pumptemp1" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+		<tr>
+			<td>Pump Temeperature 2 (C) </td>
+			<td> <?php  echo floatval($pumptemp2);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=pumptemp2" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+
+
+		<tr>
+			<td>Pump Temeperature 3 (C) </td>
+			<td> <?php  echo floatval($pumptemp3);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=pumptemp3" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+		<tr>
+			<td>DCPS Number </td>
+			<td> <?php  echo floatval($dcpsnumber);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=dcpsnumber" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+
+
+		<tr>
+			<td>DC5V (V)</td>
+			<td> <?php  echo floatval($dc5v);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=dc5v" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+		<tr>
+			<td>DC -5V (V)</td>
+			<td> <?php  echo floatval($dcminor5v);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=dcminor5v" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+		<tr>
+			<td>DC12V (V)</td>
+			<td> <?php  echo floatval($dc12v);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=dc12v" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+		<tr>
+			<td>DC33V (V)</td>
+			<td> <?php  echo floatval($dc33v);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=dc33v" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+		<tr>
+			<td>Left 5V (V)</td>
+			<td> <?php  echo floatval($left5v);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=left5v" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+		<tr>
+			<td>Right 5V (V)</td>
+			<td> <?php  echo floatval($right5v);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=right5v" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+
+		<tr>
+			<td>Left -5V (V)</td>
+			<td> <?php  echo floatval($leftminor5v);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=leftminor5v" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+		<tr>
+			<td>Right -5V (V)</td>
+			<td> <?php  echo floatval($rightminor5v);         ?></td>	
+			<td> <a href="displayGraph_egfa.php?item=rightminor5v" onclick="window.open(this.href, 'mywin',
+				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+		</tr>
+
+
+
+
+
+
+
+	</table>
 
 
 </body>
