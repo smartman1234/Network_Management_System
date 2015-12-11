@@ -416,7 +416,7 @@ while ($row = pg_fetch_object($result)) {
 
   $onlineStatus = is_online_for_inventory($row->ip);
 
-  echo "<li data-jstree='{'opened':true, 'type':'demo'}'>" . $deviceCategory . " " . $ip . ": " . $alarmStatus . "/" . $onlineStatus;
+  echo "<li data-jstree='{'opened':true, 'type':'demo'}'><a href='www.google.com'>" . $deviceCategory . " " . $ip . ": " . $alarmStatus . "/" . $onlineStatus;
 }
 
 
