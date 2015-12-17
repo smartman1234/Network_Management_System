@@ -47,7 +47,7 @@ echo "<th align=left class=table-filterable table-sortable:default><b>Assigned P
 echo "<th align=left class=table-filterable table-sortable:default><b>Alarm </b></th>";
 echo "<th align=left class=table-filterable table-sortable:default><b>ICMP </b></th>";
 echo "<th align=left class=table-sortable:alphanumeric><b>Discovered Time</b><img src=images/sorticon.png width=30 height=20></th>";
-echo "<th align=left><b>SNMP Status</b></th>";
+echo "<th align=left><b>Device Metrics</b></th>";
 echo "<th align=left><b>Alarm Setup</b></th>";
 echo "<th align=left><b>Delete</b></th>";
 echo "</tr>";

@@ -1,3 +1,15 @@
+<?php
+
+session_start();
+if(isset($_SESSION['islogin'])) {
+   session_destroy();
+} 
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   

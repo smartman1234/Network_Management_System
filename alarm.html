@@ -18,7 +18,7 @@ if(!isset($_SESSION['islogin'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Alarms History</title>
+    <title>Alarms</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/table.css" rel="stylesheet">
@@ -144,16 +144,16 @@ if(!isset($_SESSION['islogin'])) {
                         </a>
                     </li>
                     <li>
-                        <a href="alarm_list.html">
-                            <i class="fa fa-bell"></i>Outstanding Alarms 
+                        <a href="alarm.html">
+                            <i class="fa fa-bell"></i>Alarms 
                         </a>
                     </li>
 
-                    <li>
+                  <!--   <li>
                         <a href="alarm_history.html">
                             <i class="fa fa-history"></i> Alarm History 
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="network_mapping.html">
                             <i class="fa fa-globe"></i> Mapping Visualization
@@ -194,11 +194,11 @@ if(!isset($_SESSION['islogin'])) {
         </div>
         <br>
         <br>
-      
+       
         <!-- /sidebar menu -->
         <!-- /menu footer buttons -->
         <div class="sidebar-footer hidden-small">
-          <div>
+         <div>
             <img src="images/media.gif" alt="Mountain View" style="width: 90%; height: 90%"> <b>Electroline Vanguard-HE V1.0</b>
         </div>
             <a data-toggle="tooltip" data-placement="top" title="ScreenShot">
@@ -214,45 +214,41 @@ if(!isset($_SESSION['islogin'])) {
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>
         </div>
-                        <!-- /menu footer buttons -->
-                    </div>
+                    <!-- /menu footer buttons -->
                 </div>
-
-                <!-- top navigation -->
-                <div class="top_nav">
-
-                    <div class="nav_menu">
-                        <nav class="" role="navigation">
-                            <div class="nav toggle">
-                                <a id="menu_toggle">
-                                    <i class="fa fa-bars"></i>
+            </div>
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav class="" role="navigation">
+                        <div class="nav toggle">
+                            <a id="menu_toggle">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="images/UserGroup1.png" alt=""> User Administration
+                                    <span class=" fa fa-angle-down"></span>
                                 </a>
-                            </div>
-
-                            <ul class="nav navbar-nav navbar-right">
-                                <li class="">
-                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        <img src="images/UserGroup1.png" alt=""> User Administration
-                                        <span class=" fa fa-angle-down"></span>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-                                        <li>
-                                            <a href="account_management.html">Account Configuration</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="index.html">
-                                                <i class="fa fa-sign-out pull-right"></i> Log Out
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                            </ul>
-                        </nav>
-                    </div>
+                                <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
+                                    <li>
+                                        <a href="account_management.html">Account Configuration</a>
+                                    </li>
+                                    <li>
+                                        <a href="index.html">
+                                            <i class="fa fa-sign-out pull-right"></i> Log Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                        </ul>
+                    </nav>
                 </div>
-                <!-- /top navigation -->
+            </div>
+            <!-- /top navigation -->
 
             <!-- Above is the navigation bar as well as the top menues
             ------------------------------------------------------------------------------------- -->
@@ -265,7 +261,7 @@ if(!isset($_SESSION['islogin'])) {
                     <div class="page-title">
                         <div class="title_left">
                             <h3 id="mouseCur">
-                                <a onclick="POPUP_Fcuntion()">Alarms History Records</a>
+                                <a onclick="POPUP_Fcuntion()">Alarms</a>
                             </h3>
                             <br>
                         </div>
@@ -283,17 +279,15 @@ if(!isset($_SESSION['islogin'])) {
                     <div class="clearfix"></div>
                     <div class="row">
                         <button type="button" class="btn btn-primary" onclick="reload()">Refresh List</button>
-                        <button type="button" class="btn btn-primary" onclick="location.href='alarm_list.html';">Outstanding Alarms</button>
-                        <button type="button" class="btn btn-primary" onclick="location.href='php_scripts/export_alarmhistory.php';">Export Data</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='device_history.html';">All Alarm History</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='php_scripts/export_alarmlist.php';">Export Data</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='php_scripts/alarm_clear_all.php';">Acknowledge All Alarms</button>
 
                         <script>
                             function reload() {
                                 location.reload();
                             }
                         </script>
-
-
-
 
                     </div>
 
@@ -303,114 +297,111 @@ if(!isset($_SESSION['islogin'])) {
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2>Server IP:
-                                     <b><?php
+                                       <b><?php
                                         require "php_scripts/ipAddress.php";
                                         echo $serverIp;
                                         ?></b>
                                         (User:
-                                           <b><?php
-                                              require "php_scripts/ipAddress.php";
-                                              echo $clientIp;
-                                              ?></b>
-                                              )
-                                              <br><br>
+                                         <b><?php
+                                          require "php_scripts/ipAddress.php";
+                                          echo $clientIp;
+                                          ?></b>
+                                          )
+                                          <br><br>
 
-                                              Total alarm records number: <b><?php
-                                              require "php_scripts/real_time_alarm_total_number.php";
-                                              echo $alarm_records_number;
-                                              ?></b>
-                                              <br>
-                                              <br>
-                                              Current time:
-                                              <script type="text/javascript">
-                                                 var currentDate = new Date();
-                                                 var day = currentDate.getDate();
-                                                 var month = currentDate.getMonth() + 1;
-                                                 var year = currentDate.getFullYear();
-                                                 var currentTime = new Date();
-                                                 var hours = currentTime.getHours();
-                                                 var minutes = currentTime.getMinutes();
+                                          Current outstanding alarm number: <b><?php
+                                          require "php_scripts/real_time_alarm_total_number.php";
+                                          echo $total_alarm_number-1;
+                                          ?></b>
+                                          <br>
+                                          <br>
+                                          Current time:
+                                          <script type="text/javascript">
+                                           var currentDate = new Date();
+                                           var day = currentDate.getDate();
+                                           var month = currentDate.getMonth() + 1;
+                                           var year = currentDate.getFullYear();
+                                           var currentTime = new Date();
+                                           var hours = currentTime.getHours();
+                                           var minutes = currentTime.getMinutes();
 
-                                                 if (minutes < 10)
-                                                    minutes = "0" + minutes;
+                                           if (minutes < 10)
+                                            minutes = "0" + minutes;
 
-                                                var suffix = "AM";
-                                                if (hours >= 12) {
-                                                    suffix = "PM";
-                                                    hours = hours - 12;
-                                                }
-                                                if (hours == 0) {
-                                                    hours = 12;
-                                                }
-                                                document.write("<b>" + day + "/" + month + "/" + year + "</b>");
-                                                document.write("<b></b>");
-                                                document.write("<b>" + hours + ":" + minutes + " " + suffix + "</b>")
-                                            </script>
-                                        </h2>
+                                        var suffix = "AM";
+                                        if (hours >= 12) {
+                                            suffix = "PM";
+                                            hours = hours - 12;
+                                        }
+                                        if (hours == 0) {
+                                            hours = 12;
+                                        }
+                                        document.write("<b>" + day + "/" + month + "/" + year + "</b>");
+                                        document.write("<b></b>");
+                                        document.write("<b>" + hours + ":" + minutes + " " + suffix + "</b>")
+                                    </script>
+                                </h2>
 
-                                        <div class="clearfix"></div>
-                                    </div>
+                                <div class="clearfix"></div>
+                            </div>
 
-                                    <div class="x_content">
-                                        <table id="example" class="table table-striped responsive-utilities jambo_table table-autosort table-autofilter table-autopage:10 table-autostripe table-page-number:t1page table-page-count:t1pages table-filtered-rowcount:t1filtercount table-rowcount:t1allcount">
+                            <div class="x_content">
+                                <table id="example" class="table table-striped responsive-utilities jambo_table table-autosort table-autofilter table-autopage:10 table-autostripe table-page-number:t1page table-page-count:t1pages table-filtered-rowcount:t1filtercount table-rowcount:t1allcount">
 
-                                            <style type="text/css">
-                                                th {
-                                                    color: #000000;
-                                                    background-color: #1479B8
-                                                }
-                                            </style>
+                                    <style type="text/css">
+                                        th {
+                                            color: #000000;
+                                            background-color: #1479B8
+                                        }
+                                    </style>
 
-                                            <?php require "php_scripts/alarm_history.php"; ?>
-                                        </tbody>
+                                    <?php require "php_scripts/alarm_combined_view.php"; ?>
+                                </tbody>
 
-                                        <tfoot>
-                                            <tr>
-                                                <td></td>
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
 
-                                                <td class="table-page:previous" style="cursor:pointer;">&lt; &lt; Previous</td>
+                                        <td class="table-page:previous" style="cursor:pointer;">&lt; &lt; Previous</td>
 
-                                                <td></td>
-                                                <td></td>
-                                                <td style="text-align:right;">
-                                                    Page
-                                                    <span id="t1page"></span> &nbsp;of
-                                                    <span id="t1pages"></td>
-                                                     <td></td>
-                                                  <td class="table-page:next" style="cursor:pointer;" align="right">Next &gt; &gt;</td>    
-                                                     <td></td>
-                                                   
-                                                   
-                                                 </tr>
-
-                                                 <td></td>
-                                                 <td></td>
-                                                 <td></td>
-                                                   <td></td>
-
-                                                 <td colspan="8.5">
-                                                     <span id="t1filtercount"></span> &nbsp;of
-                                                     <span id="t1allcount"></span> &nbsp;rows match filter(s)
-                                                 </td>
-                                                
+                                        <td></td>
+                                        <td></td><td></td>
+                                        <td style="text-align:right;">
+                                            Page
+                                            <span id="t1page"></span> &nbsp;of
+                                            <span id="t1pages"></td>
+                                               <td></td>
+                                            
                                               
-                                              
+                                               <td class="table-page:next" style="cursor:pointer;" align="right">Next &gt; &gt;</td>
+                                               <td></td>
+                                           </tr>
 
-                                             </tfoot>
+                                           <td></td>
+                                           <td></td><td></td><td></td>
+                                          
+                                           <td colspan="8.5">
+                                               <span id="t1filtercount"></span> &nbsp;of
+                                               <span id="t1allcount"></span> &nbsp;rows match filter(s)
+                                           </td>
+                                       
+                                      
 
-                                         </table>
+                                       </tfoot>
 
-                                     </div>
-                                 </div>
-                             </div>
+                                   </table>
 
-                             <br />
-                             <br />
-                             <br />
+                               </div>
+                           </div>
+                       </div>
 
-                         </div>
-                     </div>
-                     <!-- footer content -->
+                       <br />
+                       <br />
+                       <br />
+
+                   </div>
+               </div>
+               <!-- footer content -->
 
                 <!-- ------------------------------------------------------------------------------------- 
                 Below is the footer  -->
@@ -419,7 +410,7 @@ if(!isset($_SESSION['islogin'])) {
                 <footer>
                     <div class="">
                         <p class="pull-right">
-                          Electroline VanguardHE system is professional network management system customized for Electroline HeadEnd devices. 
+                             Electroline VanguardHE system is professional network management system customized for Electroline HeadEnd devices. 
                             <span class="lead">
                                 <i class="fa fa-desktop"></i>
                                 Electroline Equipment Inc.

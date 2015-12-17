@@ -1,3 +1,12 @@
+<?php
+
+session_start();
+if(!isset($_SESSION['islogin'])) {
+   header('Location: index.html');
+} 
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -137,16 +146,16 @@
                         </a>
                     </li>
                     <li>
-                        <a href="alarm_list.html">
-                            <i class="fa fa-bell"></i>Outstanding Alarms 
+                        <a href="alarm.html">
+                            <i class="fa fa-bell"></i> Alarms 
                         </a>
                     </li>
 
-                    <li>
+                    <!-- <li>
                         <a href="alarm_history.html">
                             <i class="fa fa-history"></i> Alarm History 
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="network_mapping.html">
                             <i class="fa fa-globe"></i> Mapping Visualization

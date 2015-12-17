@@ -278,14 +278,14 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 // 2015-12-04
 * plot chart along the time (google chart raw code proved)   -----ok 
 
-// 2015-12-07
+// 2015-12-08
 * reorganize 1550 value  --- ok 
 * graph 1550 data    --- ok 
 * reorganize egfa value  --- ok 
 * graph egfa data    --- ok 
 * reorganize elink value     --- ok 
  
-// 2015-12-08
+// 2015-12-09
 * change the graphe name and path to avoid permission issue     --- ok 
 * graph elink data     --- ok 
 * beautify table    --- ok 
@@ -293,4 +293,19 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 * polish details   --- ok  
 * format email   --- ok  
 * table header color     --- ok  
+
+// 2015-12-10/11
+* fix alarm table  --- ok  
+* combine two alarm table together   --- ok  
+* test the column   --- ok  
+* read jquery document to get fimiliar with jstree change   --- ok  
+* try to change jstree, but sti problmeatic     --- PAY ATTENTION 
+
+// 2015-12-17
+* user password  --- ok  
+* alarm page    --- ok  
+* js tree 
+* color graph 
+
+
 

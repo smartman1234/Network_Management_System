@@ -69,6 +69,8 @@ while ($row = pg_fetch_object($result)){
 if ($usernamep == $username && $passwordp == $password) {
 
 	session_start();
+	$_SESSION['islogin'] = "authorized";
+
 	header('Location: main.html');
 }else{
 	header('Location: login_error.html');

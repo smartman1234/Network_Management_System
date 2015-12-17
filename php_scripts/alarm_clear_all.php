@@ -1,6 +1,11 @@
 <?php
+/**
+ * @Author: yuwang
+ * @Date:   2015-12-17 15:03:01
+ * @Last Modified by:   yuwang
+ * @Last Modified time: 2015-12-17 15:05:36
+ */
 
-$alarmid=$_GET[ 'alarmid'];
 
 $dbpath = $_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/daemon_scr/daemon_db_init.php";
 require($dbpath);  // to initialize snmp 
@@ -30,7 +35,7 @@ require($dbpath);  // to initialize snmp
 
 $query = "UPDATE public.daemonalarm
 	SET ack='yes' 
-	WHERE daemonalarm.alarmid = $alarmid;";
+	WHERE daemonalarm.ack = 'no';";
 
 $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
@@ -38,9 +43,7 @@ pg_free_result($result);
 
 pg_close($dbconn);
 
-$rp=$_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/alarm.html";
-
-echo "Acknowledged Successfully!";
+echo "Acknowledged All Successfully!";
 
 echo "<br>";
 echo "<br>";
@@ -54,13 +57,5 @@ function closeWin() {
 }
 </script>";
 
-
-
-
-
-
 ?>
-
-
-
 

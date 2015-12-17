@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+if(isset($_SESSION['islogin'])) {
+   session_destroy();
+} 
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,9 +97,6 @@
           target="_blank" class="btn btn-primary" role="button">
           Start Monitoring Daemonkit
         </a>
-
-
-
         <br>
         <br>
         <br>
