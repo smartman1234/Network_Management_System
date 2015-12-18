@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @Author: yuwang
+ * @Date:   2015-12-17 15:03:01
+ * @Last Modified by:   yuwang
+ * @Last Modified time: 2015-12-17 15:05:36
+ */
+
 session_start();
 if(!isset($_SESSION['islogin'])) {
  header('Location: index.html');
@@ -39,11 +46,11 @@ if(!isset($_SESSION['islogin'])) {
     <script src="tree/dist/jstree.min.js"></script>
 
 
-    <!--[if lt IE 9]>
+        <!--[if lt IE 9]>
     <script src="../assets/js/ie8-responsive-file-warning.js"></script>
     <![endif]-->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
+        <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -56,71 +63,71 @@ if(!isset($_SESSION['islogin'])) {
         seconds;
 
         function timer() {
-            // get the number of seconds that have elapsed since 
-            // startTimer() was called
-            diff = duration - (((Date.now() - start) / 1000) | 0);
+                // get the number of seconds that have elapsed since 
+                // startTimer() was called
+                diff = duration - (((Date.now() - start) / 1000) | 0);
 
-            // does the same job as parseInt truncates the float
-            minutes = (diff / 60) | 0;
-            seconds = (diff % 60) | 0;
+                // does the same job as parseInt truncates the float
+                minutes = (diff / 60) | 0;
+                seconds = (diff % 60) | 0;
 
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            display.textContent = minutes + ":" + seconds;
+                display.textContent = minutes + ":" + seconds;
 
-            if (diff <= 0) {
-                // add one second so that the count down starts at the full duration
-                // example 05:00 not 04:59
-                start = Date.now() + 1000;
+                if (diff <= 0) {
+                    // add one second so that the count down starts at the full duration
+                    // example 05:00 not 04:59
+                    start = Date.now() + 1000;
+                }
             }
+            // we don't want to wait a full second before the timer starts
+            timer();
+            setInterval(timer, 1000);
         }
-        // we don't want to wait a full second before the timer starts
-        timer();
-        setInterval(timer, 1000);
-    }
 
-    window.onload = function() {
-        var fiveMinutes = 60 * 1,
-        display = document.querySelector('#time');
-        startTimer(fiveMinutes, display);
-    };
-</script>
+        window.onload = function() {
+            var fiveMinutes = 60 * 1,
+            display = document.querySelector('#time');
+            startTimer(fiveMinutes, display);
+        };
+    </script>
 
-<body class="nav-md">
-    <div class="container body">
-        <div class="main_container">
-            <div class="col-md-3 left_col">
-                <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a href="main.html" class="site_title"> <i class="fa fa-bar-chart"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </div>
-                    <h3>
-                        <script type="text/javascript">
-                            <!--
-                            var currentDate = new Date();
-                            var day = currentDate.getDatnth() + 1;
-                            var year = currentDate.getFullYear();
-                            var currentTime = newe();
-                            var month = currentDate.getMo; Date();
-                            var hours = currentTime.getHours();
-                            var minutes = currentTime.getMinutes();
+    <body class="nav-md">
+        <div class="container body">
+            <div class="main_container">
+                <div class="col-md-3 left_col">
+                    <div class="left_col scroll-view">
+                        <div class="navbar nav_title" style="border: 0;">
+                            <a href="main.html" class="site_title"> <i class="fa fa-bar-chart"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </div>
+                        <h3>
+                            <script type="text/javascript">
+                                <!--
+                                var currentDate = new Date();
+                                var day = currentDate.getDatnth() + 1;
+                                var year = currentDate.getFullYear();
+                                var currentTime = newe();
+                                var month = currentDate.getMo; Date();
+                                var hours = currentTime.getHours();
+                                var minutes = currentTime.getMinutes();
 
-                            if (minutes < 10)
-                              minutes = "0" + minutes;
+                                if (minutes < 10)
+                                  minutes = "0" + minutes;
 
-                          var suffix = "AM";
-                          if (hours >= 12) {
-                              suffix = "PM";
-                              hours = hours - 12;
-                          }
-                          if (hours == 0) {
-                              hours = 12;
-                          }
-                          document.write("<b>" + day + "/" + month + "/" + year + "</b>");
-                          document.write("<b></b>");
+                              var suffix = "AM";
+                              if (hours >= 12) {
+                                  suffix = "PM";
+                                  hours = hours - 12;
+                              }
+                              if (hours == 0) {
+                                  hours = 12;
+                              }
+                              document.write("<b>" + day + "/" + month + "/" + year + "</b>");
+                              document.write("<b></b>");
                   document.write("<b>" + hours + ":" + minutes + " " + suffix + "</b>");    //-->
               </script>
           </h3>
@@ -152,11 +159,11 @@ if(!isset($_SESSION['islogin'])) {
                     </li>
                     <li>
                         <a href="alarm.html">
-                            <i class="fa fa-bell"></i>Alarms 
+                            <i class="fa fa-bell"></i>Alarms
                         </a>
                     </li>
 
-                   <!--  <li>
+                                    <!--  <li>
                         <a href="alarm_history.html">
                             <i class="fa fa-history"></i> Alarm History 
                         </a>
@@ -293,13 +300,13 @@ if(!isset($_SESSION['islogin'])) {
                         <i class="fa fa-bell"></i>
                     </div>
                     <div class="count">
-                        <a href="alarm_list.html">
-                            <?php require "php_scripts/real_time_alarm_total_number.php"; echo $alarm_records_number; ?>
+                        <a href="alarm.html">
+                            <?php require "php_scripts/real_time_alarm_total_number.php"; echo $total_alarm_number-1; ?>
                         </a>
                     </div>
                     <h3>Outstanding Alarms</h3>
                     <p>
-                        <a href="alarm_list.html">Go to Acknowledge</a>
+                        <a href="alarm.html">Go to Acknowledge</a>
                     </p>
                 </div>
             </div>
@@ -348,14 +355,15 @@ if(!isset($_SESSION['islogin'])) {
                             <div class="x_content">
 
                                 <div>
-                                  <form id="s">
-                                    <input type="search" id="q" />
-                                    <button type="submit">Search</button>
-                                </form>
+                                    <form id="s">
+                                        <input type="search" id="q" />
+                                        <button type="submit">Search</button>
+                                        <p id="event_result"></p>
+                                    </form>
 
-                                <div id="jstree">
+                                    <div id="jstree">
 
-<!--     <ul>
+                                                <!--     <ul>
     <li data-jstree='{"opened":true, "type":"demo"}'>EGFA
       <li data-jstree='{"opened":true, "type":"demo"}'>SNMP AGENT 
        <li data-jstree='{"opened":true, "type":"demo"}'>EG1550
@@ -446,6 +454,7 @@ if ($criteria == ".1.3.6.1.4.1.5591.29317.1.11.1.3.1.1" || $criteria == "SNMPv2-
       $alarmStatus="Alarmed";
 
   }
+
   $onlineStatus = is_online_for_inventory($row->ip);
 
   echo "<li data-jstree='{'opened':true, 'type':'demo'}'>" . $deviceCategory . " " . $ip . ": " . $alarmStatus . "/" . $onlineStatus;
@@ -473,80 +482,83 @@ pg_close($dbconn);
 
 
 <script>
-  $('#jstree').jstree({
-    "core" : {
-     "multiple" : true,
-     "check_callback" : function (operation, node, parent, position, more) {
-      if(operation === "copy_node" || operation === "move_node") {
-        if(parent.id === "#") {
-          return false; // prevent moving a child above or below the root
-      }
-  }
-      return true; // allow everything else
-  }
-},
-"types" : {
-    "default" : {
-      "icon" : "glyphicon glyphicon-flash"
-  },
-  "demo" : {
-      "icon" : "glyphicon glyphicon-ok"
-  }
-},
-"state" : { "key" : "state_demo" },
-"plugins" : ["dnd","contextmenu","search","sort","state"]
-});
+    $('#jstree').jstree({
+        "core": {
+            "multiple": true,
+            "check_callback": function(operation, node, parent, position, more) {
+                if (operation === "copy_node" || operation === "move_node") {
+                    if (parent.id === "#") {
+                                                                    return false; // prevent moving a child above or below the root
+                                                                }
+                                                            }
+                                                            return true; // allow everything else
+                                                        }
+                                                    },
+                                                    "types": {
+                                                        "default": {
+                                                            "icon": "glyphicon glyphicon-flash"
+                                                        },
+                                                        "demo": {
+                                                            "icon": "glyphicon glyphicon-ok"
+                                                        }
+                                                    },
+                                                    "state": {
+                                                        "key": "state_demo"
+                                                    },
+                                                    "plugins": ["dnd", "contextmenu", "search", "sort", "state"]
+                                                });
 
-  $("#s").submit(function(e) {
+$("#s").submit(function(e) {
     e.preventDefault();
     $("#jstree").jstree(true).search($("#q").val());
 });
 
-  $('#jstree')
-  // listen for event
-  .on('changed.jstree', function (e, data) {
-    var i, j, r = [];
-    for(i = 0, j = data.selected.length; i < j; i++) {
-      r.push(data.instance.get_node(data.selected[i]).text);
-  }
-  $('#event_result').html('Selected: ' + r.join(', '));
-})
-  // create the instance
-  .jstree();
+var sel = [];
+$('#jstree')
+                                                    // listen for event
+                                                    .on('changed.jstree', function(e, data) {
+                                                        var i, j, r = [];
+                                                        for (i = 0, j = data.selected.length; i < j; i++) {
+                                                            sel.push(data.instance.get_node(data.selected[i]).text);
+                                                        }
+                                                        $('#event_result').html('<a href="inventory.html"><b>Go to the device intentory of : ' + sel[sel.length - 1] + '</b></a>');
 
-</script>
+                                                    })
+                                                    // create the instance
+                                                    .jstree();
+                                                </script>
 
- <p id="event_result"></p>
 
 
-</div>
 
-</div>
+                                            </div>
 
-</div>
-</div>
-</div>
-                    <!--            <div class="row"></div>
-                -->
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        <!--            <div class="row"></div>
+                    -->
+                </div>
             </div>
+            <!-- footer content -->
+            <footer>
+                <div class="">
+                    <p class="pull-right">
+                        Electroline VanguardHE system is professional network management system customized for Electroline HeadEnd devices.
+                        <span class="lead">
+                            <i class="fa fa-desktop"></i>
+                            Electroline Equipment Inc.
+                        </span>
+                    </p>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
         </div>
-        <!-- footer content -->
-        <footer>
-            <div class="">
-                <p class="pull-right">
-                    Electroline VanguardHE system is professional network management system customized for Electroline HeadEnd devices. 
-                    <span class="lead">
-                        <i class="fa fa-desktop"></i>
-                        Electroline Equipment Inc.
-                    </span>
-                </p>
-            </div>
-            <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+        <!-- /page content -->
     </div>
-    <!-- /page content -->
-</div>
 </div>
 <div id="custom_notifications" class="custom-notifications dsp_none">
     <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group"></ul>
@@ -568,7 +580,7 @@ pg_close($dbconn);
 <script src="js/sparkline/jquery.sparkline.min.js"></script>
 <script src="js/custom.js"></script>
 <!-- flot js -->
-    <!--[if lte IE 8]>
+        <!--[if lte IE 8]>
 <script type="text/javascript" src="js/excanvas.min.js"></script>
 <![endif]-->
 <script type="text/javascript" src="js/flot/jquery.flot.js"></script>
@@ -582,240 +594,240 @@ pg_close($dbconn);
 <script type="text/javascript" src="js/flot/jquery.flot.resize.js"></script>
 <!-- flot -->
 <script type="text/javascript">
-        //define chart clolors ( you maybe add more colors if you want or flot will add it automatic )
-        var chartColours = ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'];
+            //define chart clolors ( you maybe add more colors if you want or flot will add it automatic )
+            var chartColours = ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'];
 
-        //generate random number for charts
-        randNum = function() {
-            return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
-        };
+            //generate random number for charts
+            randNum = function() {
+                return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
+            };
 
-        $(function() {
-            var d1 = [];
-            //var d2 = [];
+            $(function() {
+                var d1 = [];
+                //var d2 = [];
 
-            //here we generate data for chart
-            for (var i = 0; i < 30; i++) {
-                d1.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i + 10]);
-                //    d2.push([new Date(Date.today().add(i).days()).getTime(), randNum()]);
-            }
+                //here we generate data for chart
+                for (var i = 0; i < 30; i++) {
+                    d1.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i + 10]);
+                    //    d2.push([new Date(Date.today().add(i).days()).getTime(), randNum()]);
+                }
 
-            var chartMinDate = d1[0][0]; //first day
-            var chartMaxDate = d1[20][0]; //last day
+                var chartMinDate = d1[0][0]; //first day
+                var chartMaxDate = d1[20][0]; //last day
 
-            var tickSize = [1, "day"];
-            var tformat = "%d/%m/%y";
+                var tickSize = [1, "day"];
+                var tformat = "%d/%m/%y";
 
-            //graph options
-            var options = {
-                grid: {
-                    show: true,
-                    aboveData: true,
-                    color: "#3f3f3f",
-                    labelMargin: 10,
-                    axisMargin: 0,
-                    borderWidth: 0,
-                    borderColor: null,
-                    minBorderMargin: 5,
-                    clickable: true,
-                    hoverable: true,
-                    autoHighlight: true,
-                    mouseActiveRadius: 100
-                },
-                series: {
-                    lines: {
+                //graph options
+                var options = {
+                    grid: {
                         show: true,
-                        fill: true,
-                        lineWidth: 2,
-                        steps: false
+                        aboveData: true,
+                        color: "#3f3f3f",
+                        labelMargin: 10,
+                        axisMargin: 0,
+                        borderWidth: 0,
+                        borderColor: null,
+                        minBorderMargin: 5,
+                        clickable: true,
+                        hoverable: true,
+                        autoHighlight: true,
+                        mouseActiveRadius: 100
                     },
-                    points: {
-                        show: true,
-                        radius: 4.5,
-                        symbol: "circle",
-                        lineWidth: 3.0
+                    series: {
+                        lines: {
+                            show: true,
+                            fill: true,
+                            lineWidth: 2,
+                            steps: false
+                        },
+                        points: {
+                            show: true,
+                            radius: 4.5,
+                            symbol: "circle",
+                            lineWidth: 3.0
+                        }
+                    },
+                    legend: {
+                        position: "ne",
+                        margin: [0, -25],
+                        noColumns: 0,
+                        labelBoxBorderColor: null,
+                        labelFormatter: function(label, series) {
+                            // just add some space to labes
+                            return label + '&nbsp;&nbsp;';
+                        },
+                        width: 40,
+                        height: 1
+                    },
+                    colors: chartColours,
+                    shadowSize: 0,
+                    tooltip: true, //activate tooltip
+                    tooltipOpts: {
+                        content: "%s: %y.0",
+                        xDateFormat: "%d/%m",
+                        shifts: {
+                            x: -30,
+                            y: -50
+                        },
+                        defaultTheme: false
+                    },
+                    yaxis: {
+                        min: 0
+                    },
+                    xaxis: {
+                        mode: "time",
+                        minTickSize: tickSize,
+                        timeformat: tformat,
+                        min: chartMinDate,
+                        max: chartMaxDate
                     }
-                },
-                legend: {
-                    position: "ne",
-                    margin: [0, -25],
-                    noColumns: 0,
-                    labelBoxBorderColor: null,
-                    labelFormatter: function(label, series) {
-                        // just add some space to labes
-                        return label + '&nbsp;&nbsp;';
+                };
+                var plot = $.plot($("#placeholder33x"), [{
+                    label: "Email Sent",
+                    data: d1,
+                    lines: {
+                        fillColor: "rgba(150, 202, 89, 0.12)"
+                    }, //#96CA59 rgba(150, 202, 89, 0.42)
+                    points: {
+                        fillColor: "#fff"
+                    }
+                }], options);
+            });
+        </script>
+        <!-- /flot -->
+        <!--  -->
+        <script>
+            $('document').ready(function() {
+                $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
+                    type: 'bar',
+                    height: '125',
+                    barWidth: 13,
+                    colorMap: {
+                        '7': '#a1a1a1'
                     },
-                    width: 40,
-                    height: 1
-                },
-                colors: chartColours,
-                shadowSize: 0,
-                tooltip: true, //activate tooltip
-                tooltipOpts: {
-                    content: "%s: %y.0",
-                    xDateFormat: "%d/%m",
-                    shifts: {
-                        x: -30,
-                        y: -50
+                    barSpacing: 2,
+                    barColor: '#26B99A'
+                });
+
+                $(".sparkline11").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3], {
+                    type: 'bar',
+                    height: '40',
+                    barWidth: 8,
+                    colorMap: {
+                        '7': '#a1a1a1'
                     },
-                    defaultTheme: false
-                },
-                yaxis: {
-                    min: 0
-                },
-                xaxis: {
-                    mode: "time",
-                    minTickSize: tickSize,
-                    timeformat: tformat,
-                    min: chartMinDate,
-                    max: chartMaxDate
-                }
-            };
-            var plot = $.plot($("#placeholder33x"), [{
-                label: "Email Sent",
-                data: d1,
-                lines: {
-                    fillColor: "rgba(150, 202, 89, 0.12)"
-                }, //#96CA59 rgba(150, 202, 89, 0.42)
-                points: {
-                    fillColor: "#fff"
-                }
-            }], options);
-        });
-    </script>
-    <!-- /flot -->
-    <!--  -->
-    <script>
-        $('document').ready(function() {
-            $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
-                type: 'bar',
-                height: '125',
-                barWidth: 13,
-                colorMap: {
-                    '7': '#a1a1a1'
-                },
-                barSpacing: 2,
-                barColor: '#26B99A'
-            });
+                    barSpacing: 2,
+                    barColor: '#26B99A'
+                });
 
-            $(".sparkline11").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3], {
-                type: 'bar',
-                height: '40',
-                barWidth: 8,
-                colorMap: {
-                    '7': '#a1a1a1'
-                },
-                barSpacing: 2,
-                barColor: '#26B99A'
-            });
+                $(".sparkline22").sparkline([2, 4, 3, 4, 7, 5, 4, 3, 5, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6], {
+                    type: 'line',
+                    height: '40',
+                    width: '200',
+                    lineColor: '#26B99A',
+                    fillColor: '#ffffff',
+                    lineWidth: 3,
+                    spotColor: '#34495E',
+                    minSpotColor: '#34495E'
+                });
 
-            $(".sparkline22").sparkline([2, 4, 3, 4, 7, 5, 4, 3, 5, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6], {
-                type: 'line',
-                height: '40',
-                width: '200',
-                lineColor: '#26B99A',
-                fillColor: '#ffffff',
-                lineWidth: 3,
-                spotColor: '#34495E',
-                minSpotColor: '#34495E'
+                var doughnutData = [{
+                    value: 30,
+                    color: "#455C73"
+                }, {
+                    value: 30,
+                    color: "#9B59B6"
+                }, {
+                    value: 60,
+                    color: "#BDC3C7"
+                }, {
+                    value: 100,
+                    color: "#26B99A"
+                }, {
+                    value: 120,
+                    color: "#3498DB"
+                }];
+                var myDoughnut = new Chart(document.getElementById("canvas1i").getContext("2d")).Doughnut(doughnutData);
+                var myDoughnut = new Chart(document.getElementById("canvas1i2").getContext("2d")).Doughnut(doughnutData);
+                var myDoughnut = new Chart(document.getElementById("canvas1i3").getContext("2d")).Doughnut(doughnutData);
             });
+        </script>
+        <!-- -->
+        <!-- datepicker -->
+        <script type="text/javascript">
+            $(document).ready(function() {
 
-            var doughnutData = [{
-                value: 30,
-                color: "#455C73"
-            }, {
-                value: 30,
-                color: "#9B59B6"
-            }, {
-                value: 60,
-                color: "#BDC3C7"
-            }, {
-                value: 100,
-                color: "#26B99A"
-            }, {
-                value: 120,
-                color: "#3498DB"
-            }];
-            var myDoughnut = new Chart(document.getElementById("canvas1i").getContext("2d")).Doughnut(doughnutData);
-            var myDoughnut = new Chart(document.getElementById("canvas1i2").getContext("2d")).Doughnut(doughnutData);
-            var myDoughnut = new Chart(document.getElementById("canvas1i3").getContext("2d")).Doughnut(doughnutData);
-        });
-    </script>
-    <!-- -->
-    <!-- datepicker -->
-    <script type="text/javascript">
-        $(document).ready(function() {
+                var cb = function(start, end, label) {
+                    console.log(start.toISOString(), end.toISOString(), label);
+                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                    //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
+                };
 
-            var cb = function(start, end, label) {
-                console.log(start.toISOString(), end.toISOString(), label);
-                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
-            };
+                var optionSet1 = {
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment(),
+                    minDate: '01/01/2012',
+                    maxDate: '12/31/2015',
+                    dateLimit: {
+                        days: 60
+                    },
+                    showDropdowns: true,
+                    showWeekNumbers: true,
+                    timePicker: false,
+                    timePickerIncrement: 1,
+                    timePicker12Hour: true,
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    opens: 'left',
+                    buttonClasses: ['btn btn-default'],
+                    applyClass: 'btn-small btn-primary',
+                    cancelClass: 'btn-small',
+                    format: 'MM/DD/YYYY',
+                    separator: ' to ',
+                    locale: {
+                        applyLabel: 'Submit',
+                        cancelLabel: 'Clear',
+                        fromLabel: 'From',
+                        toLabel: 'To',
+                        customRangeLabel: 'Custom',
+                        daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        firstDay: 1
+                    }
+                };
+                $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+                $('#reportrange').daterangepicker(optionSet1, cb);
+                $('#reportrange').on('show.daterangepicker', function() {
+                    console.log("show event fired");
+                });
+                $('#reportrange').on('hide.daterangepicker', function() {
+                    console.log("hide event fired");
+                });
+                $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+                    console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
+                });
+                $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
+                    console.log("cancel event fired");
+                });
+                $('#options1').click(function() {
+                    $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+                });
+                $('#options2').click(function() {
+                    $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+                });
+                $('#destroy').click(function() {
+                    $('#reportrange').data('daterangepicker').remove();
+                });
+            });
+        </script>
+        <!-- /datepicker -->
+    </body>
 
-            var optionSet1 = {
-                startDate: moment().subtract(29, 'days'),
-                endDate: moment(),
-                minDate: '01/01/2012',
-                maxDate: '12/31/2015',
-                dateLimit: {
-                    days: 60
-                },
-                showDropdowns: true,
-                showWeekNumbers: true,
-                timePicker: false,
-                timePickerIncrement: 1,
-                timePicker12Hour: true,
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                },
-                opens: 'left',
-                buttonClasses: ['btn btn-default'],
-                applyClass: 'btn-small btn-primary',
-                cancelClass: 'btn-small',
-                format: 'MM/DD/YYYY',
-                separator: ' to ',
-                locale: {
-                    applyLabel: 'Submit',
-                    cancelLabel: 'Clear',
-                    fromLabel: 'From',
-                    toLabel: 'To',
-                    customRangeLabel: 'Custom',
-                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                    firstDay: 1
-                }
-            };
-            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
-            $('#reportrange').daterangepicker(optionSet1, cb);
-            $('#reportrange').on('show.daterangepicker', function() {
-                console.log("show event fired");
-            });
-            $('#reportrange').on('hide.daterangepicker', function() {
-                console.log("hide event fired");
-            });
-            $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
-                console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
-            });
-            $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
-                console.log("cancel event fired");
-            });
-            $('#options1').click(function() {
-                $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
-            });
-            $('#options2').click(function() {
-                $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
-            });
-            $('#destroy').click(function() {
-                $('#reportrange').data('daterangepicker').remove();
-            });
-        });
-    </script>
-    <!-- /datepicker -->
-</body>
-
-</html>
+    </html>

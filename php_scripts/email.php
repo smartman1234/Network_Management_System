@@ -3,7 +3,7 @@
 function sendEmail($to_address, $subject, $body){
 
 require_once ('PHPMailer/class.phpmailer.php');
-include ("PHPMailer/class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
+require_once ("PHPMailer/class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
 
 $mail = new PHPMailer ( true ); // the true param means it will throw exceptions on errors, which we need to catch
 

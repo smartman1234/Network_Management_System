@@ -3,7 +3,7 @@
  * @Author: yuwang
  * @Date:   2015-12-17 14:37:31
  * @Last Modified by:   yuwang
- * @Last Modified time: 2015-12-17 14:45:20
+ * @Last Modified time: 2015-12-18 14:44:57
  */
 
 
@@ -88,9 +88,20 @@ while ($row = pg_fetch_object($result)) {
 
 	//	echo "\t\t<td align=center><a href=php_scripts/alarm_acknowledge_dialog.php?alarmid=$row->alarmid target=_blank ><img src=images/2c_go.png width=25 height=25></a></td>";
 
+	if ($row->ack!="no") {
+		# code...
+			echo "\t\t<td align=center><img src=images/2c_go.png width=25 height=25></a></td>";
 
-	echo "\t\t<td align=center><a href=php_scripts/curl_acknowlegeAlarm.php?alarmid=$row->alarmid target=_blank ><img src=images/2c_go.png width=25 height=25></a></td>";
 
+	}
+
+
+
+if ($row->ack=="no") {
+
+	echo "\t\t<td align=center><a href=php_scripts/curl_acknowlegeAlarm.php?alarmid=$row->alarmid><img src=images/2c_go.png width=25 height=25></a></td>";
+
+}
 	echo "\t</tr>\n";
 }
 

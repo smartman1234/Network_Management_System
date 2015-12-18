@@ -40,6 +40,8 @@ pg_close($dbconn);
 
 $rp=$_SERVER["DOCUMENT_ROOT"] . "/vanguardhe/alarm.html";
 
+header("Location: ../alarm.html");
+
 echo "Acknowledged Successfully!";
 
 echo "<br>";

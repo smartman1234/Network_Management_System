@@ -299,13 +299,16 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 * combine two alarm table together   --- ok  
 * test the column   --- ok  
 * read jquery document to get fimiliar with jstree change   --- ok  
-* try to change jstree, but sti problmeatic     --- PAY ATTENTION 
+* try to change jstree, but sti problmeatic   --- ok  
 
 // 2015-12-17
 * user password  --- ok  
 * alarm page    --- ok  
-* js tree 
-* color graph 
-
+* js tree   --- ok  
+* color graph   ---- some graph do not have distinguishable axis label 
+* return button    --- ok  
+* test email with other source     --- ok  
+* error page   --- ok  
+ 
 
 

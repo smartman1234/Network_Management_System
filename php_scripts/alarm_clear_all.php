@@ -3,7 +3,7 @@
  * @Author: yuwang
  * @Date:   2015-12-17 15:03:01
  * @Last Modified by:   yuwang
- * @Last Modified time: 2015-12-17 15:05:36
+ * @Last Modified time: 2015-12-18 14:41:51
  */
 
 
@@ -42,6 +42,8 @@ $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 pg_free_result($result);
 
 pg_close($dbconn);
+
+header("Location: ../alarm.html");
 
 echo "Acknowledged All Successfully!";
 
