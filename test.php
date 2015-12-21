@@ -3,7 +3,7 @@
  * @Author: yuwang
  * @Date:   2015-12-18 14:56:55
  * @Last Modified by:   yuwang
- * @Last Modified time: 2015-12-18 15:09:12
+ * @Last Modified time: 2015-12-21 14:24:56
  */
 
 require_once "php_scripts/email.php";
@@ -16,9 +16,8 @@ $body="test";
 
 
 
-for ($i=0; $i < 50000; $i++) { 
-	sendEmail($to_address, $subject, $body);
-}
+sendEmail($to_address, $subject, $body);
+
 
 
 ?>

@@ -41,6 +41,10 @@
 
 	echo "<b>Status Values of Elink Headend.</b><br>";
 
+	
+	echo "<hr>";
+	echo "<img src='images/elink_optical_transmission_platform_product.png' alt='ELink Optical Transmission Platform' height='250', width='250'>";
+
 	$query = "SELECT 
 	daemonsnmpelinkems.time, 
 	daemonsnmpelinkems.slot, 
@@ -126,8 +130,8 @@
 	?>
 
 
-		<hr>
-		<table width="80%" class="table table-striped table-bordered table-condensed">
+	<hr>
+	<table width="80%" class="table table-striped table-bordered table-condensed">
 		<p><b>EMS:</b></p>
 
 		<tr>
@@ -220,8 +224,8 @@
 		?>
 
 
-<hr>
-			<table width="80%" class="table table-striped table-bordered table-condensed">
+		<hr>
+		<table width="80%" class="table table-striped table-bordered table-condensed">
 			<p><b>Power Supply:</b></p>
 			<tr>
 				<td><b>Slot </td>
@@ -334,7 +338,7 @@
 					?>
 
 
-<hr>
+					<hr>
 					<table width="80%" class="table table-striped table-bordered table-condensed">
 						<p><b>Fan System:</b></p>
 						<tr>
@@ -398,7 +402,7 @@
 					}
 
 					$time = "'" . strval($time) .  "'"; 
-echo "<hr>";
+					echo "<hr>";
 					echo "<p><b>RRX:</b></p>";
 
 					$query_rrx = "SELECT 
@@ -473,25 +477,25 @@ echo "<hr>";
 						echo "<tr class='success'><td><b>Input  Power 1 (dBm)</td><td>" . $input1_rrx[$i] . "</td>";
 						echo "<td> <a href=displayGraph_elink_rrx.php?item=input1&slot=$slot_rrx[$i] onclick=window.open(this.href, mywin,
 							left=20,top=20,width=800,height=600,toolbar=1,resizable=0); return false; >Graphing the Data Records</a></td></body></tr>";
-						echo "<tr class='success'><td><b>Input Power 2 (dBm)</td><td>" . $input2_rrx[$i] . "</td>";
-						echo "<td> <a href='displayGraph_elink_rrx.php?item=input2&slot=$slot_rrx[$i]' onclick='window.open(this.href, 'mywin',
-							'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;' >Graphing the Data Records</a></td></body></tr>";
-						echo "<tr class='success'><td><b>Input Power 3 (dBm)</td><td>" . $input3_rrx[$i] . "</td>";
-						echo "<td> <a href='displayGraph_elink_rrx.php?item=input3&slot=$slot_rrx[$i]' onclick='window.open(this.href, 'mywin',
-							'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;' >Graphing the Data Records</a></td></body></tr>";
-						echo "<tr class='success'><td><b>Input Power 4 (dBm)</td><td>" . $input4_rrx[$i] . "</td>";
-						echo "<td> <a href='displayGraph_elink_rrx.php?item=input4&slot=$slot_rrx[$i]' onclick='window.open(this.href, 'mywin',
-							'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;' >Graphing the Data Records</a></td></body></tr>";
-						echo "<tr><td><b>Status 1</td><td>" . rrxstatus($status1_rrx[$i]) . "</td>";
-						echo "<td></td></tr>";
-						echo "<tr><td><b>Status 2</td><td>" . rrxstatus($status2_rrx[$i]) . "</td>";
-						echo "<td></td></tr>";
-						echo "<tr><td><b>Status 3</td><td>" . rrxstatus($status3_rrx[$i]) . "</td>";
-						echo "<td></td></tr>";
-						echo "<tr><td><b>Status 4</td><td>" . rrxstatus($status4_rrx[$i]) . "</td>";
-						echo "<td></td></tr>";
-						echo "</table>";
-						echo "<br>";
+echo "<tr class='success'><td><b>Input Power 2 (dBm)</td><td>" . $input2_rrx[$i] . "</td>";
+echo "<td> <a href='displayGraph_elink_rrx.php?item=input2&slot=$slot_rrx[$i]' onclick='window.open(this.href, 'mywin',
+	'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;' >Graphing the Data Records</a></td></body></tr>";
+echo "<tr class='success'><td><b>Input Power 3 (dBm)</td><td>" . $input3_rrx[$i] . "</td>";
+echo "<td> <a href='displayGraph_elink_rrx.php?item=input3&slot=$slot_rrx[$i]' onclick='window.open(this.href, 'mywin',
+	'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;' >Graphing the Data Records</a></td></body></tr>";
+echo "<tr class='success'><td><b>Input Power 4 (dBm)</td><td>" . $input4_rrx[$i] . "</td>";
+echo "<td> <a href='displayGraph_elink_rrx.php?item=input4&slot=$slot_rrx[$i]' onclick='window.open(this.href, 'mywin',
+	'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;' >Graphing the Data Records</a></td></body></tr>";
+echo "<tr><td><b>Status 1</td><td>" . rrxstatus($status1_rrx[$i]) . "</td>";
+echo "<td></td></tr>";
+echo "<tr><td><b>Status 2</td><td>" . rrxstatus($status2_rrx[$i]) . "</td>";
+echo "<td></td></tr>";
+echo "<tr><td><b>Status 3</td><td>" . rrxstatus($status3_rrx[$i]) . "</td>";
+echo "<td></td></tr>";
+echo "<tr><td><b>Status 4</td><td>" . rrxstatus($status4_rrx[$i]) . "</td>";
+echo "<td></td></tr>";
+echo "</table>";
+echo "<br>";
 }
 
 
@@ -518,7 +522,7 @@ while ($row = pg_fetch_object($result)) {
 
 $time = "'" . strval($time) .  "'"; 
 echo "<hr>";
-	echo "<p><b>FTX:</b></p>";
+echo "<p><b>FTX:</b></p>";
 $query_ftx = "SELECT 
 daemonsnmpelinkftx.slot, 
 daemonsnmpelinkftx.model, 
@@ -562,7 +566,7 @@ pg_close($dbconn);
 for ($i=0; $i < sizeof($slot_ftx); $i++) { 
 
 	# code...
-		echo "	<table width='80%' class='table table-striped table-bordered table-condensed'>";
+	echo "	<table width='80%' class='table table-striped table-bordered table-condensed'>";
 	echo "<tr><td><b>Slot</td><td>" . $slot_ftx[$i] . "</td>";
 	echo "<td></td></tr>";
 	echo "<tr><td><b>Model</td><td>" . $model_ftx[$i] . "</td>";
@@ -571,22 +575,22 @@ for ($i=0; $i < sizeof($slot_ftx); $i++) {
 	echo "<td></td></tr>";
 	echo "<tr class='success'><td><b>RF Input Power (dBm)</td><td>" . $rfinputpower_ftx[$i] . "</td>";
 	echo "<td> <a href=displayGraph_elink_ftx.php?item=rfinputpower&slot=$slot_ftx[$i] onclick=window.open(this.href, mywin,
-							left=20,top=20,width=800,height=600,toolbar=1,resizable=0); return false; >Graphing the Data Records</a></td></body></tr>";
-	echo "<tr class='success'><td><b>Laser Bias Current (mA)</td><td>" . $laserbiascurrent_ftx[$i] . "</td>";
-	echo "<td> <a href=displayGraph_elink_ftx.php?item=laserbiascurrent&slot=$slot_ftx[$i] onclick=window.open(this.href, mywin,
-							left=20,top=20,width=800,height=600,toolbar=1,resizable=0); return false; >Graphing the Data Records</a></td></body></tr>";
-	echo "<tr class='success'><td><b>Output Power (dBm)</td><td>" . $outputpower_ftx[$i] . "</td>";
-	echo "<td> <a href=displayGraph_elink_ftx.php?item=outputpower&slot=$slot_ftx[$i] onclick=window.open(this.href, mywin,
-							left=20,top=20,width=800,height=600,toolbar=1,resizable=0); return false; >Graphing the Data Records</a></td></body></tr>";
-	echo "<tr><td><b>Laser Type</td><td>" . $lasertype_ftx[$i] . "</td>";
-	echo "<td></td></tr>";
-	echo "<tr><td><b>Wave Length (nm)</td><td>" . $wavelength_ftx[$i] . "</td>";
-	echo "<td></td></tr>";
-	echo "<tr class='success'><td><b>THC Current (mA)</td><td>" . $thccurrent_ftx[$i] . "</td>";
-	echo "<td> <a href=displayGraph_elink_ftx.php?item=thccurrent&slot=$slot_ftx[$i] onclick=window.open(this.href, mywin,
-							left=20,top=20,width=800,height=600,toolbar=1,resizable=0); return false; >Graphing the Data Records</a></td></body></tr>";
-	echo "</table>";
-	echo "<br>";
+		left=20,top=20,width=800,height=600,toolbar=1,resizable=0); return false; >Graphing the Data Records</a></td></body></tr>";
+echo "<tr class='success'><td><b>Laser Bias Current (mA)</td><td>" . $laserbiascurrent_ftx[$i] . "</td>";
+echo "<td> <a href=displayGraph_elink_ftx.php?item=laserbiascurrent&slot=$slot_ftx[$i] onclick=window.open(this.href, mywin,
+	left=20,top=20,width=800,height=600,toolbar=1,resizable=0); return false; >Graphing the Data Records</a></td></body></tr>";
+echo "<tr class='success'><td><b>Output Power (dBm)</td><td>" . $outputpower_ftx[$i] . "</td>";
+echo "<td> <a href=displayGraph_elink_ftx.php?item=outputpower&slot=$slot_ftx[$i] onclick=window.open(this.href, mywin,
+	left=20,top=20,width=800,height=600,toolbar=1,resizable=0); return false; >Graphing the Data Records</a></td></body></tr>";
+echo "<tr><td><b>Laser Type</td><td>" . $lasertype_ftx[$i] . "</td>";
+echo "<td></td></tr>";
+echo "<tr><td><b>Wave Length (nm)</td><td>" . $wavelength_ftx[$i] . "</td>";
+echo "<td></td></tr>";
+echo "<tr class='success'><td><b>THC Current (mA)</td><td>" . $thccurrent_ftx[$i] . "</td>";
+echo "<td> <a href=displayGraph_elink_ftx.php?item=thccurrent&slot=$slot_ftx[$i] onclick=window.open(this.href, mywin,
+	left=20,top=20,width=800,height=600,toolbar=1,resizable=0); return false; >Graphing the Data Records</a></td></body></tr>";
+echo "</table>";
+echo "<br>";
 }
 
 

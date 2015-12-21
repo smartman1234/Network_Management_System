@@ -255,7 +255,8 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 * alarm status    -- ok 
 
 // 2015-12-01
-* test discoverty   -- ok (max_execution_time = 500 in php.ini)
+* test discoverty   -- ok (123
+ = 500 in php.ini)
 & test integration with alarm thread   --- ok 
 * test add device   -- ok
 * need provision method   -- ok
@@ -309,6 +310,13 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 * return button    --- ok  
 * test email with other source     --- ok  
 * error page   --- ok  
+
+// 2015-12-21
+* comment out the elink    --- ok: on the Daemon.php thread 
+* add image  --- ok  
+* test email 
+* back end testing 
+* move to linux 
  
 
 

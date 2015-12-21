@@ -41,6 +41,8 @@
 
 	echo "<b>Status Values of EGFA.</b><br>";
 	$_SESSION['deviceid'] = $deviceid;
+	echo "<hr>";
+	echo "<img src='images/EG-FA-New-for-product-page.png' alt='EG-FA Fiber Amplifier' height='250', width='250'>";
 
 
 	$query = "SELECT 
@@ -235,122 +237,122 @@
 			<td> <?php  echo floatval($internaltemp);         ?></td>	
 			<td> <a href="displayGraph_egfa.php?item=internaltemp" onclick="window.open(this.href, 'mywin',
 				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
+			</tr>
 
-		<tr class="success">
-			<td><b>Output Optical Power (dBm)</td>
-			<td> <?php  echo floatval($outputopticalpower);         ?></td>	
-			<td> <a href="displayGraph_egfa.php?item=outputopticalpower" onclick="window.open(this.href, 'mywin',
-				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
+			<tr class="success">
+				<td><b>Output Optical Power (dBm)</td>
+				<td> <?php  echo floatval($outputopticalpower);         ?></td>	
+				<td> <a href="displayGraph_egfa.php?item=outputopticalpower" onclick="window.open(this.href, 'mywin',
+					'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+				</tr>
 
-		<tr class="success">
-			<td><b>Input Optical Power (dBm)</td>
-			<td> <?php  echo floatval($inputopticalpower);         ?></td>	
-			<td> <a href="displayGraph_egfa.php?item=inputopticalpower" onclick="window.open(this.href, 'mywin',
-				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
-
-
-
-		<tr class="success">
-			<td><b>Pump Temeperature 1 (C)</td>
-			<td> <?php  echo floatval($pumptemp1);         ?></td>	
-			<td> <a href="displayGraph_egfa.php?item=pumptemp1" onclick="window.open(this.href, 'mywin',
-				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
-
-		<tr class="success">
-			<td><b>Pump Temeperature 2 (C) </td>
-			<td> <?php  echo floatval($pumptemp2);         ?></td>	
-			<td> <a href="displayGraph_egfa.php?item=pumptemp2" onclick="window.open(this.href, 'mywin',
-				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
+				<tr class="success">
+					<td><b>Input Optical Power (dBm)</td>
+					<td> <?php  echo floatval($inputopticalpower);         ?></td>	
+					<td> <a href="displayGraph_egfa.php?item=inputopticalpower" onclick="window.open(this.href, 'mywin',
+						'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+					</tr>
 
 
 
-		<tr class="success">
-			<td><b>Pump Temeperature 3 (C) </td>
-			<td> <?php  echo floatval($pumptemp3);         ?></td>	
-			<td> <a href="displayGraph_egfa.php?item=pumptemp3" onclick="window.open(this.href, 'mywin',
-				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
+					<tr class="success">
+						<td><b>Pump Temeperature 1 (C)</td>
+						<td> <?php  echo floatval($pumptemp1);         ?></td>	
+						<td> <a href="displayGraph_egfa.php?item=pumptemp1" onclick="window.open(this.href, 'mywin',
+							'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+						</tr>
 
-		<tr class="success">
-			<td><b>DCPS Number </td>
-			<td> <?php  echo floatval($dcpsnumber);         ?></td>	
-			<td> <a href="displayGraph_egfa.php?item=dcpsnumber" onclick="window.open(this.href, 'mywin',
-				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
-
-
-
-		<tr class="success">
-			<td><b>DC5V (V)</td>
-			<td> <?php  echo floatval($dc5v);         ?></td>	
-			<td> <a href="displayGraph_egfa.php?item=dc5v" onclick="window.open(this.href, 'mywin',
-				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
-
-		<tr class="success">
-			<td><b>DC -5V (V)</td>
-			<td> <?php  echo floatval($dcminor5v);         ?></td>	
-			<td> <a href="displayGraph_egfa.php?item=dcminor5v" onclick="window.open(this.href, 'mywin',
-				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
-
-		<tr class="success">
-			<td><b>DC12V (V)</td>
-			<td> <?php  echo floatval($dc12v);         ?></td>	
-			<td> <a href="displayGraph_egfa.php?item=dc12v" onclick="window.open(this.href, 'mywin',
-				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
-
-		<tr class="success">
-			<td><b>DC33V (V)</td>
-			<td> <?php  echo floatval($dc33v);         ?></td>	
-			<td> <a href="displayGraph_egfa.php?item=dc33v" onclick="window.open(this.href, 'mywin',
-				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
-
-		<tr class="success">
-			<td><b>Left 5V (V)</td>
-			<td> <?php  echo floatval($left5v);         ?></td>	
-			<td> <a href="displayGraph_egfa.php?item=left5v" onclick="window.open(this.href, 'mywin',
-				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
-
-		<tr class="success">
-			<td><b>Right 5V (V)</td>
-			<td> <?php  echo floatval($right5v);         ?></td>	
-			<td> <a href="displayGraph_egfa.php?item=right5v" onclick="window.open(this.href, 'mywin',
-				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
+						<tr class="success">
+							<td><b>Pump Temeperature 2 (C) </td>
+							<td> <?php  echo floatval($pumptemp2);         ?></td>	
+							<td> <a href="displayGraph_egfa.php?item=pumptemp2" onclick="window.open(this.href, 'mywin',
+								'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+							</tr>
 
 
-		<tr class="success">
-			<td><b>Left -5V (V)</td>
-			<td> <?php  echo floatval($leftminor5v);         ?></td>	
-			<td> <a href="displayGraph_egfa.php?item=leftminor5v" onclick="window.open(this.href, 'mywin',
-				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
 
-		<tr class="success">
-			<td><b>Right -5V (V)</td>
-			<td> <?php  echo floatval($rightminor5v);         ?></td>	
-			<td> <a href="displayGraph_egfa.php?item=rightminor5v" onclick="window.open(this.href, 'mywin',
-				'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
-		</tr>
+							<tr class="success">
+								<td><b>Pump Temeperature 3 (C) </td>
+								<td> <?php  echo floatval($pumptemp3);         ?></td>	
+								<td> <a href="displayGraph_egfa.php?item=pumptemp3" onclick="window.open(this.href, 'mywin',
+									'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+								</tr>
+
+								<tr class="success">
+									<td><b>DCPS Number </td>
+									<td> <?php  echo floatval($dcpsnumber);         ?></td>	
+									<td> <a href="displayGraph_egfa.php?item=dcpsnumber" onclick="window.open(this.href, 'mywin',
+										'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+									</tr>
 
 
+
+									<tr class="success">
+										<td><b>DC5V (V)</td>
+										<td> <?php  echo floatval($dc5v);         ?></td>	
+										<td> <a href="displayGraph_egfa.php?item=dc5v" onclick="window.open(this.href, 'mywin',
+											'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+										</tr>
+
+										<tr class="success">
+											<td><b>DC -5V (V)</td>
+											<td> <?php  echo floatval($dcminor5v);         ?></td>	
+											<td> <a href="displayGraph_egfa.php?item=dcminor5v" onclick="window.open(this.href, 'mywin',
+												'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+											</tr>
+
+											<tr class="success">
+												<td><b>DC12V (V)</td>
+												<td> <?php  echo floatval($dc12v);         ?></td>	
+												<td> <a href="displayGraph_egfa.php?item=dc12v" onclick="window.open(this.href, 'mywin',
+													'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+												</tr>
+
+												<tr class="success">
+													<td><b>DC33V (V)</td>
+													<td> <?php  echo floatval($dc33v);         ?></td>	
+													<td> <a href="displayGraph_egfa.php?item=dc33v" onclick="window.open(this.href, 'mywin',
+														'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+													</tr>
+
+													<tr class="success">
+														<td><b>Left 5V (V)</td>
+														<td> <?php  echo floatval($left5v);         ?></td>	
+														<td> <a href="displayGraph_egfa.php?item=left5v" onclick="window.open(this.href, 'mywin',
+															'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+														</tr>
+
+														<tr class="success">
+															<td><b>Right 5V (V)</td>
+															<td> <?php  echo floatval($right5v);         ?></td>	
+															<td> <a href="displayGraph_egfa.php?item=right5v" onclick="window.open(this.href, 'mywin',
+																'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+															</tr>
+
+
+															<tr class="success">
+																<td><b>Left -5V (V)</td>
+																<td> <?php  echo floatval($leftminor5v);         ?></td>	
+																<td> <a href="displayGraph_egfa.php?item=leftminor5v" onclick="window.open(this.href, 'mywin',
+																	'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+																</tr>
+
+																<tr class="success">
+																	<td><b>Right -5V (V)</td>
+																	<td> <?php  echo floatval($rightminor5v);         ?></td>	
+																	<td> <a href="displayGraph_egfa.php?item=rightminor5v" onclick="window.open(this.href, 'mywin',
+																		'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" >Graphing the Data Records</a>   </td>
+																	</tr>
 
 
 
 
 
-	</table>
 
 
-</body>
-</html>
+																</table>
+
+
+															</body>
+															</html>
 

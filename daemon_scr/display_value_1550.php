@@ -42,6 +42,8 @@
 	//echo $_SESSION['deviceid'];
 
 	echo "<b>Status Values of EG1550.</b><br>";
+	echo "<hr>";
+	echo "<img src='images/EG1550TX_product.png' alt='EG1550TX Series' height='250', width='250'>";
 
 // $query = "SELECT 
 // 	dameonsnmp1550value.time
