@@ -1,0 +1,9 @@
+deployment step:
+1) install wamp stack on windows
+2) put vanguardhe folder to /apache/htdoc
+3) install net-snmp
+4) put mibs folder into C:/usr/
+5) install pgadmin1.20
+6) connect to the database in pgadmin, create vangaurdhe database, and import the starter database with 1222.backup
+7) start the vanguardhe 
+8) optional: may use test.php for testing the ICMP and SNMP 

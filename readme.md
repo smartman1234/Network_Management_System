@@ -317,6 +317,16 @@ can still use shell_exeu to call snmpget on linux, but need to give the permissi
 * test email   --- comment out (daemon_checkAlarmInfoDb.php)
 * back end testing   --- ok  
 * move to linux 
+
+
+
+
+
+
+
+
+
+
  
 
 
