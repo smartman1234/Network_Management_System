@@ -168,12 +168,13 @@ function displayTime($t){
 		$year = substr($t, 0, 4);
 		$month = substr($t, 4, 2);
 		$day = substr($t, 6, 2);
-		$hour = substr($t, 8, 1);
+		$hour = substr($t, 8, 2);
 		$min = substr($t, 10, 2);
 		$sec = substr($t, 12, 2);
 	}
 
-	return $year . "-" . $month . "-" . $day . "-" . $hour . "-" . $min . "-" . $sec;
+	//return strlen($t) . " " . $t;
+	return $year . "-" . $month . "-" . $day . " " . $hour . ":" . $min . ":" . $sec;
 	
 }
 
